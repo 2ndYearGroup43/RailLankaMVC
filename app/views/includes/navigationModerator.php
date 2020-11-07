@@ -41,8 +41,8 @@
                     <a href="#">Journey <span class="fa fa-caret-down"  aria-hidden="true"></span></a>
                     <input type="checkbox" id="btn-4">
                     <ul>
-                        <li><a href="Moderator-journeyAssignment.html">Driver Assignment</a></li>
-                        <li><a href="Moderator-journeyManagement.html">Manage Journey</a></li>
+                        <li><a href="<?php echo URLROOT;?>/journeys/createJourneyAssignment">Driver Assignment</a></li>
+                        <li><a href="<?php echo URLROOT;?>/journeys/index">Manage Journey</a></li>
                     </ul>
                 </li>
                 <li>
