@@ -7,11 +7,19 @@
 
         public function index()
         {
-            $alerts=$this->alertModel->findAllAlerts();
+            if (!isModeratorLoggedIn()) {
+                header("Location: ".URLROOT."/moderators/login");
+                exit;
+            }
+
+            $alerts=$this->alertModel->displayCancellations();
+            $fields=$this->alertModel->getCancellationFields();
             $data=[
-                'alerts'=>$alerts
+                'alerts'=>$alerts,
+                'fields'=>$fields
             ];
-            $this->view('alerts/index', $data);
+            
+            $this->view('alerts/managecancellations', $data);
         }
 
         public function createCancellationAlerts()

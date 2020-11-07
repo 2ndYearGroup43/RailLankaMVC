@@ -406,7 +406,7 @@
             $_SESSION['employee_id']= $loggedInUser->employeeId;
             $_SESSION['email']= $loggedInUser->email;
 
-            header('location: '.URLROOT.'/pages/index');
+            header('location: '.URLROOT.'/alerts/index');
             
         }
 
