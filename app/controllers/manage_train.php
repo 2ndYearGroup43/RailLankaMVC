@@ -1,0 +1,240 @@
+<?php
+class manage_train extends Controller{
+	public function __construct(){
+		$this->postModel=$this->model('Manage_trains');
+	}
+
+	public function index(){
+		$manage_train=$this->postModel->get();
+		$data = [
+			'manage_train'=>$manage_train
+		];
+		$this->view('manage_train/index', $data);
+	}
+
+	public function create(){
+		$data = [
+			'trainId'=>'',
+			'name'=>'',
+			'reservable_status'=>'',
+			'type'=>'',
+			'src_station'=>'',
+			'starttime'=>'',
+			'dest_station'=>'',
+			'endtime'=>'',
+            'rateId'=>'',
+			'entered_date'=>'',
+            'entered_time'=>'',
+            'trainIdError'=>'',
+            'nameError'=>'',
+            'reservable_statusError'=>'',
+            'typeError'=>''
+		];
+
+		if($_SERVER['REQUEST_METHOD']=='POST'){
+			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+			$data=[
+			'trainId'=>trim($_POST['trainId']),	
+			'name'=>trim($_POST['name']),			
+			'reservable_status'=>trim($_POST['reservable_status']),
+			'type'=>trim($_POST['type']),
+			'src_station'=>trim($_POST['src_station']),
+			'starttime'=>trim($_POST['starttime']),
+			'dest_station'=>trim($_POST['dest_station']),
+            'endtime'=>trim($_POST['endtime']),
+            'rateId'=>trim($_POST['rateId']),
+			'entered_date'=>date("Y-m-d"),
+            'entered_time'=>date("H:i:sa"),
+			'trainIdError'=>'',
+            'nameError'=>'',
+            'reservable_statusError'=>'',
+            'typeError'=>''
+			];
+            $idValidation="/^[a-zA-Z0-9]*$/";
+            $nameValidation="/^[a-zA-Z]*$/";
+
+                if(empty($data['trainId'])){
+                $data['trainIdError']='Please Enter the Train ID.';
+                }elseif(!preg_match($idValidation, $data['trainId'])){
+                    $data['trainIdError']="Train ID can only contain letters and numbers.";
+                }else{
+                    //if moderatorID exists
+                    if($this->postModel->findTrainByTrainId($data['trainId'])){
+                        $data['trainIdError']='This ID is already registered as a Train in the system.'; 
+                    }
+                }
+                if(empty($data['name'])){
+                    $data['nameError']='Please Enter the Train Name.';
+                }elseif(!preg_match($nameValidation, $data['name'])){
+                    $data['nameError']="Train Name can only contain letters and numbers.";
+                }
+                if(empty($data['reservable_status'])){
+                    $data['reservable_statusError']='Please Enter the Reservable Status.';
+                }elseif(!preg_match($nameValidation, $data['reservable_status'])){
+                    $data['reservable_statusError']="Reservable Status can only contain letters.";
+                }
+                if(empty($data['type'])){
+                    $data['typeError']='Please Enter the Last Name.';
+                }elseif(!preg_match($nameValidation, $data['type'])){
+                    $data['typeError']="Type can only contain letters.";
+                }
+
+                if(empty($data['trainIdError']) && empty($data['nameError']) &&
+                empty($data['reservable_statusError']) && empty($data['typeError']) ){
+
+			if ($this->postModel->create_train($data)) {
+				header("Location: " . URLROOT . "/manage_train");
+			}else{
+				die("Something Going Wrong");
+			}
+           }
+		}
+
+		$this->view('manage_train/create', $data);
+
+	}
+
+	public function edit($trainId){
+
+		$manage_train=$this->postModel->findTrain($trainId);
+
+		$data = [
+			'manage_train'=>$manage_train,
+			'trainId'=>'',
+			'name'=>'',
+			'reservable_status'=>'',
+			'type'=>'',
+			'src_station'=>'',
+			'starttime'=>'',
+			'dest_station'=>'',
+			'endtime'=>'',
+            'rateId'=>'',
+            'trainIdError'=>'',
+            'nameError'=>'',
+            'reservable_statusError'=>'',
+            'typeError'=>''
+		];
+
+		if($_SERVER['REQUEST_METHOD']=='POST'){
+			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+			$data=[	
+			'trainId'=>$trainId,	
+			'name'=>trim($_POST['name']),			
+			'reservable_status'=>trim($_POST['reservable_status']),
+			'type'=>trim($_POST['type']),
+			'src_station'=>trim($_POST['src_station']),
+			'starttime'=>trim($_POST['starttime']),
+			'dest_station'=>trim($_POST['dest_station']),
+            'endtime'=>trim($_POST['endtime']),
+            'rateId'=>trim($_POST['rateId']),
+			'trainIdError'=>'',
+            'nameError'=>'',
+            'reservable_statusError'=>'',
+            'typeError'=>''
+			];
+
+            $idValidation="/^[a-zA-Z0-9]*$/";
+            $nameValidation="/^[a-zA-Z]*$/";
+
+                if(empty($data['name'])){
+                    $data['nameError']='Please Enter the Train Name.';
+                }elseif(!preg_match($nameValidation, $data['name'])){
+                    $data['nameError']="Train Name can only contain letters and numbers.";
+                }
+                if(empty($data['reservable_status'])){
+                    $data['reservable_statusError']='Please Enter the Reservable Status.';
+                }elseif(!preg_match($nameValidation, $data['reservable_status'])){
+                    $data['reservable_statusError']="Reservable Status can only contain letters.";
+                }
+                if(empty($data['type'])){
+                    $data['typeError']='Please Enter the Last Name.';
+                }elseif(!preg_match($nameValidation, $data['type'])){
+                    $data['typeError']="Type can only contain letters.";
+                }
+
+                if(empty($data['nameError']) && empty($data['reservable_statusError']) && empty($data['typeError']) ){
+
+
+			if ($this->postModel->edit($data)) {
+				header("Location: " . URLROOT . "/manage_train");
+			}else{
+				die("Something Going Wrong");
+			}           
+		}
+	}
+		$this->view('manage_train/edit', $data);
+	}
+
+		public function views($trainId){
+
+		$manage_train=$this->postModel->findTrain($trainId);
+
+		$data = [
+			'manage_train'=>$manage_train,
+			'trainId'=>'',
+			'name'=>'',
+			'reservable_status'=>'',
+			'type'=>'',
+			'src_station'=>'',
+			'starttime'=>'',
+			'dest_station'=>'',
+			'endtime'=>'',
+            'rateId'=>'',
+			'entered_date'=>'',
+            'entered_time'=>''
+		];
+
+		if($_SERVER['REQUEST_METHOD']=='POST'){
+			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+			$data=[
+			'trainId'=>$trainId,	
+			'name'=>trim($_POST['name']),			
+			'reservable_status'=>trim($_POST['reservable_status']),
+			'type'=>trim($_POST['type']),
+			'src_station'=>trim($_POST['src_station']),
+			'starttime'=>trim($_POST['starttime']),
+			'dest_station'=>trim($_POST['dest_station']),
+            'endtime'=>trim($_POST['endtime']),
+            'rateId'=>trim($_POST['rateId']),
+			'entered_date'=>trim($_POST[entered_date]),
+            'entered_time'=>trim($_POST[entered_time])
+			];
+			if ($this->postModel->views($data)) {
+				header("Location: " . URLROOT . "/manage_train");
+			}else{
+				die("Something Going Wrong");
+			}           
+		}
+		$this->view('manage_train/views', $data);
+	}
+
+	public function delete($trainId){
+
+		$manage_train=$this->postModel->findTrain($trainId);
+
+		$data = [
+			'manage_train'=>$manage_train,
+			'trainId'=>'',
+			'name'=>'',
+			'reservable_status'=>'',
+			'type'=>'',
+			'src_station'=>'',
+			'starttime'=>'',
+			'dest_station'=>'',
+			'endtime'=>'',
+            'rateId'=>'',
+			'entered_date'=>'',
+            'entered_time'=>''
+		];
+
+		if($_SERVER['REQUEST_METHOD']=='POST'){
+			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+		if($this->postModel->delete($trainId)){
+			header("Location: " . URLROOT . "/manage_train");
+		}
+		else{
+			die('Something Going Wrong');
+		}
+	}
+	}
+}	
