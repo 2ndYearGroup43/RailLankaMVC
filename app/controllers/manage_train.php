@@ -117,7 +117,8 @@ class manage_train extends Controller{
 
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-			$data=[	
+			$data=[
+			'manage_train'=>$manage_train,	
 			'trainId'=>$trainId,	
 			'name'=>trim($_POST['name']),			
 			'reservable_status'=>trim($_POST['reservable_status']),

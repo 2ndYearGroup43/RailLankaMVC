@@ -158,6 +158,7 @@ class manage_ro extends Controller{
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
+            'manage_ro'=>$manage_ro,    
 			'officerId'=>$officerId,	
 			'employeeId'=>trim($_POST['employeeId']),			
 			'firstname'=>trim($_POST['firstname']),
@@ -179,14 +180,25 @@ class manage_ro extends Controller{
             $mobileValidation="/^[0-9]{10}+$/";
             $passwordValidation= "/^(?=.*[a-z])(?=.*\\d).{8,}$/i";
 
+                if(empty($data['officerId'])){
+                    $data['officerIdError']='Please Enter the Employee ID.';
+                }elseif(!preg_match($idValidation, $data['officerId'])){
+                    $data['officerIdError']="Officer ID can only contain letters and numbers.";
+                }else{
+                    //if Employee ID exists
+                    if($this->postModel->findOfficerByOfficerId($data['officerId'])){
+                        $data['employeeIdError']='This Officer is already registered as a Officer in the system.'; 
+                    }
+                }
+
                 if(empty($data['employeeId'])){
                     $data['employeeIdError']='Please Enter the Employee ID.';
                 }elseif(!preg_match($idValidation, $data['employeeId'])){
                     $data['employeeIdError']="Employee ID can only contain letters and numbers.";
                 }else{
                     //if Employee ID exists
-                    if($this->postModel->findOfficerByEmployeeId($data['employeeId'])){
-                        $data['employeeIdError']='This employee is already registered as a Officer in the system.'; 
+                    if($this->postModel->findOfficerByEmployeeId($data['employeeId']) && $this->postModel->findOfficerByOfficerId($officerId)->employeeId!=$data['employeeId']){
+                        $data['employeeIdError']='This employee is already registered as a Moderator in the system.'; 
                     }
                 }
                 if(empty($data['firstname'])){
@@ -205,8 +217,8 @@ class manage_ro extends Controller{
                     $data['emailError']='Please enter the correct format';
                 }else{
                     //if email exists
-                    if($this->postModel->findofficerByEmail($data['email'])){
-                        $data['emailError']='email is already taken'; 
+                    if($this->postModel->findOfficerByEmail($data['email']) && $this->postModel->findOfficerByOfficerId($officerId)->email!=$data['email']){
+                        $data['emailError']='Entered email is already registered in the system.'; 
                     }
                 }
 
@@ -223,6 +235,21 @@ class manage_ro extends Controller{
                     $data['passwordError']="Password length should be atleast 8 characters long";
                 }elseif(!preg_match($passwordValidation, $data['password'])){
                     $data['passwordError']="Password must have atleast one numeric value.";
+                }
+
+
+                if ($data['employeeId']==$this->postModel->findOfficerByOfficerId($officerId)->employeeId &&
+                    $data['firstName']==$this->postModel->findOfficerByOfficerId($officerId)->firstname &&
+                    $data['lastName']==$this->postModel->findOfficerByOfficerId($officerId)->lastname &&
+                    $data['email']==$this->postModel->findOfficerByOfficerId($officerId)->email &&
+                    $data['mobileno']==$this->postModel->findOfficerByOfficerId($officerId)->mobileno
+                    ){
+                        $data['officerIdError']='No change was detected at any field';
+                        $data['employeeIdError']='No change was detected at any field'; 
+                        $data['firstNameError']='No change was detected at any field';
+                        $data['lastNameError']='No change was detected at any field';
+                        $data['emailError']='No change was detected at any field';
+                        $data['mobileNoError']='No change was detected at any field';
                 }
 
                 if(empty($data['employeerIdError']) && empty($data['firstnameError']) && empty($data['lastnameError']) && 

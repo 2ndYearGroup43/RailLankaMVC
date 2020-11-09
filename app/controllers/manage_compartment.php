@@ -122,6 +122,7 @@ class manage_compartment extends Controller{
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
+			'manage_compartment'=>$manage_compartment,	
 			'trainId'=>$trainId,	
 			'compartmentNo'=>trim($_POST['compartmentNo']),			
 			'class'=>trim($_POST['class']),

@@ -113,6 +113,7 @@ class manage_schedule extends Controller{
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
+			'manage_schedule'=>$manage_schedule,	
 			'routeId'=>$routeId,	
 			'stationId'=>trim($_POST['stationId']),			
 			'stopNo'=>trim($_POST['stopNo']),

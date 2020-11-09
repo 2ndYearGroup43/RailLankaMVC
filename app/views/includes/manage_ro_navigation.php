@@ -1,6 +1,6 @@
 	<header>
 		<nav>
-            <div class="logo"><a href="#"><img src="public/img/logo.jpg" alt="logo" height="85px"></a></div>
+            <div class="logo"><a href="index.html"><img src="<?php echo URLROOT;?>/public/img/logonav1.jpg" alt="logo" height="85px"></a></div>
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">User Management</a></li>
