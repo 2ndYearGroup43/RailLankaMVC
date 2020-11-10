@@ -80,17 +80,15 @@
                                     <th>Type</th>
                                 </tr>
                             </thead>
-                                <?php foreach($data['manage_compartment'] as $post):?>
                             <tbody>                                
                                 <tr>
-                                    <td data-th="Train ID"><?php echo $post->trainId?></td>
-                                    <td data-th="Compartment No"><?php echo $post->compartmentNo?></td>
-                                    <td data-th="Class"><?php echo $post->class?></td>
-                                    <td data-th="No of Seats"><?php echo $post->noofseats?></td>
-                                    <td data-th="Type"><?php echo $post->type?></td>
+                                    <td data-th="Train ID">bla</td>
+                                    <td data-th="Compartment No">bla</td>
+                                    <td data-th="Class">bla</td>
+                                    <td data-th="No of Seats">bla</td>
+                                    <td data-th="Type">bla</td>
                                 </tr>
                             </tbody>
-                                <?php endforeach; ?>
                         </table>
                     </div>
                     <button type="button" onclick="history.go(-1);" class="back-btn" value="Back">Back</button>

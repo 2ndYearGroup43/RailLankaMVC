@@ -43,7 +43,7 @@
                             <td data-th="Station ID"><?php echo $post->stationId?></td>
                             <td data-th="Stop No"><?php echo $post->stopNo?></td>
                             <td data-th="Arrival Time"><?php echo $post->arrivaltime?></td>
-                            <td data-th="Departure Time"><?php echo $post->departuretime?>a</td>
+                            <td data-th="Departure Time"><?php echo $post->departuretime?></td>
                             <td data-th="Date"><?php echo $post->date?></td>
                             <td data-th="Distance"><?php echo $post->distance?></td>
                             <td data-th="Manage">
