@@ -13,7 +13,9 @@ class manage_available_day extends Controller{
 	}
 
 	public function create(){
+		$trains=$this->postModel->getTrainId();
 		$data = [
+			'trains'=>$trains,
 			'trainId'=>'',
 			'sunday'=>'',
 			'monday'=>'',
@@ -28,6 +30,7 @@ class manage_available_day extends Controller{
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
+			'trains'=>$trains,	
 			'trainId'=>trim($_POST['trainId']),
 			'sunday'=>trim($_POST['sunday']),
 			'monday'=>trim($_POST['monday']),
@@ -70,9 +73,11 @@ class manage_available_day extends Controller{
 	public function edit($trainId){
 
 		$manage_available_day=$this->postModel->findTrainId($trainId);
+		$trains=$this->postModel->getTrainId();
 
 		$data = [
 			'manage_available_day'=>$manage_available_day,
+			'trains'=>$trains,	
 			'trainId'=>'',
 			'sunday'=>'',
 			'monday'=>'',
@@ -89,6 +94,7 @@ class manage_available_day extends Controller{
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
 			'manage_available_day'=>$manage_available_day,	
+			'trains'=>$trains,	
 			'trainId'=>$trainId,
 			'sunday'=>trim($_POST['sunday']),
 			'monday'=>trim($_POST['monday']),

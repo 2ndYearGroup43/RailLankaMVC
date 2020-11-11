@@ -13,7 +13,11 @@ class manage_compartment extends Controller{
 	}
 
 	public function create(){
+		$trains=$this->postModel->getTrainId();
+		$types=$this->postModel->getType();
 		$data = [
+			'trains'=>$trains,
+			'types'=>$types,
 			'trainId'=>'',
 			'compartmentNo'=>'',
 			'class'=>'',
@@ -29,6 +33,8 @@ class manage_compartment extends Controller{
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
+			'trains'=>$trains,
+			'types'=>$types,	
 			'trainId'=>trim($_POST['trainId']),	
 			'compartmentNo'=>trim($_POST['compartmentNo']),			
 			'class'=>trim($_POST['class']),
@@ -98,15 +104,18 @@ class manage_compartment extends Controller{
 		}
 
 		$this->view('manage_compartment/create', $data);
-
 	}
 
 	public function edit($trainId){
 
 		$manage_compartment=$this->postModel->findTrain($trainId);
+		$trains=$this->postModel->getTrainId();
+		$types=$this->postModel->getType();
 
 		$data = [
 			'manage_compartment'=>$manage_compartment,
+			'trains'=>$trains,
+			'types'=>$types,
 			'trainId'=>'',
 			'compartmentNo'=>'',
 			'class'=>'',
@@ -122,7 +131,9 @@ class manage_compartment extends Controller{
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
-			'manage_compartment'=>$manage_compartment,	
+			'manage_compartment'=>$manage_compartment,
+			'trains'=>$trains,
+			'types'=>$types,	
 			'trainId'=>$trainId,	
 			'compartmentNo'=>trim($_POST['compartmentNo']),			
 			'class'=>trim($_POST['class']),

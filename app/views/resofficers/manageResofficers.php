@@ -1,28 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add New Employees</title>
-    <meta name="viewport" content="width-device-width, intial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT ?>/public/css/ddd.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script  src="http://code.jquery.com/jquery-3.5.1.js"></script>
-        <script>
-            $(document).ready(function(){
-                $('#icon').click(function(){
-                    $('ul').toggleClass('show');
-                })
-            })
-        </script>
-</head>
-<body>
 <?php
-    require APPROOT.'/views/includes/manage_ro_navigation.php';
+    require APPROOT.'/views/includes/head.php';
+?>
+<?php
+    require APPROOT.'/views/includes/resofficer.php';
 ?>
     <div class="body-section">
         <div class="content-row"></div>
         <div class="content-row">
             <div class="container-table">
-                <h1>Reservation officers <small>User Management</small></h1>
+                <h1 style="color: #13406d;">Employee Management <small style="color: black;">Reservation officers</small></h1>
                 <div class="table-searchbar">
                     <form action="<?php echo URLROOT?>/resofficers/resofficersSearchBy" method="POST">
                         <input type="text" placeholder="Search by" name=searchbar><span><select name="searchselect" id="searchselect">

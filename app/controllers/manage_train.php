@@ -13,7 +13,9 @@ class manage_train extends Controller{
 	}
 
 	public function create(){
+		$rates=$this->postModel->getRateId();
 		$data = [
+			'rates'=>$rates,
 			'trainId'=>'',
 			'name'=>'',
 			'reservable_status'=>'',
@@ -34,6 +36,7 @@ class manage_train extends Controller{
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
+			'rates'=>$rates,	
 			'trainId'=>trim($_POST['trainId']),	
 			'name'=>trim($_POST['name']),			
 			'reservable_status'=>trim($_POST['reservable_status']),

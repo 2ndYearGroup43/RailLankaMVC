@@ -13,16 +13,20 @@ class manage_schedule extends Controller{
 	}
 
 	public function create(){
+		$routes=$this->postModel->getRouteId();
+		$stations=$this->postModel->getStationID();
 		$data = [
+			'routes'=>$routes,
+			'stations'=>$stations,
 			'routeId'=>'',
-			'stationId'=>'',
+			'stationID'=>'',
 			'stopNo'=>'',
 			'arrivaltime'=>'',
 			'departuretime'=>'',
 			'date'=>'',
             'distance'=>'',
             'routeIdError'=>'',
-            'stationIdError'=>'',
+            'stationIDError'=>'',
             'stopNoError'=>'',
             'distanceError'=>''
 		];
@@ -30,15 +34,17 @@ class manage_schedule extends Controller{
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
+			'routes'=>$routes,
+			'stations'=>$stations,	
 			'routeId'=>trim($_POST['routeId']),	
-			'stationId'=>trim($_POST['stationId']),			
+			'stationID'=>trim($_POST['stationID']),			
 			'stopNo'=>trim($_POST['stopNo']),
 			'arrivaltime'=>trim($_POST['arrivaltime']),
 			'departuretime'=>trim($_POST['departuretime']),
 			'date'=>trim($_POST['date']),
 			'distance'=>trim($_POST['distance']),
 			'routeIdError'=>'',
-            'stationIdError'=>'',
+            'stationIDError'=>'',
             'stopNoError'=>'',
             'distanceError'=>''
 			];
@@ -55,14 +61,14 @@ class manage_schedule extends Controller{
                         $data['routeIdError']='This ID is already registered as a Route in the system.'; 
                     }
                 }
-                if(empty($data['stationId'])){
-                    $data['stationIdError']='Please Enter the Compartment No.';
-                }elseif(!preg_match($idValidation, $data['stationId'])){
-                    $data['stationIdError']="Compartment No can only contain letters and numbers.";
+                if(empty($data['stationID'])){
+                    $data['stationIDError']='Please Enter the Compartment No.';
+                }elseif(!preg_match($idValidation, $data['stationID'])){
+                    $data['stationIDError']="Compartment No can only contain letters and numbers.";
                 }else{
                     //if Employee ID exists
-                    if($this->postModel->findRouteByStationId($data['stationId'])){
-                        $data['stationIdError']='This route is already registered as a route in the system.'; 
+                    if($this->postModel->findRouteByStationId($data['stationID'])){
+                        $data['stationIDError']='This route is already registered as a route in the system.'; 
                     }
                 }
                 if(empty($data['stopNo'])){
@@ -76,7 +82,7 @@ class manage_schedule extends Controller{
                     $data['distanceError']="Distance can only contain numbers.";
                 }
 
-                if(empty($data['routeIdError']) && empty($data['stationIdError']) &&
+                if(empty($data['routeIdError']) && empty($data['stationIDError']) &&
                 empty($data['stopNoError']) && empty($data['distanceError']) ){
 
 			if ($this->postModel->create_schedule($data)) {
@@ -94,18 +100,22 @@ class manage_schedule extends Controller{
 	public function edit($routeId){
 
 		$manage_schedule=$this->postModel->findRoute($routeId);
+		$routes=$this->postModel->getRouteId();
+		$stations=$this->postModel->getStationID();
 
 		$data = [
 			'manage_schedule'=>$manage_schedule,
+			'routes'=>$routes,
+			'stations'=>$stations,	
 			'routeId'=>'',
-			'stationId'=>'',
+			'stationID'=>'',
 			'stopNo'=>'',
 			'arrivaltime'=>'',
 			'departuretime'=>'',
 			'date'=>'',
             'distance'=>'',
             'routeIdError'=>'',
-            'stationIdError'=>'',
+            'stationIDError'=>'',
             'stopNoError'=>'',
             'distanceError'=>''
 		];
@@ -113,16 +123,18 @@ class manage_schedule extends Controller{
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
-			'manage_schedule'=>$manage_schedule,	
+			'manage_schedule'=>$manage_schedule,
+			'routes'=>$routes,
+			'stations'=>$stations,		
 			'routeId'=>$routeId,	
-			'stationId'=>trim($_POST['stationId']),			
+			'stationID'=>trim($_POST['stationID']),			
 			'stopNo'=>trim($_POST['stopNo']),
 			'arrivaltime'=>trim($_POST['arrivaltime']),
 			'departuretime'=>trim($_POST['departuretime']),
 			'date'=>trim($_POST['date']),
 			'distance'=>trim($_POST['distance']),
 			'routeIdError'=>'',
-            'stationIdError'=>'',
+            'stationIDError'=>'',
             'stopNoError'=>'',
             'distanceError'=>''
 			];
@@ -139,14 +151,14 @@ class manage_schedule extends Controller{
                         $data['routeIdError']='This ID is already registered as a Route in the system.'; 
                     }
                 }
-                if(empty($data['stationId'])){
-                    $data['stationIdError']='Please Enter the Compartment No.';
-                }elseif(!preg_match($idValidation, $data['stationId'])){
-                    $data['stationIdError']="Compartment No can only contain letters and numbers.";
+                if(empty($data['stationID'])){
+                    $data['stationIDError']='Please Enter the Compartment No.';
+                }elseif(!preg_match($idValidation, $data['stationID'])){
+                    $data['stationIDError']="Compartment No can only contain letters and numbers.";
                 }else{
                     //if Employee ID exists
-                    if($this->postModel->findRouteByStationId($data['stationId'])){
-                        $data['stationIdError']='This route is already registered as a route in the system.'; 
+                    if($this->postModel->findRouteByStationID($data['stationID'])){
+                        $data['stationIDError']='This route is already registered as a route in the system.'; 
                     }
                 }
                 if(empty($data['stopNo'])){
@@ -160,7 +172,7 @@ class manage_schedule extends Controller{
                     $data['distanceError']="Distance can only contain numbers.";
                 }
 
-                if(empty($data['routeIdError']) && empty($data['stationIdError']) &&
+                if(empty($data['routeIdError']) && empty($data['stationIDError']) &&
                 empty($data['stopNoError']) && empty($data['distanceError']) ){
 
 			if ($this->postModel->edit($data)) {
@@ -180,7 +192,7 @@ class manage_schedule extends Controller{
 		$data = [
 			'manage_schedule'=>$manage_schedule,
 			'routeId'=>'',
-			'stationId'=>'',
+			'stationID'=>'',
 			'stopNo'=>'',
 			'arrivaltime'=>'',
 			'departuretime'=>'',
@@ -192,7 +204,7 @@ class manage_schedule extends Controller{
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
 			'routeId'=>$routeId,	
-			'stationId'=>trim($_POST['stationId']),			
+			'stationID'=>trim($_POST['stationID']),			
 			'stopNo'=>trim($_POST['stopNo']),
 			'arrivaltime'=>trim($_POST['arrivaltime']),
 			'departuretime'=>trim($_POST['departuretime']),
@@ -215,7 +227,7 @@ class manage_schedule extends Controller{
 		$data = [
 			'manage_schedule'=>$manage_schedule,
 			'routeId'=>'',
-			'stationId'=>'',
+			'stationID'=>'',
 			'stopNo'=>'',
 			'arrivaltime'=>'',
 			'departuretime'=>'',

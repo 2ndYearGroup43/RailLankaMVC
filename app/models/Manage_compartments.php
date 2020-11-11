@@ -98,6 +98,18 @@ class Manage_compartments {
 		return $row;
 	}
 
+	public function getTrainId(){
+        $this->db->query("SELECT trainId FROM train");
+        $results=$this->db->resultSet();
+        return $results;
+    }
+
+    public function getType(){
+        $this->db->query("SELECT typeNo FROM compartment_type");
+        $results=$this->db->resultSet();
+        return $results;
+    }
+
 	public function edit($data){
 		$this->db->query('UPDATE compartment SET trainId=:trainId, compartmentNo=:compartmentNo, class=:class, noofseats=:noofseats, type=:type WHERE trainId=:trainId');
 

@@ -1,32 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Manage Available Days</title>
-	<meta name="viewport" content="width-device-width, intial-scale=1.0">
-	<link rel="stylesheet" href="<?php echo URLROOT ?>/public/css/ddd.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script  src="http://code.jquery.com/jquery-3.5.1.js"></script>
-        <script>
-            $(document).ready(function(){
-                $('#icon').click(function(){
-                    $('ul').toggleClass('show');
-                })
-            })
-        </script>
-</head>
-<body>
 <?php
-    require APPROOT.'/views/includes/manage_compartment_navigation.php';
+    require APPROOT.'/views/includes/head.php';
+?>
+<?php
+    require APPROOT.'/views/includes/train_management.php';
 ?>    
         <div class="body-section">
             <div class="content-flexrow">
                 <div class="container">
-                    <div class="text">Manage Available Days</div>
+                    <div class="text" style="color: #13406d;">Manage Trains <small style="color: black;">Add Available Days</small></div>
                         <form action="<?php echo URLROOT; ?>/manage_available_day/create" method = "POST">
                             <div class="form-row">
                                 <div class="input-data">
                                     <label for="trainId">Train Id</label>
-                                    <input type="text" name="trainId" id="trainId" required >
+                                    <select name="trainId" id="trainId" required>
+                                        <option value="">Select</option>
+                                        <?php foreach ($data['trains'] as $train ):?>
+                                            <option value="<?php echo $train->trainId?>"><?php echo $train->trainId?></option>
+                                        <?php endforeach;?>
+                                    </select>
                                     <span class="invalidFeedback">
                                         <?php echo $data['trainIdError'];?>
                                     </span>

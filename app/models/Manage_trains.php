@@ -61,6 +61,12 @@ class Manage_trains {
 		return $row;
 	}
 
+	public function getRateId(){
+        $this->db->query("SELECT rateId FROM fare");
+        $results=$this->db->resultSet();
+        return $results;
+    }
+
 	public function edit($data){
 		$this->db->query('UPDATE train SET trainId=:trainId, name=:name, reservable_status=:reservable_status, type=:type, src_station=:src_station, starttime=:starttime, dest_station=:dest_station, endtime=:endtime, rateId=:rateId WHERE trainId=:trainId');
 

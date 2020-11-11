@@ -683,6 +683,7 @@ a.blue-btn{
     padding-bottom: 1px;
     padding-top: 0.5px;
 }
+
 input.blue-btn:hover{
     color: #fff;
     background: #2476c7;

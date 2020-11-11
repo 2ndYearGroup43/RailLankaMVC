@@ -52,6 +52,12 @@ class Manage_available_days {
 		return $results;
 	}
 
+	public function getTrainId(){
+        $this->db->query("SELECT trainId FROM train");
+        $results=$this->db->resultSet();
+        return $results;
+    }
+
 	public function findTrainId($trainId){
 		$this->db->query('SELECT * FROM availabledays WHERE trainId=:trainId');
 

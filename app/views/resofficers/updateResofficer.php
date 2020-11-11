@@ -1,28 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add New Employees</title>
-    <meta name="viewport" content="width-device-width, intial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT ?>/public/css/ddd.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script  src="http://code.jquery.com/jquery-3.5.1.js"></script>
-        <script>
-            $(document).ready(function(){
-                $('#icon').click(function(){
-                    $('ul').toggleClass('show');
-                })
-            })
-        </script>
-</head>
-<body>
 <?php
-    require APPROOT.'/views/includes/manage_ro_navigation.php';
+    require APPROOT.'/views/includes/head.php';
+?>
+<?php
+    require APPROOT.'/views/includes/resofficer.php';
 ?>
 
 <div class="body-section">
     <div class="content-flexrow">
         <div class="container">
-            <div class="text">Update Employee <small>Reservation Officer</small></div>
+            <div class="text" style="color: #13406d;">Update Employee <small style="color: black;">Reservation Officer</small></div>
             <form action="<?php echo URLROOT;?>/resofficers/updateResofficer/<?php echo $data['userId']?>" method="POST">
                 <div class="form-row">
                     <div class="input-data">

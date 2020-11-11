@@ -7,10 +7,10 @@ class Manage_schedules {
 	}
 
 	public function create_schedule($data){
-		$this->db->query('INSERT INTO route_station (routeId, stationId, stopNo, arrivaltime, departuretime, date, distance) VALUES (:routeId, :stationId, :stopNo, :arrivaltime, :departuretime, :date, :distance )');
+		$this->db->query('INSERT INTO route_station (routeId, stationID, stopNo, arrivaltime, departuretime, date, distance) VALUES (:routeId, :stationID, :stopNo, :arrivaltime, :departuretime, :date, :distance )');
 
 		$this->db->bind(':routeId', $data['routeId']);
-		$this->db->bind(':stationId', $data['stationId']);		
+		$this->db->bind(':stationID', $data['stationID']);		
 		$this->db->bind(':stopNo', $data['stopNo']);
 		$this->db->bind(':arrivaltime', $data['arrivaltime']);
 		$this->db->bind(':departuretime', $data['departuretime']);
@@ -45,10 +45,10 @@ class Manage_schedules {
         }
     }
 
-    public function findRouteByStationId($sid)
+    public function findRouteByStationID($sid)
     {
         //this is an preapared statement
-        $this->db->query('SELECT COUNT(*) as count FROM route_station WHERE stationId = :sid');
+        $this->db->query('SELECT COUNT(*) as count FROM route_station WHERE stationID = :sid');
 
         //Email param will be binded by the email variable
 
@@ -71,6 +71,18 @@ class Manage_schedules {
 		return $results;
 	}
 
+	public function getRouteId(){
+        $this->db->query("SELECT routeId FROM route");
+        $results=$this->db->resultSet();
+        return $results;
+    }
+
+    public function getStationID(){
+        $this->db->query("SELECT stationID FROM station");
+        $results=$this->db->resultSet();
+        return $results;
+    }
+
 	public function findRoute($routeId){
 		$this->db->query('SELECT * FROM route_station WHERE routeId=:routeId');
 
@@ -81,10 +93,10 @@ class Manage_schedules {
 	}
 
 	public function edit($data){
-		$this->db->query('UPDATE route_station SET routeId=:routeId, stationId=:stationId, stopNo=:stopNo, arrivaltime=:arrivaltime, departuretime=:departuretime, date=:date, distance=:distance WHERE routeId=:routeId');
+		$this->db->query('UPDATE route_station SET routeId=:routeId, stationID=:stationID, stopNo=:stopNo, arrivaltime=:arrivaltime, departuretime=:departuretime, date=:date, distance=:distance WHERE routeId=:routeId');
 
 		$this->db->bind(':routeId', $data['routeId']);
-		$this->db->bind(':stationId', $data['stationId']);		
+		$this->db->bind(':stationID', $data['stationID']);		
 		$this->db->bind(':stopNo', $data['stopNo']);
 		$this->db->bind(':arrivaltime', $data['arrivaltime']);
 		$this->db->bind(':departuretime', $data['departuretime']);
@@ -99,10 +111,10 @@ class Manage_schedules {
 	}
 
 		public function views($data){
-		$this->db->query('SELECT route_station SET routeId=:routeId, stationId=:stationId, stopNo=:stopNo, arrivaltime=:arrivaltime, departuretime=:departuretime, date=:date, distance=:distance WHERE routeId=:routeId');
+		$this->db->query('SELECT route_station SET routeId=:routeId, stationID=:stationID, stopNo=:stopNo, arrivaltime=:arrivaltime, departuretime=:departuretime, date=:date, distance=:distance WHERE routeId=:routeId');
 
 		$this->db->bind(':routeId', $data['routeId']);
-		$this->db->bind(':stationId', $data['stationId']);		
+		$this->db->bind(':stationID', $data['stationID']);		
 		$this->db->bind(':stopNo', $data['stopNo']);
 		$this->db->bind(':arrivaltime', $data['arrivaltime']);
 		$this->db->bind(':departuretime', $data['departuretime']);

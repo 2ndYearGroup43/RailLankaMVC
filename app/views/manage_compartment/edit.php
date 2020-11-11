@@ -1,32 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Update Compartment Details</title>
-	<meta name="viewport" content="width-device-width, intial-scale=1.0">
-	<link rel="stylesheet" href="<?php echo URLROOT ?>/public/css/ddd.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script  src="http://code.jquery.com/jquery-3.5.1.js"></script>
-        <script>
-            $(document).ready(function(){
-                $('#icon').click(function(){
-                    $('ul').toggleClass('show');
-                })
-            })
-        </script>
-</head>
-<body>
 <?php
-    require APPROOT.'/views/includes/manage_compartment_navigation.php';
+    require APPROOT.'/views/includes/head.php';
+?>
+<?php
+    require APPROOT.'/views/includes/train_management.php';
 ?> 
 <div class="body-section">
         <div class="content-flexrow">
            <div class="container">
-            <div class="text">Update Compartment</div>
+            <div class="text" style="color: #13406d;">Manage Trains <small style="color: black;">Update Compartments</small></div>
             <form action="<?php echo URLROOT; ?>/manage_compartment/edit/<?php echo $data['manage_compartment']->trainId?>" method = "POST">
                             <div class="form-row">
                                 <div class="input-data">
                                     <label for="trainId">Train ID</label>
-                                    <input type="text" name="trainId" value="<?php echo $data['manage_compartment']->trainId?>" id="trainId" required >
+                                    <select name="trainId" id="trainId" required>
+                                        <option value=""><?php echo $data['manage_compartment']->trainId?></option>
+                                        <?php foreach ($data['trains'] as $train ):?>
+                                            <option value="<?php echo $train->trainId?>"><?php echo $train->trainId?></option>
+                                        <?php endforeach;?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -55,7 +46,12 @@
                                 </div>
                                 <div class="input-data">
                                     <label for="type">Type</label>
-                                    <input type="text" name="type" value="<?php echo $data['manage_compartment']->type?>" id="type" required >
+                                    <select name="type" id="type" required>
+                                        <option value=""><?php echo $data['manage_compartment']->type?></option>
+                                        <?php foreach ($data['types'] as $Type ):?>
+                                            <option value="<?php echo $Type->typeNo?>"><?php echo $Type->typeNo?></option>
+                                        <?php endforeach;?>
+                                    </select>
                                     <span class="invalidFeedback">
                                         <?php echo $data['typeError'];?>
                                     </span>

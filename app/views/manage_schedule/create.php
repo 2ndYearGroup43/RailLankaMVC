@@ -1,41 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Add New Stop</title>
-	<meta name="viewport" content="width-device-width, intial-scale=1.0">
-	<link rel="stylesheet" href="<?php echo URLROOT ?>/public/css/ddd.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script  src="http://code.jquery.com/jquery-3.5.1.js"></script>
-        <script>
-            $(document).ready(function(){
-                $('#icon').click(function(){
-                    $('ul').toggleClass('show');
-                })
-            })
-        </script>
-</head>
-<body>
 <?php
-    require APPROOT.'/views/includes/manage_schedule_navigation.php';
-?>    
+    require APPROOT.'/views/includes/head.php';
+?>
+<?php
+    require APPROOT.'/views/includes/train_management.php';
+?> 
 	    <div class="body-section">
         <div class="content-flexrow">
            <div class="container">
-            <div class="text">Schedule Form</div>
+            <div class="text" style="color: #13406d;">Manage Trains <small style="color: black;">Add Schedule</small></div>
             <form action="<?php echo URLROOT; ?>/manage_schedule/create" method = "POST">
                 <div class="form-row">
                     <div class="input-data">
                         <label for="routeId">Route Id</label>
-                        <input type="text" name="routeId" id="routeId" required >
+                        <select name="routeId" id="routeId" required>
+                                <option value="">Select</option>
+                                    <?php foreach ($data['routes'] as $route ):?>
+                                    <option value="<?php echo $route->routeId?>"><?php echo $route->routeId?></option>
+                                <?php endforeach;?>
+                        </select>
                         <span class="invalidFeedback">
                             <?php echo $data['routeIdError'];?>
                         </span>
                     </div>
                     <div class="input-data">
-                        <label for="stationId">Station Id</label>
-                        <input type="text" name="stationId" id="stationId" required >
+                        <label for="stationID">Station Id</label>
+                        <select name="stationID" id="stationID" required>
+                            <option value="">Select</option>
+                                <?php foreach ($data['stations'] as $station ):?>
+                                <option value="<?php echo $station->stationID?>"><?php echo $station->stationID?></option>
+                            <?php endforeach;?>
+                        </select>
                         <span class="invalidFeedback">
-                            <?php echo $data['stationIdError'];?>
+                            <?php echo $data['stationIDError'];?>
                         </span>
                     </div>
                 </div>
