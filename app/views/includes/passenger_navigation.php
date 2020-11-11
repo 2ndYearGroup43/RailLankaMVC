@@ -17,18 +17,23 @@
 				<a href="<?php echo URLROOT; ?>/reservations/search">Reservation</a>
 			</li>
 			<li>
-				<a href="<?php echo URLROOT; ?>/pages/index">Alerts</a>
+				<a href="<?php echo URLROOT; ?>/alerts/displayAlerts">Alerts <i class="fa fa-chevron-down"></i></a>
+				<ul>
+					<li><a href="<?php echo URLROOT; ?>/alerts/displayDelayed">Delayed</a></li>
+					<li><a href="<?php echo URLROOT; ?>/alerts/displayCancelled">Cancelled</a></li>
+					<li><a href="<?php echo URLROOT; ?>/alerts/displayRescheduled">Rescheduled</a></li>
+				</ul>
 			</li>
 			<li>
-				<a href="<?php echo URLROOT; ?>/pages/index">Track Train</a>
+				<a href="<?php echo URLROOT; ?>/trackings/search">Track Train</a>
 			</li>
 			<?php if(isset($_SESSION['userid'])) : ?>
 			<li>
-				<a href="<?php echo URLROOT; ?>/pages/index">Account <i class="fa fa-chevron-down"></i></a>
+				<a href="<?php echo URLROOT; ?>/accounts/displayAccount">Account <i class="fa fa-chevron-down"></i></a>
 				<ul>
-					<li><a href="<?php echo URLROOT; ?>/pages/index">Edit Profile</a></li>
-					<li><a href="<?php echo URLROOT; ?>/pages/index">Tickets</a></li>
-					<li><a href="<?php echo URLROOT; ?>/pages/index">Subscriptions</a></li>
+					<li><a href="<?php echo URLROOT; ?>/accounts/editAccount">Edit Profile</a></li>
+					<li><a href="<?php echo URLROOT; ?>/accounts/displayTickets">Tickets</a></li>
+					<li><a href="<?php echo URLROOT; ?>/accounts/displaySubscriptions">Subscriptions</a></li>
 				</ul>
 			</li>
 			<?php endif; ?>

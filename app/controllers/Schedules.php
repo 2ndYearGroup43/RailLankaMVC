@@ -8,8 +8,19 @@
 
 		public function search() {
 			
-			$this->view('schedules/index'); 
+			$this->view('passengers/schedules/search_trains'); 
 		}
 
+		public function displayTrains() {
+
+			$this->view('passengers/schedules/display_trains'); 
+		}
+
+		public function displayTrainDetails() {
+
+			$this->view('passengers/schedules/display_traindetails'); 
+		}
+
+
 		
-	}
+}

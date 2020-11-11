@@ -173,45 +173,44 @@
 			$this->view('users/login', $data);
 		}
 
-		
-
 		public function createUserSession($user) {
 			$_SESSION['userid'] = $user->userid;
 			$_SESSION['email'] = $user->email;
-
+			$_SESSION['role'] = $user->role;
+			redirect($_SESSION['role']);
 			// $role = $this->userModel->getRole($user->id);
 
 			// if($role)
 			// {
-				if($user->role==1)
-				{
-					$_SESSION['role'] = "passenger";
-					header('location:' . URLROOT . '/pages/index');
-				}
+				// if($user->role==1)
+				// {
+				// 	$_SESSION['role'] = "passenger";
+				// 	header('location:' . URLROOT . '/pages/index');
+				// }
 
-				if($user->role==2)
-				{
-					$_SESSION['role'] = "admin";
-					header('location:' . URLROOT . '/admins/index');
-				}
+				// if($user->role==2)
+				// {
+				// 	$_SESSION['role'] = "admin";
+				// 	header('location:' . URLROOT . '/admins/index');
+				// }
 
-				if($user->role==3)
-				{
-					$_SESSION['role'] = "moderator";
-					header('location:' . URLROOT . '/moderators/index');
-				}
+				// if($user->role==3)
+				// {
+				// 	$_SESSION['role'] = "moderator";
+				// 	header('location:' . URLROOT . '/moderators/index');
+				// }
 
-				if($user->role==4)
-				{
-					$_SESSION['role'] = "driver";
-					header('location:' . URLROOT . '/drivers/index');
-				}
+				// if($user->role==4)
+				// {
+				// 	$_SESSION['role'] = "driver";
+				// 	header('location:' . URLROOT . '/drivers/index');
+				// }
 
-				if($user->role==5)
-				{
-					$_SESSION['role'] = "resofficer";
-					header('location:' . URLROOT . '/resofficers/index');
-				}
+				// if($user->role==5)
+				// {
+				// 	$_SESSION['role'] = "resofficer";
+				// 	header('location:' . URLROOT . '/resofficers/index');
+				// }
 			// }			
 		}
 

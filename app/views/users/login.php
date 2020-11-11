@@ -5,6 +5,9 @@
 	// 	echo "Information: " . $user->user_name . $user->user_email;
 	// 	echo "<br>";
 	// }
+	if(isLoggedIn()){
+		redirect($_SESSION['role']);
+	}
 
 	require APPROOT . '/views/includes/head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';

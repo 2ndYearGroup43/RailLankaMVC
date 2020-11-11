@@ -2,17 +2,27 @@
 	session_start();
 
 	function isLoggedIn() {
-		if(isset($_SESSION['user_id'])) {
+		if(isset($_SESSION['userid'])) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
+	function isPassenger() {
+		if(isset($_SESSION['role']))
+		{
+			if($_SESSION['role']!=1)
+			{
+				header('location:' . URLROOT . '/users/logout');
+			}
+		}
+	}
+
 	function isAdmin() {
 		if(isset($_SESSION['role']))
 		{
-			if($_SESSION['role']!='admin')
+			if($_SESSION['role']!=2)
 			{
 				header('location:' . URLROOT . '/users/logout');
 			}
@@ -22,17 +32,7 @@
 	function isModerator() {
 		if(isset($_SESSION['role']))
 		{
-			if($_SESSION['role']!='moderator')
-			{
-				header('location:' . URLROOT . '/users/logout');
-			}
-		}
-	}
-
-	function isPassenger() {
-		if(isset($_SESSION['role']))
-		{
-			if($_SESSION['role']!='passenger')
+			if($_SESSION['role']!=3)
 			{
 				header('location:' . URLROOT . '/users/logout');
 			}
@@ -42,7 +42,7 @@
 	function isDriver() {
 		if(isset($_SESSION['role']))
 		{
-			if($_SESSION['role']!='driver')
+			if($_SESSION['role']!=4)
 			{
 				header('location:' . URLROOT . '/users/logout');
 			}
@@ -52,9 +52,42 @@
 	function isResofficer() {
 		if(isset($_SESSION['role']))
 		{
-			if($_SESSION['role']!='resofficer')
+			if($_SESSION['role']!=5)
 			{
 				header('location:' . URLROOT . '/users/logout');
 			}
+		}
+	}
+
+	function redirect($role) {
+
+		if($role==1)
+		{
+			// $_SESSION['role'] = "passenger";
+			header('location:' . URLROOT . '/pages/index');
+		}
+
+		if($role==2)
+		{
+			// $_SESSION['role'] = "admin";
+			header('location:' . URLROOT . '/admins/index');
+		}
+
+		if($role==3)
+		{
+			// $_SESSION['role'] = "moderator";
+			header('location:' . URLROOT . '/moderators/index');
+		}
+
+		if($role==4)
+		{
+			// $_SESSION['role'] = "driver";
+			header('location:' . URLROOT . '/drivers/index');
+		}
+
+		if($role==5)
+		{
+			// $_SESSION['role'] = "resofficer";
+			header('location:' . URLROOT . '/resofficers/index');
 		}
 	}
