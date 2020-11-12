@@ -28,13 +28,11 @@
                                     <input type="hidden" name="sunday" value="No">
                                     <input type="checkbox" name="sunday" value="Yes">
                                     <label for="sunday">Sunday</label>
-                                    <span class="fa fa-check"></span>
                                 </div>
                                 <div class="input-data">
                                     <input type="hidden" name="monday" value="No">
                                     <input type="checkbox" name="monday" value="Yes">
                                     <label for="monday">Monday</label>
-                                    <span class="fa fa-check"></span>
                                 </div>
                                 <div class="input-data">
                                     <input type="hidden" name="tuesday" value="No">

@@ -31,10 +31,11 @@
                             <td data-th="Last Name"><?php echo $post->lastname?></td>
                             <td data-th="Mobile No"><?php echo $post->mobileno?></td>
                             <td data-th="Manage">
+                            <form action="<?php echo URLROOT . "/manage_ro/delete/" . $post->officerId?>" method="POST">    
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_ro/views/" . $post->officerId?>">View</a>
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_ro/edit/" . $post->officerId?>">Edit</a>
-                            <form action="<?php echo URLROOT . "/manage_ro/delete/" . $post->officerId?>" method="POST">
-                            <input type="submit" name="delete" value="Remove" class="red-btn-r">
+                            
+                            <input type="submit" name="delete" value="Remove" class="red-btn">
                             </form></td>
                         </tr>
                         <?php endforeach; ?>

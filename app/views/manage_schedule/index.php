@@ -33,14 +33,14 @@
                             <td data-th="Date"><?php echo $post->date?></td>
                             <td data-th="Distance"><?php echo $post->distance?></td>
                             <td data-th="Manage">
-                            <a class= "blue-btn" href="<?php echo URLROOT . "/manage_schedule/views/" . $post->routeId?>">View</a>
+                            <form action="<?php echo URLROOT . "/manage_schedule/delete/" . $post->routeId?>" method="POST"> <a class= "blue-btn" href="<?php echo URLROOT . "/manage_schedule/views/" . $post->routeId?>">View</a>
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_schedule/edit/" . $post->routeId?>">Edit</a>
-                            <form action="<?php echo URLROOT . "/manage_schedule/delete/" . $post->routeId?>" method="POST">
                             <input type="submit" name="delete" value="Remove" class="red-btn">
                             </form></td>
                         </tr>
                         <?php endforeach; ?>
-                    </table>                    
+                    </table>
+                    <button type="button" onclick="history.go(-1);" class="back-btn" value="Back">Back</button>                    
                 </div>
             </div>
         </div>

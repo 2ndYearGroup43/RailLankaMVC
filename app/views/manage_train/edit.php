@@ -41,7 +41,15 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="src_station">Source Station</label>
-                        <input type="text" name="src_station" value="<?php echo $data['manage_train']->src_station?>" id="src_station" required >
+                        <select name="src_station" id="src_station" required>
+                                <option value=""><?php echo $data['manage_train']->src_station?></option>
+                                <?php foreach ($data['stationids'] as $stationid ):?>
+                                <option value="<?php echo $stationid->stationID?>"><?php echo $stationid->stationID?> : <?php echo $stationid->name?></option>
+                            <?php endforeach;?>
+                        </select>
+                        <span class="invalidFeedback">
+                            <?php echo $data['src_stationError'];?>
+                        </span>
                     </div>
                     <div class="input-data">
                         <label for="starttime">Start Time</label>
@@ -51,7 +59,15 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="dest_station">Destination</label>
-                        <input type="text" name="dest_station" value="<?php echo $data['manage_train']->dest_station?>" id="dest_station" required >                       
+                        <select name="dest_station" id="dest_station" required>
+                                <option value=""><?php echo $data['manage_train']->dest_station?></option>
+                                <?php foreach ($data['stationids'] as $stationid ):?>
+                                <option value="<?php echo $stationid->stationID?>"><?php echo $stationid->stationID?> : <?php echo $stationid->name?></option>
+                            <?php endforeach;?>
+                        </select>
+                        <span class="invalidFeedback">
+                            <?php echo $data['dest_stationError'];?>
+                        </span>                       
                     </div>
                     <div class="input-data">
                         <label for="endtime">End Time</label>
@@ -61,29 +77,34 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="rateId">Rate ID</label>
-                        <input type="text" name="rateId" value="<?php echo $data['manage_train']->rateId?>" id="rateId" required >                       
+                        <select name="rateId" id="rateId" required>
+                                <option value=""><?php echo $data['manage_train']->rateId?></option>
+                                <?php foreach ($data['rates'] as $rate ):?>
+                                <option value="<?php echo $rate->rateId?>"><?php echo $rate->rateId?></option>
+                            <?php endforeach;?>
+                        </select>                       
                     </div>
                 </div>
                 <div class="form-row submit-btn">
                     <div class="input-data">
-                        <input type="submit" class="blue-btn" value="Update">
-                    </div> 
+                        <input type="submit" class="blue-btn" name="submit" value="Update Train">
+                    </div>    
                     <div class="input-data">
-                        <input type="submit" class="blue-btn" value="Add New">
-                    </div>   
+                        <a class= "blue-blue-btn" href="<?php echo URLROOT; ?>/manage_train/create">Add New Train</a>
+                    </div>  
                     <div class="input-data">
                         <input type="button" onclick="history.go(-1);" class="red-btn" value="Back">
                     </div>
                 </div>
                 <div class="form-row submit-btn">
                     <div class="input-data">
-                        <input type="submit" class="blue-btn" value="Compartment">
+                        <a class= "blue-blue-btn" href="<?php echo URLROOT; ?>/manage_compartment/index">Compartment</a>
                     </div>    
                     <div class="input-data">
-                        <input type="submit" class="blue-btn" value="Days">
+                        <a class= "blue-blue-btn" href="<?php echo URLROOT; ?>/manage_available_day/index">Available Days</a>
                     </div>
                     <div class="input-data">
-                        <input type="submit" class="blue-btn" value="Schedule">
+                        <a class= "blue-blue-btn" href="<?php echo URLROOT; ?>/manage_schedule/index">Train Schedule</a>
                     </div>
                 </div>
             </form>

@@ -44,7 +44,15 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="src_station">Source Station</label>
-                        <input type="text" name="src_station" id="src_station" required >
+                        <select name="src_station" id="src_station" required>
+                                <option value="">Select</option>
+                                <?php foreach ($data['stationids'] as $stationid ):?>
+                                <option value="<?php echo $stationid->stationID?>"><?php echo $stationid->stationID?> : <?php echo $stationid->name?></option>
+                            <?php endforeach;?>
+                        </select>
+                        <span class="invalidFeedback">
+                            <?php echo $data['src_stationError'];?>
+                        </span>
                     </div>
                     <div class="input-data">
                         <label for="starttime">Start Time</label>
@@ -54,7 +62,15 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="dest_station">Destination</label>
-                        <input type="text" name="dest_station" id="dest_station" required >                       
+                        <select name="dest_station" id="dest_station" required>
+                                <option value="">Select</option>
+                                <?php foreach ($data['stationids'] as $stationid ):?>
+                                <option value="<?php echo $stationid->stationID?>"><?php echo $stationid->stationID?> : <?php echo $stationid->name?></option>
+                            <?php endforeach;?>
+                        </select>
+                        <span class="invalidFeedback">
+                            <?php echo $data['dest_stationError'];?>
+                        </span>                      
                     </div>
                     <div class="input-data">
                         <label for="endtime">End Time</label>

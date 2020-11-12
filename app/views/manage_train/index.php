@@ -8,7 +8,7 @@
             <div class="content-row"></div>
             <div class="content-row">
                 <div class="container-table">
-                    <h2 style="color: #13406d;">Manage Trains <small style="color: black;">Train Management</small></h2>
+                    <h2 style="color: #13406d;">Train Management <small style="color: black;">Manage Trains</small></h2>
                     <a class= "blue-btn" href="<?php echo URLROOT; ?>/manage_train/create">Add New Train</a>
                     <table class="blue">
                         <thead>
@@ -37,10 +37,10 @@
                             <td data-th="End Time"><?php echo $post->endtime?></td>
                             <td data-th="Rate ID"><?php echo $post->rateId?></td>
                             <td data-th="Manage">
+                            <form action="<?php echo URLROOT . "/manage_train/delete/" . $post->trainId?>" method="POST">    
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_train/views/" . $post->trainId?>">View</a>
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_train/edit/" . $post->trainId?>">Edit</a>
-                            <form action="<?php echo URLROOT . "/manage_train/delete/" . $post->trainId?>" method="POST">
-                            <input type="submit" name="delete" value="Remove" class="red-btn-r">
+                            <input type="submit" name="delete" value="Remove" class="red-btn">
                             </form></td>
                         </tr>
                         <?php endforeach; ?>

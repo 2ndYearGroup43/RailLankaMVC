@@ -35,14 +35,15 @@
                             <td data-th="Friday"><?php echo $post->friday?></td>
                             <td data-th="Saturday"><?php echo $post->saturday?></td>
                             <td data-th="Manage">
+                            <form action="<?php echo URLROOT . "/manage_available_day/delete/" . $post->trainId?>" method="POST">    
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_available_day/views/" . $post->trainId?>">View</a>
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_available_day/edit/" . $post->trainId?>">Edit</a>
-                            <form action="<?php echo URLROOT . "/manage_available_day/delete/" . $post->trainId?>" method="POST">
-                            <input type="submit" name="delete" value="Remove" class="red-btn-r">
+                            <input type="submit" name="delete" value="Remove" class="red-btn">
                             </form></td>
                         </tr>
                         <?php endforeach; ?>
-                    </table>                    
+                    </table>
+                    <button type="button" onclick="history.go(-1);" class="back-btn" value="Back">Back</button>                    
                 </div>
             </div>
         </div>

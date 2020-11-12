@@ -13,9 +13,13 @@ class manage_train extends Controller{
 	}
 
 	public function create(){
+
 		$rates=$this->postModel->getRateId();
+		$stationids=$this->postModel->getStationID();
+
 		$data = [
 			'rates'=>$rates,
+			'stationids'=>$stationids,
 			'trainId'=>'',
 			'name'=>'',
 			'reservable_status'=>'',
@@ -30,13 +34,16 @@ class manage_train extends Controller{
             'trainIdError'=>'',
             'nameError'=>'',
             'reservable_statusError'=>'',
+            'src_stationError'=>'',
+            'dest_stationError'=>'',
             'typeError'=>''
 		];
 
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
-			'rates'=>$rates,	
+			'rates'=>$rates,
+			'stationids'=>$stationids,	
 			'trainId'=>trim($_POST['trainId']),	
 			'name'=>trim($_POST['name']),			
 			'reservable_status'=>trim($_POST['reservable_status']),
@@ -51,6 +58,8 @@ class manage_train extends Controller{
 			'trainIdError'=>'',
             'nameError'=>'',
             'reservable_statusError'=>'',
+            'src_stationError'=>'',
+            'dest_stationError'=>'',
             'typeError'=>''
 			];
             $idValidation="/^[a-zA-Z0-9]*$/";
@@ -59,13 +68,32 @@ class manage_train extends Controller{
                 if(empty($data['trainId'])){
                 $data['trainIdError']='Please Enter the Train ID.';
                 }elseif(!preg_match($idValidation, $data['trainId'])){
-                    $data['trainIdError']="Train ID can only contain letters and numbers.";
+                    $data['trainIdError']="Officer ID can only contain letters and numbers.";
                 }else{
-                    //if moderatorID exists
+
                     if($this->postModel->findTrainByTrainId($data['trainId'])){
                         $data['trainIdError']='This ID is already registered as a Train in the system.'; 
                     }
                 }
+
+                if(empty($data['src_station'])){
+                $data['src_stationError']='Please Enter the Train ID.';
+                }else{
+
+                    if($this->postModel->getSrcStation($data['src_station']) == $this->postModel->getDestStation($data['dest_station'])){
+                        $data['src_stationError']='Source and Destination Stations Cannot be Same.'; 
+                    }
+                }
+
+                if(empty($data['dest_station'])){
+                $data['dest_stationError']='Please Enter the Train ID.';
+                }else{
+
+                    if($this->postModel->getSrcStation($data['dest_station']) == $this->postModel->getDestStation($data['dest_station'])){
+                        $data['dest_stationError']='Source and Destination Stations Cannot be Same.'; 
+                    }
+                }
+
                 if(empty($data['name'])){
                     $data['nameError']='Please Enter the Train Name.';
                 }elseif(!preg_match($nameValidation, $data['name'])){
@@ -83,7 +111,7 @@ class manage_train extends Controller{
                 }
 
                 if(empty($data['trainIdError']) && empty($data['nameError']) &&
-                empty($data['reservable_statusError']) && empty($data['typeError']) ){
+                empty($data['reservable_statusError']) && empty($data['typeError']) && empty($data['src_stationError']) && empty($data['dest_stationError'])){
 
 			if ($this->postModel->create_train($data)) {
 				header("Location: " . URLROOT . "/manage_train");
@@ -100,9 +128,13 @@ class manage_train extends Controller{
 	public function edit($trainId){
 
 		$manage_train=$this->postModel->findTrain($trainId);
+		$rates=$this->postModel->getRateId();
+		$stationids=$this->postModel->getStationID();
 
 		$data = [
 			'manage_train'=>$manage_train,
+			'rates'=>$rates,
+			'stationids'=>$stationids,
 			'trainId'=>'',
 			'name'=>'',
 			'reservable_status'=>'',
@@ -115,13 +147,17 @@ class manage_train extends Controller{
             'trainIdError'=>'',
             'nameError'=>'',
             'reservable_statusError'=>'',
+            'src_stationError'=>'',
+            'dest_stationError'=>'',
             'typeError'=>''
 		];
 
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
-			'manage_train'=>$manage_train,	
+			'manage_train'=>$manage_train,
+			'rates'=>$rates,
+			'stationids'=>$stationids,	
 			'trainId'=>$trainId,	
 			'name'=>trim($_POST['name']),			
 			'reservable_status'=>trim($_POST['reservable_status']),
@@ -134,6 +170,8 @@ class manage_train extends Controller{
 			'trainIdError'=>'',
             'nameError'=>'',
             'reservable_statusError'=>'',
+            'src_stationError'=>'',
+            'dest_stationError'=>'',
             'typeError'=>''
 			];
 

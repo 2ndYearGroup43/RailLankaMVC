@@ -4,8 +4,16 @@
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">User Management</a></li>
-                <li><a href="#">Employee Management</a></li>
-                <li><a class="active" href="#">Train Management</a></li>
+                <li><a href="<?php echo URLROOT; ?>/manage_ro/index">Employee Management</a></li>
+                <li>
+                        <label for="btn-4" class="show">Train Management +</label>
+                        <a href="<?php echo URLROOT; ?>/manage_train/index"  class="active">Train Management <span class="fa fa-caret-down"  aria-hidden="true"></span></a>
+                        <input type="checkbox" id="btn-4">
+                        <ul>
+                            <li><a href="<?php echo URLROOT; ?>/manage_fare/index">Manage Fare</a></li>
+                            <li><a href="<?php echo URLROOT; ?>/manage_compartment_type/index">Compartment Type</a></li>
+                        </ul>
+                </li>
                 <li><a href="#">Station Management</a></li>
                 <li><a href="#">Reports</a></li>
                 <li>

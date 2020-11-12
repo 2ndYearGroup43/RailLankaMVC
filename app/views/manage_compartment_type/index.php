@@ -21,10 +21,10 @@
                         <tr>
                             <td data-th="Type"><?php echo $post->typeNo?></td>
                             <td data-th="Manage">
+                            <form action="<?php echo URLROOT . "/manage_compartment_type/delete/" . $post->typeNo?>" method="POST">    
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_compartment_type/views/" . $post->typeNo?>">View</a>
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_compartment_type/edit/" . $post->typeNo?>">Edit</a>
-                            <form action="<?php echo URLROOT . "/manage_compartment_type/delete/" . $post->typeNo?>" method="POST">
-                            <input type="submit" name="delete" value="Remove" class="red-btn-r">
+                            <input type="submit" name="delete" value="Remove" class="red-btn">
                             </form></td>
                         </tr>
                         <?php endforeach; ?>

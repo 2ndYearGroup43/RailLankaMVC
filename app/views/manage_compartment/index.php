@@ -29,15 +29,15 @@
                             <td data-th="No of Seats"><?php echo $post->noofseats?></td>
                             <td data-th="Type"><?php echo $post->type?></td>
                             <td data-th="Manage">
+                            <form action="<?php echo URLROOT . "/manage_compartment/delete/" . $post->trainId?>" method="POST">    
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_compartment/views/" . $post->trainId?>">View</a>
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_compartment/edit/" . $post->trainId?>">Edit</a>
-                            <form action="<?php echo URLROOT . "/manage_compartment/delete/" . $post->trainId?>" method="POST">
-                            <input type="submit" name="delete" value="Remove" class="red-btn-r">
+                            <input type="submit" name="delete" value="Remove" class="red-btn">
                             </form></td>
                         </tr>
                         <?php endforeach; ?>
-                    </table>                    
-                </div>
+                    </table>
+                    <button type="button" onclick="history.go(-1);" class="back-btn" value="Back">Back</button>             </div>
             </div>
         </div>
 <?php

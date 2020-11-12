@@ -31,10 +31,10 @@
                             <td data-th="Distance"><?php echo $post->distance?></td>
                             <td data-th="Rate"><?php echo $post->rate?></td>
                             <td data-th="Manage">
+                            <form action="<?php echo URLROOT . "/manage_fare/delete/" . $post->rateID?>" method="POST">    
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_fare/views/" . $post->rateID?>">View</a>
                             <a class= "blue-btn" href="<?php echo URLROOT . "/manage_fare/edit/" . $post->rateID?>">Edit</a>
-                            <form action="<?php echo URLROOT . "/manage_fare/delete/" . $post->rateID?>" method="POST">
-                            <input type="submit" name="delete" value="Remove" class="red-btn-r">
+                            <input type="submit" name="delete" value="Remove" class="red-btn">
                             </form></td>
                         </tr>
                         <?php endforeach; ?>

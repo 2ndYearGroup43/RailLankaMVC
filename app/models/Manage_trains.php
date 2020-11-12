@@ -32,18 +32,33 @@ class Manage_trains {
     public function findTrainByTrainId($tid)
     {
         //this is an preapared statement
-        $this->db->query('SELECT * FROM train WHERE trainId = :tid');
+        $this->db->query('SELECT COUNT(*) as count FROM train WHERE trainId = :tid');
 
         //Email param will be binded by the email variable
 
         $this->db->bind(':tid', $tid);
 
         //check if the email is already registsered;
-        if($this->db->rowCount()>0){
+        $results=array();
+        $results=$this->db->resultSet();
+        $count=$results[0]->count;
+        if($count>0){
             return true;
         }else{
             return false;
         }
+    }
+
+    public function getSrcStation(){
+         $this->db->query("SELECT src_station FROM train");
+        $results=$this->db->resultSet();
+        return $results;
+    }
+
+    public function getDestStation(){
+         $this->db->query("SELECT dest_station FROM train");
+        $results=$this->db->resultSet();
+        return $results;
     }
 
 	public function get(){
@@ -63,6 +78,12 @@ class Manage_trains {
 
 	public function getRateId(){
         $this->db->query("SELECT rateId FROM fare");
+        $results=$this->db->resultSet();
+        return $results;
+    }
+
+    public function getStationID(){
+        $this->db->query("SELECT stationID, name FROM station");
         $results=$this->db->resultSet();
         return $results;
     }
