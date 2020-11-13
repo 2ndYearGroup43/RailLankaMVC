@@ -1,14 +1,14 @@
 <?php
-    require APPROOT.'/views/includes/head.php';
+    require APPROOT.'/views/includes/moderator_head.php';
 ?>
 <?php
-    require APPROOT.'/views/includes/navigationModerator.php';
+    require APPROOT.'/views/includes/moderator_navigation.php';
 ?>
     <div class="body-section">
         <div class="content-flexrow">
             <div class="container">
                 <div class="text">Update Alerts <small>Cancellations</small></div>
-                <form action="<?php echo URLROOT;?>/alerts/updateCancellations/<?php echo $data['alert']->alertId;?>" method="POST"> 
+                <form action="<?php echo URLROOT;?>/moderatoralerts/updateCancellations/<?php echo $data['alert']->alertId;?>" method="POST"> 
                     <div class="form-row">
                         <div class="input-data">
                             <label for="trainid">Train Id</label>

@@ -9,8 +9,8 @@ class Moderator{
 
     public function registerModerator($data)
     {
-        $this->db->query('INSERT INTO users(email, password, isadmin, ispassenger, ismoderator, isreservationofficer, isdriver)
-        VALUES(:email, :password, FALSE, FALSE, TRUE, FALSE, FALSE)');
+        $this->db->query('INSERT INTO users(email, password, role)
+        VALUES(:email, :password, 3)');
         $this->db->bind(':password', $data['password']);
         $this->db->bind(':email', $data['email']);
 
@@ -154,11 +154,11 @@ class Moderator{
                         break;
                     case 'email':
                         $this->db->query('SELECT m.*,u.email FROM moderator m
-                        INNER JOIN users u ON u.userId=u.userId WHERE u.email = :searchTerm');
+                        INNER JOIN users u ON u.userId=m.userId WHERE u.email = :searchTerm');
                         break;
                     case 'mobileno':
                         $this->db->query('SELECT m.*,u.email FROM moderator m
-                        INNER JOIN users u ON u.userId=u.userId WHERE m.mobileno = :searchTerm');
+                        INNER JOIN users u ON u.userId=m.userId WHERE m.mobileno = :searchTerm');
                         break;
                     
                     

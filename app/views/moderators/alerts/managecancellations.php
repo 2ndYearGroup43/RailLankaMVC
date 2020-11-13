@@ -1,8 +1,8 @@
 <?php
-    require APPROOT.'/views/includes/head.php';
+    require APPROOT.'/views/includes/moderator_head.php';
 ?>
 <?php
-    require APPROOT.'/views/includes/navigationModerator.php';
+    require APPROOT.'/views/includes/moderator_navigation.php';
 ?>
     <div class="body-section">
         <div class="content-row"></div>
@@ -10,7 +10,7 @@
             <div class="container-table">
                 <h2>Cancellations <small>Alert Management</small></h2>
                 <div class="table-searchbar">
-                    <form action="<?php echo URLROOT?>/alerts/cancellationsSearchBy" method="POST">
+                    <form action="<?php echo URLROOT?>/moderatoralerts/cancellationsSearchBy" method="POST">
                         <input type="text" placeholder="Search by" name=searchbar><span><select name="searchselect" id="searchselect">
                             <?php foreach ($data['fields'] as $field ):?>
                                 <?php if($field->columns!='cancellation_cause'):?>
@@ -86,9 +86,9 @@
 
                             </script>
                             <td data-th="Manage">
-                                <form action="<?php echo URLROOT;?>/alerts/deleteAlert/<?php echo $row->alertId;?>/c" method="POST">
+                                <form action="<?php echo URLROOT;?>/moderatoralerts/deleteAlert/<?php echo $row->alertId;?>/c" method="POST">
                                 <button type="button" class="table-btn blue" onclick="openCancelAlert(alerts,<?php echo $count;?>)">View</button>
-                                <a href="<?php echo URLROOT;?>/alerts/updateCancellations/<?php echo $row->alertId;?>" class="blue-btn">Edit</a>
+                                <a href="<?php echo URLROOT;?>/moderatoralerts/updateCancellations/<?php echo $row->alertId;?>" class="blue-btn">Edit</a>
                                 <input type="submit" class="red-btn" value="Delete">
                                 </form>
                             </td>

@@ -1,8 +1,8 @@
 <?php 
-    require APPROOT .'/views/includes/head.php';
+    require APPROOT .'/views/includes/moderator_head.php';
 ?>
 <?php 
-    require APPROOT.'/views/includes/navigationAdmin.php';
+    require APPROOT.'/views/includes/admin_navigation.php';
 ?>
 
 <div class="body-section">

@@ -9,8 +9,7 @@ class Driver{
 
     public function registerDriver($data)
     {
-        $this->db->query('INSERT INTO users(email, password, isadmin, ispassenger, ismoderator, isreservationofficer, isdriver)
-        VALUES(:email, :password, FALSE, FALSE, FALSE, FALSE, TRUE)');
+        $this->db->query('INSERT INTO users(email, password, role) VALUES(:email, :password, 4)');
         $this->db->bind(':password', $data['password']);
         $this->db->bind(':email', $data['email']);
 
@@ -218,7 +217,7 @@ class Driver{
 
     public function login($username, $password)
     {
-        $this->db->query('SELECT * FROM driver d INNER JOIN users u ON d.userId=u.userId WHERE driverId = :username');
+        $this->db->query('SELECT * FROM driver d INNER JOIN users u ON d.userId=u.userId WHERE u.email = :username');
 
         //Find value in the db
         //bind it with variables
@@ -233,6 +232,7 @@ class Driver{
         }
     }
 
+    
 
 
 

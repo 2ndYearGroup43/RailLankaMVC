@@ -1,14 +1,14 @@
 <?php
-    class Alerts extends Controller{
+    class ModeratorAlerts extends Controller{
         public function __construct()
         {
-            $this->alertModel=$this->model('Alert');
+            $this->alertModel=$this->model('ModeratorAlert');
         }
 
         public function index()
         {
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
 
@@ -19,13 +19,13 @@
                 'fields'=>$fields
             ];
             
-            $this->view('alerts/managecancellations', $data);
+            $this->view('moderators/alerts/managecancellations', $data);
         }
 
         public function createCancellationAlerts()
         {
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
 
@@ -68,23 +68,23 @@
 
                 if(empty($data['trainIdError'])&& empty($data['cancelCauseError'])){
                     if($this->alertModel->addCancellationAlert($data)){
-                        header("Location: ".URLROOT."/alerts/viewcancelledalerts");
+                        header("Location: ".URLROOT."/moderatoralerts/viewcancelledalerts");
                     }else{
                         die("Something went wrong please try again");
                     }
                 }else{
-                    $this->view('alerts/addCancellations',$data);
+                    $this->view('moderators/alerts/addCancellations',$data);
                 }
             }
 
-            $this->view('/alerts/addCancellations',$data);
+            $this->view('moderators/alerts/addCancellations',$data);
         }
 
 
         public function viewCancelledAlerts()
         {
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
 
@@ -95,13 +95,13 @@
                 'fields'=>$fields
             ];
             
-            $this->view('alerts/managecancellations', $data);
+            $this->view('moderators/alerts/managecancellations', $data);
         }
 
         public function cancellationsSearchBy()
         {
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
             $data=[
@@ -127,15 +127,15 @@
                 ];
                 
             }  
-            $this->view('alerts/managecancellations', $data);
+            $this->view('moderators/alerts/managecancellations', $data);
 
         }
 
         public function updateCancellations($id)
         {
 
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
 
@@ -188,16 +188,16 @@
 
                 if(empty($data['trainIdError'])&& empty($data['cancelCauseError'])){
                     if($this->alertModel->updateCancellationAlert($data)){
-                        header("Location: ".URLROOT."/alerts/viewcancelledalerts");
+                        header("Location: ".URLROOT."/moderatoralerts/viewcancelledalerts");
                     }else{
                         die("Something went wrong please try again");
                     }
                 }else{
-                    $this->view('alerts/updateCancellations',$data);
+                    $this->view('moderators/alerts/updateCancellations',$data);
                 }
             }
 
-            $this->view('alerts/updateCancellations',$data);
+            $this->view('moderators/alerts/updateCancellations',$data);
         }
 
         public function delete()
@@ -209,8 +209,8 @@
         
         public function createDelayAlerts()
         {
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
 
@@ -259,23 +259,23 @@
 
                 if(empty($data['trainIdError']) && empty($data['delayTimeError']) && empty($data['delayCauseError'])){
                     if($this->alertModel->addDelayAlert($data)){
-                        header("Location: ".URLROOT."/alerts/viewDelayedAlerts");
+                        header("Location: ".URLROOT."/moderatoralerts/viewDelayedAlerts");
                     }else{
                         die("Something went wrong please try again");
                     }
                 }else{
-                    $this->view('alerts/addDelays',$data);
+                    $this->view('moderators/alerts/addDelays',$data);
                 }
             }
 
-            $this->view('alerts/addDelays',$data);
+            $this->view('moderators/alerts/addDelays',$data);
         }
 
         public function updateDelays($id)
         {
 
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
 
@@ -342,16 +342,16 @@
 
                 if(empty($data['trainIdError']) && empty($data['delayTimeError']) && empty($data['delayCauseError'])){
                     if($this->alertModel->updateDelayAlert($data)){
-                        header("Location: ".URLROOT."/alerts/viewDelayedAlerts");
+                        header("Location: ".URLROOT."/moderatoralerts/viewDelayedAlerts");
                     }else{
                         die("Something went wrong please try again");
                     }
                 }else{
-                    $this->view('alerts/updateDelays',$data);
+                    $this->view('moderators/alerts/updateDelays',$data);
                 }
             }
 
-            $this->view('alerts/updateDelays',$data);
+            $this->view('moderators/alerts/updateDelays',$data);
         }
 
 
@@ -361,8 +361,8 @@
 
         public function viewDelayedAlerts()
         {
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
 
@@ -373,13 +373,13 @@
                 'fields'=>$fields
             ];
             
-            $this->view('alerts/managedelays', $data);
+            $this->view('moderators/alerts/managedelays', $data);
         }
 
         public function delaysSearchBy()
         {
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
 
@@ -406,7 +406,7 @@
                 ];
                 
             }  
-            $this->view('alerts/managedelays', $data);
+            $this->view('moderators/alerts/managedelays', $data);
 
         }
 
@@ -414,8 +414,8 @@
 
         public function createRescheduledAlerts()
         {
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
             
@@ -471,23 +471,23 @@
 
                 if(empty($data['trainIdError']) && empty($data['newDateError']) && empty($data['newTimeError']) && empty($data['reschedulementCauseError'])){
                     if($this->alertModel->addRescheduledAlert($data)){
-                        header("Location: ".URLROOT."/alerts");
+                        header("Location: ".URLROOT."/moderatoralerts/viewRescheduledAlerts");
                     }else{
                         die("Something went wrong please try again");
                     }
                 }else{
-                    $this->view('alerts/addReschedulements',$data);
+                    $this->view('moderators/alerts/addReschedulements',$data);
                 }
             }
 
-            $this->view('/alerts/addReschedulements',$data);
+            $this->view('moderators/alerts/addReschedulements',$data);
         }
 
         public function updateReschedulements($id)
         {
 
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
 
@@ -563,22 +563,22 @@
 
                 if(empty($data['trainIdError']) && empty($data['newDateError']) && empty($data['newTimeError']) && empty($data['reschedulementCauseError'])){
                     if($this->alertModel->updateRescheduledAlert($data)){
-                        header("Location: ".URLROOT."/alerts/viewRescheduledAlerts");
+                        header("Location: ".URLROOT."/moderatoralerts/viewRescheduledAlerts");
                     }else{
                         die("Something went wrong please try again");
                     }
                 }else{
-                    $this->view('alerts/updateReschedulements',$data);
+                    $this->view('moderators/alerts/updateReschedulements',$data);
                 }
             }
 
-            $this->view('/alerts/updateReschedulements',$data);
+            $this->view('moderators/alerts/updateReschedulements',$data);
         }
 
         public function viewRescheduledAlerts()
         {
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
 
@@ -589,13 +589,13 @@
                 'fields'=>$fields
             ];
             
-            $this->view('alerts/managereschedulements', $data);
+            $this->view('moderators/alerts/managereschedulements', $data);
         }
 
         public function reschedulementsSearchBy()
         {
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
 
@@ -622,14 +622,14 @@
                 ];
                 
             }  
-            $this->view('alerts/managereschedulements', $data);
+            $this->view('moderators/alerts/managereschedulements', $data);
 
         }
 
         public function deleteAlert($id,$type)
         {
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
+            if (!isLoggedIn()) {
+                header("Location: ".URLROOT."/users/login");
                 exit;
             }
 
@@ -639,13 +639,13 @@
                 if($this->alertModel->deleteAlert($id)){
                     switch ($type) {
                         case 'c':
-                            header("Location: ".URLROOT."/alerts/viewCancelledAlerts");
+                            header("Location: ".URLROOT."/moderatoralerts/viewCancelledAlerts");
                             break;
-                        case 'c':
-                            header("Location: ".URLROOT."/alerts/viewDelayedAlerts");
+                        case 'd':
+                            header("Location: ".URLROOT."/moderatoralerts/viewDelayedAlerts");
                             break;
-                        case 'c':
-                            header("Location: ".URLROOT."/alerts/viewRescheduledAlerts");
+                        case 'r':
+                            header("Location: ".URLROOT."/moderatoralerts/viewRescheduledAlerts");
                             break;
                     }
                     
@@ -655,6 +655,43 @@
             }
 
         }
+
+
+
+
+
+
+        //passengers Anuki's Alerts
+
+        public function search() {
+			
+			$this->view('passengers/alerts/search_trains'); 
+		}
+
+		public function displayTrains() {
+
+			$this->view('passengers/alerts/display_trains'); 
+		}
+
+		public function displayAlerts() {
+
+			$this->view('passengers/alerts/display_alerts'); 
+		}	
+
+		public function displayCancelled() {
+
+			$this->view('passengers/alerts/display_cancelled'); 
+		}	
+
+		public function displayDelayed() {
+
+			$this->view('passengers/alerts/display_delayed'); 
+		}	
+
+		public function displayRescheduled() {
+
+			$this->view('passengers/alerts/display_rescheduled'); 
+		}	
     
     
     

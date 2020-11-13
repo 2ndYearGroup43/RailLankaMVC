@@ -5,6 +5,12 @@
             $this->driverModel=$this->model('Driver');
         }
 
+
+        public function index()
+        {
+            $this->view('drivers/afterLogin');
+        }
+
         
 
         public function registerDriver()
@@ -404,21 +410,112 @@
         public function createUserSession($loggedInUser)
         {
             
-            $_SESSION['moderator_id']= $loggedInUser->driverId;
+            $_SESSION['driver_id']= $loggedInUser->driverId;
             $_SESSION['employee_id']= $loggedInUser->employeeId;
             $_SESSION['email']= $loggedInUser->email;
-
-            header('location: '.URLROOT.'/pages/index');
+            echo "Awa";
+            $this->view("drivers/afterLogin");
             
         }
 
         public function logout()
         {
-            unset($_SESSION['moderator_id']);
+            unset($_SESSION['driver_id']);
             unset($_SESSION['employee_id']);
             unset($_SESSION['email']);
 
             header('location: '.URLROOT.'/moderators/login');
             
         }
+
+        public function driverLogin()
+        {
+            $data = [
+                'title'=>'Login page',
+                'username'=>'',
+                'password'=>'',
+                'usernameError'=>'',
+                'passwordError'=>''
+            ];
+
+
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                //sanitize te data
+                $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data=[
+                    'username'=>trim($_POST['userName']),
+                    'password'=>trim($_POST['password']),
+                    'usernameError'=>'',
+                    'passwordError'=>''
+                ];
+
+                if(empty($data['username'])){
+                    $data['usernameError']="Please enter a username.";   
+                }
+                if(empty($data['password'])){
+                    $data['passwordError']="Please enter a password.";
+                }
+                echo "Awa";
+                if(empty($data['usernameError'])&& empty($data['passwordError'])){
+                    $loggedInUser=$this->driverModel->login($data['username'] ,$data['password']);
+                    echo "Awa";
+                    if($loggedInUser){
+                        $this->createUserSession($loggedInUser);
+                    }else{
+                        $data['passwordError']='Username or Password is incorrect.
+                        Please try again.';
+
+                        $this->view('drivers/afterLogin', $data);
+                    }
+                }
+            
+            }else{
+                $data=[
+                    'username'=>'',
+                    'password'=>'',
+                    'usernameError'=>'',
+                    'passwordError'=>''
+                ];
+            }
+
+
+
+            $this->view('drivers/afterLogin', $data);
+        }
+
+
+
     }
+
+
+
+
+
+
+
+
+
+//     <?php   
+//     require_once "conn.php";
+//     $user_email = $_POST['userName'];
+//     $user_pass = $_POST['password'];
+
+//     $stmt=$conn->prepare("SELECT u.* FROM users u INNER JOIN driver d ON u.userId=d.userId 
+//     WHERE u.email=:email");
+
+//     $stmt->bindValue(":email", $user_email, PDO::PARAM_STR);
+//     $stmt->execute();
+//     $row=$stmt->fetch(PDO::FETCH_OBJ);
+
+
+//     // var_dump($row);
+
+//     $hashedpassword=$row->password;
+//     if(password_verify($user_pass, $hashedpassword)){
+//         echo "authenticated!!!!!!!!!!!!";
+//     }else{
+//         echo "who dis";
+//     }
+    
+
+?>

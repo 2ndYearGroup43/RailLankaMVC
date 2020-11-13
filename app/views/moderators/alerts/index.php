@@ -2,7 +2,7 @@
 
 <div>
     
-    <a class="btn-blue" href="<?php echo URLROOT;?>/alerts/createCancellationAlerts">
+    <a class="btn-blue" href="<?php echo URLROOT;?>/moderatoralerts/createCancellationAlerts">
             Create     
     </a> 
     <?php foreach ($data['alerts'] as $posts ): ?>

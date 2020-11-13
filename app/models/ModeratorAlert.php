@@ -1,5 +1,5 @@
 <?php
-    class Alert{
+    class ModeratorAlert{
         private $db;
 
         public function __construct()

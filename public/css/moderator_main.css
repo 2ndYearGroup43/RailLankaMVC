@@ -27,22 +27,23 @@ body{
     /* font-family: montserrat; */
     /* display: flex;
     position: relative;
-    background-image: url('/images/bg1.jpg'); */
+    background-image: url('/img/bg1.jpg'); */
     /* background-color: #cccccc; */
 }
-nav{
+
+nav.h{
     /* height: 80px; */
     width: 100%;
     background: #13406d;
 }
 
-nav:after{
+nav.h:after{
     content: '';
     clear: both;
     display: table;
 }
 
-nav .logo{
+nav.h .logo{
     float: left;
     font-size: 35px;
     font-weight: bold;
@@ -50,7 +51,7 @@ nav .logo{
     padding: 0 10px;
     line-height: 80px;
 }
-nav ul{
+nav.h ul{
     float: right;
     list-style: none;
     margin-right: 40px;
@@ -58,25 +59,25 @@ nav ul{
     /* padding-top: 15px; */
 }
 
-nav ul.main-nav{
+nav.h ul.main-nav{
     padding-top: 15px;
 }
 
-nav ul li{
+nav.h ul li{
     float: left;
     display: inline-block;
     background: #13406d;
     margin: 0 5px;
 }
 
-nav ul li a{
+nav.h ul li a{
     color: white;
     text-decoration: none;
     line-height: 70px;
     font-size: 18px;
     padding-left: 8px 15px;
 }
-nav ul li a:hover{
+nav.h ul li a:hover{
     border: 1px solid white;
     transition: .5s;
 }
@@ -86,12 +87,12 @@ a.active,a:hover{
     transition: .5s;
 }
 
-nav ul ul li a:hover{
+nav.h ul ul li a:hover{
     border: none;
 }
 
 
-nav ul ul{
+nav.h ul ul{
     position: absolute;
     top: 90px;
     border-top: 3px solid black;
@@ -100,17 +101,17 @@ nav ul ul{
     transition: top .3s;
 }
 
-nav ul ul ul{
+nav.h ul ul ul{
     border-top: none;
 }
 
-nav ul li:hover > ul{
+nav.h ul li:hover > ul{
     top: 85px;
     opacity: 1;
     visibility: visible;
 }
 
-nav ul ul li{
+nav.h ul ul li{
     position: relative;
     margin: 0px;
     width: 150px;
@@ -120,25 +121,25 @@ nav ul ul li{
     z-index: 4;
 }
 
-nav ul ul li a{
+nav.h ul ul li a{
     line-height: 25px;
     font-size: 12px;
     z-index: 4;
 }
 
-nav ul ul ul li{
+nav.h ul ul ul li{
     position: relative;
     top: -70px;
     left: 150px;
 }
 
-nav li{
+nav.h li{
     display: inline-block;
     margin: 0 8px;
     line-height: 80px;
 }
 
-nav a{
+nav.h a{
     color: white;
     font-size: 18px;
     text-transform: uppercase;
@@ -147,20 +148,20 @@ nav a{
     border-radius: 3px;
 
 }
-nav .logo a{
+nav.h .logo a{
     padding: 5px;
 }
-nav .logo a:hover{
+nav.h .logo a:hover{
     border: none;
 }
-nav .logo img{
+nav.h .logo img{
     padding-top: 5px;
     padding-bottom: 0px;
 }
 
 
 
- nav #icon{
+ nav.h #icon{
      color: white;
      font-size: 30px;
      line-height: 80px;
@@ -172,19 +173,19 @@ nav .logo img{
  
 
 
-.show,.icon,.show2,nav input{
+.show,.icon,.show2,nav.h input{
     display: none;
 }
 
 
 
 @media all and (max-width: 800px){
-    nav ul{
+    nav.h ul{
         margin-right: 0px;
         float: left;
     }
 
-    nav .logo{
+    nav.h .logo{
         padding-left: 30px;
         width: 100%;
     }
@@ -193,7 +194,7 @@ nav .logo img{
         display: none;
     }
 
-    nav ul li, nav ul ul li{
+    nav.h ul li, nav.h ul ul li{
         display: block;
         width: 100%;
     }
@@ -219,7 +220,7 @@ nav .logo img{
         color: white;
     }
 
-    nav ul ul{
+    nav.h ul ul{
         top: 70px;
         position: static;
         border-top: 0px;
@@ -229,15 +230,15 @@ nav .logo img{
         visibility: visible;        
     }
     
-    nav ul ul a{
+    nav.h ul ul a{
         padding-left: 40px;
     }
 
-    nav ul ul ul a{
+    nav.h ul ul ul a{
         padding-left: 80px;
     } 
 
-    nav ul ul ul li{
+    nav.h ul ul ul li{
         position: static;
     }
 
@@ -245,7 +246,7 @@ nav .logo img{
         display: block;
     }
 
-    nav ul ul li{
+    nav.h ul ul li{
         border-bottom: 0px;
     }
 
@@ -258,7 +259,7 @@ nav .logo img{
         font-size: 25px;
         cursor: pointer;
     }
-    nav ul li a:hover{
+    nav.h ul li a:hover{
         border: none;
     }
     .show + a, ul{
@@ -388,7 +389,7 @@ nav .logo img{
     justify-content: center;
     min-height: 100vh;
     padding: 40px;  
-    background: url(../images/bg1.jpg) no-repeat;
+    background: url(../img/bg1.jpg) no-repeat;
     background-size: cover;
     height: calc(100vh - 80px);
 }
@@ -696,7 +697,7 @@ align-items: center;
 justify-content: center;
 min-height: 100vh;
 padding: 40px;  
-background: url(../images/bg1.jpg) no-repeat;
+background: url(../img/bg1.jpg) no-repeat;
 background-size: cover;
 height: calc(100vh - 80px); */
 
@@ -1006,7 +1007,7 @@ body div.container-searchbox .{
 
 
 .body-section{
-    background-image: url('../images/bg1.jpg');
+    background-image: url('../img/bg1.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     /* height: 160vh; */

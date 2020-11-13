@@ -6,9 +6,9 @@
 	// 	echo "<br>";
 	// }
 	
-	// isPassenger();
+	isPassenger();
 	require APPROOT . '/views/includes/passenger_head.php';
-	require APPROOT . '/views/includes/passenger_navigation.php';
+	require APPROOT . '/views/includes/admin_navigation.php';
 ?>
 
 <?php var_dump($_SESSION); ?> 
@@ -36,7 +36,7 @@
 				<section id="carousel">
 					<div class="slideshow">
 						<div class="slideshow-item">
-							<img src="<?php echo URLROOT ?>/public/img/bookmark1.jpg">
+							<img src="<?php echo URLROOT ?>/public/images/bookmark1.jpg">
 							<div class="slideshow-item-text">
 								<h3>COLOMBO-KANDY</h3>
 								<!-- <p>The three-hour trip from Colombo to Kandy will whisk you away from the big city sprawl to the genteel greenery of Sri Lanka’s spiritual capital.</p> -->
@@ -44,7 +44,7 @@
 							</div>
 						</div>
 						<div class="slideshow-item">
-							<img src="<?php echo URLROOT ?>/public/img/bookmark2.jpg">
+							<img src="<?php echo URLROOT ?>/public/images/bookmark2.jpg">
 							<div class="slideshow-item-text">
 								<h3>COLOMBO-GALLE</h3>
 								<!-- <p>Lorem Ipsum</p> -->
@@ -52,7 +52,7 @@
 							</div>
 						</div>
 						<div class="slideshow-item">
-							<img src="<?php echo URLROOT ?>/public/img/bookmark3.jpg">
+							<img src="<?php echo URLROOT ?>/public/images/bookmark3.jpg">
 							<div class="slideshow-item-text">
 								<h3>COLOMBO-JAFFNA</h3>
 								<!-- <p>Lorem Ipsum</p> -->

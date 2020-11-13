@@ -5,21 +5,23 @@
 	// 	echo "Information: " . $user->user_name . $user->user_email;
 	// 	echo "<br>";
 	// }
-	if(isLoggedIn()){
-		redirect($_SESSION['role']);
-	}
 
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?>
 <div class="banner">
 <div class="container-login">
 	<div class="wrapper-login">
-		<h2>Sign In</h2>
+		<h2>Register</h2>
 
-		<form action="<?php echo URLROOT; ?>/users/login" method="POST">
+		<form action="<?php echo URLROOT; ?>/users/register" method="POST">
+
+			<input type="text" placeholder="NIC/Passport No *"name="nic">
+			<span class="invalidFeedback">
+				<?php echo $data['nicError']; ?>
+			</span>
+
 			<input type="email" placeholder="Email *"name="email">
 			<span class="invalidFeedback">
 				<?php echo $data['emailError']; ?>
@@ -30,11 +32,14 @@
 				<?php echo $data['passwordError']; ?>
 			</span>
 
+			<input type="password" placeholder="Confirm Password *"name="confirmPassword">
+			<span class="invalidFeedback">
+				<?php echo $data['confirmPasswordError']; ?>
+			</span>
+
 			<button id="submit" type="submit" value="submit">Submit</button>
 
-			<p class="options"><a href="<?php echo URLROOT; ?>/users/register">Forgot Password?</a></p>
-
-			<p class="options">Not registered yet? <a href="<?php echo URLROOT; ?>/users/register">Create an account!</a></p>
+			<p class="options">Already have an account? <a href="<?php echo URLROOT; ?>/users/login">Log In!</a></p>
 		</form>
 	</div>
 </div>
