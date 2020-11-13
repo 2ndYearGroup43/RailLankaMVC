@@ -54,8 +54,6 @@
                     'cancelCauseError'=>''
                 ];
 
-                
-
                 if(empty($data['trainId'])){
                     $data['trainIdError']='The trainId should not be empty';   
                 }elseif (!$this->alertModel->findTrainById($data['trainId'])) {
@@ -697,6 +695,3 @@
     
     
     }
-
-
-   
