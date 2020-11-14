@@ -9,6 +9,16 @@
 		}
 	}
 
+	function isPassengerLoggedIn(){
+		if(isset($_SESSION['userid'])) {
+			if($_SESSION['role']!=1){
+				header('location:' . URLROOT . '/users/logout');
+			}
+		} else {
+			header('location:' . URLROOT . '/users/login');
+		}
+	}
+
 	function isPassenger() {
 		if(isset($_SESSION['role']))
 		{

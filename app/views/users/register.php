@@ -6,7 +6,7 @@
 	// 	echo "<br>";
 	// }
 
-	require APPROOT . '/views/includes/head.php';
+	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
@@ -31,6 +31,12 @@
 			<span class="invalidFeedback">
 				<?php echo $data['passwordError']; ?>
 			</span>
+			<!-- <p class="login-hide">
+				<i class="fa fa-circle-thin" aria-hidden="true"></i> Must be at least 8 characters
+			</p>
+			<p class="login-hide">
+				<i class="fa fa-circle-thin" aria-hidden="true"></i> Should contain at least one numeric value
+			</p> -->
 
 			<input type="password" placeholder="Confirm Password *"name="confirmPassword">
 			<span class="invalidFeedback">

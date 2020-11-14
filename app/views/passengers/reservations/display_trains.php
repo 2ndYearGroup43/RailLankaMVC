@@ -6,8 +6,8 @@
 	// 	echo "<br>";
 	// }
 	
-	isPassenger();
-	require APPROOT . '/views/includes/head.php';
+	// isPassengerLoggedIn();
+	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
@@ -44,7 +44,7 @@
 							<td data-label="Arrival Time">9.38 a.m.</td>
 							<td data-label="Type">A.C.- Intercity</td>
 							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/reservations/displaySeatMaps'" type="submit" class="btn"><span>Reserve</span></button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps'" type="submit" class="btn"><span>Reserve</span></button>
 							</td>
 						</tr>
 						<tr>

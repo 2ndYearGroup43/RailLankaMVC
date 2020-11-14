@@ -6,8 +6,8 @@
 	// 	echo "<br>";
 	// }
 	
-	isPassenger();
-	require APPROOT . '/views/includes/head.php';
+	// isPassenger();
+	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
@@ -35,16 +35,16 @@
 						<div class="dropdown">
 							<button class="dropbtn">Select Type  <i class="fa fa-caret-down"></i></button>
 							<div class="dropdown-content">
-								<a href="<?php echo URLROOT; ?>/alerts/displayDelayed">Delayed</a>
-								<a href="<?php echo URLROOT; ?>/alerts/displayRescheduled">Rescheduled</a>
-								<a href="<?php echo URLROOT; ?>/alerts/displayCancelled">Cancelled</a>
+								<a href="<?php echo URLROOT; ?>/passengerAlerts/displayDelayed">Delayed</a>
+								<a href="<?php echo URLROOT; ?>/passengerAlerts/displayRescheduled">Rescheduled</a>
+								<a href="<?php echo URLROOT; ?>/passengerAlerts/displayCancelled">Cancelled</a>
 							</div>
 						</div>
 					</div>
 					<?php if(isset($_SESSION['userid'])) : ?>
                     <div class="btn-group col-4" id="cng">
-					  <button onclick="location.href='<?php echo URLROOT; ?>/accounts/displaySubscriptions'" class="blue-btn">My Alerts</button>
-					  <button onclick="location.href='<?php echo URLROOT; ?>/alerts/search'" class="blue-btn">Subscribe</button>
+					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displaySubscriptions'" class="blue-btn">My Alerts</button>
+					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/search'" class="blue-btn">Subscribe</button>
 					</div>
 					<?php endif; ?>
 				</div>

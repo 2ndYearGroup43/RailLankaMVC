@@ -89,18 +89,83 @@
 		//find user email
 		public function findUserByEmail($email) {
 			//prepared statemnet
+			var_dump($email);
 			$this->db->query('SELECT * FROM users WHERE email = :email'); //check all tables!!!!
 
 			//Email param will be binded with the email variable
 			$this->db->bind(':email', $email);
 
+			$row = $this->db->single();
+
 			//check if email is already registered
-			if($this->db->rowCount() > 0) {
+			if(!empty($row)) {
 				return true;
 			} else {
 				return false;
 			}
 
+		}
+
+		public function findEmailByCode($code) {
+
+			$this->db->query('SELECT * FROM resetpasswords WHERE code = :code'); 
+
+			//code param will be binded with the code variable
+			$this->db->bind(':code', $code);
+
+			$row = $this->db->single();
+			
+			//check if their is a valid registered email for the code 
+			if(!empty($row)){
+				return $row;
+			}
+		}
+
+		public function requestReset($email, $code){
+
+			$this->db->query('INSERT INTO resetpasswords (email,code) VALUES (:email, :code)');
+
+			//bind values
+			$this->db->bind(':email', $email);
+			$this->db->bind(':code', $code);
+
+			//Execute function
+			if ($this->db->execute()) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		public function updatePassword($email, $password) {
+
+			$this->db->query('UPDATE users SET password = :password WHERE email = :email');
+
+			//bind values
+			$this->db->bind(':email', $email);
+			$this->db->bind(':password', $password);
+
+			//Execute function
+			if ($this->db->execute()) {
+				return true;				
+			} else {
+				return false;
+			}
+		}
+
+		public function deleteCode($code){
+
+			$this->db->query('DELETE FROM resetpasswords WHERE code = :code');
+
+			//bind values
+			$this->db->bind(':code', $code);
+
+			//execute function
+			if ($this->db->execute()){
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		// public function getUsers() {

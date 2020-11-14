@@ -6,8 +6,8 @@
 	// 	echo "<br>";
 	// }
 	
-	isPassenger();
-	require APPROOT . '/views/includes/head.php';
+	// isPassengerLoggedIn();
+	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
@@ -47,7 +47,7 @@
 					<!-- </div> -->
 				<!-- </div> -->
 			</div>
-			<button onclick="location.href='<?php echo URLROOT; ?>/reservations/displayTrains'" type="submit" class="btn blue-btn back-btn">Back</button>
+			<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displayTrains'" type="submit" class="btn blue-btn back-btn">Back</button>
 		</div>		
 		<div class="content-row">
 		</div>

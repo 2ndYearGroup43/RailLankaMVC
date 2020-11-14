@@ -6,8 +6,8 @@
 	// 	echo "<br>";
 	// }
 	
-	isPassenger();
-	require APPROOT . '/views/includes/head.php';
+	// isPassenger();
+	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
@@ -24,9 +24,9 @@
 			<h1 class="title">My Account</h1>
 				<div class="row">
 					<div class="btn-group">
-						<button onclick="location.href='<?php echo URLROOT; ?>/accounts/editAccount'" type="submit" class="blue-btn"><span>Edit Account <i class="fa fa-edit"></i></span></button>
-						<button onclick="location.href='<?php echo URLROOT; ?>/accounts/displayTickets'" type="submit" class="blue-btn"><span>My Tickets <i class="fa fa-credit-card" aria-hidden="true"></i></span></button>
-						<button onclick="location.href='<?php echo URLROOT; ?>/accounts/displaySubscriptions'" type="submit" class="blue-btn"><span>Subscriptions <i class="fa fa-bell-o" aria-hidden="true"></i></span></button>
+						<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/editAccount'" type="submit" class="blue-btn"><span>Edit Account <i class="fa fa-edit"></i></span></button>
+						<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTickets'" type="submit" class="blue-btn"><span>My Tickets <i class="fa fa-credit-card" aria-hidden="true"></i></span></button>
+						<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displaySubscriptions'" type="submit" class="blue-btn"><span>Subscriptions <i class="fa fa-bell-o" aria-hidden="true"></i></span></button>
 						<button type="submit" class="blue-btn">Reset Password</button>
 						<button type="submit" class="blue-btn">Delete Account</button>
 					</div>

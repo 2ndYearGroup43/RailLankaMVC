@@ -6,8 +6,8 @@
 	// 	echo "<br>";
 	// }
 	
-	isPassenger();
-	require APPROOT . '/views/includes/head.php';
+	// isPassenger();
+	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
@@ -59,8 +59,8 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<button onclick="location.href='<?php echo URLROOT; ?>/accounts/displayAccount'" type="button" class="blue-btn btn">Save</button>
-					<button onclick="location.href='<?php echo URLROOT; ?>/accounts/displayAccount'" type="button" class="blue-btn btn">Back</button>
+					<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayAccount'" type="button" class="blue-btn btn">Save</button>
+					<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayAccount'" type="button" class="blue-btn btn">Back</button>
                 </div>
 			</form>	
 		</div>

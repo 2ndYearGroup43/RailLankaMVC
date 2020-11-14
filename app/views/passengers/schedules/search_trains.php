@@ -6,8 +6,8 @@
 	// 	echo "<br>";
 	// }
 	
-	isPassenger();
-	require APPROOT . '/views/includes/head.php';
+	// isPassenger();
+	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
@@ -25,14 +25,20 @@
 			<form action="#">
 				<div class="form-row">	
 					<div class="input-data">
-						<input type="text" name="" required>
+						<input type="text" name="source" list="stationList" required>
+						<datalist id="stationList">
+							<option>Fort</option>
+							<option>Kandy</option>
+							<option>Galle</option>
+							<option>Badulla</option>
+						</datalist>
 						<div class="underline"></div>
 						<label>Source Station</label>
 					</div>
 				</div>	
 				<div class="form-row">
 					<div class="input-data">
-						<input type="text" name="" required>
+						<input type="text" name="destination" list="stationList" required>
 						<div class="underline"></div>
 						<label>Destination Station</label>
 					</div>
@@ -53,8 +59,8 @@
 				</div>
 				<div class="form-row">
 					
-					<button onclick="location.href='<?php echo URLROOT; ?>/schedules/displayTrains'" type="button" class="blue-btn btn">Search</button> <!-- submit was removed -->
-					<button onclick="location.href='<?php echo URLROOT; ?>/schedules/search'" type="submit" class="blue-btn btn">Reset</button>
+					<button onclick="location.href='<?php echo URLROOT; ?>/passengerSchedules/displayTrains'" type="button" class="blue-btn btn">Search</button> <!-- submit was removed -->
+					<button onclick="location.href='<?php echo URLROOT; ?>/passengerSchedules/search'" type="submit" class="blue-btn btn">Reset</button>
                 </div>
 			</form>	
 		</div>

@@ -7,7 +7,7 @@
 	// }
 	
 	isPassenger();
-	require APPROOT . '/views/includes/head.php';
+	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
@@ -115,10 +115,10 @@
 		<ul>
 			<li>
 				<div class="time">
-					<h2>24<br><span>June</span></h2>
+					<h2>02<br><span>October</span></h2>
 				</div>
 				<div class="time-details">
-					<a id=pop-up href="#"><h3>Where does it come from</h3></a>
+					<a id=pop-up href="#"><h3>Fort-Station closed for renovation</h3></a>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 					</p>
 				</div>
@@ -126,10 +126,10 @@
 			</li>
 			<li>
 				<div class="time">
-						<h2>24<br><span>June</span></h2>
+						<h2>18<br><span>August</span></h2>
 					</div>
 					<div class="time-details">
-						<a id=pop-up href="#"><h3>Where does it come from</h3></a>
+						<a id=pop-up href="#"><h3>15 stations closed due to COVID-19</h3></a>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 						</p>
 					</div>
@@ -161,7 +161,10 @@
 
 					<tbody>	
 						<tr>
-							<td><h2>lorem ipsum</h2></td>
+							<td>2nd October 2020</td>
+						</tr>
+						<tr>
+							<td><h3>Colombo Fort-Station closed for renovation</h3></td>
 						</tr>
 						<tr>	
 							<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

@@ -6,8 +6,8 @@
 	// 	echo "<br>";
 	// }
 	
-	isPassenger();
-	require APPROOT . '/views/includes/head.php';
+	// isPassengerLoggedIn();
+	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
@@ -44,7 +44,7 @@
 							<td data-label="Arrival Time">9.38 a.m.</td>
 							<td data-label="Type">A.C.- Intercity</td>
 							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/trackings/displayLiveTrain'" type="submit" class="btn"><span>Track</span></button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayLiveTrain'" type="submit" class="btn"><span>Track</span></button>
 							</td>
 						</tr>
 						<tr>
@@ -54,7 +54,7 @@
 							<td data-label="Arrival Time">9.38 a.m.</td>
 							<td data-label="Type">Intercity</td>
 							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/trackings/displayLiveTrain'" type="submit" class="btn">Track</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayLiveTrain'" type="submit" class="btn">Track</button>
 							</td>
 						</tr>
 						<tr>
@@ -64,7 +64,7 @@
 							<td data-label="Arrival Time">11.03 a.m.</td>
 							<td data-label="Type">Express - Udarata Menike</td>
 							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/trackings/displayLiveTrain'" type="submit" class="btn">Track</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayLiveTrain'" type="submit" class="btn">Track</button>
 							</td>
 						</tr>
 						<tr>
@@ -74,7 +74,7 @@
 							<td data-label="Arrival Time">1.55 a.m.</td>
 							<td data-label="Type">Colombo Commuter</td>
 							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/trackings/displayLiveTrain'" type="submit" class="btn">Track</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayLiveTrain'" type="submit" class="btn">Track</button>
 							</td>
 						</tr>
 						<tr>
@@ -84,13 +84,13 @@
 							<td data-label="Arrival Time">9.38 a.m.</td>
 							<td data-label="Type">Intercity</td>
 							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/trackings/displayLiveTrain'" type="submit" class="btn">Track</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayLiveTrain'" type="submit" class="btn">Track</button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			<!-- </div> -->
-			<button onclick="location.href='<?php echo URLROOT; ?>/trackings/search'" type="submit" class="btn blue-btn back-btn">Back</button>
+			<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/search'" type="submit" class="btn blue-btn back-btn">Back</button>
 		</div>
 		<div class="content-row">
 		</div>
@@ -143,7 +143,7 @@
                             </div>
 						</div>
 					</form>
-					<button onclick="location.href='<?php echo URLROOT; ?>/trackings/displayTrains'" class="btn blue-btn">Go <i class="fa fa-long-arrow-right"></i></button>
+					<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayTrains'" class="btn blue-btn">Go <i class="fa fa-long-arrow-right"></i></button>
 				</div>
 			</div>
 		</div>

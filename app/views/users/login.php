@@ -9,7 +9,7 @@
 		redirect($_SESSION['role']);
 	}
 
-	require APPROOT . '/views/includes/head.php';
+	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
@@ -32,7 +32,7 @@
 
 			<button id="submit" type="submit" value="submit">Submit</button>
 
-			<p class="options"><a href="<?php echo URLROOT; ?>/users/register">Forgot Password?</a></p>
+			<p class="options"><a href="<?php echo URLROOT; ?>/users/requestReset">Forgot Password?</a></p>
 
 			<p class="options">Not registered yet? <a href="<?php echo URLROOT; ?>/users/register">Create an account!</a></p>
 		</form>

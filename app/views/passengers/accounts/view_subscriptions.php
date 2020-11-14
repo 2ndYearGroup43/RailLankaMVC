@@ -6,8 +6,8 @@
 	// 	echo "<br>";
 	// }
 	
-	isPassenger();
-	require APPROOT . '/views/includes/head.php';
+	// isPassenger();
+	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
@@ -65,7 +65,7 @@
 						</tr>
 					</tbody>
 				</table>
-			<button onclick="location.href='<?php echo URLROOT; ?>/accounts/displayAccount'" type="submit" class="btn blue-btn back-btn"><span>Back</span></button>
+			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayAccount'" type="submit" class="btn blue-btn back-btn"><span>Back</span></button>
 		</div>
 		<div class="content-row">
 		</div>

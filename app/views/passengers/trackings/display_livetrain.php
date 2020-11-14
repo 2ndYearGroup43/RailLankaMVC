@@ -6,8 +6,8 @@
 	// 	echo "<br>";
 	// }
 	
-	isPassenger();
-	require APPROOT . '/views/includes/head.php';
+	// isPassengerLoggedIn();
+	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
@@ -43,7 +43,7 @@
 				</table>
 				<div id="map"></div>
 			<!-- </div> -->
-				<button onclick="location.href='<?php echo URLROOT; ?>/trackings/displayTrains'" type="submit" class="btn red-btn back-btn">Back</button>
+				<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayTrains'" type="submit" class="btn red-btn back-btn">Back</button>
 		</div>
 		     <script>
                     function initMap(){
