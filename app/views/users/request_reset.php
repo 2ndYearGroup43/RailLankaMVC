@@ -5,36 +5,40 @@
 	// 	echo "Information: " . $user->user_name . $user->user_email;
 	// 	echo "<br>";
 	// }
+
 	if(isLoggedIn()){
 		redirect($_SESSION['role']);
 	}
+
+	// use PHPMailer\PHPMailer\PHPMailer;
+	// use PHPMailer\PHPMailer\SMTP;
+	// use PHPMailer\PHPMailer\Exception;
+
+	// require APPROOT . '/libraries/PHPMailer/src/Exception.php';
+	// require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
+	// require APPROOT . '/libraries/PHPMailer/src/SMTP.php';
 
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?>
 <div class="banner">
 <div class="container-login">
 	<div class="wrapper-login">
-		<h2>Sign In</h2>
+		<h2>Reset Password</h2>
 
-		<form action="<?php echo URLROOT; ?>/users/login" method="POST">
-			<input type="email" placeholder="Email *"name="email">
+		<form action="<?php echo URLROOT; ?>/users/requestReset" method="POST">
+
+			<p class="options">Enter your email and we'll send you a link to<br>get back into your account.</p>
+
+			<input type="email" placeholder="Email *" name="email" autocomplete="off">
 			<span class="invalidFeedback">
 				<?php echo $data['emailError']; ?>
 			</span>
 
-			<input type="password" placeholder="Password *"name="password">
-			<span class="invalidFeedback">
-				<?php echo $data['passwordError']; ?>
-			</span>
-
 			<button id="submit" type="submit" value="submit">Submit</button>
 
-			<p class="options"><a href="<?php echo URLROOT; ?>/users/requestReset">Forgot Password?</a></p>
-
-			<p class="options">Not registered yet? <a href="<?php echo URLROOT; ?>/users/register">Create an account!</a></p>
+			<p class="options"><a href="<?php echo URLROOT; ?>/users/login">Back to Log In?</a></p>
 		</form>
 	</div>
 </div>

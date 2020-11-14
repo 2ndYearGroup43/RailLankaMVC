@@ -13,39 +13,25 @@
 <div class="banner">
 <div class="container-login">
 	<div class="wrapper-login">
-		<h2>Register</h2>
+		<h2>Reset Password</h2>
 
-		<form action="<?php echo URLROOT; ?>/users/register" method="POST">
+		<form method="POST">
 
-			<input type="text" placeholder="NIC/Passport No *"name="nic">
-			<span class="invalidFeedback">
-				<?php echo $data['nicError']; ?>
-			</span>
-
-			<input type="email" placeholder="Email *"name="email">
-			<span class="invalidFeedback">
-				<?php echo $data['emailError']; ?>
-			</span>
+			<p class="options">Enter your new password.</p>
 
 			<input type="password" placeholder="Password *"name="password">
 			<span class="invalidFeedback">
 				<?php echo $data['passwordError']; ?>
 			</span>
-			<!-- <p class="login-hide">
-				<i class="fa fa-circle-thin" aria-hidden="true"></i> Must be at least 8 characters
-			</p>
-			<p class="login-hide">
-				<i class="fa fa-circle-thin" aria-hidden="true"></i> Should contain at least one numeric value
-			</p> -->
 
 			<input type="password" placeholder="Confirm Password *"name="confirmPassword">
 			<span class="invalidFeedback">
 				<?php echo $data['confirmPasswordError']; ?>
 			</span>
 
+
 			<button id="submit" type="submit" value="submit">Submit</button>
 
-			<p class="options">Already have an account? <a href="<?php echo URLROOT; ?>/users/login">Log In!</a></p>
 		</form>
 	</div>
 </div>
