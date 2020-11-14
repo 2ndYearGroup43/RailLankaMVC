@@ -1,18 +1,15 @@
 <?php
     //Database params
-    define('DB_HOST', 'localhost');
-    define('DB_USER', 'root');
-    define('DB_PASS', '');
-    define('DB_NAME', 'raillanka');
+    define('DB_HOST', 'localhost'); //Add your db host
+    define('DB_USER', 'root'); // Add your DB root
+    define('DB_PASS', ''); //Add your DB pass
+    define('DB_NAME', 'raillanka_edited'); //Add your DB Name
 
     //APPROOT
     define('APPROOT', dirname(dirname(__FILE__)));
 
-    //URLROOT (DynamicLinks)
-    define('URLROOT', 'http://localhost/raillankamvc' );
+    //URLROOT (Dynamic links)
+    define('URLROOT', 'http://localhost/mvcframework');
 
-    //SITENAME
-    define('SITENAME', 'Rail Lanka');
-
-    
-    
+    //Sitename
+    define('SITENAME', 'MVC Framework');

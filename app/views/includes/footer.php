@@ -1,4 +1,4 @@
-        <footer>
+	<footer>
             <div class="main-content">
                 <div class="left box">
                     <h2>About us</h2>
@@ -50,7 +50,5 @@
                 </div>
             </div>
         </footer>
-        
-            
-    </body>
-</html>    
+</body>
+</html>
