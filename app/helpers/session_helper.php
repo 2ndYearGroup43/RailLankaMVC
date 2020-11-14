@@ -1,20 +1,21 @@
-<?php   
-    session_start();
-    function isModeratorLoggedIn()
-    {
-        if (isset($_SESSION['moderator_id'])) {
-            return true;
-        }else{
-            return false;
-        }
+<?php 
+	session_start();
 
-    }
-//added
-    function isLoggedIn() {
+	function isLoggedIn() {
 		if(isset($_SESSION['userid'])) {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	function isPassengerLoggedIn(){
+		if(isset($_SESSION['userid'])) {
+			if($_SESSION['role']!=1){
+				header('location:' . URLROOT . '/users/logout');
+			}
+		} else {
+			header('location:' . URLROOT . '/users/login');
 		}
 	}
 
@@ -98,6 +99,5 @@
 		{
 			// $_SESSION['role'] = "resofficer";
 			header('location:' . URLROOT . '/resofficers/index');
-        }
-        
-    }
+		}
+	}
