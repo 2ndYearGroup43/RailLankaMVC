@@ -1,0 +1,125 @@
+<?php
+    require APPROOT.'/views/includes/resofficer_head.php';
+?>
+<?php
+    require APPROOT.'/views/includes/train_management_navigation.php';
+?>
+	    <div class="body-section">
+        <div class="content-flexrow">
+           <div class="container">
+            <div class="text" style="color: #13406d;">Manage Trains <small style="color: black;">Add Schedule</small></div>
+            <form action="<?php echo URLROOT; ?>/Admin_manage_schedules/create" method = "POST">
+                <div class="form-row">
+                    <div class="input-data">
+                        <label for="routeId">Route Id</label>
+                        <select name="routeId" id="routeId" required>
+                                <option value="">Select</option>
+                                    <?php foreach ($data['routes'] as $route ):?>
+                                    <option value="<?php echo $route->routeId?>"><?php echo $route->routeId?></option>
+                                <?php endforeach;?>
+                        </select>
+                        <span class="invalidFeedback">
+                            <?php echo $data['routeIdError'];?>
+                        </span>
+                    </div>
+                    <div class="input-data">
+                        <label for="stationID">Station Id</label>
+                        <select name="stationID" id="stationID" required>
+                            <option value="">Select</option>
+                                <?php foreach ($data['stations'] as $station ):?>
+                                <option value="<?php echo $station->stationID?>"><?php echo $station->stationID?></option>
+                            <?php endforeach;?>
+                        </select>
+                        <span class="invalidFeedback">
+                            <?php echo $data['stationIDError'];?>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-data">
+                        <label for="stopNo">Stop No</label>
+                        <input type="text" name="stopNo" id="stopNo" required >
+                        <span class="invalidFeedback">
+                            <?php echo $data['stopNoError'];?>
+                        </span>
+                    </div>
+                    <div class="input-data">
+                        <label for="arrivaltime">Arrival Time</label>
+                        <input type="Time" name="arrivaltime" id="arrivaltime" required >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-data">
+                        <label for="departuretime">Departure Time</label>
+                        <input type="Time" name="departuretime" id="departuretime" required >
+                    </div>
+                    <div class="input-data">
+                        <label for="date">Date</label>
+                        <input type="Date" name="date" id="date" required >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-data">
+                        <label for="distance">Distance</label>
+                        <input type="text" name="distance" id="distance" required >
+                        <span class="invalidFeedback">
+                            <?php echo $data['distanceError'];?>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-row submit-btn">
+                    <div class="input-data">
+                        <input type="submit" class="blue-btn" name="submit" value="Add Station">
+                    </div>
+                </div>
+            </form>
+                    <button type="button" id="availdays-btn" class="collapsible" onclick="collapseContent()">View Added Schedule <span class="fa fa-caret-down" aria-hidden="true"></span></button>
+                    <div class="collapsible-content">
+                        <table class="blue" style="margin-top: 0px;">
+                            <thead>
+                                <tr>
+                                    <th>Route Id</th>
+                                    <th>Station Id</th>
+                                    <th>Stop No</th>
+                                    <th>Arrival Time</th>
+                                    <th>Departure Time</th>
+                                    <th>Date</th>
+                                    <th>Distance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-th="Route Id">bla</td>
+                                    <td data-th="Station Id">bla</td>
+                                    <td data-th="Stop No">bla</td>
+                                    <td data-th="Arrival Time">bla</td>
+                                    <td data-th="Departure Time">bla</td>
+                                    <td data-th="Date">bla</td>
+                                    <td data-th="Distance">bla</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="button" onclick="history.go(-1);" class="back-btn" value="Back">Back</button>
+
+
+                    <script>
+                        function collapseContent(){
+                            var coll= document.getElementById("availdays-btn");
+                            var content=coll.nextElementSibling;
+                            if(content.style.display==="none"){
+                                content.style.display="block";
+                                coll.style.backgroundColor="#0c2752";
+                            }else if(content.style.display="block"){
+                                content.style.display="none";
+                                coll.style.backgroundColor="#13406d";
+                            }
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </div>
+<?php
+    require APPROOT.'/views/includes/footer.php';
+?>
