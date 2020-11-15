@@ -4,6 +4,8 @@
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
 ?>
+
+<?php var_dump($_SESSION); ?>
     <div class="body-section">
         <div class="content-flexrow">
             <div class="container">

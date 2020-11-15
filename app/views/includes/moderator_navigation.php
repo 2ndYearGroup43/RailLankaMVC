@@ -62,7 +62,7 @@
                             <a href="Moderator-account.html"><span class="fa fa-user" aria-hidden="true"></span> Account <span class="fa fa-caret-down" aria-hidden="true"></span></a>
                             <input type="checkbox" id="btn-6">
                             <ul>
-                                <li><a href="<?php echo URLROOT;?>/users/logout">Logout <span class="fa fa-sign-out" aria-hidden="true"></span></a></li>
+                                <li><a href="<?php echo URLROOT;?>/moderators/logout">Logout <span class="fa fa-sign-out" aria-hidden="true"></span></a></li>
                             </ul>
                     <?php else:?>
                         <a href="<?php echo URLROOT;?>/users/login">Login</a>

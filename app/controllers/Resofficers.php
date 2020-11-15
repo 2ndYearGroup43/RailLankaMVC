@@ -73,7 +73,7 @@
                     $data['officerIdError']="Officer ID can only contain letters and numbers.";
                 }else{
                     //if officerID exists
-                    if($this->resofficerModel->findResofficerrByResofficerId($data['officerId'])){
+                    if($this->resofficerModel->findResofficerByResofficerId($data['officerId'])){
                         $data['officerIdError']='This ID is already registered as a Officer in the system.'; 
                     }
                 }
@@ -420,8 +420,10 @@
         public function logout()
         {
             unset($_SESSION['resofficer_id']);
-            unset($_SESSION['employee_id']);
+            unset($_SESSION['ro_id']);
+            unset($_SESSION['userid']);
             unset($_SESSION['email']);
+            unset($_SESSION['role']);
 
             header('location: '.URLROOT.'/resofficers/login');
             

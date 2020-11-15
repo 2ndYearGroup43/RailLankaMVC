@@ -9,22 +9,25 @@
 		}
 	}
 
+	//redirect to login if a user is not logged in 
+	//if the user is logged in but not as a passenger redirect to the respective dashboard
 	function isPassengerLoggedIn(){
 		if(isset($_SESSION['userid'])) {
 			if($_SESSION['role']!=1){
-				header('location:' . URLROOT . '/users/logout');
+				redirect($_SESSION['role']);
 			}
 		} else {
 			header('location:' . URLROOT . '/users/login');
 		}
 	}
 
+	//redirect to the relevant dashboard if the logged in user is not a passenger
 	function isPassenger() {
 		if(isset($_SESSION['role']))
 		{
 			if($_SESSION['role']!=1)
 			{
-				header('location:' . URLROOT . '/users/logout');
+				redirect($_SESSION['role']);
 			}
 		}
 	}
@@ -39,13 +42,17 @@
 		}
 	}
 
-	function isModerator() {
-		if(isset($_SESSION['role']))
+	//redirect to login if a user is not logged in 
+	//if the user is logged in but not as a passenger redirect to the respective dashboard
+	function isModeratorLoggedIn() {
+		if(isset($_SESSION['userid']))
 		{
 			if($_SESSION['role']!=3)
 			{
-				header('location:' . URLROOT . '/users/logout');
+				redirect($_SESSION['role']);
 			}
+		} else {
+			header('location:' . URLROOT . '/users/login');
 		}
 	}
 
