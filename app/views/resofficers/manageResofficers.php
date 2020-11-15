@@ -1,8 +1,8 @@
 <?php
-    require APPROOT.'/views/includes/head.php';
+    require APPROOT.'/views/includes/resofficer_head.php';
 ?>
 <?php
-    require APPROOT.'/views/includes/resofficer.php';
+    require APPROOT.'/views/includes/resofficer_navigation.php';
 ?>
     <div class="body-section">
         <div class="content-row"></div>

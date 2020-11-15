@@ -5,6 +5,18 @@
             $this->resofficerModel=$this->model('Resofficer');
         }
 
+        public function index() {
+
+            // $users = $this->userModel->getUsers();
+
+            $data = [
+                'title' => 'Resofficer Home Page',
+                // 'users' => $users
+            ];
+
+            $this->view('resofficers/index', $data); //
+        }
+
         public function registerResofficer()
         {
             $data=[
