@@ -283,39 +283,71 @@ nav.h .logo img{
     }
 
     .container .form-row{
-        display: block;
+        display: block!important;
     } 
+    
 
     .container .form-row .input-data{
+        display: block;
         margin: 35px 0!important;
     }
 
-    .container .form-row.submit-btn{
+    
+
+    .container .form-row.submit-btn, .container .form-row .input-data{
         display: block;
     }
 
-    .submit-btn .input-data{
-        width: 40%!important;
-    }
 
-
-    .container .text{
+    .container-searchbox .text{
         font-size: 30px;
     }
 
-    .container form{
+    .container-searchbox form{
         padding: 10px 0 0 0 0;
     }
 
-    .container .form-row{
-        display: block;
+    .container-searchbox .form-row{
+        display: block!important;
     } 
+    
 
-    .container .form-row .input-data{
+    .container-searchbox .form-row .input-data{
         margin: 35px 0!important;
     }
 
-    .container .form-row.submit-btn, .container .form-row .input-data input{
+    
+
+    .container-searchbox .form-row.submit-btn, .container-searchbox .form-row .input-data{
+        display: block;
+    }
+
+    .container-searchbox-popup{
+        margin: auto;
+        left: 20px!important;
+        width: 90%!important;
+    }
+    
+    .container-searchbox-popup .text{
+        font-size: 30px;
+    }
+
+    .container-searchbox-popup form{
+        padding: 10px 0 0 0 0;
+    }
+
+    .container-searchbox-popup .form-row{
+        display: block!important;
+    } 
+    
+
+    .container-searchbox-popup .form-row .input-data{
+        margin: 35px 0!important;
+    }
+
+    
+
+    .container-searchbox-popup .form-row.submit-btn, .container-searchbox-popup .form-row .input-data{
         display: block;
     }
 
@@ -458,20 +490,23 @@ footer{
 } 
 
 /* form & containers*/
-body div.container .{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 40px;  
-}
+
 /* normal form container */
 .container{
     background: #ffffff;
-    min-width: 800px;
+    max-width: 800px;
+    width: 800px;
     padding: 25px 40px 10px 40px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     border-radius: 25px 25px 25px 25px;
+}
+
+.container.map{
+    position: relative;
+    margin: auto;
+    max-width: 700px;
+    width: 100%;
+    box-shadow: none;
 }
 
 .container-map .container{
@@ -479,8 +514,11 @@ body div.container .{
     margin-bottom: 20px;
 }
 
+
+
 /* table container */
 .container-table{
+    /* margin: auto;new try and see */
     background: #ffffff;
     position: relative;
     width: 90%;
@@ -546,10 +584,24 @@ form .form-row .textarea{
     display: block;
     height: 100%;
     width: 100%;
+    /* new */
+    margin: 0 auto;
+    padding: 20px;
+    /* new */
     border: none;
     font-size: 17px;
     border-bottom: 2px solid rgba(0, 0, 0, 12);
 }
+
+.input-data.action{
+    position: relative;
+    float: right;
+}
+
+.action input{
+    margin: 5px;
+}
+
 
 .textarea textarea{
     resize: none;
@@ -584,13 +636,15 @@ form .form-row .textarea{
     z-index: 2;
     border: none;
     color: #fff;
-    font-size: 17px;
+    /* new changed to 17 px */
+    font-size: 12px;
     font-weight: 200;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
     visibility: visible;
-
+    /* new */
+    line-height: 0rem;
 }
 
 button{
@@ -607,7 +661,8 @@ button{
     margin-left: 10px;
     float: left;
     padding: 10px 40px;
-    border-radius: 15px 15px 15px 15px;
+    /*  new  radius changed to 10 */
+    border-radius: 10px 10px 10px 10px;
     /* margin-left: 10px; */
 }
 
@@ -641,8 +696,11 @@ button.submit-btn{
 }
 
 button.submit-btn.search{
+    margin: auto;
+    position: relative;
     float: left;
-    left: 0px;
+    left: 10px;
+    bottom: 10px;
 }
 
 button.back-btn{
@@ -719,7 +777,7 @@ input.blue-btn:hover{
 input.blue-btn{
     color: #fff;
     background: #13406d;
-    margin: 1px;
+    /* margin: 1px; */
     /* padding: 8px; */
 }
 
@@ -899,26 +957,21 @@ span.fa.fa-check{
 
 /* search box */
 
-body div.container-searchbox .{
-    /* display: flex; */
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-    padding: 40px;  
-  }
   
   .container-searchbox{
       background: #ffffff;
-      min-width: 700px;
-      position: relative;
+      min-width: 450px;
+      width: 450px;
+      /* position: relative; */
       /* left: 40px; */
       /* align-self: flex-start; */
-      margin: 0px 350px;
+      /* margin: 0px 350px; */
+      margin: auto;
       /* float: left; */
-      padding: 10px 100px;
+      padding: 15px;
       border: solid #13406d;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-      border-radius: 25px 25px 25px 25px;
+      border-radius: 10px 10px 10px 10px;
   }
   
   
@@ -934,11 +987,13 @@ body div.container-searchbox .{
   
   .container-searchbox form .form-row{
       display: flex;
-      margin: 32px 0;
+      padding: 5px 0;
+      margin: 40px 0;
   }
 
-  .container-searchbox .searchlogo img{
-      margin-left: 150px;
+   .searchlogo{
+       position: relative;
+       margin: auto;
   }
 /* 
   .searchlogo{
@@ -946,8 +1001,6 @@ body div.container-searchbox .{
   } */
   .searchlogo img{
     display: block;
-    margin-left: 30px;
-    margin-right: auto;
     width: 150px;
     margin-top: 0px;
   }
@@ -957,32 +1010,21 @@ body div.container-searchbox .{
 
   /* popup searchbox */
 
-  body div.container-searchbox-popup .{
-    display: flex;
-    /* position: fixed; */
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 40px;  
-  }
   
   .container-searchbox-popup{
       background: #ffffff;
-      display: none;
+      /* display: none; */
       position: absolute;
       left: 40px;
       top: 200px;
       float: left;
-      justify-self: left;
-      align-self: flex-start;
-      max-width: 800px;
-      max-height: 600px;
-      padding: 10px 100px;
+      max-width: 450px;
+      width: 450px;
+      padding: 15px;
       border: solid #13406d;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
       z-index: 2;
       border-radius: 25px 25px 25px 25px;
-      margin-top: 30px;
   }
   
   
@@ -1084,70 +1126,7 @@ body div.container-searchbox .{
   }
 
 
-  .container-login{
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    top: 20%;
-    align-items: center;
-}
-
-.wrapper-login input{
-    width: 80%;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.wrapper-login input{
-    width: 200px;
-    height: 26px;
-    border: 1px solid #cccccc;
-    background-color: #f5f5f5;
-    font-size: 18px;
-    display: block;
-    position: relative;
-    margin: 20px auto;
-
-}
-
-input::placeholder{
-    color: #a1a1a1;
-    font-size: 14px;
-}
-
-.wrapper-login h2{
-    text-align: center;
-    font-size: 40px;
-    text-transform: uppercase;
-}
-
-
-#submit{
-   width: 200px;
-   height: 42px;
-   border: 1px solid #000000;
-   background-color: #000000;
-   color: #ffffff;
-   font-size: 20px;
-   display: block;
-   margin: 20px 0px 0px 0px;
-}
-
-#submit:hover{
-   border: 1px solid #a1a1a1;
-   background-color: #a1a1a1;
-   transition: 0.15s ease-in;
-}
-
-.options a{
-   color: #006400;
-}
-
-.options a:hover{
-   color: #000000;
-   transition: 0.20s ease-in;
-   text-decoration: none;
-}
+ 
 
 .invalidFeedback{
    color: #ff0000;
