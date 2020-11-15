@@ -306,10 +306,7 @@
 
         public function moderatorsSearchBy()
         {
-            if (!isModeratorLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
-                exit;
-            }
+           
             $data=[
                 'moderators'=>'',
                 'fields'=>'',
@@ -357,80 +354,4 @@
 
 
 
-        public function login()
-        {
-            $data = [
-                'title'=>'Login page',
-                'username'=>'',
-                'password'=>'',
-                'usernameError'=>'',
-                'passwordError'=>''
-            ];
-
-
-            if($_SERVER['REQUEST_METHOD']=='POST'){
-                //sanitize te data
-                $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-                $data=[
-                    'username'=>trim($_POST['username']),
-                    'password'=>trim($_POST['password']),
-                    'usernameError'=>'',
-                    'passwordError'=>''
-                ];
-
-                if(empty($data['username'])){
-                    $data['usernameError']="Please enter a username.";   
-                }
-                if(empty($data['password'])){
-                    $data['passwordError']="Please enter a password.";
-                }
-
-                if(empty($data['usernameError'])&& empty($data['passwordError'])){
-                    $loggedInUser=$this->moderatorModel->login($data['username'] ,$data['password']);
-                    
-                    if($loggedInUser){
-                        $this->createUserSession($loggedInUser);
-                    }else{
-                        $data['passwordError']='Username or Password is incorrect.
-                        Please try again.';
-
-                        $this->view('users/login', $data);
-                    }
-                }
-            
-            }else{
-                $data=[
-                    'username'=>'',
-                    'password'=>'',
-                    'usernameError'=>'',
-                    'passwordError'=>''
-                ];
-            }
-
-
-
-            $this->view('users/login', $data);
-        }
-
-
-        public function createUserSession($loggedInUser)
-        {
-            
-            $_SESSION['moderator_id']= $loggedInUser->moderatorId;
-            $_SESSION['employee_id']= $loggedInUser->employeeId;
-            $_SESSION['email']= $loggedInUser->email;
-
-            header('location: '.URLROOT.'/alerts/index');
-            
-        }
-
-        public function logout()
-        {
-            unset($_SESSION['moderator_id']);
-            unset($_SESSION['employee_id']);
-            unset($_SESSION['email']);
-
-            header('location: '.URLROOT.'/moderators/login');
-            
-        }
     }

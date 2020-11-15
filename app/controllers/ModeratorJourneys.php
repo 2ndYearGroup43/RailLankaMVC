@@ -8,10 +8,7 @@
 
         public function index()
         {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
-                exit;
-            }
+            
 
             $data=$this->journeyModel->displayJourneyAssignments();
                        
@@ -20,10 +17,6 @@
 
         public function createJourneyAssignment()
         {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/moderators/login");
-                exit;
-            }
 
             $data=[
                 'trainId'=>'',

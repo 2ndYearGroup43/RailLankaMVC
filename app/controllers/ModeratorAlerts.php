@@ -7,11 +7,7 @@
 
         public function index()
         {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
-
+           
             $alerts=$this->alertModel->displayCancellations();
             $fields=$this->alertModel->getCancellationFields();
             $data=[
@@ -24,10 +20,7 @@
 
         public function createCancellationAlerts()
         {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
+           
 
             $data=[
                 'trainId'=>'',
@@ -83,10 +76,7 @@
 
         public function viewCancelledAlerts()
         {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
+           
 
             $alerts=$this->alertModel->displayCancellations();
             $fields=$this->alertModel->getCancellationFields();
@@ -100,10 +90,7 @@
 
         public function cancellationsSearchBy()
         {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
+           
             $data=[
                 'alerts'=>'',
                 'fields'=>'',
@@ -134,12 +121,7 @@
         public function updateCancellations($id)
         {
 
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
-
-            
+             
             $alert=$this->alertModel->findCancellationById($id);
             
         
@@ -200,19 +182,12 @@
             $this->view('moderators/alerts/updateCancellations',$data);
         }
 
-        public function delete()
-        {
-            
-        }
-
+   
 
         
         public function createDelayAlerts()
         {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
+           
 
             $data=[
                 'trainId'=>'',
@@ -274,12 +249,7 @@
         public function updateDelays($id)
         {
 
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
-
-            
+           
             $alert=$this->alertModel->findDelayById($id);
             
         
@@ -360,11 +330,7 @@
 
 
         public function viewDelayedAlerts()
-        {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
+        { 
 
             $alerts=$this->alertModel->displayDelays();
             $fields=$this->alertModel->getDelayFields();
@@ -378,11 +344,7 @@
 
         public function delaysSearchBy()
         {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
-
+           
             $data=[
                 'alerts'=>'',
                 'fields'=>'',
@@ -414,10 +376,7 @@
 
         public function createRescheduledAlerts()
         {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
+           
             
             $data=[
                 'trainId'=>'',
@@ -485,13 +444,7 @@
 
         public function updateReschedulements($id)
         {
-
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
-
-            
+ 
             $alert=$this->alertModel->findReschedulementById($id);
             
         
@@ -577,10 +530,7 @@
 
         public function viewRescheduledAlerts()
         {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
+           
 
             $alerts=$this->alertModel->displayReschedulements();
             $fields=$this->alertModel->getReschedulementFields();
@@ -594,11 +544,7 @@
 
         public function reschedulementsSearchBy()
         {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
-
+           
             $data=[
                 'alerts'=>'',
                 'fields'=>'',
@@ -628,10 +574,6 @@
 
         public function deleteAlert($id,$type)
         {
-            if (!isLoggedIn()) {
-                header("Location: ".URLROOT."/users/login");
-                exit;
-            }
 
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);//filter harmful data
@@ -657,42 +599,6 @@
         }
 
 
-
-
-
-
-        //passengers Anuki's Alerts
-
-        public function search() {
-			
-			$this->view('passengers/alerts/search_trains'); 
-		}
-
-		public function displayTrains() {
-
-			$this->view('passengers/alerts/display_trains'); 
-		}
-
-		public function displayAlerts() {
-
-			$this->view('passengers/alerts/display_alerts'); 
-		}	
-
-		public function displayCancelled() {
-
-			$this->view('passengers/alerts/display_cancelled'); 
-		}	
-
-		public function displayDelayed() {
-
-			$this->view('passengers/alerts/display_delayed'); 
-		}	
-
-		public function displayRescheduled() {
-
-			$this->view('passengers/alerts/display_rescheduled'); 
-		}	
-    
     
     
     
