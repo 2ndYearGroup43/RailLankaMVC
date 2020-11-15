@@ -3,6 +3,7 @@
 
         public function __construct()
         {
+            isModeratorLoggedIn();
             $this->journeyModel=$this->model('ModeratorJourney');
         }
 

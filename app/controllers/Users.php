@@ -223,7 +223,7 @@
 			unset($_SESSION['userid']);
 			unset($_SESSION['email']);
 			unset($_SESSION['role']);
-			unset($_SESSION['moderator_id']);
+			unset($_SESSION['passenger_nic']);
 			header('location:' . URLROOT . '/pages/index');
 		}
 

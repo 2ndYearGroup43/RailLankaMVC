@@ -2,6 +2,7 @@
     class ModeratorAlerts extends Controller{
         public function __construct()
         {
+            isModeratorLoggedIn();
             $this->alertModel=$this->model('ModeratorAlert');
         }
 
@@ -15,6 +16,7 @@
                 'fields'=>$fields
             ];
             
+
             $this->view('moderators/alerts/managecancellations', $data);
         }
 

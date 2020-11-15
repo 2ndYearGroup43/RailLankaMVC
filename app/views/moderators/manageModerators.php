@@ -1,3 +1,4 @@
+<?php isModeratorLoggedIn(); ?>
 <?php
     require APPROOT.'/views/includes/moderator_head.php';
 ?>

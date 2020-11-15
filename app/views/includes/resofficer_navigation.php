@@ -11,7 +11,7 @@
                         <a href="#"><span class="fa fa-user" aria-hidden="true"></span> Account <span class="fa fa-caret-down" aria-hidden="true"></span></a>
                         <input type="checkbox" id="btn-6">
                         <ul>
-                            <li><a href="#">Logout <span class="fa fa-sign-out" aria-hidden="true"></span></a></li>
+                            <li><a href="<?php echo URLROOT; ?>/resofficers/logout">Logout <span class="fa fa-sign-out" aria-hidden="true"></span></a></li>
                        </ul>
                 </li>
             </ul>

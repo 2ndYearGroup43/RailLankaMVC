@@ -6,7 +6,7 @@
 	// 	echo "<br>";
 	// }
 	
-	isModerator();
+	isModeratorLoggedIn();
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/moderator_navigation.php';
 ?>
