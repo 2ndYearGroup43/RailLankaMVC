@@ -80,6 +80,7 @@
         {
            
 
+            var_dump($_SESSION);
             $alerts=$this->alertModel->displayCancellations();
             $fields=$this->alertModel->getCancellationFields();
             $data=[
@@ -93,6 +94,7 @@
         public function cancellationsSearchBy()
         {
            
+            var_dump($_SESSION);
             $data=[
                 'alerts'=>'',
                 'fields'=>'',
@@ -122,7 +124,8 @@
 
         public function updateCancellations($id)
         {
-
+            
+            var_dump($_SESSION);
              
             $alert=$this->alertModel->findCancellationById($id);
             
@@ -190,6 +193,7 @@
         public function createDelayAlerts()
         {
            
+            var_dump($_SESSION);
 
             $data=[
                 'trainId'=>'',

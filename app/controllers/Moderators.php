@@ -336,6 +336,18 @@
 
         }
 
+        public function moderatorAccount()
+        {
+            $id = $_SESSION['userid'];
+            $moderator=$this->moderatorModel->findModeratorById($id);
+            $data=[
+                'moderator'=>$moderator,
+                'id'=>$id
+            ];
+
+            $this->view('moderators/moderatorAccount', $data);
+        }
+
         public function deleteUser($userId)
         {
             if($_SERVER['REQUEST_METHOD']=='POST'){

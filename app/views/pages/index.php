@@ -6,7 +6,7 @@
 	// 	echo "<br>";
 	// }
 	
-	isPassenger();
+	// isPassenger();
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>

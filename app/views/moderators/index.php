@@ -8,7 +8,7 @@
 	
 	isModeratorLoggedIn();
 	require APPROOT . '/views/includes/passenger_head.php';
-	require APPROOT . '/views/includes/moderator_navigation.php';
+	require APPROOT . '/views/includes/moderator_navigation_home.php';
 ?>
 
 <?php var_dump($_SESSION); ?> 

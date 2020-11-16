@@ -57,7 +57,7 @@
                 <li><a href="Moderator-searchescheduletrains.html">Schedule</a></li>
                 
                 <li>
-                    <?php   if(isLoggedIn()):?>
+                <?php   if(isLoggedIn()):?>
                             <label for="btn-6" class="show">ACCOUNT +</label>
                             <a href="Moderator-account.html"><span class="fa fa-user" aria-hidden="true"></span> Account <span class="fa fa-caret-down" aria-hidden="true"></span></a>
                             <input type="checkbox" id="btn-6">
@@ -92,40 +92,40 @@
                                     <label for="btn-1" class="show">Alerts <i class="fa fa-caret-down"></i></label></label>
                                     <a href="<?php echo URLROOT;?>/moderatoralerts/viewCancelledAlerts">Alerts <i class="fa fa-caret-down"></i></a>
                                     <input type="checkbox" id="btn-1">
-                                    <div class="dropdown">
+                                    <div class="nav-dropdown">
                                         <ul>
-                                            <li class="dropdown-link">
+                                            <li class="nav-dropdown-link">
                                                 <label for="btn-2" class="show2">Add New Alerts +</label>
                                                 <a href="<?php echo URLROOT;?>/moderatoralerts/viewCancelledAlerts">Add New Alerts<i class="fa fa-caret-down"></i></a>
                                                 <input type="checkbox" id="btn-2">
-                                                <div class="dropdown second">
+                                                <div class="nav-dropdown second">
                                                     <ul>
-                                                        <li class="dropdown-link">
+                                                        <li class="nav-dropdown-link">
                                                             <a href="<?php echo URLROOT;?>/moderatoralerts/createCancellationAlerts">Cancellations</a>
                                                         </li>
-                                                        <li class="dropdown-link">
+                                                        <li class="nav-dropdown-link">
                                                             <a href="<?php echo URLROOT;?>/moderatoralerts/createDelayAlerts">Delays</a>
                                                         </li>
-                                                        <li class="dropdown-link">
+                                                        <li class="nav-dropdown-link">
                                                             <a href="<?php echo URLROOT;?>/moderatoralerts/createRescheduledAlerts">Reschedulements</a>
                                                         </li>
                                                         <div class="arrow"></div>
                                                     </ul>
                                                 </div>
                                             </li>
-                                            <li class="dropdown-link">
+                                            <li class="nav-dropdown-link">
                                                 <label for="btn-3" class="show2">Manage Alerts +</label>
                                                 <a href="<?php echo URLROOT;?>/moderatoralerts/viewCancelledAlerts">Manage Alerts<i class="fa fa-caret-down"></i></a>
                                                 <input type="checkbox" id="btn-3">
-                                                <div class="dropdown second">
+                                                <div class="nav-dropdown second">
                                                     <ul>
-                                                        <li class="dropdown-link">
+                                                        <li class="nav-dropdown-link">
                                                             <a href="<?php echo URLROOT;?>/moderatoralerts/viewCancelledAlerts">Cancellations</a>
                                                         </li>
-                                                        <li class="dropdown-link">
+                                                        <li class="nav-dropdown-link">
                                                             <a href="<?php echo URLROOT;?>/moderatoralerts/viewDelayedAlerts">Delays</a>
                                                         </li>
-                                                        <li class="dropdown-link">
+                                                        <li class="nav-dropdown-link">
                                                             <a href="<?php echo URLROOT;?>/moderatoralerts/viewRescheduledAlerts">Reschedulements</a>
                                                         </li>
                                                         <div class="arrow"></div>
@@ -140,12 +140,12 @@
                                     <label for="btn-4" class="show">Journey <i class="fa fa-caret-down"></i></label></label>
                                     <a href="<?php echo URLROOT;?>/ModeratorJourneys/index">Journey <i class="fa fa-caret-down"></i></a>
                                     <input type="checkbox" id="btn-4">
-                                    <div class="dropdown">
+                                    <div class="nav-dropdown">
                                         <ul>
-                                            <li class="dropdown-link">
+                                            <li class="nav-dropdown-link">
                                                 <a href="<?php echo URLROOT;?>/ModeratorJourneys/createJourneyAssignment">Driver Assignment</a>
                                             </li>
-                                            <li class="dropdown-link">
+                                            <li class="nav-dropdown-link">
                                                 <a href="<?php echo URLROOT;?>/ModeratorJourneys/index">Manage Journey</a>
                                             </li>
                                             <div class="arrow"></div>
@@ -156,12 +156,12 @@
                                     <label for="btn-5" class="show">Tracking <i class="fa fa-caret-down"></i></label></label>
                                     <a href="<?php echo URLROOT;?>/ModeratorTrackings/index">Tracking <i class="fa fa-caret-down"></i></a>
                                     <input type="checkbox" id="btn-5">
-                                    <div class="dropdown">
+                                    <div class="nav-dropdown">
                                         <ul>
-                                            <li class="dropdown-link">
+                                            <li class="nav-dropdown-link">
                                                 <a href="<?php echo URLROOT;?>/ModeratorTrackings/index">Track Trains</a>
                                             </li>
-                                            <li class="dropdown-link">
+                                            <li class="nav-dropdown-link">
                                                 <a href="<?php echo URLROOT;?>/ModeratorTrackings/viewlivetrains">View Live Map</a>
                                             </li>
                                             <div class="arrow"></div>
@@ -175,12 +175,12 @@
                                     <label for="btn-6" class="show">Account <i class="fa fa-caret-down"></i></label></label>
                                     <a href="<?php echo URLROOT;?>/moderators/moderatorAccount">Account  <span class="fa fa-user"></span><i class="fa fa-caret-down"></i></a>
                                     <input type="checkbox" id="btn-6">
-                                    <div class="dropdown">
+                                    <div class="nav-dropdown">
                                         <ul>
-                                            <li class="dropdown-link">
+                                            <li class="nav-dropdown-link">
                                                 <a href="<?php echo URLROOT;?>/moderators/moderatorAccount">Account<span class="fa fa-user"></span></a>
                                             </li>
-                                            <li class="dropdown-link">
+                                            <li class="nav-dropdown-link">
                                                 <a href="<?php echo URLROOT;?>/users/logout">Logout<span class="fa fa-sign-out"></span></a>
                                             </li>
                                             <div class="arrow"></div>
