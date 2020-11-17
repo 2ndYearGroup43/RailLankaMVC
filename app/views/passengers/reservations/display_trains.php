@@ -54,7 +54,7 @@
 							<td data-label="Arrival Time">9.38 a.m.</td>
 							<td data-label="Type">Intercity</td>
 							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/reservations/displaySeatMaps'" type="submit" class="btn">Reserve</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps'" type="submit" class="btn">Reserve</button>
 							</td>
 						</tr>
 						<tr>
@@ -64,7 +64,7 @@
 							<td data-label="Arrival Time">11.03 a.m.</td>
 							<td data-label="Type">Express - Udarata Menike</td>
 							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/reservations/displaySeatMaps'" type="submit" class="btn">Reserve</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps'" type="submit" class="btn">Reserve</button>
 							</td>
 						</tr>
 						<tr>
@@ -74,7 +74,7 @@
 							<td data-label="Arrival Time">1.55 a.m.</td>
 							<td data-label="Type">Colombo Commuter</td>
 							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/reservations/displaySeatMaps'" type="submit" class="btn">Reserve</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps'" type="submit" class="btn">Reserve</button>
 							</td>
 						</tr>
 						<tr>
@@ -84,13 +84,13 @@
 							<td data-label="Arrival Time">9.38 a.m.</td>
 							<td data-label="Type">Intercity</td>
 							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/reservations/displaySeatMaps'" type="submit" class="btn">Reserve</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps'" type="submit" class="btn">Reserve</button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			<!-- </div> -->
-			<button onclick="location.href='<?php echo URLROOT; ?>/reservations/search'" type="submit" class="btn blue-btn back-btn">Back</button>
+			<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/search'" type="submit" class="btn blue-btn back-btn">Back</button>
 		</div>
 		<div class="content-row">
 		</div>
