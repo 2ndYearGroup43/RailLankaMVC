@@ -419,13 +419,13 @@
 
         public function logout()
         {
-            unset($_SESSION['resofficer_id']);
+           
             unset($_SESSION['ro_id']);
             unset($_SESSION['userid']);
             unset($_SESSION['email']);
             unset($_SESSION['role']);
 
-            header('location: '.URLROOT.'/resofficers/login');
+            header('location:' . URLROOT . '/pages/index');
             
         }
     }
