@@ -16,7 +16,7 @@
 <?php
     require APPROOT.'/views/includes/resofficer_navigation.php';
 ?>
-
+<?php var_dump($_SESSION); ?>
 
 <!-- banner area -->
 <div class="banner">

@@ -43,7 +43,7 @@
 	}
 
 	//redirect to login if a user is not logged in 
-	//if the user is logged in but not as a passenger redirect to the respective dashboard
+	//if the user is logged in but not as a moderator redirect to the respective dashboard
 	function isModeratorLoggedIn() {
 		if(isset($_SESSION['userid']))
 		{
@@ -66,13 +66,17 @@
 		}
 	}
 
-	function isResofficer() {
-		if(isset($_SESSION['role']))
+	//redirect to login if a user is not logged in 
+	//if the user is logged in but not as a resofficer redirect to the respective dashboard
+	function isResofficerLoggedIn() {
+		if(isset($_SESSION['userid']))
 		{
 			if($_SESSION['role']!=5)
 			{
-				header('location:' . URLROOT . '/users/logout');
+				redirect($_SESSION['role']);
 			}
+		} else {
+			header('location:' . URLROOT . '/users/login');
 		}
 	}
 

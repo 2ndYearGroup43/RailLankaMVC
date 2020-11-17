@@ -4,6 +4,7 @@
 <?php
     require APPROOT.'/views/includes/resofficer_navigation.php';
 ?>
+<?php var_dump($_SESSION); ?>
         <div class="body-section">
             <div class="content-row">
             	<button type="submit" class="submit-btn search" onclick="openForm()">Search</button>    
