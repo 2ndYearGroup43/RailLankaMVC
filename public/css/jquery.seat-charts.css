@@ -80,7 +80,7 @@ li.seatCharts-legendItem {
     padding: 25px 40px 25px 40px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     opacity: 0.95;
-    height: 100%;
+    height: 100vh;
  /*   align-items: center;*/
     margin:0px auto;
    /* border-radius: 25px 25px 25px 25px;*/
@@ -91,7 +91,7 @@ li.seatCharts-legendItem {
 }
 .front-indicator {
 	width: 145px;
-	margin: 5px 32px 15px 32px;
+	margin: 5px auto 15px auto;
 	background-color: #f6f6f6;	
 	color: #adadad;
 	text-align: center;
@@ -112,7 +112,7 @@ li.seatCharts-legendItem {
 .booking-details {
 	float: left;
 	text-align: left;
-	margin-right: -150px;
+	margin-right: -170px;
 	font-size: 12px;
 	position: relative;
 	height: 401px;
@@ -151,6 +151,12 @@ div.seatCharts-seat.available.first-class {
 /* 	background: url(vip.png); */
 	background-color: #3a78c3;
 }
+
+div.seatCharts-seat.available.third-class {
+ 	/*background: url(vip.png); */
+	background-color: #95c8d8;
+}
+
 div.seatCharts-seat.focused {
 	background-color: #76B474;
 }
@@ -160,15 +166,17 @@ div.seatCharts-seat.selected {
 div.seatCharts-seat.unavailable {
 	background-color: #472B34;
 }
+
 div.seatCharts-container {
 	border-right: 1px dotted #adadad;
 	border-left: 1px dotted #adadad; /*me*/
-	width: 250px;
+	width: 280px;
 	padding: 20px;
 	float: left;
 	margin-right: 10px;
 	margin-left: 10px;
 }
+
 div.seatCharts-legend {
 	padding-left: 0px;
 	position: absolute;
@@ -181,21 +189,25 @@ span.seatCharts-legendDescription {
 	margin-left: 5px;
 	line-height: 30px;
 }
-.checkout-button {
-	display: block;
-	margin: 10px 0;
-	font-size: 14px;
-	width: 100px;
-	background-color: #dc3545;
-	border:none;
-	opacity: 1;
-	padding: 8px 8px;
+.checkout-btn {
+	background-color: black;
 	color: #fff;
+	border: 1px solid black;
+	 position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 45px;
+  width: 250px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+
 }
 
-.checkout-button:hover{ /*me*/
-	opacity: 0.8;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);;
+.checkout-btn:hover{ /*me*/
+	opacity: 0.7;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 #selected-seats {
@@ -209,7 +221,7 @@ span.seatCharts-legendDescription {
     width: 250px;
     padding: 20px;
     float: left;
-    margin-left: -150px;
+    margin-left: -160px;
     font-size: 12px;
 }
 
@@ -238,11 +250,33 @@ span.seatCharts-legendDescription {
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
+.active-comp {
+	background-color:#3c4245;
+	color: white;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
 #pos{
 	margin: 70px 200px;
 }
 
-/*@media screen and (max-width: 610px){
+.map-container .options{
+	position: absolute;
+  	bottom: 9%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+
+
+@media screen and (max-width: 1170px){
+
+	.map-container {
+		height: 200vh;
+	}
+
+	.map-container {
+		text-align: center;
+	}
 
 	div.seatCharts-container {
 		width: 90%;
@@ -256,18 +290,30 @@ span.seatCharts-legendDescription {
 	}
 
 	.compartment-container{ 
-	    width: 90%;
+	    width: 100%;
 	    padding: 20px 100px;
 	    margin-right: auto;
 		margin-left: auto;
+	}
+
+	.compartment-container input {
+		margin: 1px auto;
 	}
 
 	.booking-details {
 		margin-right: auto;
 		margin-left: auto;
 		margin-right: 0;
-	    width: 90%; 
+	    width: 100%; 
 	    padding: 20px 100px;
+	    text-align: center;
 	}
 
-}*/
+	.checkout-btn {
+		bottom: 5%;
+	}
+
+	.map-container .options {
+		bottom: 4%;
+	}
+}
