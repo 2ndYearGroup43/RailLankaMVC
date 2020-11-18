@@ -9,8 +9,8 @@ class Resofficer{
 
     public function registerResofficer($data)
     {
-        $this->db->query('INSERT INTO users(email, password, isadmin, ispassenger, ismoderator, isreservationofficer, isdriver)
-        VALUES(:email, :password, FALSE, FALSE, TRUE, FALSE, FALSE)');
+        $this->db->query('INSERT INTO users(email, password, role)
+        VALUES(:email, :password, 5)');
         $this->db->bind(':password', $data['password']);
         $this->db->bind(':email', $data['email']);
 

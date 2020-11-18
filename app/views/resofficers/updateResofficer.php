@@ -2,7 +2,7 @@
     require APPROOT.'/views/includes/resofficer_head.php';
 ?>
 <?php
-    require APPROOT.'/views/includes/resofficer_navigation.php';
+    require APPROOT.'/views/includes/train_management_navigation.php';
 ?>
 
 <div class="body-section">

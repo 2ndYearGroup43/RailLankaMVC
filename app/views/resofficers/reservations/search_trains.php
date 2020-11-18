@@ -4,7 +4,6 @@
 <?php
     require APPROOT.'/views/includes/resofficer_navigation.php';
 ?>
-<?php var_dump($_SESSION); ?>
         <div class="body-section">
             <div class="content-flexrow">
                 <div class="container-searchbox">
@@ -50,7 +49,7 @@
                         </div>
                         <div class="form-row submit-btn">
                             <div class="input-data" style="margin-left: 70px;">
-                                <a class= "blue-blue-btn" href="<?php echo URLROOT; ?>/resofficerReservations/displayTrains" style="padding-left: 40px;">Search</a>
+                                <a class= "blue-btn" href="<?php echo URLROOT; ?>/resofficerReservations/displayTrains" style="padding-left: 40px;">Search</a>
                             </div>   
                             <div class="input-data">
                                <input type="button" onclick="history.go(-1);" class="red-btn" value="Back">

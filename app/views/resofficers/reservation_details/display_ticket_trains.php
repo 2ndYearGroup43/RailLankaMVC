@@ -99,7 +99,7 @@
                                     <td data-th="End Time">BLa</td>
                                     <td data-th="Date">BLa</td>
                                     <td data-th="Action">                              
-                                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps">Reserve</a>
+                                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/displayTicketDetails">View</a>
                                    </td>
                                 </tr>
                                 <tr>
@@ -110,7 +110,7 @@
                                     <td data-th="End Time">BLa</td>
                                     <td data-th="Date">BLa</td>
                                     <td data-th="Action">
-				                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps">Reserve</a>
+				                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/displayTicketDetails">View</a>
 				                    </td>
                                 </tr>
                             </table>  
