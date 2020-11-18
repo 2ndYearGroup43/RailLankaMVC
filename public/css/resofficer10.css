@@ -593,6 +593,10 @@ form .form-row .textarea{
     border-bottom: 2px solid rgba(0, 0, 0, 12);
 }
 
+.input-data select{
+    padding: 0px;
+}
+
 .input-data.action{
     position: relative;
     float: right;
@@ -1048,7 +1052,7 @@ span.fa.fa-check{
   
   .container-searchbox-popup{
       background: #ffffff;
-      /* display: none; */
+      display: none;
       position: absolute;
       left: 40px;
       top: 200px;

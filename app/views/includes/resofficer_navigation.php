@@ -6,7 +6,7 @@
             </label>
             <input type="checkbox" id="btn">
             <ul class="main-nav">
-                <li><a href="#">Home</a></li>
+                <li><a href="<?php echo URLROOT; ?>/resofficers/index">Home</a></li>
                 <li><a href="<?php echo URLROOT; ?>/ResOfficerReservations/search">Reservation</a></li>
                 <li><a href="<?php echo URLROOT; ?>/ResOfficerRefunds/refund">Refund</a></li>
                 <li><a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/search">Reservation Details</a></li>
@@ -15,7 +15,7 @@
                 <li>
                     <?php   if(isLoggedIn()):?>
                             <label for="btn-6" class="show">ACCOUNT +</label>
-                            <a href="Moderator-account.html"><span class="fa fa-user" aria-hidden="true"></span> Account <span class="fa fa-caret-down" aria-hidden="true"></span></a>
+                            <a href="<?php echo URLROOT; ?>/resofficers/resofficerAccount"><span class="fa fa-user" aria-hidden="true"></span> Account <span class="fa fa-caret-down" aria-hidden="true"></span></a>
                             <input type="checkbox" id="btn-6">
                             <ul>
                                 <li><a href="<?php echo URLROOT;?>/resofficers/logout">Logout <span class="fa fa-sign-out" aria-hidden="true"></span></a></li>

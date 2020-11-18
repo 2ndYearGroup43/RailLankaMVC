@@ -332,6 +332,18 @@
 
         }
 
+        public function resofficerAccount()
+        {
+            $id = $_SESSION['userid'];
+            $resofficer=$this->resofficerModel->findResofficerById($id);
+            $data=[
+                'resofficer'=>$resofficer,
+                'id'=>$id
+            ];
+
+            $this->view('resofficers/resofficerAccount', $data);
+        }
+
         public function deleteUser($userId)
         {
             if($_SERVER['REQUEST_METHOD']=='POST'){

@@ -25,14 +25,23 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="reservable_status">Reservable Status</label>
-                        <input type="text" name="reservable_status" value="<?php echo $data['manage_train']->reservable_status?>" id="reservable_status" required >
+                        <select name="reservable_status" id="reservable_status" required>
+                                <option value=""><?php echo $data['manage_train']->reservable_status?></option>
+                                <option >Yes</option>
+                                <option >No</option>
+                        </select>
                         <span class="invalidFeedback">
                             <?php echo $data['reservable_statusError'];?>
                         </span>
                     </div>
                     <div class="input-data">
                         <label for="type">Type</label>
-                        <input type="text" name="type" value="<?php echo $data['manage_train']->type?>" id="type" required >
+                        <select name="type" id="type" required>
+                                <option value=""><?php echo $data['manage_train']->type?></option>
+                                <option >Express</option>
+                                <option >IntercityExpress</option>
+                                <option >HolidaySpecial</option>
+                        </select>
                         <span class="invalidFeedback">
                             <?php echo $data['typeError'];?>
                         </span>
@@ -90,18 +99,18 @@
                         <input type="submit" class="blue-btn" name="submit" value="Update Train">
                     </div>    
                     <div class="input-data">
-                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_trains/create">Add New Train</a>
+                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_trains/create" style="padding-left: 40px;">Add New Train</a>
                     </div>  
                     <div class="input-data">
-                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_schedules/index">Train Schedule</a>
+                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_schedules/index" style="padding-left: 35px;">Train Schedule</a>
                     </div>
                 </div>
                 <div class="form-row submit-btn">
                     <div class="input-data">
-                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_compartments/index">Compartment</a>
+                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_compartments/index" style="padding-left: 40px;">Compartment</a>
                     </div>    
                     <div class="input-data">
-                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_available_days/index">Available Days</a>
+                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_available_days/index" style="padding-left: 40px;">Available Days</a>
                     </div>
                     <div class="input-data">
                         <input type="button" onclick="history.go(-1);" class="red-btn" value="Back">
