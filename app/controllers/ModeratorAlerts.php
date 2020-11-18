@@ -578,6 +578,31 @@
 
         }
 
+        public function alertsDash()
+        {
+            $data=[
+                'cancelledCount'=>15,
+                'delayedCount'=>10,
+                'rescheduledCount'=>7
+            ];
+            $this->view('moderators/alerts/alertsdash', $data);
+        }
+
+        
+        public function alertsRandomDash()
+        {
+            $cancelledCount=random_int(2, 20);
+            $delayedCount=random_int(2, 20);
+            $rescheduledCount=random_int(2, 20);
+            
+            $data=[
+                'cancelledCount'=>$cancelledCount,
+                'delayedCount'=>$delayedCount,
+                'rescheduledCount'=>$rescheduledCount
+            ];
+            $this->view('moderators/alerts/alertsdash', $data);
+        }
+
         public function deleteAlert($id,$type)
         {
 

@@ -627,6 +627,11 @@ header{
     transform: translateY(0) rotate(45deg);
 }
 
+.show, .show2, .nav-container input{
+    display: none;
+}
+
+
 @keyframes animation{
     from{
         opacity: 0;
@@ -639,6 +644,68 @@ header{
 }
 
 @media (max-width: 920px){
+
+	.show + a, ul{
+        display: none;
+    }
+
+    /* .show2 + a{
+        display: none;
+    } */
+
+    .show{
+        text-transform: uppercase;
+        width: 100%;
+        display: block;
+        color: white;
+        font-size: 17px;
+        padding: 10px 30px;
+        justify-content: space-between;
+        letter-spacing: 1px;
+        line-height: 70px;
+        cursor: pointer;
+    }
+    .show2{
+        text-transform: uppercase;
+        width: 100%;
+        display: block;
+        color: white;
+        font-size: 15px;
+        padding: 18px 40px;
+        line-height: 70px;
+        cursor: pointer;
+    }
+
+    .show:hover{
+        background-color: #13406d;
+    }
+
+    .show2:hover{
+        background-color: #13406d;
+    }
+
+ 
+
+    [id^=btn]:checked + .nav-dropdown > ul{
+        display: block;
+    }
+
+    [id^=btn]:checked + .nav-dropdown.second > ul{
+        display: block;
+    }
+
+
+    .show + a, .nav-dropdown ul{
+        display: none;
+    }
+    
+    .show2 + a, .nav-dropdown.second ul{
+        display: none;
+    }
+
+
+
+	
     .hamburger-menu-container{
         display: flex;
     }

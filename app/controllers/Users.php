@@ -309,7 +309,7 @@
 
 					        // Set email format to HTML
 					        $mail->Subject = 'Your Password Request Link';
-					        $mail->Body    = "<h1>You requested a password change</h1> Clink on <a href='$url'>this link</a> to reset your password</h1>";
+					        $mail->Body    = "<h1>You requested a password change</h1> Click on <a href='$url'>this link</a> to reset your password</h1>";
 					        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
 					        $mail->send();

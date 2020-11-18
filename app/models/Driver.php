@@ -232,6 +232,55 @@ class Driver{
         }
     }
 
+
+    public function requestReset($email, $code){
+
+        $this->db->query('INSERT INTO resetpasswords (email,code) VALUES (:email, :code)');
+
+        //bind values
+        $this->db->bind(':email', $email);
+        $this->db->bind(':code', $code);
+
+        //Execute function
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    
+		public function updatePassword($email, $password) {
+
+			$this->db->query('UPDATE users SET password = :password WHERE email = :email');
+
+			//bind values
+			$this->db->bind(':email', $email);
+			$this->db->bind(':password', $password);
+
+			//Execute function
+			if ($this->db->execute()) {
+				return true;				
+			} else {
+				return false;
+			}
+		}
+
+		public function deleteCode($code){
+
+			$this->db->query('DELETE FROM resetpasswords WHERE code = :code');
+
+			//bind values
+			$this->db->bind(':code', $code);
+
+			//execute function
+			if ($this->db->execute()){
+				return true;
+			} else {
+				return false;
+			}
+		}
     
 
 

@@ -181,7 +181,7 @@
                                                 <a href="<?php echo URLROOT;?>/moderators/moderatorAccount">Account<span class="fa fa-user"></span></a>
                                             </li>
                                             <li class="dropdown-link">
-                                                <a href="<?php echo URLROOT;?>/users/logout">Logout<span class="fa fa-sign-out"></span></a>
+                                                <a href="<?php echo URLROOT;?>/moderators/logout">Logout<span class="fa fa-sign-out"></span></a>
                                             </li>
                                             <div class="arrow"></div>
                                         </ul>

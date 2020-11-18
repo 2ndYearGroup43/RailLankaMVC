@@ -21,7 +21,7 @@
                         </div>
                         <div class="input-data">
                             <label for="delaytime">Estimated Delay Time</label>
-                            <input type="time" name="delaytime" id="delaytime" required >
+                            <input type="number" name="delaytime" id="delaytime" step="5" placeholder="Estimated Delay in Minutes" required >
                             <span class="invalidFeedback">
                                     <?php echo $data['delayTimeError'];?>
                             </span> 
