@@ -5,77 +5,9 @@
     require APPROOT.'/views/includes/resofficer_navigation.php';
 ?>
         <div class="body-section">
-            <div class="content-row">
-            	<button type="submit" class="submit-btn search" onclick="openForm()">Search</button>    
+            <div class="content-row">   
             </div>
             <div class="content-row">
-                <div class="container-searchbox-popup" id="popupsearch">
-                    <form action="#">
-                        <div class="form-row">    
-                            <div class="searchlogo">
-                                <img src="<?php echo URLROOT;?>/public/img/logoschedule.jpg" alt="raillankatracktrains">
-                            </div>
-                        </div>    
-                        <div class="form-row">
-                            <div class="input-data">
-                                <label for="src">Source Station</label>
-                                <select name="src" id="src">
-                                    <option value="Fort">Fort</option>
-                                    <option value="Kandy">Kandy</option>
-                                    <option value="Galle">Galle</option>
-                                    <option value="Baadulla">Baadulla</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="input-data">
-                                <label for="dest">Destination Station</label>
-                                <select name="dest" id="dest">
-                                    <option value="Fort">Fort</option>
-                                    <option value="Kandy">Kandy</option>
-                                    <option value="Galle">Galle</option>
-                                    <option value="Baadulla">Baadulla</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="input-data">
-                                <label for="date">Date</label>
-                                <input type="date" id="date" >
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="input-data">
-                                <label for="time">Time</label>
-                                <input type="time" id="time" >
-                            </div>
-                        </div>
-                        <div class="form-row submit-btn">
-                            <div class="input-data" >
-                                <input type="submit" class="blue-btn" style="font-size: 15px;" value="Search">
-                            </div>    
-                            <div class="input-data">
-                                <input type="submit" class="red-btn" value="Back" style="font-size: 15px;" onclick="closeForm()">
-                            </div>
-                        </div>
-                    </form>
-                    </div>
-                
-                    <script>
-                        function openForm() {
-                            document.getElementById("popupsearch").style.display = "block";
-                        }
-        
-                        function closeForm() {
-                            document.getElementById("popupsearch").style.display = "none";
-                        }
-                    </script>
-                
-                    <script>
-                        $('.icon').click(function(){
-                            $('span').toggleClass("cancel");
-                        });
-                    </script>
                     <div class="container-table">
                         <h1>Ticket Details</h1>
                         <div class="res-table">
@@ -87,6 +19,8 @@
                                         <th>Date</th>
                                         <th>Time</th>
                                         <th>Compartment No</th>
+                                        <th>Seat No</th>
+                                        <th>NIC</th>
                                         <th>Ticket ID</th>   
                                     </tr>
                                 </thead>
@@ -96,6 +30,8 @@
                                     <td data-th="Date">BLa</td>
                                     <td data-th="Time">BLa</td>
                                     <td data-th="Compartment No">BLa</td>
+                                    <td data-th="Seat No">BLa</td>
+                                    <td data-th="NIC">BLa</td>
                                     <td data-th="Ticket ID">BLa</td>
                                    </td>
                                 </tr>
@@ -105,6 +41,8 @@
                                     <td data-th="Date">BLa</td>
                                     <td data-th="Time">BLa</td>
                                     <td data-th="Compartment No">BLa</td>
+                                    <td data-th="Seat No">BLa</td>
+                                    <td data-th="NIC">BLa</td>
                                     <td data-th="Ticket ID">BLa</td>
 				                    </td>
                                 </tr>

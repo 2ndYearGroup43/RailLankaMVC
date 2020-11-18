@@ -4,6 +4,7 @@
 
 		public function __construct() {
 			$this->resofficerReservationModel = $this->model('ResOfficerReservationDetail');
+			isResofficerLoggedIn();
 		}
 
 		public function search() {
@@ -28,6 +29,12 @@
 
 			
 			$this->view('resofficers/reservation_details/search_ticket_details'); 
+		}
+
+		public function displayTicketTrains() {
+
+			
+			$this->view('resofficers/reservation_details/display_ticket_trains'); 
 		}
 
 		public function displayTicketDetails() {

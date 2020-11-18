@@ -73,7 +73,7 @@
                     $data['officerIdError']="Officer ID can only contain letters and numbers.";
                 }else{
                     //if officerID exists
-                    if($this->resofficerModel->findResofficerrByResofficerId($data['officerId'])){
+                    if($this->resofficerModel->findResofficerByResofficerId($data['officerId'])){
                         $data['officerIdError']='This ID is already registered as a Officer in the system.'; 
                     }
                 }
@@ -346,84 +346,11 @@
             
         }
 
-
-
-
-
-        public function login()
-        {
-            $data = [
-                'title'=>'Login page',
-                'username'=>'',
-                'password'=>'',
-                'usernameError'=>'',
-                'passwordError'=>''
-            ];
-
-
-            if($_SERVER['REQUEST_METHOD']=='POST'){
-                //sanitize te data
-                $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-                $data=[
-                    'username'=>trim($_POST['username']),
-                    'password'=>trim($_POST['password']),
-                    'usernameError'=>'',
-                    'passwordError'=>''
-                ];
-
-                if(empty($data['username'])){
-                    $data['usernameError']="Please enter a username.";   
-                }
-                if(empty($data['password'])){
-                    $data['passwordError']="Please enter a password.";
-                }
-
-                if(empty($data['usernameError'])&& empty($data['passwordError'])){
-                    $loggedInUser=$this->resofficerModel->login($data['username'] ,$data['password']);
-                    
-                    if($loggedInUser){
-                        $this->createUserSession($loggedInUser);
-                    }else{
-                        $data['passwordError']='Username or Password is incorrect.
-                        Please try again.';
-
-                        $this->view('users/login', $data);
-                    }
-                }
-            
-            }else{
-                $data=[
-                    'username'=>'',
-                    'password'=>'',
-                    'usernameError'=>'',
-                    'passwordError'=>''
-                ];
-            }
-
-
-
-            $this->view('users/login', $data);
-        }
-
-
-        public function createUserSession($loggedInUser)
-        {
-            
-            $_SESSION['resofficer_id']= $loggedInUser->officerId;
-            $_SESSION['employee_id']= $loggedInUser->employeeId;
-            $_SESSION['email']= $loggedInUser->email;
-
-            header('location: '.URLROOT.'/pages/index');
-            
-        }
-
-        public function logout()
-        {
-            unset($_SESSION['resofficer_id']);
-            unset($_SESSION['employee_id']);
+        public function logout() {
+            unset($_SESSION['userid']);
             unset($_SESSION['email']);
-
-            header('location: '.URLROOT.'/resofficers/login');
-            
+            unset($_SESSION['role']);
+            unset($_SESSION['resofficer_id']);
+            header('location:' . URLROOT . '/pages/index');
         }
     }

@@ -61,7 +61,7 @@
                 </div>
                 <div class="form-row submit-btn">
                     <div class="input-data">
-                        <a class= "blue-blue-btn" href="<?php echo URLROOT; ?>/resofficerReservations/displayETicket" style="padding-left: 40px;">View E Ticket</a>
+                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/resofficerReservations/displayETicket" style="padding-left: 70px;">Reserve</a>
                     </div>     
                 </div>
             </form>

@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-row submit-btn">
                     <div class="input-data">
-                        <a class= "blue-blue-btn" style="padding-left: 70px;">Refund</a>
+                        <a class= "blue-btn" style="padding-left: 70px;">Refund</a>
                     </div>     
                 </div>
             </form>

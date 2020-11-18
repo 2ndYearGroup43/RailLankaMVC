@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="form-row submit-btn">
                                     <div class="input-data">
-                                        <input type="submit" class="blue-btn" name="submit" value="ADD Days">
+                                        <input type="submit" class="blue-btn" name="submit" value="End">
                                     </div>    
                                     <div class="input-data">
                                         <input type="button" onclick="history.go(-1);" class="red-btn" value="Back">

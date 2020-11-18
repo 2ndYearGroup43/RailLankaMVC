@@ -1,24 +1,25 @@
-<?php
-    require APPROOT.'/views/includes/resofficer_head.php';
+<?php 
+    require APPROOT .'/views/includes/head.php';
 ?>
-<?php
-    require APPROOT.'/views/includes/train_management_navigation.php';
+<?php 
+    require APPROOT.'/views/includes/navigationadmin.php';
 ?>
+
 <div class="body-section">
     <div class="content-flexrow">
         <div class="container">
-            <div class="text" style="color: #13406d;">Employee Registration <small style="color: black;">Reservation Officer</small></div>
-            <form action="<?php echo URLROOT;?>/resofficers/registerResofficer" method="POST">
+            <div class="text">Admin Registration <small>Admin</small></div>
+            <form action="<?php echo URLROOT;?>/admins/registerAdmin" method="POST">
                 <div class="form-row">
                     <div class="input-data">
-                        <label for="officerId">Officer Id</label>
-                        <input type="text" name="officerId" id="officerId" required >
+                        <label for="adminId">Admin Id</label>
+                        <input type="text" name="adminId" id="adminId" required >
                         <span class="invalidFeedback">
-                            <?php echo $data['officerIdError'];?>
+                            <?php echo $data['adminIdError'];?>
                         </span>
                     </div>
                     <div class="input-data">
-                        <label for="employeeId">Emloyee-Id</label>
+                        <label for="employeeId">Emloyee Id</label>
                         <input type="text" name="employeeId" id="employeeId" required >
                         <span class="invalidFeedback">
                             <?php echo $data['employeeIdError'];?>
@@ -27,17 +28,17 @@
                 </div>
                 <div class="form-row">
                     <div class="input-data">
-                        <label for="firstName">First Name</label>
-                        <input type="text" name="firstName" id="firstName" required >
+                        <label for="firstname">First Name</label>
+                        <input type="text" name="firstname" id="firstname" required >
                         <span class="invalidFeedback">
-                            <?php echo $data['firstNameError'];?>
+                            <?php echo $data['firstnameError'];?>
                         </span>
                     </div>
                     <div class="input-data">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" name="lastName" id="lastName" required >
+                        <label for="lastname">Last Name</label>
+                        <input type="text" name="lastname" id="lastname" required >
                         <span class="invalidFeedback">
-                            <?php echo $data['lastNameError'];?>
+                            <?php echo $data['lastnameError'];?>
                         </span>
                     </div>
                 </div>
@@ -52,10 +53,10 @@
                 </div>
                 <div class="form-row">
                     <div class="input-data">
-                        <label for="mobileNo">Mobile-No</label>
-                        <input type="text" id="mobileNo" name="mobileNo" placeholder="+94 ** *** *****" required >
+                        <label for="mobileno">Mobile-No</label>
+                        <input type="text" id="mobileno" name="mobileno" placeholder="+94 ** *** *****" required >
                         <span class="invalidFeedback">
-                            <?php echo $data['mobileNoError'];?>
+                            <?php echo $data['mobilenoError'];?>
                         </span>
                     </div>
                 </div>
