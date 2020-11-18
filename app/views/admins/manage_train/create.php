@@ -28,14 +28,23 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="reservable_status">Reservable Status</label>
-                        <input type="text" name="reservable_status" id="reservable_status" required >
+                        <select name="reservable_status" id="reservable_status" required>
+                                <option value="">Select</option>
+                                <option >Yes</option>
+                                <option >No</option>
+                        </select>
                         <span class="invalidFeedback">
                             <?php echo $data['reservable_statusError'];?>
                         </span>
                     </div>
                     <div class="input-data">
                         <label for="type">Type</label>
-                        <input type="text" name="type" id="type" required >
+                        <select name="type" id="type" required>
+                                <option value="">Select</option>
+                                <option >Express</option>
+                                <option >IntercityExpress</option>
+                                <option >HolidaySpecial</option>
+                        </select>
                         <span class="invalidFeedback">
                             <?php echo $data['typeError'];?>
                         </span>

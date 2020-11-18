@@ -80,7 +80,7 @@ class Admin_manage_trains extends Controller{
                 $data['src_stationError']='Please Enter the Train ID.';
                 }else{
 
-                    if($this->adminModel->getSrcStation($data['src_station']) == $this->adminModel->getDestStation($data['dest_station'])){
+                    if(($data['src_station']) == ($data['dest_station'])){
                         $data['src_stationError']='Source and Destination Stations Cannot be Same.'; 
                     }
                 }
@@ -89,7 +89,7 @@ class Admin_manage_trains extends Controller{
                 $data['dest_stationError']='Please Enter the Train ID.';
                 }else{
 
-                    if($this->adminModel->getSrcStation($data['dest_station']) == $this->adminModel->getDestStation($data['dest_station'])){
+                    if(($data['dest_station']) == ($data['src_station'])){
                         $data['dest_stationError']='Source and Destination Stations Cannot be Same.'; 
                     }
                 }
@@ -114,7 +114,12 @@ class Admin_manage_trains extends Controller{
                 empty($data['reservable_statusError']) && empty($data['typeError']) && empty($data['src_stationError']) && empty($data['dest_stationError'])){
 
 			if ($this->adminModel->create_train($data)) {
-				header("Location: " . URLROOT . "/Admin_manage_trains");
+				if(($data['reservable_status'])=='Yes'){
+					header("Location: " . URLROOT . "/Admin_manage_compartments");
+				}else{
+					header("Location: " . URLROOT . "/Admin_manage_trains");
+				}
+				
 			}else{
 				die("Something Going Wrong");
 			}
@@ -183,6 +188,25 @@ class Admin_manage_trains extends Controller{
                 }elseif(!preg_match($nameValidation, $data['name'])){
                     $data['nameError']="Train Name can only contain letters and numbers.";
                 }
+
+                if(empty($data['src_station'])){
+                $data['src_stationError']='Please Enter the Train ID.';
+                }else{
+
+                    if(($data['src_station']) == ($data['dest_station'])){
+                        $data['src_stationError']='Source and Destination Stations Cannot be Same.'; 
+                    }
+                }
+
+                if(empty($data['dest_station'])){
+                $data['dest_stationError']='Please Enter the Train ID.';
+                }else{
+
+                    if(($data['dest_station']) == ($data['dest_station'])){
+                        $data['dest_stationError']='Source and Destination Stations Cannot be Same.'; 
+                    }
+                }
+                
                 if(empty($data['reservable_status'])){
                     $data['reservable_statusError']='Please Enter the Reservable Status.';
                 }elseif(!preg_match($nameValidation, $data['reservable_status'])){
@@ -198,7 +222,11 @@ class Admin_manage_trains extends Controller{
 
 
 			if ($this->adminModel->edit($data)) {
-				header("Location: " . URLROOT . "/Admin_manage_trains");
+				if(($data['reservable_status'])=='Yes'){
+					header("Location: " . URLROOT . "/Admin_manage_compartments");
+				}else{
+					header("Location: " . URLROOT . "/Admin_manage_trains");
+				}
 			}else{
 				die("Something Going Wrong");
 			}           
