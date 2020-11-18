@@ -22,7 +22,36 @@
 		public function displaySeatMaps() {
 
 			
-			$this->view('resofficers/reservations/display_seatmaps'); 
+			$this->view('resofficers/reservations/display_seatmaps1'); 
+		}
+
+		public function displaySeatMaps2() {
+
+	
+			$this->view('resofficers/reservations/display_seatmaps2'); 
+		}
+
+		public function displaySeatMaps3() {
+
+			$this->view('resofficers/reservations/display_seatmaps3'); 
+		}
+
+		public function displaySeatMaps4() {
+
+		
+			$this->view('resofficers/reservations/display_seatmaps4'); 
+		}
+
+		public function displaySeatMaps5() {
+
+	
+			$this->view('resofficers/reservations/display_seatmaps5'); 
+		}
+
+		public function displaySeatMaps6() {
+
+		
+			$this->view('resofficers/reservations/display_seatmaps6'); 
 		}
 
 		public function getPaasengerDetails() {

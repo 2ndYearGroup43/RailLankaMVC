@@ -69,7 +69,7 @@
                 </div>
                 <div class="form-row submit-btn">
                     <div class="input-data">
-                        <input type="submit" class="blue-btn" name="submit" value="Add Station">
+                        <input type="submit" class="blue-btn" name="submit" value="Next">
                     </div>
                 </div>
             </form>

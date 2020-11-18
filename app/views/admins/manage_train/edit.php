@@ -90,21 +90,21 @@
                         <input type="submit" class="blue-btn" name="submit" value="Update Train">
                     </div>    
                     <div class="input-data">
-                        <a class= "blue-blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_trains/create">Add New Train</a>
+                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_trains/create">Add New Train</a>
                     </div>  
                     <div class="input-data">
-                        <input type="button" onclick="history.go(-1);" class="red-btn" value="Back">
+                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_schedules/index">Train Schedule</a>
                     </div>
                 </div>
                 <div class="form-row submit-btn">
                     <div class="input-data">
-                        <a class= "blue-blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_compartments/index">Compartment</a>
+                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_compartments/index">Compartment</a>
                     </div>    
                     <div class="input-data">
-                        <a class= "blue-blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_available_days/index">Available Days</a>
+                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_available_days/index">Available Days</a>
                     </div>
                     <div class="input-data">
-                        <a class= "blue-blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_schedules/index">Train Schedule</a>
+                        <input type="button" onclick="history.go(-1);" class="red-btn" value="Back">
                     </div>
                 </div>
             </form>

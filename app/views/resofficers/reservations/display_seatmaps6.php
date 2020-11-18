@@ -5,6 +5,8 @@
     require APPROOT.'/views/includes/resofficer_navigation.php';
 ?>
 
+
+
 	<div class="body-section">
 		<div class="content-row">
 		</div>
@@ -16,12 +18,12 @@
 			  		<h1 class="title">Seat Map</h1>
 			  		<div class="compartment-container">
 				    	<h2>Select Compartment</h2>
-				    	<input type="submit" class="compartment" value="wagon 1">
-				    	<input type="submit" class="compartment" value="wagon 2">
-				    	<input type="submit" class="cdmpartment" value="wagon 3">
-				    	<input type="submit" class="compartment" value="wagon 4">
-				    	<input type="submit" class="compartment" value="wagon 5">
-				    	<input type="submit" class="compartment" value="wagon 6">
+				    	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps'" type="submit" class="compartment" value="wagon 1">
+				    	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps2'" type="submit" class="compartment" value="wagon 2">
+				    	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps3'" type="submit" class="compartment" value="wagon 3">
+				    	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps4'" type="submit" class="compartment" value="wagon 4">
+				    	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps5'" type="submit" class="compartment" value="wagon 5">
+				    	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps6'" type="submit" class="compartment active-comp" value="wagon 6">
 				    </div>
 			    	<div id="seat-map">
 			      		<div class="front-indicator">Front</div>
@@ -33,14 +35,15 @@
 					      	<ul id="selected-seats">
 					      	</ul>
 					      	Total: <b>$<span id="total">0</span></b>
-					      	
+					      	<!-- <button class="checkout-button">Checkout &raquo;</button> -->
 					      	<div id="legend"></div>
 					    </div>
 					<!-- </div> -->
 				<!-- </div> -->
 			</div>
-			<button class="btn checkout-btn">Book now &raquo;</button>
-				<p class="options">Back to search results? <a href="<?php echo URLROOT; ?>/resofficerReservations/displayTrains">Click here.</a></p>
+			<button class="btn checkout-btn" onclick="location.href='<?php echo URLROOT; ?>//resofficerReservations/getPaasengerDetails'" type="button" class="blue-btn btn">Book now &raquo;</button>
+			<p class="options">Back to search results? <a href="<?php echo URLROOT; ?>/resofficerReservations/displayTrains">Click here.</a></p>
+			<!-- <button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displayTrains'" type="submit" class="btn blue-btn back-btn">Back</button> -->
 		</div>		
 		<div class="content-row">
 		</div>
@@ -88,28 +91,32 @@
 					$total = $('#total'),
 					sc = $('#seat-map').seatCharts({
 					map: [
-						'ff_ff',
-						'ff_ff',
-						'ee_ee',
-						'ee_ee',
-						'ee_ee',
-						'ee_ee',
-						'ee_ee',
-						'ee_ee',
-						'ee_ee',
+						'ttt_tt',
+						'ttt_tt',
+						'ttt_tt',
+						'ttt_tt',
+						'ttt_tt',
+						'ttt_tt',
+						'ttt_tt',
+						'ttt_tt',
+						'ttt_tt',
 					],
 					seats: {
 						f: {
-							price   : 100,
+							price   : 400,
 							classes : 'first-class', //your custom CSS class
 							category: 'First Class'
 						},
-						e: {
-							price   : 40,
-							classes : 'economy-class', //your custom CSS class
-							category: 'Economy Class'
-						}					
-					
+						s: {
+							price   : 230,
+							classes : 'second-class', //your custom CSS class
+							category: 'Second Class'
+						},
+						t: {
+							price   : 125,
+							classes : 'third-class', //your custom CSS class
+							category: 'Third Class'
+						}		
 					},
 					naming : {
 						top : false,
@@ -121,7 +128,8 @@
 						node : $('#legend'),
 					    items : [
 							[ 'f', 'available',   'First Class' ],
-							[ 'e', 'available',   'Economy Class'],
+							[ 's', 'available',   'Second Class'],
+							[ 't', 'available',   'Third Class'],
 							[ 'f', 'unavailable', 'Already Booked']
 					    ]					
 					},

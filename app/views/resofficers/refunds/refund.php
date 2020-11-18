@@ -4,7 +4,6 @@
 <?php
     require APPROOT.'/views/includes/resofficer_navigation.php';
 ?>
-<?php var_dump($_SESSION); ?>
 <div class="body-section">
         <div class="content-flexrow">
             <div class="container">
@@ -38,7 +37,7 @@
                 </div>
                 <div class="form-row submit-btn">
                     <div class="input-data">
-                        <a class= "blue-blue-btn" style="padding-left: 70px;">Refund</a>
+                        <a class= "blue-btn" style="padding-left: 70px;">Refund</a>
                     </div>     
                 </div>
             </form>
