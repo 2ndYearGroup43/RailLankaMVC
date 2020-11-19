@@ -6,7 +6,7 @@
 	// 	echo "<br>";
 	// }
 	
-	isPassengerLoggedIn();
+	// isPassengerLoggedIn();
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
@@ -20,40 +20,41 @@
 		<div class="content-row">
 		</div>
 		<div class="form-container">
-			<h1 class="title">Search Trains</h1>
+			<h1 class="title">Contact Us</h1>
 			<br>
 			<form action="#">
 				<div class="form-row">	
 					<div class="input-data">
 						<input type="text" name="" required>
 						<div class="underline"></div>
-						<label>Source Station</label>
+						<label>First Name</label>
 					</div>
 				</div>	
 				<div class="form-row">
 					<div class="input-data">
 						<input type="text" name="" required>
 						<div class="underline"></div>
-						<label>Destination Station</label>
+						<label>Last Name</label>
 					</div>
 				</div>
 				<div class="form-row">	
 					<div class="input-data">
-						<input type="date" name="" placeholder="" required>
+						<input type="email" name="" required>
 						<div class="underline"></div>
-						<label>Date</label>
+						<label>Email Address</label>
 					</div>
 				</div>
 				<div class="form-row">	
-					<div class="input-data">
-						<input type="time" name="" required>	
+					<div class="input-data textarea">
+						<textarea cols="30" rows="10" required></textarea>	
 						<div class="underline"></div>
-						<label>Time</label>
+						<label>Write Your Message</label>
 					</div>
 				</div>
+				<br>
 				<div class="form-row">
-					<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayTrains'" type="submit" class="blue-btn btn">Search</button>
-					<button type="submit" class="blue-btn btn">Reset</button>
+					<button type="submit" class="blue-btn btn">Submit</button>
+					<button onclick="location.href='<?php echo URLROOT; ?>/pages/index'" type="submit" class="blue-btn btn">Back</button>
                 </div>
 			</form>	
 		</div>
@@ -78,4 +79,5 @@
 </script>
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>
+
 

@@ -12,6 +12,11 @@
 ?>
 
 <?php var_dump($_SESSION); ?> 
+<div class="marquee-area info-tag">
+	<marquee>
+		<i class="fa fa-exclamation-triangle" aria-hidden="true" size="3x"></i> Coronavirus(COVID-19) - For the latest updates and travel information, please visit our Coronavirus Information Center
+	</marquee>
+</div>
 
 <!-- banner area -->
 <div class="banner">
@@ -40,7 +45,7 @@
 							<div class="slideshow-item-text">
 								<h3>COLOMBO-KANDY</h3>
 								<!-- <p>The three-hour trip from Colombo to Kandy will whisk you away from the big city sprawl to the genteel greenery of Sri Lanka’s spiritual capital.</p> -->
-								<button onclick="location.href='<?php echo URLROOT; ?>/reservations/displayTrains'" type="submit" class="btn">Reserve Now</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displayTrains'" type="submit" class="btn">Reserve Now</button>
 							</div>
 						</div>
 						<div class="slideshow-item">
@@ -48,7 +53,7 @@
 							<div class="slideshow-item-text">
 								<h3>COLOMBO-GALLE</h3>
 								<!-- <p>Lorem Ipsum</p> -->
-								<button onclick="location.href='<?php echo URLROOT; ?>/reservations/displayTrains'" type="submit" class="btn">Reserve Now</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displayTrains'" type="submit" class="btn">Reserve Now</button>
 							</div>
 						</div>
 						<div class="slideshow-item">
@@ -56,7 +61,7 @@
 							<div class="slideshow-item-text">
 								<h3>COLOMBO-JAFFNA</h3>
 								<!-- <p>Lorem Ipsum</p> -->
-								<button onclick="location.href='<?php echo URLROOT; ?>/reservations/displayTrains'" type="submit" class="btn">Reserve Now</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displayTrains'" type="submit" class="btn">Reserve Now</button>
 							</div>
 						</div>
 					</div>
@@ -106,7 +111,7 @@
 		                </div>
 					</div>
 				</form>
-				<a href="<?php echo URLROOT; ?>/schedules/displayTrains" id="view-all">Go <i class="fa fa-long-arrow-right"></i></a>
+				<a href="<?php echo URLROOT; ?>/passengerSchedules/displayTrains" id="view-all">Go <i class="fa fa-long-arrow-right"></i></a>
 			</div>
 		</div>
 	</div>
@@ -118,36 +123,39 @@
 					<h2>02<br><span>October</span></h2>
 				</div>
 				<div class="time-details">
-					<a id=pop-up href="#"><h3>Fort-Station closed for renovation</h3></a>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					</p>
+					<h3>Unawatuna Sub Railway Station Temporarily Closed Due To COVID-19</h3>
+					<a id=pop-up href="#">
+						<p>Read More <i class="fa fa-angle-double-right"></i></p>
+					</a>
 				</div>
 				<div style="clear: both;"></div>
 			</li>
 			<li>
 				<div class="time">
-						<h2>18<br><span>August</span></h2>
-					</div>
-					<div class="time-details">
-						<a id=pop-up href="#"><h3>15 stations closed due to COVID-19</h3></a>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						</p>
-					</div>
-				<div style="clear: both;"></div>
-			</li>
-			<li>
-				<div class="time">
-					<h2>24<br><span>June</span></h2>
+					<h2>28<br><span>August</span></h2>
 				</div>
 				<div class="time-details">
-					<a id=pop-up href="#"><h3>Where does it come from</h3></a>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					</p>
+					<h3>Beliatta-Anuradhapura Express Train won't be in operation until further notice</h3>
+					<a id=pop-up href="#">
+						<p>Read More <i class="fa fa-angle-double-right"></i></p>
+					</a>
+				</div>
+				<div style="clear: both;"></div>
+			</li>
+			<li>
+				<div class="time">
+					<h2>13<br><span>July</span></h2>
+				</div>
+				<div class="time-details">
+					<h3>Denuwara Menike And KKS Intercity Trains To Run On Weekends</h3>
+					<a id=pop-up href="#">
+						<p>Read More <i class="fa fa-angle-double-right"></i></p>
+					</a>
 				</div>
 				<div style="clear: both;"></div>
 			</li>
 		</ul>
-		<a href="" id="view-all">View All <i class="fa fa-long-arrow-right"></i></a>
+		<a href="<?php echo URLROOT; ?>/pages/notices" id="view-all">View All <i class="fa fa-long-arrow-right"></i></a>
 	</div>
 </section>
 
@@ -164,15 +172,14 @@
 							<td>2nd October 2020</td>
 						</tr>
 						<tr>
-							<td><h3>Colombo Fort-Station closed for renovation</h3></td>
+							<td><h3>Unawatuna sub railway station temporarily closed due to COVID-19</h3></td>
 						</tr>
 						<tr>	
-							<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							<td>The Unawatuna Railway Station was temporarily closed on Monday (July 13), according to the Department of Railways.
+
+							“An officer at the Unawatuna Railway Station was directed for PCR testing after it was confirmed he maintained contact with a COVID-19 case,” Dilantha Fernando – the General Manager of Railways said on Monday (July 12).
+
+							According to Fernando, the Unawatuna Railway station will remain closed until the officer’s PCR test results are released.
 							</td>
 						</tr>
 					</tbody>		
@@ -211,6 +218,6 @@
 </script>
 <!-- end of js for pop up -->
 
-<?php require APPROOT . '/views/includes/footer.php'; ?>
+<?php require APPROOT . '/views/includes/passenger_footer.php'; ?>
 
 
