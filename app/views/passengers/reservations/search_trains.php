@@ -77,6 +77,5 @@
 	}
 </script>
 
-<?php require APPROOT . '/views/includes/footer.php'; ?>
-
+<?php require APPROOT . '/views/includes/passenger_footer.php'; ?>
 

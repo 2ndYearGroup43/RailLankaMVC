@@ -27,37 +27,37 @@
 		public function displaySeatMaps() {
 
 			isPassengerLoggedIn();
-			$this->view('passengers/reservations/display_seatmaps1'); 
+			$this->view('passengers/reservations/display_seatmapsn1'); 
 		}
 
 		public function displaySeatMaps2() {
 
 			isPassengerLoggedIn();
-			$this->view('passengers/reservations/display_seatmaps2'); 
+			$this->view('passengers/reservations/display_seatmapsn2'); 
 		}
 
 		public function displaySeatMaps3() {
 
 			isPassengerLoggedIn();
-			$this->view('passengers/reservations/display_seatmaps3'); 
+			$this->view('passengers/reservations/display_seatmapsn3'); 
 		}
 
 		public function displaySeatMaps4() {
 
 			isPassengerLoggedIn();
-			$this->view('passengers/reservations/display_seatmaps4'); 
+			$this->view('passengers/reservations/display_seatmapsn4'); 
 		}
 
 		public function displaySeatMaps5() {
 
 			isPassengerLoggedIn();
-			$this->view('passengers/reservations/display_seatmaps5'); 
+			$this->view('passengers/reservations/display_seatmapsn5'); 
 		}
 
 		public function displaySeatMaps6() {
 
 			isPassengerLoggedIn();
-			$this->view('passengers/reservations/display_seatmaps6'); 
+			$this->view('passengers/reservations/display_seatmapsn6'); 
 		}
 
 		public function bookingReview() {
