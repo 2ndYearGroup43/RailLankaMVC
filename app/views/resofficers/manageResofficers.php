@@ -64,7 +64,7 @@
                             <td colspan="2"></td>
                         </tr>
                        
-                        <button style="position: relative; padding: 10px 15px;" class="back-btn"><i class="fa fa-times" onclick="closeOfficerView()"></i></button>
+                        <button style="position: relative; padding: 10px 15px;" class="back-btn"><i class="fa fa-times" onclick="closeResofficerView()"></i></button>
                     </table>
                 </div>
                 <table class="blue">

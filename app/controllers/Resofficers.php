@@ -299,10 +299,7 @@
 
         public function resofficersSearchBy()
         {
-            if (!isResofficerLoggedIn()) {
-                header("Location: ".URLROOT."/resofficers/login");
-                exit;
-            }
+           
             $data=[
                 'resofficers'=>'',
                 'fields'=>'',
@@ -312,7 +309,7 @@
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $data=[
-                    'officers'=>'',
+                    'resofficers'=>'',
                     'fields'=>'',
                     'searchBar'=>trim($_POST['searchbar']),
                     'searchSelect'=>trim($_POST['searchselect'])
@@ -321,7 +318,7 @@
                 $resofficers=$this->resofficerModel->searchResofficers($data['searchBar'],$data['searchSelect']);
                 $fields=$this->resofficerModel->getResofficerFields();
                 $data=[
-                    'officers'=>$officers,
+                    'resofficers'=>$resofficers,
                     'fields'=>$fields,
                     'searchBar'=>trim($_POST['searchbar']),
                     'searchSelect'=>trim($_POST['searchselect'])

@@ -69,7 +69,10 @@
                 </div>
                 <div class="form-row submit-btn">
                     <div class="input-data">
-                        <input type="submit" class="blue-btn" name="submit" value="Next">
+                        <input type="submit" class="blue-btn" name="submit" value="Add">
+                    </div>
+                    <div class="input-data">
+                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_compartments/index" style="padding-left: 80px;">Next</a>
                     </div>
                 </div>
             </form>
@@ -88,15 +91,17 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($data['added_data'] as $post):?> 
                                 <tr>
-                                    <td data-th="Route Id">bla</td>
-                                    <td data-th="Station Id">bla</td>
-                                    <td data-th="Stop No">bla</td>
-                                    <td data-th="Arrival Time">bla</td>
-                                    <td data-th="Departure Time">bla</td>
-                                    <td data-th="Date">bla</td>
-                                    <td data-th="Distance">bla</td>
+                                    <td data-th="Route Id"><?php echo $post->routeId?></td>
+                                    <td data-th="Station Id"><?php echo $post->stationID?></td>
+                                    <td data-th="Stop No"><?php echo $post->stopNo?></td>
+                                    <td data-th="Arrival Time"><?php echo $post->arrivaltime?></td>
+                                    <td data-th="Departure Time"><?php echo $post->departuretime?></td>
+                                    <td data-th="Date"><?php echo $post->date?></td>
+                                    <td data-th="Distance"><?php echo $post->distance?></td>
                                 </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>

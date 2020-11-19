@@ -30,7 +30,12 @@
                                 </div>
                                 <div class="input-data">
                                     <label for="class">Class</label>
-                                    <input type="text" name="class" value="<?php echo $data['manage_compartment']->class?>" id="class" required >
+                                    <select name="class" id="class" required>
+                                        <option ><?php echo $data['manage_compartment']->class?></option>
+                                        <option >First</option>
+                                        <option >Second</option>
+                                        <option >Third</option>
+                                    </select>
                                     <span class="invalidFeedback">
                                         <?php echo $data['classError'];?>
                                     </span>
@@ -77,13 +82,15 @@
                                 </tr>
                             </thead>
                             <tbody>                                
+                            <?php foreach($data['added_data'] as $post):?>                                
                                 <tr>
-                                    <td data-th="Train ID">bla</td>
-                                    <td data-th="Compartment No">bla</td>
-                                    <td data-th="Class">bla</td>
-                                    <td data-th="No of Seats">bla</td>
-                                    <td data-th="Type">bla</td>
+                                    <td data-th="Train ID"><?php echo $post->trainId?></td>
+                                    <td data-th="Compartment No"><?php echo $post->compartmentNo?></td>
+                                    <td data-th="Class"><?php echo $post->class?></td>
+                                    <td data-th="No of Seats"><?php echo $post->noofseats?></td>
+                                    <td data-th="Type"><?php echo $post->type?></td>
                                 </tr>
+                            <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
