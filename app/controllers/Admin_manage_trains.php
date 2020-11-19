@@ -115,7 +115,7 @@ class Admin_manage_trains extends Controller{
 
 			if ($this->adminModel->create_train($data)) {
 				if(($data['reservable_status'])=='Yes'){
-					header("Location: " . URLROOT . "/Admin_manage_compartments");
+					header("Location: " . URLROOT . "/Admin_manage_schedules");
 				}else{
 					header("Location: " . URLROOT . "/Admin_manage_trains");
 				}

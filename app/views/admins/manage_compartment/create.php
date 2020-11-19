@@ -33,7 +33,12 @@
                                 </div>
                                 <div class="input-data">
                                     <label for="class">Class</label>
-                                    <input type="text" name="class" id="class" required >
+                                    <select name="class" id="class" required>
+                                        <option >Select</option>
+                                        <option >First</option>
+                                        <option >Second</option>
+                                        <option >Third</option>
+                                    </select>
                                     <span class="invalidFeedback">
                                         <?php echo $data['classError'];?>
                                     </span>
@@ -62,7 +67,10 @@
                             </div>
                             <div class="form-row submit-btn">
                                 <div class="input-data">
-                                    <input type="submit" class="blue-btn" name="submit" value="Next">
+                                    <input type="submit" class="blue-btn" name="submit" value="Add">
+                                </div>
+                                <div class="input-data">
+                                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_available_days/index" style="padding-left: 80px;">Next</a>
                                 </div>
                             </div>
                         </form>
@@ -79,14 +87,16 @@
                                     <th>Type</th>
                                 </tr>
                             </thead>
-                            <tbody>                                
+                            <tbody>
+                            <?php foreach($data['added_data'] as $post):?>                                
                                 <tr>
-                                    <td data-th="Train ID">bla</td>
-                                    <td data-th="Compartment No">bla</td>
-                                    <td data-th="Class">bla</td>
-                                    <td data-th="No of Seats">bla</td>
-                                    <td data-th="Type">bla</td>
+                                    <td data-th="Train ID"><?php echo $post->trainId?></td>
+                                    <td data-th="Compartment No"><?php echo $post->compartmentNo?></td>
+                                    <td data-th="Class"><?php echo $post->class?></td>
+                                    <td data-th="No of Seats"><?php echo $post->noofseats?></td>
+                                    <td data-th="Type"><?php echo $post->type?></td>
                                 </tr>
+                            <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>

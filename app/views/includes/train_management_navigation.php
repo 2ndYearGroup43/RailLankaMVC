@@ -7,17 +7,18 @@
             <input type="checkbox" id="btn">
             <ul class="main-nav">
                 <li><a href="<?php echo URLROOT;?>/admins/">Home</a></li>
-                <li><a href="<?php echo URLROOT; ?>/Resofficers/viewResofficers">Employee Management</a></li>
+                <li><a href="<?php echo URLROOT;?>/admins/">Users</a></li>
+                <li><a href="<?php echo URLROOT; ?>/Resofficers/viewResofficers">Employees</a></li>
                 <li>
-                        <label for="btn-4" class="show">Train Management +</label>
-                        <a href="<?php echo URLROOT; ?>/Admin_manage_trains/index"  class="active">Train Management <span class="fa fa-caret-down"  aria-hidden="true"></span></a>
+                        <label for="btn-4" class="show">Trains +</label>
+                        <a href="<?php echo URLROOT; ?>/Admin_manage_trains/index"  class="active">Trains<span class="fa fa-caret-down"  aria-hidden="true"></span></a>
                         <input type="checkbox" id="btn-4">
                         <ul>
                             <li><a href="<?php echo URLROOT; ?>/Admin_manage_fares/index">Manage Fare</a></li>
                             <li><a href="<?php echo URLROOT; ?>/Admin_manage_compartment_types/index">Compartment Type</a></li>
                         </ul>
                 </li>
-                <li><a href="#">Station Management</a></li>
+                <li><a href="#">Stations</a></li>
                 <li><a href="#">Reports</a></li>
                 
                 <li>

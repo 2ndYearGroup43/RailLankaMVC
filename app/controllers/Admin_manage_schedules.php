@@ -15,9 +15,11 @@ class Admin_manage_schedules extends Controller{
 	public function create(){
 		$routes=$this->adminModel->getRouteId();
 		$stations=$this->adminModel->getStationID();
+		$added_data=$this->adminModel->get();
 		$data = [
 			'routes'=>$routes,
 			'stations'=>$stations,
+			'added_data'=>$added_data,
 			'routeId'=>'',
 			'stationID'=>'',
 			'stopNo'=>'',
@@ -35,7 +37,8 @@ class Admin_manage_schedules extends Controller{
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
 			'routes'=>$routes,
-			'stations'=>$stations,	
+			'stations'=>$stations,
+			'added_data'=>$added_data,	
 			'routeId'=>trim($_POST['routeId']),	
 			'stationID'=>trim($_POST['stationID']),			
 			'stopNo'=>trim($_POST['stopNo']),
@@ -86,7 +89,7 @@ class Admin_manage_schedules extends Controller{
                 empty($data['stopNoError']) && empty($data['distanceError']) ){
 
 			if ($this->adminModel->create_schedule($data)) {
-				header("Location: " . URLROOT . "/Admin_manage_schedules");
+				header("Location: " . URLROOT . "/Admin_manage_schedules/create");
 			}else{
 				die("Something Going Wrong");
 			}
@@ -102,11 +105,13 @@ class Admin_manage_schedules extends Controller{
 		$manage_schedule=$this->adminModel->findRoute($routeId);
 		$routes=$this->adminModel->getRouteId();
 		$stations=$this->adminModel->getStationID();
+		$added_data=$this->adminModel->get();
 
 		$data = [
 			'manage_schedule'=>$manage_schedule,
 			'routes'=>$routes,
-			'stations'=>$stations,	
+			'stations'=>$stations,
+			'added_data'=>$added_data,	
 			'routeId'=>'',
 			'stationID'=>'',
 			'stopNo'=>'',
@@ -126,7 +131,8 @@ class Admin_manage_schedules extends Controller{
 			'manage_schedule'=>$manage_schedule,
 			'routes'=>$routes,
 			'stations'=>$stations,		
-			'routeId'=>$routeId,	
+			'routeId'=>$routeId,
+			'added_data'=>$added_data,	
 			'stationID'=>trim($_POST['stationID']),			
 			'stopNo'=>trim($_POST['stopNo']),
 			'arrivaltime'=>trim($_POST['arrivaltime']),

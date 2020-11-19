@@ -15,9 +15,11 @@ class Admin_manage_compartments extends Controller{
 	public function create(){
 		$trains=$this->adminModel->getTrainId();
 		$types=$this->adminModel->getType();
+		$added_data=$this->adminModel->get();
 		$data = [
 			'trains'=>$trains,
 			'types'=>$types,
+			'added_data'=>$added_data,
 			'trainId'=>'',
 			'compartmentNo'=>'',
 			'class'=>'',
@@ -34,7 +36,8 @@ class Admin_manage_compartments extends Controller{
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
 			'trains'=>$trains,
-			'types'=>$types,	
+			'types'=>$types,
+			'added_data'=>$added_data,	
 			'trainId'=>trim($_POST['trainId']),	
 			'compartmentNo'=>trim($_POST['compartmentNo']),			
 			'class'=>trim($_POST['class']),
@@ -54,12 +57,8 @@ class Admin_manage_compartments extends Controller{
                 $data['trainIdError']='Please Enter the Train ID.';
                 }elseif(!preg_match($idValidation, $data['trainId'])){
                     $data['trainIdError']="Officer ID can only contain letters and numbers.";
-                }else{
-                    //if moderatorID exists
-                    if($this->adminModel->findTrainByTrainId($data['trainId'])){
-                        $data['trainIdError']='This ID is already registered as a Officer in the system.'; 
-                    }
                 }
+
                 if(empty($data['compartmentNo'])){
                     $data['compartmentNoError']='Please Enter the Compartment No.';
                 }elseif(!preg_match($idValidation, $data['compartmentNo'])){
@@ -84,11 +83,6 @@ class Admin_manage_compartments extends Controller{
                     $data['typeError']='Please Enter the Compartment No.';
                 }elseif(!preg_match($numberValidation, $data['compartmentNo'])){
                     $data['typeError']="Type can only contain letters and numbers.";
-                }else{
-                    //if Employee ID exists
-                    if($this->adminModel->findCompartmentByType($data['type'])){
-                        $data['typeError']='This compartment is already registered as a compartment in the system.'; 
-                    }
                 }
 
                 if(empty($data['trainIdError']) && empty($data['compartmentNoError']) &&
@@ -96,7 +90,7 @@ class Admin_manage_compartments extends Controller{
                 empty($data['typeError']) ){
 
 			if ($this->adminModel->create_compartment($data)) {
-				header("Location: " . URLROOT . "/Admin_manage_compartments");
+				header("Location: " . URLROOT . "/Admin_manage_compartments/create");
 			}else{
 				die("Something Going Wrong");
 			}
@@ -111,11 +105,13 @@ class Admin_manage_compartments extends Controller{
 		$manage_compartment=$this->adminModel->findTrain($trainId);
 		$trains=$this->adminModel->getTrainId();
 		$types=$this->adminModel->getType();
+		$added_data=$this->adminModel->get();
 
 		$data = [
 			'manage_compartment'=>$manage_compartment,
 			'trains'=>$trains,
 			'types'=>$types,
+			'added_data'=>$added_data,
 			'trainId'=>'',
 			'compartmentNo'=>'',
 			'class'=>'',
@@ -134,7 +130,8 @@ class Admin_manage_compartments extends Controller{
 			'manage_compartment'=>$manage_compartment,
 			'trains'=>$trains,
 			'types'=>$types,	
-			'trainId'=>$trainId,	
+			'trainId'=>$trainId,
+			'added_data'=>$added_data,	
 			'compartmentNo'=>trim($_POST['compartmentNo']),			
 			'class'=>trim($_POST['class']),
 			'noofseats'=>trim($_POST['noofseats']),
