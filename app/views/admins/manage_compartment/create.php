@@ -70,7 +70,7 @@
                                     <input type="submit" class="blue-btn" name="submit" value="Add">
                                 </div>
                                 <div class="input-data">
-                                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_available_days/index" style="padding-left: 80px;">Next</a>
+                                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_trains/index" style="padding-left: 80px;">Next</a>
                                 </div>
                             </div>
                         </form>

@@ -78,7 +78,7 @@ class Admin_manage_schedule {
     }
 
     public function getStationID(){
-        $this->db->query("SELECT stationID FROM station");
+        $this->db->query("SELECT stationID,name FROM station");
         $results=$this->db->resultSet();
         return $results;
     }

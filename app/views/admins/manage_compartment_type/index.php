@@ -14,17 +14,17 @@
                         <thead>
                             <tr>
                                 <th>Type No</th>
+                                <th>Image Directory</th>
                                 <th>Manage</th>    
                             </tr>
                         </thead>
                         <?php foreach($data['manage_compartment_type'] as $post):?>
                         <tr>
                             <td data-th="Type"><?php echo $post->typeNo?></td>
+                            <td data-th="Type"><?php echo $post->imageDir?></td>
                             <td data-th="Manage">
                             <form action="<?php echo URLROOT . "/Admin_manage_compartment_types/delete/" . $post->typeNo?>" method="POST">    
                             <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_compartment_types/views/" . $post->typeNo?>">View</a>
-                            <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_compartment_types/edit/" . $post->typeNo?>">Edit</a>
-                            <input type="submit" name="delete" value="Remove" class="red-btn">
                             </form></td>
                         </tr>
                         <?php endforeach; ?>

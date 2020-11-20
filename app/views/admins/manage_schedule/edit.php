@@ -24,7 +24,7 @@
                                         <select name="stationID" id="stationID" required>
                                             <option value=""><?php echo $data['manage_schedule']->stationID?></option>
                                             <?php foreach ($data['stations'] as $station ):?>
-                                            <option value="<?php echo $station->stationID?>"><?php echo $station->stationID?></option>
+                                            <option value="<?php echo $station->stationID?>"><?php echo $station->stationID?> : <?php echo $station->name?></option>
                                             <?php endforeach;?>
                                         </select>
                                         <span class="invalidFeedback">

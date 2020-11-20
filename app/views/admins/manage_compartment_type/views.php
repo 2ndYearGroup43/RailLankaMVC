@@ -12,7 +12,11 @@
                         <tr>
                             <td >Type No: </td>
                             <td><?php echo $data['manage_compartment_type']->typeNo?></td>
-                            <td colspan="2"></td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td><div class="logo"><a ><img src="<?php echo URLROOT;?><?php echo $data['manage_compartment_type']->imageDir?>" alt="logo" height="500px" width="300px"></a></div></td>
+                            <td colspan="4"></td>
                         </tr>
                     </table>
                     <button type="button" onclick="history.go(-1);" class="back-btn" value="Back">Back</button>

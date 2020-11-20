@@ -22,7 +22,16 @@ class Admin_manage_train {
         $this->db->bind(':entered_time', $data['entered_time']);
 
 		if($this->db->execute()){
-			return true;
+			$this->db->query('INSERT INTO route (trainId) VALUES (:trainId)');
+
+            $this->db->bind(':trainId', $data['trainId']);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+
 		}else{
 			return false;
 		}
@@ -47,18 +56,6 @@ class Admin_manage_train {
         }else{
             return false;
         }
-    }
-
-    public function getSrcStation(){
-         $this->db->query("SELECT src_station FROM train");
-        $results=$this->db->resultSet();
-        return $results;
-    }
-
-    public function getDestStation(){
-         $this->db->query("SELECT dest_station FROM train");
-        $results=$this->db->resultSet();
-        return $results;
     }
 
 	public function get(){

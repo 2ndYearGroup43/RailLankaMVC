@@ -67,6 +67,13 @@ class Admin_manage_available_day {
 		return $row;
 	}
 
+	public function getReservableStatus($trainId){
+		$this->db->query('SELECT reservable_status FROM train WHERE trainId=:trainId');
+		$this->db->bind(':trainId', $trainId);
+        $results=$this->db->single();
+        return $results->reservable_status;
+	}
+
 	public function edit($data){
 		$this->db->query('UPDATE availabledays SET trainId=:trainId, sunday=:sunday, monday=:monday, tuesday=:tuesday, wednesday=:wednesday, thursday=:thursday, friday=:friday, saturday=:saturday WHERE trainId=:trainId');
 

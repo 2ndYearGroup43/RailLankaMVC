@@ -18,6 +18,12 @@
                                     </span>
                                 </div>
                             </div>
+                            <div class="form-row">
+                                <div class="input-data">
+                                    <label for="imageDir">Image Directory</label>
+                                    <input type="text" name="imageDir" id="imageDir" required >
+                                </div>
+                            </div>
                             <div class="form-row submit-btn">
                                 <div class="input-data">
                                     <input type="submit" class="blue-btn" name="submit" value="ADD Type">

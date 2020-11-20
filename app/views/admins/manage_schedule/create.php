@@ -27,7 +27,7 @@
                         <select name="stationID" id="stationID" required>
                             <option value="">Select</option>
                                 <?php foreach ($data['stations'] as $station ):?>
-                                <option value="<?php echo $station->stationID?>"><?php echo $station->stationID?></option>
+                                <option value="<?php echo $station->stationID?>"><?php echo $station->stationID?> : <?php echo $station->name?></option>
                             <?php endforeach;?>
                         </select>
                         <span class="invalidFeedback">
@@ -72,7 +72,7 @@
                         <input type="submit" class="blue-btn" name="submit" value="Add">
                     </div>
                     <div class="input-data">
-                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_compartments/index" style="padding-left: 80px;">Next</a>
+                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_available_days/create" style="padding-left: 80px;">Next</a>
                     </div>
                 </div>
             </form>

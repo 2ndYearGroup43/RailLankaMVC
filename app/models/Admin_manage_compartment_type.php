@@ -7,9 +7,10 @@ class Admin_manage_compartment_type {
 	}
 
 	public function create_compartment_type($data){
-		$this->db->query('INSERT INTO compartment_type (typeNo) VALUES (:typeNo)');
+		$this->db->query('INSERT INTO compartment_type (typeNo, imageDir) VALUES (:typeNo, :imageDir)');
 
 		$this->db->bind(':typeNo', $data['typeNo']);
+		$this->db->bind(':imageDir', $data['imageDir']);
 
 		if($this->db->execute()){
 			return true;
@@ -54,36 +55,13 @@ class Admin_manage_compartment_type {
 		return $row;
 	}
 
-	public function edit($data){
-		$this->db->query('UPDATE compartment_type SET typeNo=:typeNo WHERE typeNo=:typeNo');
+	public function views($data){
+		$this->db->query('SELECT compartment_type SET (typeNo=:typeNo, imageDir=:imageDir) WHERE typeNo=:typeNo');
 
 		$this->db->bind(':typeNo', $data['typeNo']);
+		$this->db->bind(':imageDir', $data['imageDir']);
 
 		if($this->db->execute()){
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-		public function views($data){
-		$this->db->query('SELECT compartment_type SET typeNo=:typeNo WHERE typeNo=:typeNo');
-
-		$this->db->bind(':typeNo', $data['typeNo']);
-
-		if($this->db->execute()){
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-	public function delete($typeNo){
-		$this->db->query('DELETE FROM compartment_type WHERE typeNo=:typeNo');
-
-		$this->db->bind(':typeNo',$typeNo);
-
-        if($this->db->execute()){
 			return true;
 		}else{
 			return false;
