@@ -113,21 +113,14 @@ class Admin_manage_trains extends Controller{
                 if(empty($data['trainIdError']) && empty($data['nameError']) &&
                 empty($data['reservable_statusError']) && empty($data['typeError']) && empty($data['src_stationError']) && empty($data['dest_stationError'])){
 
-			if ($this->adminModel->create_train($data)) {
-				if(($data['reservable_status'])=='Yes'){
-					header("Location: " . URLROOT . "/Admin_manage_schedules");
-				}else{
-					header("Location: " . URLROOT . "/Admin_manage_trains");
-				}
-				
+			if ($this->adminModel->create_train($data)) {				
+					header("Location: " . URLROOT . "/Admin_manage_schedules/create");								
 			}else{
 				die("Something Going Wrong");
 			}
            }
 		}
-
 		$this->view('admins/manage_train/create', $data);
-
 	}
 
 	public function edit($trainId){
@@ -223,9 +216,7 @@ class Admin_manage_trains extends Controller{
 
 			if ($this->adminModel->edit($data)) {
 				if(($data['reservable_status'])=='Yes'){
-					header("Location: " . URLROOT . "/Admin_manage_compartments");
-				}else{
-					header("Location: " . URLROOT . "/Admin_manage_trains");
+					header("Location: " . URLROOT . "/Admin_manage_schedules");
 				}
 			}else{
 				die("Something Going Wrong");

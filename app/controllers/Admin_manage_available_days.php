@@ -14,6 +14,7 @@ class Admin_manage_available_days extends Controller{
 
 	public function create(){
 		$trains=$this->adminModel->getTrainId();
+		
 		$data = [
 			'trains'=>$trains,
 			'trainId'=>'',
@@ -42,6 +43,8 @@ class Admin_manage_available_days extends Controller{
             'trainIdError'=>''
 			];
 
+			$status=$this->adminModel->getReservableStatus($data['trainId']);
+
             $nameValidation="/^[a-zA-Z0-9]*$/";
 
 
@@ -59,7 +62,12 @@ class Admin_manage_available_days extends Controller{
                 if(empty($data['trainIdError']) ){
 
 			if ($this->adminModel->create_available_day($data)) {
-				header("Location: " . URLROOT . "/Admin_manage_available_days");
+				if($status=='Yes'){
+					header("Location: " . URLROOT . "/Admin_manage_compartments/create");
+				}else{
+					header("Location: " . URLROOT . "/Admin_manage_trains");
+				}
+				
 			}else{
 				die("Something Going Wrong");
 			}

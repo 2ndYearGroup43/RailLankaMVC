@@ -34,6 +34,9 @@
 			   		<li class="nav-link" style="--i: 1.8s">	
 			   			<a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/searchTicketDetails">Ticket Details</a>
 			   		</li>
+			   		<li class="nav-link" style="--i: 1.8s">	
+			   			<a href="<?php echo URLROOT; ?>/ResOfficerManageSeats/search">Manage Seats</a>
+			   		</li>
 			   		<?php if(isset($_SESSION['userid'])) : ?>
 			   		<li class="nav-link" style="--i: 2.05s">	
 			   			<a href="<?php echo URLROOT; ?>/passengerAccounts/displayAccount">Account <i class="fa fa-caret-down"></i></a>

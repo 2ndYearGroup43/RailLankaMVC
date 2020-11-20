@@ -58,21 +58,11 @@ class Admin_manage_schedules extends Controller{
                 $data['routeIdError']='Please Enter the Route ID.';
                 }elseif(!preg_match($idValidation, $data['routeId'])){
                     $data['routeIdError']="Route ID can only contain letters and numbers.";
-                }else{
-                    //if moderatorID exists
-                    if($this->adminModel->findRouteByRouteId($data['routeId'])){
-                        $data['routeIdError']='This ID is already registered as a Route in the system.'; 
-                    }
                 }
                 if(empty($data['stationID'])){
                     $data['stationIDError']='Please Enter the Compartment No.';
                 }elseif(!preg_match($idValidation, $data['stationID'])){
                     $data['stationIDError']="Compartment No can only contain letters and numbers.";
-                }else{
-                    //if Employee ID exists
-                    if($this->adminModel->findRouteByStationId($data['stationID'])){
-                        $data['stationIDError']='This route is already registered as a route in the system.'; 
-                    }
                 }
                 if(empty($data['stopNo'])){
                     $data['stopNoError']='Please Enter the Stop Number.';
