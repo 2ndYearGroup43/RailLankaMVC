@@ -1,32 +1,56 @@
-    <header>
-        <nav class="h">
-            <div class="logo"><a href="<?php echo URLROOT;?>/resofficers/"><img src="<?php echo URLROOT;?>/public/img/logonav1.jpg" alt="logo" height="85px"></a></div>
-            <label for="btn" class="icon">
-                <span class="fa fa-bars" aria-hidden="true"></span>
-            </label>
-            <input type="checkbox" id="btn">
-            <ul class="main-nav">
-                <li><a href="<?php echo URLROOT; ?>/resofficers/index">Home</a></li>
-                <li><a href="<?php echo URLROOT; ?>/ResOfficerReservations/search">Reservation</a></li>
-                <li><a href="<?php echo URLROOT; ?>/ResOfficerRefunds/refund">Refund</a></li>
-                <li><a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/search">Reservation Details</a></li>
-                <li><a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/searchTicketDetails">Ticket Details</a></li>
-                <li><a href="<?php echo URLROOT; ?>/ResOfficerManageSeats/search">Manage Seats</a></li>
-                <li>
-                    
-                            <label for="btn-6" class="show">ACCOUNT +</label>
-                            <a href="<?php echo URLROOT; ?>/resofficers/resofficerAccount"><span class="fa fa-user" aria-hidden="true"></span> Account <span class="fa fa-caret-down" aria-hidden="true"></span></a>
-                            <input type="checkbox" id="btn-6">
+<header>
+                <div class="nav-container">
+                    <input type="checkbox" name="" id="check">
+                    <div class="logo-container">
+                        <a href="<?php echo URLROOT;?>/admins/">
+                            <img src="<?php echo URLROOT;?>/public/img/logo.jpg" alt="logo" height="80px">
+                        </a>
+                    </div>                    
+                    <div class="nav-btn">
+                        <div class="nav-links">
                             <ul>
-                                <li><a href="<?php echo URLROOT;?>/resofficers/logout">Logout <span class="fa fa-sign-out" aria-hidden="true"></span></a></li>
+                                <li class="nav-link" style="--i: .6s"> 
+                                    <a href="<?php echo URLROOT; ?>/resofficers/index">Home</a>
+                                </li>
+                                <li class="nav-link" style="--i: .6s"> 
+                                    <a href="<?php echo URLROOT; ?>/ResOfficerReservations/search">Reservation</a>
+                                </li>
+                                <li class="nav-link" style="--i: .6s"> 
+                                    <a href="<?php echo URLROOT; ?>/ResOfficerRefunds/refund">Refund</a>
+                                </li>
+                                <li class="nav-link" style="--i: .6s"> 
+                                    <a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/search">Reservation Details</a>
+                                </li>
+                                <li class="nav-link" style="--i: 1.1s">
+                                    <a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/searchTicketDetails">Ticket Details</a>
+                                </li>
+                                <li class="nav-link" style="--i: .6s"> 
+                                    <a href="<?php echo URLROOT; ?>/ResOfficerManageSeats/search">Manage Seats</a>
+                                </li>
+                                <li class="nav-link" style="--i: 2.05s">
+                                    <label for="btn-6" class="show">Account <i class="fa fa-caret-down"></i></label></label>
+                                    <a href="<?php echo URLROOT; ?>/resofficers/resofficerAccount">Account <span class="fa fa-user"></span><i class="fa fa-caret-down"></i></a>
+                                    <input type="checkbox" id="btn-6">
+                                    <div class="dropdown">
+                                        <ul>
+                                            <li class="dropdown-link">
+                                                <a href="<?php echo URLROOT; ?>/resofficers/resofficerAccount">Account<span class="fa fa-user"></span></a>
+                                            </li>
+                                            <li class="dropdown-link">
+                                                <a href="<?php echo URLROOT;?>/resofficers/logout">Logout<span class="fa fa-sign-out"></span></a>
+                                            </li>
+                                            <div class="arrow"></div>
+                                        </ul>
+                                    </div>
+                                </li>
                             </ul>
-                    
-                        <a href="<?php echo URLROOT;?>/users/login">Login</a>
-                    
-                </li>
-            </ul>
-            <!-- <label id="icon">
-                <i class="fa fa-bars" aria-hidden="true"></i>
-            </label>     -->
-        </nav>
-    </header>
+                        </div>
+                    </div>
+                    <div class="hamburger-menu-container">
+                        <div class="hamburger-menu">
+                            <div></div>
+                        </div>
+                    </div>
+
+                </div>
+        </header>
