@@ -89,18 +89,18 @@
                                     <a href="<?php echo URLROOT;?>/moderators/">Home</a>
                                 </li>
                                 <li class="nav-link" style="--i: .85s">
-                                    <label for="btn-1" class="show">Alerts <i class="fa fa-caret-down"></i></label></label>
+                                    <!-- <label for="btn-1" class="show">Alerts <i class="fa fa-caret-down"></i></label></label> -->
                                     <a href="<?php echo URLROOT;?>/moderatoralerts/viewCancelledAlerts">Alerts <i class="fa fa-caret-down"></i></a>
-                                    <input type="checkbox" id="btn-1">
+                                    <!-- <input type="checkbox" id="btn-1"> -->
                                     <div class="nav-dropdown">
                                         <ul>
                                             <li class="nav-dropdown-link">
                                                 <a href="<?php echo URLROOT;?>/moderatorAlerts/alertsdash">Alerts Dashboard<i class="fa fa-caret-down"></i></a>
                                             </li>
                                             <li class="nav-dropdown-link">
-                                                <label for="btn-2" class="show2">Add New Alerts +</label>
+                                                <!-- <label for="btn-2" class="show2">Add New Alerts +</label> -->
                                                 <a href="<?php echo URLROOT;?>/moderatoralerts/viewCancelledAlerts">Add New Alerts<i class="fa fa-caret-down"></i></a>
-                                                <input type="checkbox" id="btn-2">
+                                                <!-- <input type="checkbox" id="btn-2"> -->
                                                 <div class="nav-dropdown second">
                                                     <ul>
                                                         <li class="nav-dropdown-link">
@@ -117,9 +117,9 @@
                                                 </div>
                                             </li>
                                             <li class="nav-dropdown-link">
-                                                <label for="btn-3" class="show2">Manage Alerts +</label>
+                                                <!-- <label for="btn-3" class="show2">Manage Alerts +</label> -->
                                                 <a href="<?php echo URLROOT;?>/moderatoralerts/viewCancelledAlerts">Manage Alerts<i class="fa fa-caret-down"></i></a>
-                                                <input type="checkbox" id="btn-3">
+                                                <!-- <input type="checkbox" id="btn-3"> -->
                                                 <div class="nav-dropdown second">
                                                     <ul>
                                                         <li class="nav-dropdown-link">
@@ -140,9 +140,9 @@
                                     </div>
                                 </li>
                                 <li class="nav-link" style="--i: 1.1s">
-                                    <label for="btn-4" class="show">Journey <i class="fa fa-caret-down"></i></label></label>
+                                    <!-- <label for="btn-4" class="show">Journey <i class="fa fa-caret-down"></i></label></label> -->
                                     <a href="<?php echo URLROOT;?>/ModeratorJourneys/index">Journey <i class="fa fa-caret-down"></i></a>
-                                    <input type="checkbox" id="btn-4">
+                                    <!-- <input type="checkbox" id="btn-4"> -->
                                     <div class="nav-dropdown">
                                         <ul>
                                             <li class="nav-dropdown-link">
@@ -156,9 +156,9 @@
                                     </div>
                                 </li>
                                 <li class="nav-link" style="--i: 1.35s">
-                                    <label for="btn-5" class="show">Tracking <i class="fa fa-caret-down"></i></label></label>
+                                    <!-- <label for="btn-5" class="show">Tracking <i class="fa fa-caret-down"></i></label></label> -->
                                     <a href="<?php echo URLROOT;?>/ModeratorTrackings/index">Tracking <i class="fa fa-caret-down"></i></a>
-                                    <input type="checkbox" id="btn-5">
+                                    <!-- <input type="checkbox" id="btn-5"> -->
                                     <div class="nav-dropdown">
                                         <ul>
                                             <li class="nav-dropdown-link">
@@ -175,9 +175,9 @@
                                     <a href="<?php echo URLROOT;?>/moderatorSchedules/searchtrains">Schedule</a>
                                 </li>
                                 <li class="nav-link" style="--i: 2.05s">
-                                    <label for="btn-6" class="show">Account <i class="fa fa-caret-down"></i></label></label>
+                                    <!-- <label for="btn-6" class="show">Account <i class="fa fa-caret-down"></i></label></label> -->
                                     <a href="<?php echo URLROOT;?>/moderators/moderatorAccount">Account  <span class="fa fa-user"></span><i class="fa fa-caret-down"></i></a>
-                                    <input type="checkbox" id="btn-6">
+                                    <!-- <input type="checkbox" id="btn-6"> -->
                                     <div class="nav-dropdown">
                                         <ul>
                                             <li class="nav-dropdown-link">

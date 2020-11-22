@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-row">
                         <div class="input-data">
-                            <label for="issueType">Train Id</label>
+                            <label for="issueType">Issue Type</label>
                             <select name="issueType" id="issueType">
                                 <option value="Unspecified" selected>Unspecified</option>
                                 <option value="Environmental" >Environmental</option>

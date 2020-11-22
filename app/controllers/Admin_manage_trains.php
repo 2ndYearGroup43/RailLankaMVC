@@ -225,43 +225,20 @@ class Admin_manage_trains extends Controller{
 		public function views($trainId){
 
 		$manage_train=$this->adminModel->findTrain($trainId);
+		$schedules=$this->adminModel->getScheduleDetails($trainId);
+		$days=$this->adminModel->getAvailableDays($trainId);
+		$compartments=$this->adminModel->getCompartments($trainId);
+
 
 		$data = [
 			'manage_train'=>$manage_train,
-			'trainId'=>'',
-			'name'=>'',
-			'reservable_status'=>'',
-			'type'=>'',
-			'src_station'=>'',
-			'starttime'=>'',
-			'dest_station'=>'',
-			'endtime'=>'',
-            'rateId'=>'',
-			'entered_date'=>'',
-            'entered_time'=>''
+			'trainId'=>$trainId,
+			'schedules'=>$schedules,
+			'days'=>$days,
+			'compartments'=>$compartments
 		];
 
-		if($_SERVER['REQUEST_METHOD']=='POST'){
-			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-			$data=[
-			'trainId'=>$trainId,	
-			'name'=>trim($_POST['name']),			
-			'reservable_status'=>trim($_POST['reservable_status']),
-			'type'=>trim($_POST['type']),
-			'src_station'=>trim($_POST['src_station']),
-			'starttime'=>trim($_POST['starttime']),
-			'dest_station'=>trim($_POST['dest_station']),
-            'endtime'=>trim($_POST['endtime']),
-            'rateId'=>trim($_POST['rateId']),
-			'entered_date'=>trim($_POST[entered_date]),
-            'entered_time'=>trim($_POST[entered_time])
-			];
-			if ($this->adminModel->views($data)) {
-				header("Location: " . URLROOT . "/Admin_manage_trains");
-			}else{
-				die("Something Going Wrong");
-			}           
-		}
+		
 		$this->view('admins/manage_train/views', $data);
 	}
 

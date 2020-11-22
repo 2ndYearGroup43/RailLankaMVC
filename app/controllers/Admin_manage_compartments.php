@@ -50,21 +50,68 @@ class Admin_manage_compartments extends Controller{
 		$this->view('admins/manage_compartment/create', $data);
 	}
 
+
+	public function viewCompartments($trainId)
+	{
+		$manage_train=$this->adminModel->findTrain($trainId);
+		$schedules=$this->adminModel->getScheduleDetails($trainId);
+		$days=$this->adminModel->getAvailableDays($trainId);
+		$compartments=$this->adminModel->getCompartments($trainId);
+
+
+		$data = [
+			'manage_train'=>$manage_train,
+			'trainId'=>$trainId,
+			'schedules'=>$schedules,
+			'days'=>$days,
+			'compartments'=>$compartments
+		];
+
 		
+		$this->view('admins/manage_compartment/viewCompartments', $data);
+	}
+	
+
+	public function editSingle($trainId, $cno)
+	{
+		$compartment=$this->adminModel->getCompartment($trainId,$cno);
+		$manage_compartment=$this->adminModel->findTrain($trainId);
+		$types=$this->adminModel->getType();
+		
+		$data = [
+			'manage_compartment'=>$manage_compartment,
+			'types'=>$types,
+			'trainId'=>$trainId,
+			'compartment'=>$compartment,
+			'compartmentNo'=>$compartment->compartmentNo,
+			'class'=>$compartment->class,
+			'noofseats'=>$compartment->noofseats,
+			'type'=>$compartment->type,
+			'trainIdError'=>'',
+            'compartmentNoError'=>'',
+            'classError'=>'',
+            'noofseatsError'=>'',
+            'typeError'=>''
+		];
+
+		$this->view('admins/manage_compartment/editSingle', $data);
+
+
+
+
+	}
 
 	public function edit($trainId){
 
 		$manage_compartment=$this->adminModel->findTrain($trainId);
-		$trains=$this->adminModel->getTrainId();
 		$types=$this->adminModel->getType();
-		$added_data=$this->adminModel->get();
+		$compartments=$this->adminModel->getCompartments($trainId);
 
 		$data = [
 			'manage_compartment'=>$manage_compartment,
-			'trains'=>$trains,
 			'types'=>$types,
-			'added_data'=>$added_data,
-			'trainId'=>'',
+			'trainId'=>$trainId,
+			'compartments'=>$compartments,
 			'compartmentNo'=>'',
 			'class'=>'',
 			'noofseats'=>'',
@@ -80,10 +127,9 @@ class Admin_manage_compartments extends Controller{
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
 			'manage_compartment'=>$manage_compartment,
-			'trains'=>$trains,
-			'types'=>$types,	
+			'types'=>$types,
 			'trainId'=>$trainId,
-			'added_data'=>$added_data,	
+			'compartments'=>$compartments,	
 			'compartmentNo'=>trim($_POST['compartmentNo']),			
 			'class'=>trim($_POST['class']),
 			'noofseats'=>trim($_POST['noofseats']),

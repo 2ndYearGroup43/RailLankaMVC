@@ -311,4 +311,25 @@ class Admin_manage_schedules extends Controller{
 		}
 	}
 	}
+
+
+	public function viewSchedule($trainId)
+	{
+		$manage_train=$this->adminModel->findTrain($trainId);
+		$schedules=$this->adminModel->getScheduleDetails($trainId);
+		$days=$this->adminModel->getAvailableDays($trainId);
+		$compartments=$this->adminModel->getCompartments($trainId);
+
+
+		$data = [
+			'manage_train'=>$manage_train,
+			'trainId'=>$trainId,
+			'schedules'=>$schedules,
+			'days'=>$days,
+			'compartments'=>$compartments
+		];
+
+		
+		$this->view('admins/manage_schedule/viewSchedule', $data);
+	}
 }	

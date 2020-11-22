@@ -70,12 +70,13 @@ class Admin_manage_available_days extends Controller{
 	public function edit($trainId){
 
 		$manage_available_day=$this->adminModel->findTrainId($trainId);
-		$trains=$this->adminModel->getTrainId();
+		$days=$this->adminModel->getAvailableDays($trainId);
+		
 
 		$data = [
 			'manage_available_day'=>$manage_available_day,
-			'trains'=>$trains,	
-			'trainId'=>'',
+			'trainId'=>$trainId,
+			'days'=>$days,
 			'sunday'=>'',
 			'monday'=>'',
 			'tuesday'=>'',
@@ -91,8 +92,8 @@ class Admin_manage_available_days extends Controller{
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
 			'manage_available_day'=>$manage_available_day,	
-			'trains'=>$trains,	
 			'trainId'=>$trainId,
+			'days'=>$days,
 			'sunday'=>trim($_POST['sunday']),
 			'monday'=>trim($_POST['monday']),
 			'tuesday'=>trim($_POST['tuesday']),
@@ -103,29 +104,14 @@ class Admin_manage_available_days extends Controller{
             'trainIdError'=>''			
             ];
 
-            $nameValidation="/^[a-zA-Z]*$/";
-
-
-                if(empty($data['trainId'])){
-                $data['trainIdError']='Please Enter the Train ID.';
-                }elseif(!preg_match($nameValidation, $data['trainId'])){
-                    $data['trainIdError']="Type can only contain letters and numbers.";
-                }else{
-                    //if moderatorID exists
-                    if($this->adminModel->findTrainTypeByTrainId($data['trainId'])){
-                        $data['trainIdError']='This Type is already registered in the system.'; 
-                    }
-                }
-
-                if(empty($data['trainIdError']) ){
 
 			if ($this->adminModel->edit($data)) {
 				header("Location: " . URLROOT . "/Admin_manage_available_days");
 			}else{
 				die("Something Going Wrong");
 			}           
+		
 		}
-	}
 		$this->view('admins/manage_available_day/edit', $data);
 	}
 

@@ -166,4 +166,65 @@ class Admin_manage_compartment {
 			return false;
 		}
 	}
+
+
+	
+
+	public function findTrain2($trainId){
+		$this->db->query('SELECT t1.*,s1.name AS dest FROM 
+		(SELECT t.*, s.name AS src FROM train t JOIN station s ON  t.src_station=s.stationID WHERE trainId=:trainId) t1 
+		JOIN station s1 ON t1.dest_station=s1.stationID WHERE trainId=:trainId');
+
+		$this->db->bind(':trainId', $trainId);
+
+		$row = $this->db->single();
+		return $row;
+	}
+
+	public function getScheduleDetails($trainId)
+	{
+		$this->db->query('SELECT t1.*,s1.name AS station FROM
+		 (SELECT r.trainId,s.* FROM route r INNER JOIN route_station s ON r.routeId=s.routeId WHERE r.trainId=:trainId) t1 
+		 INNER JOIN station s1 ON t1.stationid=s1.stationID');
+
+		 $this->db->bind(':trainId', $trainId);
+
+		 $results=$this->db->resultSet();
+
+		 return $results;
+	}
+
+	public function getAvailableDays($trainId)
+	{
+		$this->db->query('SELECT a.* FROM availabledays a INNER JOIN train t ON t.trainId=a.trainId WHERE a.trainId=:trainId');
+
+		$this->db->bind(':trainId', $trainId);
+
+		$row = $this->db->single();
+		return $row;
+	}
+
+
+	public function getCompartments($trainId)
+	{
+		$this->db->query('SELECT c.*, ct.imageDir FROM compartment c INNER JOIN compartment_type ct ON ct.typeno=c.type WHERE c.trainId=:trainId');
+
+		$this->db->bind(':trainId', $trainId);
+
+		$results = $this->db->resultSet();
+		return $results;
+	}
+
+
+	public function getCompartment($trainId, $cno)
+	{
+		$this->db->query('SELECT * FROM compartment WHERE trainId=:trainId AND compartmentNo=:cno');
+
+		$this->db->bind(':trainId', $trainId);
+		$this->db->bind(':cno', $cno);
+		
+
+		$row = $this->db->single();
+		return $row;
+	}
 }

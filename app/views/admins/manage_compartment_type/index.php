@@ -9,7 +9,6 @@
             <div class="content-row">
                 <div class="container-table">
                     <h2 style="color: #13406d;">Manage Trains <small style="color: black;">Manage Compartment Type</small></h2>
-                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_compartment_types/create">Add New Compartment Type</a>
                     <table class="blue">
                         <thead>
                             <tr>
