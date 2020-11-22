@@ -101,8 +101,6 @@ class Admin_manage_trains extends Controller{
                 }
                 if(empty($data['reservable_status'])){
                     $data['reservable_statusError']='Please Enter the Reservable Status.';
-                }elseif(!preg_match($nameValidation, $data['reservable_status'])){
-                    $data['reservable_statusError']="Reservable Status can only contain letters.";
                 }
                 if(empty($data['type'])){
                     $data['typeError']='Please Enter the Last Name.';
@@ -114,7 +112,7 @@ class Admin_manage_trains extends Controller{
                 empty($data['reservable_statusError']) && empty($data['typeError']) && empty($data['src_stationError']) && empty($data['dest_stationError'])){
 
 			if ($this->adminModel->create_train($data)) {				
-					header("Location: " . URLROOT . "/Admin_manage_schedules/create");								
+					header("Location: " . URLROOT . "/Admin_manage_schedules/addSchedule/".$data['trainId']);								
 			}else{
 				die("Something Going Wrong");
 			}
@@ -202,8 +200,6 @@ class Admin_manage_trains extends Controller{
                 
                 if(empty($data['reservable_status'])){
                     $data['reservable_statusError']='Please Enter the Reservable Status.';
-                }elseif(!preg_match($nameValidation, $data['reservable_status'])){
-                    $data['reservable_statusError']="Reservable Status can only contain letters.";
                 }
                 if(empty($data['type'])){
                     $data['typeError']='Please Enter the Last Name.';

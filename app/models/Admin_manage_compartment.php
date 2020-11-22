@@ -7,15 +7,28 @@ class Admin_manage_compartment {
 	}
 
 	public function create_compartment($data){
-		$this->db->query('INSERT INTO compartment (trainId, compartmentNo, class, noofseats, type) VALUES (:trainId, :compartmentNo, :class, :noofseats, :type)');
+		$flag;
 
-		$this->db->bind(':trainId', $data['trainId']);
-		$this->db->bind(':compartmentNo', $data['compartmentNo']);		
-		$this->db->bind(':class', $data['class']);
-		$this->db->bind(':noofseats', $data['noofseats']);
-		$this->db->bind(':type', $data['type']);
+		foreach ($data['compartments'] as $comp) {
+			$this->db->query('INSERT INTO compartment (trainId, compartmentNo, class, noofseats, type) VALUES (:trainId, :compartmentNo, :class, :noofseats, :type)');
 
-		if($this->db->execute()){
+			$this->db->bind(':trainId', $data['trainId']);
+			$this->db->bind(':compartmentNo', $comp->compartmentNo);		
+			$this->db->bind(':class', $comp->trainClass);
+			$this->db->bind(':noofseats', $comp->noSeats);
+			$this->db->bind(':type', $comp->type);
+
+			if($this->db->execute()){
+				$flag= true;
+			}else{
+				$flag= false;
+			}
+
+		}
+
+			
+
+		if($flag){
 			return true;
 		}else{
 			return false;

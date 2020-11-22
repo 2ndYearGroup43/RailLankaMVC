@@ -27,6 +27,21 @@
                             </span> 
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="input-data">
+                            <label for="issueType">Train Id</label>
+                            <select name="issueType" id="issueType">
+                                <option value="Unspecified" selected>Unspecified</option>
+                                <option value="Environmental" >Environmental</option>
+                                <option value="Technical" >Technical</option>
+                                <option value="Rail Road" >Rail Road</option>
+                                <option value="Other" >Other</option>
+                            </select>
+                            <span class="invalidFeedback">
+                                <?php echo $data['issueTypeError'];?>
+                            </span>
+                        </div>
+                    </div>
                     <!-- <div class="form-row">
                         <div class="input-data">
                             <label for="delaytime">New Date & Time</label>

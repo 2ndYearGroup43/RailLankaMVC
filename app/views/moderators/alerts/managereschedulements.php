@@ -9,7 +9,7 @@
         <div class="content-row"></div>
         <div class="content-row">
             <div class="container-table">
-                <h2>Delays <small>Alert Management</small></h2>
+                <h2>Reschedulements <small>Alert Management</small></h2>
                 <div class="table-searchbar">
                     <form action="<?php echo URLROOT?>/moderatoralerts/reschedulementsSearchBy" method="POST">
                         <input type="text" placeholder="Search by" name=searchbar><span><select name="searchselect" id="searchselect">
@@ -24,42 +24,31 @@
                 <div class="container-table popup" id="popup-alert">
                     <h3>Alert Details</h3>
                     <table class="data-display" id="rescheduledpopup">
-                        <tr id="alertId">
+                        <tr id="Ids">
                             <td>Alert Id: </td>
-                            <td id="alertId">Not available</td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr id="trainId">
+                            <td id="alertId">Not available</td> 
                             <td>Train Id: </td>
-                            <td id="trainId">Not available</td>
-                            <td colspan="2"></td>
+                            <td id="trainId" style="font-weight: 500;">Not available</td>
                         </tr>
-                        <tr id="newDate">
-                            <td>New Date: </td>
-                            <td id="newDate">Not available</td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr id="newTime">
-                            <td>New Time: </td>
-                            <td id="newTime">Not available</td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr id="enteredDate">
+                        <tr id="date_time">
                             <td>Entered Date: </td>
                             <td id="enteredDate">Not available</td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr id="enteredTime">
                             <td>Entered Time: </td>
                             <td id="enteredTime">Not available</td>
-                            <td colspan="2"></td>
                         </tr>
                         <tr id="moderatorId">
                             <td>Entered by: </td>
                             <td id="moderatorId">Not available</td>
-                            <td colspan="2"></td>
+                            <td>Issue Type: </td>
+                            <td id="issueType">Not available</td>
                         </tr>
-                        <tr id="rescheduledCause">
+                        <tr id="newDateTime">
+                            <td>New Date: </td>
+                            <td id="newDate">Not available</td>
+                            <td>New Time: </td>
+                            <td id="newTime">Not available</td>
+                        </tr>
+                        <tr id="rescheduledCause" style="font-size: 25px;">
                             <td rowspan="2">Cause: </td>
                             <td rowspan="2" id="rescheduledCause">Not available </td>
                             <td rowspan="2" colspan="2"></td>
@@ -76,7 +65,7 @@
                             <th>New Time</th>
                             <th>Entered Date</th>
                             <th>Entered Time</th>
-                            <th>Rescheduled Cause</th>
+                            <th>Issue Type</th>
                             <th>Moderator ID</th>
                             <th>Manage</th>    
                         </tr>
@@ -94,7 +83,7 @@
                             <td data-th="New Time"><?php echo $row->newtime;?></td>
                             <td data-th="Entered Date"><?php echo $row->date;?></td>
                             <td data-th="Entered Time"><?php echo $row->time;?></td>
-                            <td data-th="Rescheduled Cause"><?php echo $row->reschedulement_cause;?></td>
+                            <td data-th="Issue Type"><?php echo $row->issuetype;?></td>
                             <td data-th="Moderater ID"><?php echo $row->moderatorId;?></td>    
                             <script> 
                                 alerts[c]=<?php echo json_encode($row, JSON_PRETTY_PRINT)?>;
@@ -117,14 +106,15 @@
                 <script>
                     function openRescheduledAlert(alerts,x) {
                         var table=document.getElementById("rescheduledpopup");
-                        table.rows.namedItem("alertId").cells.namedItem("alertId").innerHTML=alerts[x].alertId;
-                        table.rows.namedItem("trainId").cells.namedItem("trainId").innerHTML=alerts[x].trainId;
-                        table.rows.namedItem("newDate").cells.namedItem("newDate").innerHTML=alerts[x].newdate;
-                        table.rows.namedItem("newTime").cells.namedItem("newTime").innerHTML=alerts[x].newtime;
-                        table.rows.namedItem("enteredDate").cells.namedItem("enteredDate").innerHTML=alerts[x].date;
-                        table.rows.namedItem("enteredTime").cells.namedItem("enteredTime").innerHTML=alerts[x].time;
+                        table.rows.namedItem("Ids").cells.namedItem("alertId").innerHTML=alerts[x].alertId;
+                        table.rows.namedItem("Ids").cells.namedItem("trainId").innerHTML=alerts[x].trainId;
+                        table.rows.namedItem("date_time").cells.namedItem("enteredDate").innerHTML=alerts[x].date;
+                        table.rows.namedItem("date_time").cells.namedItem("enteredTime").innerHTML=alerts[x].time;
                         table.rows.namedItem("moderatorId").cells.namedItem("moderatorId").innerHTML=alerts[x].moderatorId;
-                        table.rows.namedItem("rescheduledCause").cells.namedItem("rescheduledCause").innerHTML=alerts[x].rescheduled_cause;
+                        table.rows.namedItem("moderatorId").cells.namedItem("issueType").innerHTML=alerts[x].issuetype;
+                        table.rows.namedItem("newDateTime").cells.namedItem("newDate").innerHTML=alerts[x].newdate;
+                        table.rows.namedItem("newDateTime").cells.namedItem("newTime").innerHTML=alerts[x].newtime;
+                        table.rows.namedItem("rescheduledCause").cells.namedItem("rescheduledCause").innerHTML=alerts[x].reschedulement_cause;
                         document.getElementById("popup-alert").style.display = "block";
                     }
     

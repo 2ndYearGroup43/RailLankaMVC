@@ -11,7 +11,7 @@ class Admin_manage_train {
 
 		$this->db->bind(':trainId', $data['trainId']);
 		$this->db->bind(':name', $data['name']);		
-		$this->db->bind(':reservable_status', $data['reservable_status']);
+		$this->db->bind(':reservable_status', (int)$data['reservable_status']);
 		$this->db->bind(':type', $data['type']);
 		$this->db->bind(':src_station', $data['src_station']);
 		$this->db->bind(':starttime', $data['starttime']);
@@ -22,20 +22,10 @@ class Admin_manage_train {
         $this->db->bind(':entered_time', $data['entered_time']);
 
 		if($this->db->execute()){
-			$this->db->query('INSERT INTO route (trainId) VALUES (:trainId)');
-
-            $this->db->bind(':trainId', $data['trainId']);
-
-            if($this->db->execute()){
-                return true;
-            }else{
-                return false;
-            }
-
+			return true;
 		}else{
 			return false;
 		}
-        
 	}
 
     public function findTrainByTrainId($tid)

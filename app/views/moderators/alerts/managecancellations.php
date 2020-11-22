@@ -25,32 +25,25 @@
                 <div class="container-table popup" id="popup-alert">
                     <h3>Alert Details</h3>
                     <table class="data-display" id="cancelpopup">
-                        <tr id="alertId">
+                        <tr id="Ids">
                             <td>Alert Id: </td>
-                            <td id="alertId">Not available</td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr id="trainId">
+                            <td id="alertId">Not available</td> 
                             <td>Train Id: </td>
-                            <td id="trainId">Not available</td>
-                            <td colspan="2"></td>
+                            <td id="trainId" style="font-weight: 500;">Not available</td>
                         </tr>
-                        <tr id="enteredDate">
+                        <tr id="date_time">
                             <td>Entered Date: </td>
                             <td id="enteredDate">Not available</td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr id="enteredTime">
                             <td>Entered Time: </td>
                             <td id="enteredTime">Not available</td>
-                            <td colspan="2"></td>
                         </tr>
                         <tr id="moderatorId">
                             <td>Entered by: </td>
                             <td id="moderatorId">Not available</td>
-                            <td colspan="2"></td>
+                            <td>Issue Type: </td>
+                            <td id="issueType">Not available</td>
                         </tr>
-                        <tr id="cancellationCause">
+                        <tr id="cancellationCause" style="font-size: 25px;">
                             <td rowspan="2">Cause: </td>
                             <td rowspan="2" id="cancellationCause">Not available </td>
                             <td rowspan="2" colspan="2"></td>
@@ -65,7 +58,7 @@
                             <th>Train ID</th>
                             <th>Entered Date</th>
                             <th>Entered Time</th>
-                            <th>Cancellation Cause</th>
+                            <th>Issue Type</th>
                             <th>Moderator ID</th>
                             <th>Manage</th>    
                         </tr>
@@ -77,11 +70,12 @@
                     <?php $count=0?>
                     <?php foreach ($data['alerts'] as $row):?>
                         <tr>
+    
                             <td data-th="Alert ID"><?php echo $row->alertId;?></td>
                             <td data-th="Train ID"><?php echo $row->trainId;?></td>
                             <td data-th="Entered Date"><?php echo $row->date;?></td>
                             <td data-th="Entered Time"><?php echo $row->time;?></td>
-                            <td data-th="Cancellation Time"><?php echo $row->cancellation_cause;?></td>
+                            <td data-th="Issue Type"><?php echo $row->issuetype;?></td>
                             <td data-th="Moderater ID"><?php echo $row->moderatorId;?></td>    
                             <script> 
                                 alerts[c]=<?php echo json_encode($row, JSON_PRETTY_PRINT)?>;
@@ -104,11 +98,12 @@
                 <script>
                     function openCancelAlert(alerts,x) {
                         var table=document.getElementById("cancelpopup");
-                        table.rows.namedItem("alertId").cells.namedItem("alertId").innerHTML=alerts[x].alertId;
-                        table.rows.namedItem("trainId").cells.namedItem("trainId").innerHTML=alerts[x].trainId;
-                        table.rows.namedItem("enteredDate").cells.namedItem("enteredDate").innerHTML=alerts[x].date;
-                        table.rows.namedItem("enteredTime").cells.namedItem("enteredTime").innerHTML=alerts[x].time;
+                        table.rows.namedItem("Ids").cells.namedItem("alertId").innerHTML=alerts[x].alertId;
+                        table.rows.namedItem("Ids").cells.namedItem("trainId").innerHTML=alerts[x].trainId;
+                        table.rows.namedItem("date_time").cells.namedItem("enteredDate").innerHTML=alerts[x].date;
+                        table.rows.namedItem("date_time").cells.namedItem("enteredTime").innerHTML=alerts[x].time;
                         table.rows.namedItem("moderatorId").cells.namedItem("moderatorId").innerHTML=alerts[x].moderatorId;
+                        table.rows.namedItem("moderatorId").cells.namedItem("issueType").innerHTML=alerts[x].issuetype;
                         table.rows.namedItem("cancellationCause").cells.namedItem("cancellationCause").innerHTML=alerts[x].cancellation_cause;
                         document.getElementById("popup-alert").style.display = "block";
                     }

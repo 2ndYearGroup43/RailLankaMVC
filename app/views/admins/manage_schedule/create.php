@@ -4,14 +4,17 @@
 <?php
     require APPROOT.'/views/includes/train_management_navigation.php';
 ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="<?php echo URLROOT;?>/javascript/trainScheduleAdd.js"></script>
+        
 	    <div class="body-section">
         <div class="content-flexrow">
            <div class="container">
             <div class="text" style="color: #13406d;">Manage Trains <small style="color: black;">Add Schedule</small></div>
-            <form action="<?php echo URLROOT; ?>/Admin_manage_schedules/create" method = "POST">
+            <form action="<?php echo URLROOT; ?>/Admin_manage_schedules/addschedule/<?php echo $data['trainId'];?>" id="scheduleForm" method = "POST">
                 <div class="form-row">
                     <div class="input-data">
-                        <label for="routeId">Route Id</label>
+                        <!-- <label for="routeId">Route Id</label>
                         <select name="routeId" id="routeId" required>
                                 <option value="">Select</option>
                                     <?php foreach ($data['routes'] as $route ):?>
@@ -20,88 +23,94 @@
                         </select>
                         <span class="invalidFeedback">
                             <?php echo $data['routeIdError'];?>
-                        </span>
-                    </div>
-                    <div class="input-data">
+                        </span> -->
                         <label for="stationID">Station Id</label>
-                        <select name="stationID" id="stationID" required>
+                        <select name="stationID" id="stationID" >
                             <option value="">Select</option>
                                 <?php foreach ($data['stations'] as $station ):?>
                                 <option value="<?php echo $station->stationID?>"><?php echo $station->stationID?> : <?php echo $station->name?></option>
                             <?php endforeach;?>
                         </select>
-                        <span class="invalidFeedback">
-                            <?php echo $data['stationIDError'];?>
+                        <span class="invalidFeedback" id="stationIDError">
+                            <!-- <?php echo $data['stationIDError'];?> -->
                         </span>
                     </div>
-                </div>
-                <div class="form-row">
                     <div class="input-data">
                         <label for="stopNo">Stop No</label>
-                        <input type="text" name="stopNo" id="stopNo" required >
-                        <span class="invalidFeedback">
-                            <?php echo $data['stopNoError'];?>
+                        <input type="text" name="stopNo" id="stopNo">
+                        <span class="invalidFeedback" id="stopNoError">
+                            <!-- <?php echo $data['stopNoError'];?> -->
                         </span>
                     </div>
+                </div>
+                <div class="form-row">
                     <div class="input-data">
                         <label for="arrivaltime">Arrival Time</label>
-                        <input type="Time" name="arrivaltime" id="arrivaltime" required >
+                        <input type="Time" name="arrivaltime" id="arrivaltime">
+                        <span class="invalidFeedback" id="arrivalTimeError">
+                            <!-- <?php echo $data['arrivalTimeError'];?> -->
+                        </span>
                     </div>
-                </div>
-                <div class="form-row">
                     <div class="input-data">
                         <label for="departuretime">Departure Time</label>
-                        <input type="Time" name="departuretime" id="departuretime" required >
-                    </div>
-                    <div class="input-data">
-                        <label for="date">Date</label>
-                        <input type="Date" name="date" id="date" required >
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="input-data">
-                        <label for="distance">Distance</label>
-                        <input type="text" name="distance" id="distance" required >
-                        <span class="invalidFeedback">
-                            <?php echo $data['distanceError'];?>
+                        <input type="Time" name="departuretime" id="departuretime">
+                        <span class="invalidFeedback" id="departureTimeError">
+                            <!-- <?php echo $data['departureTimeError'];?> -->
                         </span>
                     </div>
                 </div>
-                <div class="form-row submit-btn">
+                <div class="form-row">
                     <div class="input-data">
-                        <input type="submit" class="blue-btn" name="submit" value="Add">
+                        <label for="date">Date</label>
+                        <select name="date" id="date" required >
+                            <option value="Same Day" selected>Same Day</option>
+                            <option value="Next Day">Next Day</option>
+                        </select>
+                        <span class="invalidFeedback" id="dateError">
+                            <!-- <?php echo $data['scheduleError'];?> -->
+                        </span>
                     </div>
                     <div class="input-data">
-                        <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_available_days/create" style="padding-left: 80px;">Next</a>
+                        <label for="distance">Distance</label>
+                        <input type="text" name="distance" id="distance">
+                        <span class="invalidFeedback" id="distanceError">
+                            <!-- <?php echo $data['scheduleError'];?> -->
+                        </span>
+                    </div>
+                </div>
+                
+                    <div class="input-data">
+                        <span class="invalidFeedback">
+                            <?php echo $data['scheduleError'];?>
+                        </span>
+                    </div>
+                
+                <input type="hidden" id="scheduleField" name="scheduleField">
+                <div class="form-row submit-btn">
+                    <div class="input-data">
+                        <input type="button" class="blue-btn" id="addrow" name="addrow" value="Add Schedule" onclick="Javascript:addScheduleRow()">
+                    </div>
+                    <div class="input-data">
+                       <input type="submit" class="blue-btn" id="post" name="post" value="Next">
                     </div>
                 </div>
             </form>
                     <button type="button" id="availdays-btn" class="collapsible" onclick="collapseContent()">View Added Schedule <span class="fa fa-caret-down" aria-hidden="true"></span></button>
                     <div class="collapsible-content">
-                        <table class="blue" style="margin-top: 0px;">
+                        <table class="blue" id="scheduleTable" style="margin-top: 0px;">
                             <thead>
                                 <tr>
-                                    <th>Route Id</th>
-                                    <th>Station Id</th>
+                                    <th>StationID</th>
                                     <th>Stop No</th>
                                     <th>Arrival Time</th>
                                     <th>Departure Time</th>
                                     <th>Date</th>
                                     <th>Distance</th>
+                                    <th>Manage</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <?php foreach($data['added_data'] as $post):?> 
-                                <tr>
-                                    <td data-th="Route Id"><?php echo $post->routeId?></td>
-                                    <td data-th="Station Id"><?php echo $post->stationID?></td>
-                                    <td data-th="Stop No"><?php echo $post->stopNo?></td>
-                                    <td data-th="Arrival Time"><?php echo $post->arrivaltime?></td>
-                                    <td data-th="Departure Time"><?php echo $post->departuretime?></td>
-                                    <td data-th="Date"><?php echo $post->date?></td>
-                                    <td data-th="Distance"><?php echo $post->distance?></td>
-                                </tr>
-                                <?php endforeach; ?>
+                            <tbody id="scheduleBody">
+                    
                             </tbody>
                         </table>
                     </div>

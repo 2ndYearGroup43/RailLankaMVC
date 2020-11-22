@@ -27,10 +27,12 @@
             $data=[
                 'trainId'=>'',
                 'cancelCause'=>'',
+                'issueType'=>'',
                 'insertedDate'=>'',
                 'insertedTime'=>'',
                 'moderatorId'=>'',
                 'trainIdError'=>'',
+                'issueTypeError'=>'',
                 'cancelCauseError'=>''
 
             ];
@@ -42,10 +44,12 @@
                 $data=[
                     'trainId'=>trim($_POST['trainid']),
                     'cancelCause'=>trim($_POST['cancelcause']),
+                    'issueType'=>trim($_POST['issueType']),
                     'insertedDate'=>date("Y-m-d"),
                     'insertedTime'=>date("H:i:sa"),
                     'moderatorId'=>$_SESSION['moderator_id'],
                     'trainIdError'=>'',
+                    'issueTypeError'=>'',
                     'cancelCauseError'=>''
                 ];
 
@@ -61,7 +65,12 @@
                     $data['cancelCauseError']='The Cancellation cause should not be empty';    
                 }
 
-                if(empty($data['trainIdError'])&& empty($data['cancelCauseError'])){
+                
+                if(empty($data['issueType'])){
+                    $data['issueTypeError']='The Issue Type should not be empty';    
+                }
+
+                if(empty($data['trainIdError'])&& empty($data['cancelCauseError']) && empty($data['issueTypeError'])){
                     if($this->alertModel->addCancellationAlert($data)){
                         header("Location: ".URLROOT."/moderatoralerts/viewcancelledalerts");
                     }else{
@@ -133,11 +142,13 @@
             $data=[
                 'alert'=>$alert,
                 'trainId'=>'',
+                'issueType'=>'',
                 'cancelCause'=>'',
                 'insertedDate'=>'',
                 'insertedTime'=>'',
                 'moderatorId'=>'',
                 'trainIdError'=>'',
+                'issueTypeError'=>'',
                 'cancelCauseError'=>''
             ];
 
@@ -146,11 +157,13 @@
                 $data=[
                     'alert'=>$alert,
                     'alertId'=>$id,
+                    'issueType'=>trim($_POST['issueType']),
                     'trainId'=>trim($_POST['trainid']),
                     'cancelCause'=>trim($_POST['cancelcause']),
                     'insertedDate'=>date("Y-m-d"),
                     'insertedTime'=>date("H:i:sa"),
                     'moderatorId'=>$_SESSION['moderator_id'],
+                    'issueTypeError'=>'',
                     'trainIdError'=>'',
                     'cancelCauseError'=>''
                 ];
@@ -167,13 +180,21 @@
                 if(empty($data['cancelCause'])){
                     $data['cancelCauseError']='The Cancellation cause should not be empty';    
                 }
-                if($data['trainId']==$this->alertModel->findCancellationById($id)->trainId
-                     && $data['cancelCause']==$this->alertModel->findCancellationById($id)->cancellation_cause){
-                    $data['trainIdError']='No change done to any field.';
-                    $data['cancelCauseError']='No change done to any field.';    
+
+                
+                if(empty($data['issueType'])){
+                    $data['issueTypeError']='The Issue type should not be empty';    
                 }
 
-                if(empty($data['trainIdError'])&& empty($data['cancelCauseError'])){
+                if($data['trainId']==$this->alertModel->findCancellationById($id)->trainId
+                     && $data['cancelCause']==$this->alertModel->findCancellationById($id)->cancellation_cause
+                     && $data['issueType']==$this->alertModel->findCancellationById($id)->issueType){
+                    $data['trainIdError']='No change done to any field.';
+                    $data['cancelCauseError']='No change done to any field.'; 
+                    $data['issueTypeError']='No change done to any field.';    
+                }
+
+                if(empty($data['trainIdError'])&& empty($data['cancelCauseError']) && empty($data['issueTypeError'])){
                     if($this->alertModel->updateCancellationAlert($data)){
                         header("Location: ".URLROOT."/moderatoralerts/viewcancelledalerts");
                     }else{
@@ -199,10 +220,12 @@
                 'trainId'=>'',
                 'delayTime'=>'',
                 'delayCause'=>'',
+                'issueType'=>'',
                 'insertedDate'=>'',
                 'insertedTime'=>'',
                 'moderatorId'=>'',
                 'trainIdError'=>'',
+                'issueTypeError'=>'',
                 'delayTimeError'=>'',
                 'delayCauseError'=>''
 
@@ -213,11 +236,13 @@
                 $data=[
                     'trainId'=>trim($_POST['trainid']),
                     'delayTime'=>trim($_POST['delaytime']),
+                    'issueType'=>trim($_POST['issueType']),
                     'delayCause'=>trim($_POST['delaycause']),
                     'insertedDate'=>date("Y-m-d"),
                     'insertedTime'=>date("H:i:sa"),
                     'moderatorId'=>$_SESSION['moderator_id'],
                     'trainIdError'=>'',
+                    'issueTypeError'=>'',
                     'delayTimeError'=>'',
                     'delayCauseError'=>''
                 ];
@@ -237,8 +262,13 @@
                 if(empty($data['delayCause'])){
                     $data['delayCauseError']='The Delay cause should not be empty';    
                 }
+                if(empty($data['issueType'])){
+                    $data['issueTypeError']='The Issue type should not be empty';    
+                }
 
-                if(empty($data['trainIdError']) && empty($data['delayTimeError']) && empty($data['delayCauseError'])){
+
+                if(empty($data['trainIdError']) && empty($data['delayTimeError']) && empty($data['delayCauseError'])
+                &&  empty($data['issueTypeError'])){
                     if($this->alertModel->addDelayAlert($data)){
                         header("Location: ".URLROOT."/moderatoralerts/viewDelayedAlerts");
                     }else{
@@ -262,12 +292,14 @@
             $data=[
                 'alert'=>$alert,
                 'trainId'=>'',
+                'issueType'=>'',
                 'delayTime'=>'',
                 'delayCause'=>'',
                 'insertedDate'=>'',
                 'insertedTime'=>'',
                 'moderatorId'=>'',
                 'trainIdError'=>'',
+                'issueTypeError'=>'',
                 'delayTimeError'=>'',
                 'delayCauseError'=>''
 
@@ -280,12 +312,14 @@
                     'alert'=>$alert,
                     'alertId'=>$id,
                     'trainId'=>trim($_POST['trainid']),
+                    'issueType'=>trim($_POST['issueType']),
                     'delayTime'=>trim($_POST['delaytime']),
                     'delayCause'=>trim($_POST['delaycause']),
                     'insertedDate'=>date("Y-m-d"),
                     'insertedTime'=>date("H:i:sa"),
                     'moderatorId'=>$_SESSION['moderator_id'],
                     'trainIdError'=>'',
+                    'issueTypeError'=>'',
                     'delayTimeError'=>'',
                     'delayCauseError'=>''
                 ];
@@ -307,16 +341,23 @@
                     $data['delayCauseError']='The Delay cause should not be empty';    
                 }
 
-                
-                if($data['trainId']==$this->alertModel->findCancellationById($id)->trainId
-                     && $data['delayCause']==$this->alertModel->findCancellationById($id)->delay_cause
-                     && $data['delayTime']==$this->alertModel->findCancellationById($id)->delaytime){
-                    $data['trainIdError']='No change done to any field.';
-                    $data['delayTimeError']='No change done to any field.';
-                    $data['delayCauseError']='No change done to any field.';    
+                if(empty($data['issueType'])){
+                    $data['issueTypeError']='The Issue type should not be empty';    
                 }
 
-                if(empty($data['trainIdError']) && empty($data['delayTimeError']) && empty($data['delayCauseError'])){
+                
+                if($data['trainId']==$this->alertModel->findDelayById($id)->trainId
+                     && $data['delayCause']==$this->alertModel->findDelayById($id)->delay_cause
+                     && $data['delayTime']==$this->alertModel->findDelayById($id)->delaytime
+                     && $data['issueType']==$this->alertModel->findDelayById($id)->issueType){
+                    $data['trainIdError']='No change done to any field.';
+                    $data['delayTimeError']='No change done to any field.';
+                    $data['delayCauseError']='No change done to any field.'; 
+                    $data['issueTypeError']='The Issue type should not be empty';    
+                }
+
+                if(empty($data['trainIdError']) && empty($data['delayTimeError']) && empty($data['delayCauseError'])
+                && empty($data['issueTypeError'])){
                     if($this->alertModel->updateDelayAlert($data)){
                         header("Location: ".URLROOT."/moderatoralerts/viewDelayedAlerts");
                     }else{
@@ -386,6 +427,7 @@
             
             $data=[
                 'trainId'=>'',
+                'issueType'=>'',
                 'newDate'=>'',
                 'newTime'=>'',
                 'rechduledCause'=>'',
@@ -393,6 +435,7 @@
                 'insertedTime'=>'',
                 'moderatorId'=>'',
                 'trainIdError'=>'',
+                'issueTypeError'=>'',
                 'newDateError'=>'',
                 'newTimeError'=>'',
                 'reschedulementCauseError'=>''
@@ -402,6 +445,7 @@
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);//filter harmful data
                 $data=[
                     'trainId'=>trim($_POST['trainid']),
+                    'issueType'=>trim($_POST['issueType']),
                     'newDate'=>trim($_POST['newdate']),
                     'newTime'=>trim($_POST['newtime']),
                     'reschedulementCause'=>trim($_POST['reschedulementcause']),
@@ -409,6 +453,7 @@
                     'insertedTime'=>date("H:i:sa"),
                     'moderatorId'=>$_SESSION['moderator_id'],
                     'trainIdError'=>'',
+                    'issueTypeError'=>'',
                     'newDateError'=>'',
                     'newTimeError'=>'',
                     'reschedulementCauseError'=>''
@@ -434,7 +479,15 @@
                     $data['reschedulementCauseError']='The reschedulement cause should not be empty';    
                 }
 
-                if(empty($data['trainIdError']) && empty($data['newDateError']) && empty($data['newTimeError']) && empty($data['reschedulementCauseError'])){
+                if(empty($data['issueType'])){
+                    $data['issueTypeError']='The Issue type should not be empty';    
+                }
+
+
+
+
+                if(empty($data['trainIdError']) && empty($data['newDateError']) && empty($data['newTimeError']) && empty($data['reschedulementCauseError'])
+                && empty($data['issueTypeError'])){
                     if($this->alertModel->addRescheduledAlert($data)){
                         header("Location: ".URLROOT."/moderatoralerts/viewRescheduledAlerts");
                     }else{
@@ -458,6 +511,7 @@
                 'alert'=>$alert,
                 'alertId'=>$id,
                 'trainId'=>'',
+                'issueType'=>'',
                 'newDate'=>'',
                 'newTime'=>'',
                 'rechduledCause'=>'',
@@ -465,6 +519,7 @@
                 'insertedTime'=>'',
                 'moderatorId'=>'',
                 'trainIdError'=>'',
+                'issueTypeError'=>'',
                 'newDateError'=>'',
                 'newTimeError'=>'',
                 'reschedulementCauseError'=>''
@@ -477,6 +532,7 @@
                     'alert'=>$alert,
                     'alertId'=>$id,
                     'trainId'=>trim($_POST['trainid']),
+                    'issueType'=>trim($_POST['issueType']),
                     'newDate'=>trim($_POST['newdate']),
                     'newTime'=>trim($_POST['newtime']),
                     'reschedulementCause'=>trim($_POST['reschedulementcause']),
@@ -484,6 +540,7 @@
                     'insertedTime'=>date("H:i:sa"),
                     'moderatorId'=>$_SESSION['moderator_id'],
                     'trainIdError'=>'',
+                    'issueTypeError'=>'',
                     'newDateError'=>'',
                     'newTimeError'=>'',
                     'reschedulementCauseError'=>''
@@ -505,6 +562,11 @@
                     $data['newTimeError']='The new time should not be empty';    
                 }
 
+                if(empty($data['issueType'])){
+                    $data['issueTypeError']='The Issue type should not be empty';    
+                }
+
+
                 if(empty($data['reschedulementCause'])){
                     $data['reschedulementCauseError']='The reschedulement cause should not be empty';    
                 }
@@ -512,15 +574,18 @@
                 if($data['trainId']==$this->alertModel->findReschedulementById($id)->trainId
                      && $data['reschedulementCause']==$this->alertModel->findReschedulementById($id)->reschedulement_cause
                      && $data['newDate']==$this->alertModel->findReschedulementById($id)->newdate
-                     && $data['newTime']==$this->alertModel->findReschedulementById($id)->newtime){
+                     && $data['newTime']==$this->alertModel->findReschedulementById($id)->newtime
+                     && $data['newTime']==$this->alertModel->findReschedulementById($id)->issueType){
                     $data['trainIdError']='No change done to any field.';
                     $data['newDateError']='No change done to any field.';
                     $data['newTimeError']='No change done to any field.';
-                    $data['reschedulementCauseError']='No change done to any field.';    
+                    $data['reschedulementCauseError']='No change done to any field.';  
+                    $data['issueTypeError']='No change done to any field.';  
                 }
 
 
-                if(empty($data['trainIdError']) && empty($data['newDateError']) && empty($data['newTimeError']) && empty($data['reschedulementCauseError'])){
+                if(empty($data['trainIdError']) && empty($data['newDateError']) && empty($data['newTimeError']) && empty($data['reschedulementCauseError'])
+                && empty($data['issueTypeError'])){
                     if($this->alertModel->updateRescheduledAlert($data)){
                         header("Location: ".URLROOT."/moderatoralerts/viewRescheduledAlerts");
                     }else{
@@ -567,7 +632,7 @@
                 ];
 
                 $alerts=$this->alertModel->searchReschedulements($data['searchBar'],$data['searchSelect']);
-                $fields=$this->alertModel->getRescheduledFields();
+                $fields=$this->alertModel->getReschedulementFields();
                 $data=[
                     'alerts'=>$alerts,
                     'fields'=>$fields
@@ -601,6 +666,11 @@
                 'rescheduledCount'=>$rescheduledCount
             ];
             $this->view('moderators/alerts/alertsdash', $data);
+        }
+
+        public function revenue()
+        {
+            $this->view('moderators/revenuedash');
         }
 
         public function deleteAlert($id,$type)

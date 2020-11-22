@@ -1,5 +1,12 @@
 <?php
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
     class Moderators extends Controller{
+
+       
+
         public function __construct()
         {
             $this->moderatorModel=$this->model('Moderator');
@@ -30,8 +37,8 @@
                 'lastName'=>'',
                 'email'=>'',
                 'mobileNo'=>'',
-                'password'=>'',
-                'confirmPassword'=>'',
+                //'password'=>'',
+                //'confirmPassword'=>'',
                 'regDate'=>'',
                 'regTime'=>'',
                 'moderatorIdError'=>'',
@@ -39,15 +46,18 @@
                 'firstNameError'=>'',
                 'lastNameError'=>'',
                 'emailError'=>'',
-                'mobileNoError'=>'',
-                'passwordError'=>'',
-                'confirmPasswordError'=>''              
+                'mobileNoError'=>''
+                // 'passwordError'=>'',
+                // 'confirmPasswordError'=>''              
             ];
 
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 //sanitize post data
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 echo "hariiii";
+                
+
+                
                 $data=[
                     'moderatorId'=>trim($_POST['moderatorId']),
                     'employeeId'=>trim($_POST['employeeId']),
@@ -55,8 +65,8 @@
                     'lastName'=>trim($_POST['lastName']),
                     'email'=>trim($_POST['email']),
                     'mobileNo'=>trim($_POST['mobileNo']),
-                    'password'=>trim($_POST['password']),
-                    'confirmPassword'=>trim($_POST['confirmPassword']),
+                    'password'=>'',
+                    //'confirmPassword'=>trim($_POST['confirmPassword']),
                     'regDate'=>date("Y-m-d"),
                     'regTime'=>date("H:i:sa"),
                     'moderatorIdError'=>'',
@@ -64,9 +74,9 @@
                     'firstNameError'=>'',
                     'lastNameError'=>'',
                     'emailError'=>'',
-                    'mobileNoError'=>'',
-                    'passwordError'=>'',
-                    'confirmPasswordError'=>''              
+                    'mobileNoError'=>''
+                    // 'passwordError'=>'',
+                    // 'confirmPasswordError'=>''              
                 ];
                 echo "wtf";
                 echo $data['moderatorId'];
@@ -120,34 +130,40 @@
                 }elseif(!preg_match($mobileValidation, $data['mobileNo'])){
                     $data['mobileNoError']="Name can only contain numbers and +.";
                 }
+                
+                
+                $informPass=$data['email'].$data['moderatorId'];
+                $data['password']=$informPass;
+                $userEmail=$data['email'];
 
                 //password validate by length and numeric values
-                if(empty($data['password'])){
-                    $data['passwordError']='Please Enter the passsword.';
-                }elseif (strlen($data['password'])<8) {
-                    $data['passwordError']="Password length should be atleast 8 characters long";
-                }elseif(!preg_match($passwordValidation, $data['password'])){
-                    $data['passwordError']="Password must have atleast one numeric value.";
-                }
+                // if(empty($data['password'])){
+                //     $data['passwordError']='Please Enter the passsword.';
+                // }elseif (strlen($data['password'])<8) {
+                //     $data['passwordError']="Password length should be atleast 8 characters long";
+                // }elseif(!preg_match($passwordValidation, $data['password'])){
+                //     $data['passwordError']="Password must have atleast one numeric value.";
+                // }
 
-                if(empty($data['confirmPassword'])){
-                    $data['confirmPasswordError']='Please Enter the passsword.';
-                }else{
-                    if($data['password']!=$data['confirmPassword']){
-                        $data['confirmPasswordError']='Passwords do not match.';
-                    }
-                }
+                // if(empty($data['confirmPassword'])){
+                //     $data['confirmPasswordError']='Please Enter the passsword.';
+                // }else{
+                //     if($data['password']!=$data['confirmPassword']){
+                //         $data['confirmPasswordError']='Passwords do not match.';
+                //     }
+                // }
 
                 if(empty($data['moderatorIdError']) && empty($data['employeerIdError']) &&
                 empty($data['firstNameError']) && empty($data['lastNameError']) && 
-                empty($data['emailError']) && empty($data['mobileNoError']) &&
-                empty($data['passwordError']) && empty($data['confirmPasswordError'])){
+                empty($data['emailError']) && empty($data['mobileNoError'])){ //&&
+                //empty($data['passwordError']) && empty($data['confirmPasswordError'])){
                         //Hash passsword
                         echo "hariiii";
                         $data['password']=password_hash($data['password'], PASSWORD_DEFAULT);
                         //Rgoster user from model function
                         if($this->moderatorModel->registerModerator($data)){
-                            //Redrects to the login page
+                            //Redrects to the view moderators
+                            $this->informEmployeeOfthePassword($userEmail, $informPass);
                             header('Location: '.URLROOT.'/moderators/viewModerators');
                         }else{
                             die('Something went wrong');
@@ -158,6 +174,58 @@
 
             $this->view('moderators/registermoderator', $data);
         }
+
+        
+        public function informEmployeeOfthePassword($email, $password)
+        {   
+            require APPROOT . '/libraries/PHPMailer/src/Exception.php';
+            require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
+            require APPROOT . '/libraries/PHPMailer/src/SMTP.php';
+            $code = uniqid(true);
+
+            if(!$this->moderatorModel->requestReset($email,$code)){
+                die('Something went wrong');
+            }
+
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings   
+                $mail->isSMTP();                                            // Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
+                $mail->Password   = 'Raillanka@2';                               // SMTP password
+                $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+                //Recipients
+                $mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+                $mail->addAddress($email);     // Add a recipient
+                        // Name is optional
+                $mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');
+            
+                // Content
+                $mail->isHTML(true); 
+                $url = URLROOT . "/users/resetPassword?code=$code";   //  
+
+                // Set email format to HTML
+                $mail->Subject = 'Moderator Registration';
+                $mail->Body    = "<h1>You have successfully registered as a Moderator</h1><p>Your Password has been set to ".$password." . You can use it 
+                to login and change it to your preferred password at anytime by clicking the link below</p> Click on <a href='$url'>this link</a> to reset your password</h1>";
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                $mail->send();
+                // $msg = 'Reset password link has been sent to your email';
+                return;
+
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+        
+			exit();
+        }
+
 
 
 

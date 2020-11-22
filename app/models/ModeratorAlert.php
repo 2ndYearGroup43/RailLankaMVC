@@ -17,11 +17,13 @@
 
         public function addCancellationAlert($data)
         { 
-            $this->db->query('INSERT INTO alerts (date, time, trainId, moderatorId) VALUES(:insDate, :insTime, :trainId, :modId)');
+            $this->db->query('INSERT INTO alerts (date, time, trainId, issueType, moderatorId) VALUES(:insDate, :insTime, :trainId, :issueType, :modId)');
             $this->db->bind(':insDate', $data['insertedDate']);
             $this->db->bind(':insTime', $data['insertedTime']);
             $this->db->bind(':trainId', $data['trainId']);
             $this->db->bind(':modId', $data['moderatorId']);
+            $this->db->bind(':issueType', $data['issueType']);
+            
 
             if($this->db->execute()){
                 $this->db->query('SELECT LAST_INSERT_ID() AS alertId');
@@ -44,11 +46,12 @@
 
         public function addDelayAlert($data)
         { 
-            $this->db->query('INSERT INTO alerts (date, time, trainId, moderatorId) VALUES(:insDate, :insTime, :trainId, :modId)');
+            $this->db->query('INSERT INTO alerts (date, time, trainId, moderatorId, issueType) VALUES(:insDate, :insTime, :trainId, :modId, :issueType)');
             $this->db->bind(':insDate', $data['insertedDate']);
             $this->db->bind(':insTime', $data['insertedTime']);
             $this->db->bind(':trainId', $data['trainId']);
             $this->db->bind(':modId', $data['moderatorId']);
+            $this->db->bind(':issueType', $data['issueType']);
 
             if($this->db->execute()){
                 $this->db->query('SELECT LAST_INSERT_ID() AS alertId');
@@ -71,11 +74,12 @@
 
         public function addRescheduledAlert($data)
         { 
-            $this->db->query('INSERT INTO alerts (date, time, trainId, moderatorId) VALUES(:insDate, :insTime, :trainId, :modId)');
+            $this->db->query('INSERT INTO alerts (date, time, trainId, moderatorId, issueType) VALUES(:insDate, :insTime, :trainId, :modId, :issueType)');
             $this->db->bind(':insDate', $data['insertedDate']);
             $this->db->bind(':insTime', $data['insertedTime']);
             $this->db->bind(':trainId', $data['trainId']);
             $this->db->bind(':modId', $data['moderatorId']);
+            $this->db->bind(':issueType', $data['issueType']);
 
             if($this->db->execute()){
                 $this->db->query('SELECT LAST_INSERT_ID() AS alertId');
@@ -142,6 +146,10 @@
                         $this->db->query('SELECT a.*,c.cancellation_cause FROM cancelled_alerts c
                         INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.trainId = :searchTerm');
                         break;
+                    case 'issuetype':
+                        $this->db->query('SELECT a.*,c.cancellation_cause FROM cancelled_alerts c
+                        INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.issueType = :searchTerm');
+                        break;
                     case 'moderatorId':
                         $this->db->query('SELECT a.*,c.cancellation_cause FROM cancelled_alerts c
                         INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.moderatorId = :searchTerm');
@@ -177,9 +185,10 @@
 
         public function updateCancellationAlert($data)
         {
-            $this->db->query('UPDATE alerts SET trainId=:trainid WHERE alertid=:id');
+            $this->db->query('UPDATE alerts SET trainId=:trainid, issueType=:issueType WHERE alertid=:id');
             $this->db->bind(":trainid", $data['trainId']);
             $this->db->bind(":id", $data['alertId']);
+            $this->db->bind(':issueType', $data['issueType']);
 
             if($this->db->execute()){
                 $this->db->query('UPDATE cancelled_alerts SET cancellation_cause=:cancelCause WHERE alertid=:id');
@@ -228,6 +237,10 @@
                         $this->db->query('SELECT a.*, d.delay_cause, d.delaytime FROM delayed_alerts d
                         INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.trainId = :searchTerm');
                         break;
+                    case 'issuetype':
+                        $this->db->query('SELECT a.*, d.delay_cause, d.delaytime FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.issueType = :searchTerm');
+                        break;
                     case 'moderatorId':
                         $this->db->query('SELECT a.*, d.delay_cause, d.delaytime FROM delayed_alerts d
                         INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.moderatorId = :searchTerm');
@@ -268,9 +281,11 @@
 
         public function updateDelayAlert($data)
         {
-            $this->db->query('UPDATE alerts SET trainId=:trainid WHERE alertid=:id');
+            $this->db->query('UPDATE alerts SET trainId=:trainid, issueType=:issueType WHERE alertid=:id');
             $this->db->bind(":trainid", $data['trainId']);
             $this->db->bind(":id", $data['alertId']);
+            $this->db->bind(':issueType', $data['issueType']);
+
 
             if($this->db->execute()){
                 $this->db->query('UPDATE delayed_alerts SET delay_cause=:delayCause, delaytime=:delayTime WHERE alertid=:id');
@@ -322,6 +337,10 @@
                         $this->db->query('SELECT a.*, r.reschedulement_cause, r.newdate, r.newtime FROM rescheduled_alerts r
                         INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.trainId = :searchTerm');
                         break;
+                    case 'issuetype':
+                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.newdate, r.newtime FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.issueType = :searchTerm');
+                        break;
                     case 'moderatorId':
                         $this->db->query('SELECT a.*, r.reschedulement_cause, r.newdate, r.newtime FROM rescheduled_alerts r
                         INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.moderatorId = :searchTerm');
@@ -364,9 +383,10 @@
 
         public function updateRescheduledAlert($data)
         {
-            $this->db->query('UPDATE alerts SET trainId=:trainid WHERE alertid=:id');
+            $this->db->query('UPDATE alerts SET trainId=:trainid, issueType=:issueType WHERE alertid=:id');
             $this->db->bind(":trainid", $data['trainId']);
             $this->db->bind(":id", $data['alertId']);
+            $this->db->bind(':issueType', $data['issueType']);
 
             if($this->db->execute()){
                 $this->db->query('UPDATE rescheduled_alerts SET reschedulement_cause=:rescheduledCause, newDate=:newDate, newtime=:newTime WHERE alertid=:id');

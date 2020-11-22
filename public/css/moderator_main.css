@@ -819,6 +819,17 @@ footer{
     top: 50px;
 }
 
+.table-popup-meta{
+    font-weight: 500px;
+    font-size: smaller;
+}
+
+.table-popup-content td{
+    font-weight: 800;
+    font-size: 30px;
+    font-style: italic;
+}
+
 
 
 
@@ -1453,8 +1464,8 @@ span.fa.fa-check{
       margin-left: 0;
       background-color: #13406d;
       border: none;
-    
     }
+    
     input.search-btn:hover{
         background-color: #2476c7;
         border: #ffffff;
@@ -1475,12 +1486,34 @@ span.fa.fa-check{
         .controls-container{
             padding: 10px;
             margin: 10px;
+            width: 90%;
             position: relative;
             background-color: #ffffff;
             flex: 3;
             justify-content: space-around;
             border-radius: 10px;
+            padding: 40px;
+            padding-bottom: 10px;
         }
+
+     
+        
+      .dash-column{
+        display: flex;  
+        align-items: center;
+        flex-direction: column;          
+      }
+
+      .dash-row{
+          position: relative;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+      }
+
+        .controls-container .input-data{
+            width: 100%;
+          }
   
         .count-card{
             position: relative;
@@ -1534,6 +1567,13 @@ span.fa.fa-check{
             padding-bottom: 10px;
             margin-right: 30px;
         }
+
+        .count-card .card-count.revenue{
+            font-size: 40px;
+            text-align: center;
+            padding-bottom: 10px;
+            margin-right: 30px;
+          }
   
         .chart-container{
             flex: 1;
@@ -1556,6 +1596,13 @@ span.fa.fa-check{
   
         }
   
+        .container.dash{
+            /* max-width: 400px;  
+            width: 400px; */
+            width: 100%;
+            box-shadow: none;
+            border: none;
+          }
   
   
 

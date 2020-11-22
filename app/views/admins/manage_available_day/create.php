@@ -3,26 +3,13 @@
 ?>
 <?php
     require APPROOT.'/views/includes/train_management_navigation.php';
+    var_dump($data);
 ?>    
         <div class="body-section">
             <div class="content-flexrow">
                 <div class="container">
                     <div class="text" style="color: #13406d;">Manage Trains <small style="color: black;">Add Available Days</small></div>
-                        <form action="<?php echo URLROOT; ?>/Admin_manage_available_days/create" method = "POST">
-                            <div class="form-row">
-                                <div class="input-data">
-                                    <label for="trainId">Train Id</label>
-                                    <select name="trainId" id="trainId" required>
-                                        <option value="">Select</option>
-                                        <?php foreach ($data['trains'] as $train ):?>
-                                            <option value="<?php echo $train->trainId?>"><?php echo $train->trainId?></option>
-                                        <?php endforeach;?>
-                                    </select>
-                                    <span class="invalidFeedback">
-                                        <?php echo $data['trainIdError'];?>
-                                    </span>
-                                </div>
-                            </div>
+                        <form action="<?php echo URLROOT; ?>/Admin_manage_available_days/create/<?php echo $data['trainId'];?>" method = "POST">
                             <div class="form-row">
                                 <div class="input-data">
                                     <input type="hidden" name="sunday" value="No">

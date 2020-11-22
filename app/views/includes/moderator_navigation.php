@@ -95,6 +95,9 @@
                                     <div class="dropdown">
                                         <ul>
                                             <li class="dropdown-link">
+                                                <a href="<?php echo URLROOT;?>/moderatoralerts/alertsdash">Alerts Dashboard<i class="fa fa-line-chart"></i></a>  
+                                            </li>
+                                            <li class="dropdown-link">
                                                 <label for="btn-2" class="show2">Add New Alerts +</label>
                                                 <a href="<?php echo URLROOT;?>/moderatoralerts/viewCancelledAlerts">Add New Alerts<i class="fa fa-caret-down"></i></a>
                                                 <input type="checkbox" id="btn-2">

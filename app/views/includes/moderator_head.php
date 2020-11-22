@@ -9,6 +9,5 @@
         <script  src="<?php echo URLROOT;?>/javascript/jquery-3.5.1.min.js"></script> 
         <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
         <script src="<?php echo URLROOT;?>/javascript/jquery.canvasjs.min.js"></script>
-        <script src="<?php echo URLROOT;?>/javascript/alertDashboardChart.js"></script>
-    </head>
+     </head>
     <body>

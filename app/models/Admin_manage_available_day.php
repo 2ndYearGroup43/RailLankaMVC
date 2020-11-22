@@ -70,7 +70,8 @@ class Admin_manage_available_day {
 	public function getReservableStatus($trainId){
 		$this->db->query('SELECT reservable_status FROM train WHERE trainId=:trainId');
 		$this->db->bind(':trainId', $trainId);
-        $results=$this->db->single();
+		$results=$this->db->single();
+		var_dump($results);
         return $results->reservable_status;
 	}
 

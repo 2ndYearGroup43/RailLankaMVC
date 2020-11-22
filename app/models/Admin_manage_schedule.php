@@ -25,6 +25,52 @@ class Admin_manage_schedule {
         
 	}
 
+
+	
+	public function addSchedule($data){
+		$flag;
+		$this->db->query('INSERT INTO route (trainId) VALUES (:trainId)');
+		$this->db->bind(':trainId', $data['trainId']);
+
+		if($this->db->execute()){
+			$this->db->query('SELECT LAST_INSERT_ID() AS routeId');
+			$row=$this->db->single();
+			$routeId=$row->routeId;
+
+			foreach ($data['schedules'] as $schedule) {
+				$this->db->query('INSERT INTO route_station (routeId, stationID, stopNo, arrivaltime, departuretime, date, distance)
+				 VALUES (:routeId, :stationID, :stopNo, :arrivaltime, :departuretime, :date, :distance )');
+
+				$this->db->bind(':routeId', $routeId);
+				$this->db->bind(':stationID', $schedule->stationId);		
+				$this->db->bind(':stopNo', $schedule->stopNo);
+				$this->db->bind(':arrivaltime', $schedule->arrivalTime);
+				$this->db->bind(':departuretime', $schedule->departureTime);
+				$this->db->bind(':date', $schedule->date);
+				$this->db->bind(':distance', $schedule->distance);
+
+				if($this->db->execute()){
+					 $flag=true;
+				}else{
+					$flag=false;
+				}
+			}
+
+			if($flag){
+				return true;
+			}else{
+				return false;
+			}
+				
+			
+		}else{
+			return false;
+		}
+        
+	}
+
+
+
 	    public function findRouteByRouteId($rid)
     {
         //this is an preapared statement

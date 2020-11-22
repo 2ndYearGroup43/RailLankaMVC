@@ -24,39 +24,31 @@
                 <div class="container-table popup" id="popup-alert">
                     <h3>Alert Details</h3>
                     <table class="data-display" id="delaypopup">
-                        <tr id="alertId">
+                    <tr id="Ids">
                             <td>Alert Id: </td>
-                            <td id="alertId">Not available</td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr id="trainId">
+                            <td id="alertId">Not available</td> 
                             <td>Train Id: </td>
-                            <td id="trainId">Not available</td>
-                            <td colspan="2"></td>
+                            <td id="trainId" style="font-weight: 500;">Not available</td>
                         </tr>
-                        <tr id="delayTime">
-                            <td>Entered Time: </td>
-                            <td id="delayTime">Not available</td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr id="enteredDate">
+                        <tr id="date_time">
                             <td>Entered Date: </td>
                             <td id="enteredDate">Not available</td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr id="enteredTime">
                             <td>Entered Time: </td>
                             <td id="enteredTime">Not available</td>
-                            <td colspan="2"></td>
                         </tr>
                         <tr id="moderatorId">
                             <td>Entered by: </td>
                             <td id="moderatorId">Not available</td>
-                            <td colspan="2"></td>
+                            <td>Issue Type: </td>
+                            <td id="issueType">Not available</td>
+                        </tr>
+                        <tr id="delayTime">
+                            <td>Delay Time: </td>
+                            <td id="delayTime">Not available</td>
                         </tr>
                         <tr id="delayCause">
                             <td rowspan="2">Cause: </td>
-                            <td rowspan="2" id="delayCause">Not available </td>
+                            <td rowspan="2" id="delayCause" style="font-size: 25px;">Not available </td>
                             <td rowspan="2" colspan="2"></td>
                         </tr>
                         <button style="position: relative; padding: 10px 15px;" class="back-btn"><i class="fa fa-times" onclick="closeDelayAlert()"></i></button>
@@ -70,7 +62,7 @@
                             <th>Delay Time</th>
                             <th>Entered Date</th>
                             <th>Entered Time</th>
-                            <th>Delay Cause</th>
+                            <th>Issue Type</th>
                             <th>Moderator ID</th>
                             <th>Manage</th>    
                         </tr>
@@ -87,7 +79,7 @@
                             <td data-th="Delay Time"><?php echo $row->delaytime;?></td>
                             <td data-th="Entered Date"><?php echo $row->date;?></td>
                             <td data-th="Entered Time"><?php echo $row->time;?></td>
-                            <td data-th="Delay Cause"><?php echo $row->delay_cause;?></td>
+                            <td data-th="Issue Type"><?php echo $row->issuetype;?></td>
                             <td data-th="Moderater ID"><?php echo $row->moderatorId;?></td>    
                             <script> 
                                 alerts[c]=<?php echo json_encode($row, JSON_PRETTY_PRINT)?>;
@@ -95,7 +87,7 @@
                             </script>
                             <td data-th="Manage">
                                 <form action="<?php echo URLROOT;?>/moderatoralerts/deleteAlert/<?php echo $row->alertId;?>/d" method="POST">
-                                    <button type="button" class="table-btn blue" onclick="openCancelAlert(alerts,<?php echo $count;?>)">View</button>
+                                    <button type="button" class="table-btn blue" onclick="openDelayAlert(alerts,<?php echo $count;?>)">View</button>
                                     <a href="<?php echo URLROOT;?>/moderatoralerts/updateDelays/<?php echo $row->alertId;?>" class="blue-btn">Edit</a>
                                     <input type="submit" class="red-btn" value="Delete">
                                 </form>
@@ -110,12 +102,13 @@
                 <script>
                     function openDelayAlert(alerts,x) {
                         var table=document.getElementById("delaypopup");
-                        table.rows.namedItem("alertId").cells.namedItem("alertId").innerHTML=alerts[x].alertId;
-                        table.rows.namedItem("trainId").cells.namedItem("trainId").innerHTML=alerts[x].trainId;
-                        table.rows.namedItem("delayTime").cells.namedItem("delayTime").innerHTML=alerts[x].delaytime;
-                        table.rows.namedItem("enteredDate").cells.namedItem("enteredDate").innerHTML=alerts[x].date;
-                        table.rows.namedItem("enteredTime").cells.namedItem("enteredTime").innerHTML=alerts[x].time;
+                        table.rows.namedItem("Ids").cells.namedItem("alertId").innerHTML=alerts[x].alertId;
+                        table.rows.namedItem("Ids").cells.namedItem("trainId").innerHTML=alerts[x].trainId;
+                        table.rows.namedItem("date_time").cells.namedItem("enteredDate").innerHTML=alerts[x].date;
+                        table.rows.namedItem("date_time").cells.namedItem("enteredTime").innerHTML=alerts[x].time;
                         table.rows.namedItem("moderatorId").cells.namedItem("moderatorId").innerHTML=alerts[x].moderatorId;
+                        table.rows.namedItem("moderatorId").cells.namedItem("issueType").innerHTML=alerts[x].issuetype;
+                        table.rows.namedItem("delayTime").cells.namedItem("delayTime").innerHTML=alerts[x].delaytime;
                         table.rows.namedItem("delayCause").cells.namedItem("delayCause").innerHTML=alerts[x].delay_cause;
                         document.getElementById("popup-alert").style.display = "block";
                     }

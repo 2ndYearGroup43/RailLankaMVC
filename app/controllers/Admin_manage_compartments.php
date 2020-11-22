@@ -12,93 +12,45 @@ class Admin_manage_compartments extends Controller{
 		$this->view('admins/manage_compartment/index', $data);
 	}
 
-	public function create(){
-		$trains=$this->adminModel->getTrainId();
+	public function create($trainId){
 		$types=$this->adminModel->getType();
-		$added_data=$this->adminModel->get();
 		$data = [
-			'trains'=>$trains,
 			'types'=>$types,
-			'added_data'=>$added_data,
-			'trainId'=>'',
-			'compartmentNo'=>'',
-			'class'=>'',
-			'noofseats'=>'',
-			'type'=>'',
-			'trainIdError'=>'',
-            'compartmentNoError'=>'',
-            'classError'=>'',
-            'noofseatsError'=>'',
-            'typeError'=>''
+			'trainId'=>$trainId,
+			'compartmentError'=>'',
+			'compartments'=>''
 		];
 
 		if($_SERVER['REQUEST_METHOD']=='POST'){
+			$a=json_decode($_POST['compartmentField']);
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+			
+			
 			$data=[
-			'trains'=>$trains,
 			'types'=>$types,
-			'added_data'=>$added_data,	
-			'trainId'=>trim($_POST['trainId']),	
-			'compartmentNo'=>trim($_POST['compartmentNo']),			
-			'class'=>trim($_POST['class']),
-			'noofseats'=>trim($_POST['noofseats']),
-			'type'=>trim($_POST['type']),
-			'trainIdError'=>'',
-            'compartmentNoError'=>'',
-            'classError'=>'',
-            'noofseatsError'=>'',
-            'typeError'=>''
+			'trainId'=>$trainId,
+			'compartmentError'=>'',
+			'compartments'=>$a
 			];
-            $idValidation="/^[a-zA-Z0-9]*$/";
-            $nameValidation="/^[a-zA-Z]*$/";
-            $numberValidation="/^[0-9]*$/";
 
-                if(empty($data['trainId'])){
-                $data['trainIdError']='Please Enter the Train ID.';
-                }elseif(!preg_match($idValidation, $data['trainId'])){
-                    $data['trainIdError']="Officer ID can only contain letters and numbers.";
-                }
-
-                if(empty($data['compartmentNo'])){
-                    $data['compartmentNoError']='Please Enter the Compartment No.';
-                }elseif(!preg_match($idValidation, $data['compartmentNo'])){
-                    $data['compartmentNoError']="Compartment No can only contain letters and numbers.";
-                }else{
-                    //if Employee ID exists
-                    if($this->adminModel->findCompartmentByCompartmentNo($data['compartmentNo'])){
-                        $data['compartmentNoError']='This compartment is already registered as a compartment in the system.'; 
-                    }
-                }
-                if(empty($data['class'])){
-                    $data['classError']='Please Enter the First Name.';
-                }elseif(!preg_match($nameValidation, $data['class'])){
-                    $data['classError']="Class can only contain letters.";
-                }
-                if(empty($data['noofseats'])){
-                    $data['noofseatsError']='Please Enter the Last Name.';
-                }elseif(!preg_match($numberValidation, $data['noofseats'])){
-                    $data['noofseatsError']="Number of Seats can only contain numbers.";
-                }
-                if(empty($data['type'])){
-                    $data['typeError']='Please Enter the Compartment No.';
-                }elseif(!preg_match($numberValidation, $data['compartmentNo'])){
-                    $data['typeError']="Type can only contain letters and numbers.";
-                }
-
-                if(empty($data['trainIdError']) && empty($data['compartmentNoError']) &&
-                empty($data['classError']) && empty($data['noofseatsError']) && 
-                empty($data['typeError']) ){
-
-			if ($this->adminModel->create_compartment($data)) {
-				header("Location: " . URLROOT . "/Admin_manage_compartments/create");
-			}else{
-				die("Something Going Wrong");
+			if(empty($data['compartments'])){
+				$data['compartmentError']="Please enter atleast one compartment";
 			}
-           }
+            
+            if(empty($data['compartmentError'])){
+				if ($this->adminModel->create_compartment($data)) {
+					header("Location: " . URLROOT . "/Admin_manage_compartments");
+				}else{
+					die("Something went Wrong");
+				}
+			}
 		}
 
+		
 		$this->view('admins/manage_compartment/create', $data);
 	}
+
+		
 
 	public function edit($trainId){
 
