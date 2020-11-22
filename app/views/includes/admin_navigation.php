@@ -17,7 +17,7 @@
                             <a href="" >HOME</a>
                         </li>
                         <li class="nav-link" style="--i: .6s">
-                            <a href="<?php echo URLROOT; ?>/admindashboards/index">Dashboard</a>
+                            <a href="<?php echo URLROOT; ?>admins/admindashboards/dashboards">Dashboard</a>
                         </li>
                         <li class="nav-link" style="--i: .6s">
                             <a href="<?php echo URLROOT; ?>/adminPassengers/index">Users</a>
