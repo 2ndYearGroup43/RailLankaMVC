@@ -24,6 +24,12 @@
 			$this->view('passengers/accounts/view_tickets'); 
 		}
 
+		public function displayTicket1() {
+			
+			isPassengerLoggedIn();
+			$this->view('passengers/accounts/booking_conf1'); 
+		}
+
 		public function displaySubscriptions() {
 			
 			isPassengerLoggedIn();
