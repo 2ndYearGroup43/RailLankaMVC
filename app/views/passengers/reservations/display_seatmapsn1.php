@@ -181,7 +181,7 @@
 				</div>
 			</div>
 			<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/bookingReview'" class="btn checkout-btn">Book now &raquo;</button>
-				<p class="options">Back to search results? <a href="<?php echo URLROOT; ?>/passengerReservations/displayTrains">Click here.</a></p>
+				<p class="options">Back to search results? <a class="alert-btn" data-target="alert-warning-popup">Click here.</a></p>
 			<!-- <button type="submit" class="btn blue-btn checkout-btn">Back</button> -->
 		</div>		
 		<div class="content-row">
@@ -192,6 +192,48 @@
 		</div>
 		
 	</div>
+
+	<!-- alert warning pop up -->
+	<div class="flash-alert-box" id="alert-warning-popup">
+		<div class="alert-box-content">
+			<div class="alert-icon">
+				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+			</div>
+			<div class="alert-body">
+				<h3>Are you sure?</h3>
+				<p>You will lose your current progress</p>
+				<!-- <p><a>Proceed Anyway?</a></p> -->
+				<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displayTrains'" class="proceed-btn">Proceed Anyway</button>
+			</div>
+			<button type="button" class="close-alert">&times;</button>
+		</div>
+	</div>
+	<!-- end of alert warning popup -->
+
+	<!-- js for flash message -->
+	<script>
+		const alertBtn = document.querySelectorAll(".alert-btn");
+		alertBtn.forEach(function(btn){
+			btn.addEventListener("click", function(){
+				const target = this.getAttribute("data-target");
+				const alertBox = document.getElementById(target)
+				alertBox.classList.add("alert-box-show");
+
+				const closeAlert = alertBox.querySelector(".close-alert");
+				closeAlert.addEventListener("click",function(){
+					alertBox.classList.remove("alert-box-show");
+				});
+
+				alertBox.addEventListener("click",function(event){
+					if(event.target === this){
+						alertBox.classList.remove("alert-box-show");
+					}
+				});
+			});
+		});
+
+	</script>
+	<!-- end of js for flash message -->
 
 	<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> 
 	<script src="<?php echo URLROOT ?>/public/javascript/jquery.seat-charts.js"></script>  -->

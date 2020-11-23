@@ -77,53 +77,26 @@
 					</thead>
 					<tbody>
 						<tr class="active-row">
-							<td data-label="AlertID">001</td>
+							<td data-label="AlertID">013</td>
 							<td data-label="TrainID">0019</td>
 							<td data-label="Type">Delay</td>
-							<td data-label="Date">10/11/2020</td>
+							<td data-label="Date">9/10/2020</td>
 							<td>
 								<button type="submit" id="pop-up" class="btn"><span>View Details</span></button>
 							</td>
 						</tr>
 						<tr>
-							<td data-label="AlertID">002</td>
+							<td data-label="AlertID">014</td>
 							<td data-label="TrainID">0013</td>
 							<td data-label="Type">Rescheduled</td>
-							<td data-label="Date">8/11/2020</td>
+							<td data-label="Date">3/11/2020</td>
 							<td>
 								<button type="submit" id="pop-up" class="btn">View Details</button>
 							</td>
 						</tr>
 						<tr>
-							<td data-label="AlertID">003</td>
+							<td data-label="AlertID">015</td>
 							<td data-label="TrainID">0081</td>
-							<td data-label="Type">Cancelled</td>
-							<td data-label="Date">5/11/2020</td>
-							<td>
-								<button type="submit" id="pop-up" class="btn">View Details</button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="AlertID">004</td>
-							<td data-label="TrainID">0071</td>
-							<td data-label="Type">Cancelled</td>
-							<td data-label="Date">4/11/2020</td>
-							<td>
-								<button type="submit" id="pop-up" class="btn">View Details</button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="AlertID">004</td>
-							<td data-label="TrainID">0019</td>
-							<td data-label="Type">Delay</td>
-							<td data-label="Date">2/11/2020</td>
-							<td>
-								<button type="submit" class="btn">View Details</button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="AlertID">005</td>
-							<td data-label="TrainID">0051</td>
 							<td data-label="Type">Cancelled</td>
 							<td data-label="Date">1/11/2020</td>
 							<td>
@@ -135,11 +108,11 @@
 				<br>
 				<div class="pagination">
 					<ul>
-						<li><a href="#" class="prev">Prev</a></li>
-						<li class="pageNumber active"><a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts">1</a></li>
+						<li><a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts2" class="prev">Prev</a></li>
+						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts">1</a></li>
 						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts2">2</a></li>
-						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts3">3</a></li>
-						<li><a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts2" class="next">Next</a></li>
+						<li class="pageNumber active"><a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts3">3</a></li>
+						<li><a href="#">Next</a></li>
 					</ul>
 				</div>
 				<br>			
@@ -247,8 +220,6 @@
 			});
 		});
 	</script>
-
-	
 
 	<!-- end of js for drop down -->
 

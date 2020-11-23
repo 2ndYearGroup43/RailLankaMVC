@@ -30,6 +30,18 @@
 			$this->view('passengers/reservations/display_seatmapsn1'); 
 		}
 
+		public function displaySeatMapsN() {
+
+			isPassengerLoggedIn();
+			$this->view('passengers/reservations/display_seatmapsn'); 
+		}
+
+		public function displaySeatMapsNN() {
+
+			isPassengerLoggedIn();
+			$this->view('passengers/reservations/display_seatmapsnn'); 
+		}
+
 		public function displaySeatMaps2() {
 
 			isPassengerLoggedIn();
@@ -64,6 +76,12 @@
 
 			isPassengerLoggedIn();
 			$this->view('passengers/reservations/booking_review'); 
+		}
+
+		public function bookingConf() {
+
+			isPassengerLoggedIn();
+			$this->view('passengers/reservations/booking_conf'); 
 		}
 		
 	}

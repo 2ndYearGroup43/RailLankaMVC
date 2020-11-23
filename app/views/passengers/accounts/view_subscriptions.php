@@ -40,7 +40,7 @@
 							<td>9.38 a.m.</td>
 							<td>A.C.- Intercity</td>
 							<td>
-								<button type="submit" class="btn"><span>Unsubscribe</span></button>
+								<button type="submit" data-target="alert-warning-popup" class="alert-btn btn"><span>Unsubscribe</span></button>
 							</td>
 						</tr>
 						<tr>
@@ -74,19 +74,46 @@
 	</div>
 	<!-- end of tickets results -->
 
+	<!-- alert warning pop up -->
+	<div class="flash-alert-box" id="alert-warning-popup">
+		<div class="alert-box-content">
+			<div class="alert-icon">
+				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+			</div>
+			<div class="alert-body">
+				<h3>Are you sure?</h3>
+				<p>If you unsubscribe you won't receive email notifications in the future.</p>
+				<!-- <p><a>Proceed Anyway?</a></p> -->
+				<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displaySubscriptions'" class="proceed-btn">Proceed Anyway</button>
+			</div>
+			<button type="button" class="close-alert">&times;</button>
+		</div>
+	</div>
+	<!-- end of alert warning popup -->
 
-	 <!--  js for toggle menu -->
+	<!-- js for flash message -->
 	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
+		const alertBtn = document.querySelectorAll(".alert-btn");
+		alertBtn.forEach(function(btn){
+			btn.addEventListener("click", function(){
+				const target = this.getAttribute("data-target");
+				const alertBox = document.getElementById(target)
+				alertBox.classList.add("alert-box-show");
+
+				const closeAlert = alertBox.querySelector(".close-alert");
+				closeAlert.addEventListener("click",function(){
+					alertBox.classList.remove("alert-box-show");
+				});
+
+				alertBox.addEventListener("click",function(event){
+					if(event.target === this){
+						alertBox.classList.remove("alert-box-show");
+					}
+				});
+			});
+		});
+
 	</script>
+	<!-- end of js for flash message -->
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

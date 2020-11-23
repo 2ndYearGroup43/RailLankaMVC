@@ -24,7 +24,10 @@
 			   		<li class="nav-link" style="--i: 1.8s">	
 			   			<a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts">Alerts <i class="fa fa-caret-down"></i></a>
 			   			<div class="nav-dropdown">	
-			   				<ul>	
+			   				<ul>
+			   					<li class="nav-dropdown-link">	
+			   						<a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts">All Alerts</a>
+			   					</li>	
 			   					<li class="nav-dropdown-link">	
 			   						<a href="<?php echo URLROOT; ?>/passengerAlerts/displayDelayed">Delayed</a>
 			   					</li>
@@ -42,7 +45,10 @@
 			   		<li class="nav-link" style="--i: 2.05s">	
 			   			<a href="<?php echo URLROOT; ?>/passengerAccounts/displayAccount">Account <i class="fa fa-caret-down"></i></a>
 			   			<div class="nav-dropdown">	
-			   				<ul>	
+			   				<ul>
+			   					<li class="nav-dropdown-link">	
+			   						<a href="<?php echo URLROOT; ?>/passengerAccounts/displayAccount">View Profile</a>
+			   					</li>	
 			   					<li class="nav-dropdown-link">	
 			   						<a href="<?php echo URLROOT; ?>/passengerAccounts/editAccount">Edit Profile</a>
 			   					</li>

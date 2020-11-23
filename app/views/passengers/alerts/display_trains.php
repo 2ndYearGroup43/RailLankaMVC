@@ -44,7 +44,7 @@
 							<td data-label="Arrival Time">9.38 a.m.</td>
 							<td data-label="Type">A.C.- Intercity</td>
 							<td>
-								<button type="submit" class="btn"><span>Subscribe</span></button>
+								<button type="submit" data-target="alert-success-popup" class="alert-btn btn"><span>Subscribe</span></button>
 							</td>
 						</tr>
 						<tr>
@@ -54,7 +54,7 @@
 							<td data-label="Arrival Time">9.38 a.m.</td>
 							<td data-label="Type">Intercity</td>
 							<td>
-								<button type="submit" class="btn">Subscribe</button>
+								<button type="submit" data-target="alert-success-popup" class="alert-btn btn">Subscribe</button>
 							</td>
 						</tr>
 						<tr>
@@ -64,7 +64,7 @@
 							<td data-label="Arrival Time">11.03 a.m.</td>
 							<td data-label="Type">Express - Udarata Menike</td>
 							<td>
-								<button type="submit" class="btn">Subscribe</button>
+								<button type="submit" data-target="alert-success-popup" class="alert-btn btn">Subscribe</button>
 							</td>
 						</tr>
 						<tr>
@@ -74,7 +74,7 @@
 							<td data-label="Arrival Time">1.55 a.m.</td>
 							<td data-label="Type">Colombo Commuter</td>
 							<td>
-								<button type="submit" class="btn">Subscribe</button>
+								<button type="submit" data-target="alert-success-popup" class="alert-btn btn">Subscribe</button>
 							</td>
 						</tr>
 						<tr>
@@ -84,7 +84,7 @@
 							<td data-label="Arrival Time">9.38 a.m.</td>
 							<td data-label="Type">Intercity</td>
 							<td>
-								<button type="submit" class="btn">Subscribe</button>
+								<button type="submit" data-target="alert-success-popup" class="alert-btn btn">Subscribe</button>
 							</td>
 						</tr>
 					</tbody>
@@ -114,7 +114,7 @@
                                     <option value="Fort">Fort</option>
                                     <option value="Kandy">Kandy</option>
                                     <option value="Galle">Galle</option>
-                                    <option value="Baadulla">Baadulla</option>
+                                    <option value="Baadulla">Badulla</option>
                                 </select>
 							</div>
 							<div class="mini-input-data">
@@ -150,20 +150,46 @@
 	</div>
 	<!-- end of pop up -->
 
-	 <!--  js for toggle menu -->
-	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-	</script>
+	<!-- alert success pop up -->
+	<div class="flash-alert-box" id="alert-success-popup">
+		<div class="alert-box-content">
+			<div class="alert-icon">
+				<i class="fa fa-check" aria-hidden="true"></i>
+			</div>
+			<div class="alert-body">
+				<h3>Subscription Successful!</h3>
+				<p>You will recieve alert notifications via email.
+				</p>
+			</div>
+			<button type="button" class="close-alert">&times;</button>
+		</div>
+	</div>
+	<!-- end of alert success popup -->
 
+	<script>
+			const alertBtn = document.querySelectorAll(".alert-btn");
+			alertBtn.forEach(function(btn){
+				btn.addEventListener("click", function(){
+					const target = this.getAttribute("data-target");
+					const alertBox = document.getElementById(target)
+					alertBox.classList.add("alert-box-show");
+
+					const closeAlert = alertBox.querySelector(".close-alert");
+					closeAlert.addEventListener("click",function(){
+						alertBox.classList.remove("alert-box-show");
+					});
+
+					alertBox.addEventListener("click",function(event){
+						if(event.target === this){
+							alertBox.classList.remove("alert-box-show");
+						}
+					});
+				});
+			});
+
+		</script>
+
+	 
 	<!-- js for pop up -->
 	<script>
 
