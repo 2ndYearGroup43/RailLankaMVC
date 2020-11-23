@@ -4,11 +4,12 @@
 <?php
     require APPROOT.'/views/includes/admin_navigation.php';
 ?>  
+ 
 <div class="body-section">
         <div class="content-flexrow">
-               <div class="container">
-                <div class="text" style="color: #13406d;">Manage Trains <small style="color: black;">Update Schedule</small></div>
-                <form action="<?php echo URLROOT; ?>/Admin_manage_schedules/edit/<?php echo $data['trainId'];?>/<?php echo $data['route']->routeId;?>" method = "POST">
+           <div class="container">
+            <div class="text" style="color: #13406d;">Manage Trains <small style="color: black;">Update Compartments</small></div>
+            <form action="<?php echo URLROOT; ?>/Admin_manage_schedules/editSingle/<?php echo $data['trainId'];?>/<?php echo $data['route']->routeId;?>" method = "POST">
                                 <div class="form-row">
                                     <div class="input-data">
                                         <label for="routeId">Route Id</label>

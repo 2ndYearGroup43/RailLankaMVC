@@ -4,7 +4,7 @@
 <?php
     require APPROOT.'/views/includes/resofficer_navigation.php';
 ?>
-        <div class="body-section">
+        <div class="body-section" id="table">
             <div class="content-row">   
             </div>
             <div class="content-row">
@@ -122,13 +122,22 @@
                                     </td>
                                 </tr>
                             </table>
-                            <button type="submit" class="back-btn">Print</button>  
+                            <button class="back-btn" onclick="printContent('e-ticket')"><i class="fa fa-print" aria-hidden="true"></i> Print This Page </button>  
                         </div>      
                     </div>
                 </div>
                 
             </div>
         </div>
+        <script>
+        function printContent(el){
+            var restorepage = document.body.innerHTML;
+            var printContent = document.getElementById(el).innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = restorepage;
+        }
+        </script>
 <?php
     require APPROOT.'/views/includes/footer.php';
 ?>

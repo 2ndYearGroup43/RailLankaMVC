@@ -9,6 +9,7 @@
             <div class="content-row">
                 <div class="container-table">
                     <h2 style="color: #13406d;">Manage Trains <small style="color: black;">Manage Compartments</small></h2>
+                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_compartments/addNewCompartment/<?php echo $data['trainId'];?>">Add New Compartment</a>
                     <table class="blue">
                         <thead>
                             <tr>
@@ -20,17 +21,17 @@
                                 <th>Manage</th>    
                             </tr>
                         </thead>
-                        <?php foreach($data['manage_compartment'] as $post):?>
+                        <?php foreach($data['compartments'] as $compartment):?>
                         <tr>
-                            <td data-th="Train ID"><?php echo $post->trainId?></td>
-                            <td data-th="Compartment No"><?php echo $post->compartmentNo?></td>
-                            <td data-th="Class"><?php echo $post->class?></td>
-                            <td data-th="No of Seats"><?php echo $post->noofseats?></td>
-                            <td data-th="Type"><?php echo $post->type?></td>
+                            <td data-th="Train ID"><?php echo $compartment->trainId?></td>
+                            <td data-th="Compartment No"><?php echo $compartment->compartmentNo?></td>
+                            <td data-th="Class"><?php echo $compartment->class?></td>
+                            <td data-th="No of Seats"><?php echo $compartment->noofseats?></td>
+                            <td data-th="Type"><?php echo $compartment->type?></td>
                             <td data-th="Manage">
-                            <form action="<?php echo URLROOT . "/Admin_manage_compartments/delete/" . $post->trainId?>" method="POST">    
-                            <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_compartments/views/" . $post->trainId?>">View</a>
-                            <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_compartments/edit/" . $post->trainId?>">Edit</a>
+                            <form action="<?php echo URLROOT . "/Admin_manage_compartments/delete/" . $compartment->compartmentNo?>" method="POST">    
+                            <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_compartments/views/" . $compartment->trainId?>">View</a>
+                            <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_compartments/editSingle/" . $compartment->trainId?>/<?php echo $compartment->compartmentNo?>">Edit</a>
                             <input type="submit" name="delete" value="Remove" class="red-btn">
                             </form></td>
                         </tr>

@@ -101,8 +101,6 @@ class Admin_manage_trains extends Controller{
                 }
                 if(empty($data['reservable_status'])){
                     $data['reservable_statusError']='Please Enter the Reservable Status.';
-                }elseif(!preg_match($nameValidation, $data['reservable_status'])){
-                    $data['reservable_statusError']="Reservable Status can only contain letters.";
                 }
                 if(empty($data['type'])){
                     $data['typeError']='Please Enter the Last Name.';
@@ -114,7 +112,7 @@ class Admin_manage_trains extends Controller{
                 empty($data['reservable_statusError']) && empty($data['typeError']) && empty($data['src_stationError']) && empty($data['dest_stationError'])){
 
 			if ($this->adminModel->create_train($data)) {				
-					header("Location: " . URLROOT . "/Admin_manage_schedules/create");								
+					header("Location: " . URLROOT . "/Admin_manage_schedules/addSchedule/".$data['trainId']);								
 			}else{
 				die("Something Going Wrong");
 			}
@@ -202,8 +200,6 @@ class Admin_manage_trains extends Controller{
                 
                 if(empty($data['reservable_status'])){
                     $data['reservable_statusError']='Please Enter the Reservable Status.';
-                }elseif(!preg_match($nameValidation, $data['reservable_status'])){
-                    $data['reservable_statusError']="Reservable Status can only contain letters.";
                 }
                 if(empty($data['type'])){
                     $data['typeError']='Please Enter the Last Name.';
@@ -216,7 +212,7 @@ class Admin_manage_trains extends Controller{
 
 			if ($this->adminModel->edit($data)) {
 				if(($data['reservable_status'])=='Yes'){
-					header("Location: " . URLROOT . "/Admin_manage_schedules");
+					header("Location: " . URLROOT . "/Admin_manage_trains");
 				}
 			}else{
 				die("Something Going Wrong");
@@ -229,43 +225,20 @@ class Admin_manage_trains extends Controller{
 		public function views($trainId){
 
 		$manage_train=$this->adminModel->findTrain($trainId);
+		$schedules=$this->adminModel->getScheduleDetails($trainId);
+		$days=$this->adminModel->getAvailableDays($trainId);
+		$compartments=$this->adminModel->getCompartments($trainId);
+
 
 		$data = [
 			'manage_train'=>$manage_train,
-			'trainId'=>'',
-			'name'=>'',
-			'reservable_status'=>'',
-			'type'=>'',
-			'src_station'=>'',
-			'starttime'=>'',
-			'dest_station'=>'',
-			'endtime'=>'',
-            'rateId'=>'',
-			'entered_date'=>'',
-            'entered_time'=>''
+			'trainId'=>$trainId,
+			'schedules'=>$schedules,
+			'days'=>$days,
+			'compartments'=>$compartments
 		];
 
-		if($_SERVER['REQUEST_METHOD']=='POST'){
-			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-			$data=[
-			'trainId'=>$trainId,	
-			'name'=>trim($_POST['name']),			
-			'reservable_status'=>trim($_POST['reservable_status']),
-			'type'=>trim($_POST['type']),
-			'src_station'=>trim($_POST['src_station']),
-			'starttime'=>trim($_POST['starttime']),
-			'dest_station'=>trim($_POST['dest_station']),
-            'endtime'=>trim($_POST['endtime']),
-            'rateId'=>trim($_POST['rateId']),
-			'entered_date'=>trim($_POST[entered_date]),
-            'entered_time'=>trim($_POST[entered_time])
-			];
-			if ($this->adminModel->views($data)) {
-				header("Location: " . URLROOT . "/Admin_manage_trains");
-			}else{
-				die("Something Going Wrong");
-			}           
-		}
+		
 		$this->view('admins/manage_train/views', $data);
 	}
 

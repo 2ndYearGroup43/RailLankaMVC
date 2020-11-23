@@ -90,6 +90,76 @@ class Admin_manage_schedules extends Controller{
 
 	}
 
+	public function addSchedule($trainId)
+	{
+		// $routes=$this->adminModel->getRouteId();
+		$stations=$this->adminModel->getStationID();
+		// $added_data=$this->adminModel->get();
+
+		$data=[
+			'trainId'=>$trainId,
+			// 'routes'=>$routes,
+			'stations'=>$stations,
+			// 'added_data'=>$added_data,
+			// "trainId"=>$trainId,
+			"scheduleError"=>'',
+			"schedules"=>''
+		];
+
+		if($_SERVER['REQUEST_METHOD']=='POST'){
+			$a=json_decode($_POST['scheduleField']);
+			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+
+			$data=[
+				'trainId'=>$trainId,
+				// 'routes'=>$routes,
+				'stations'=>$stations,
+				// 'added_data'=>$added_data,
+				// "trainId"=>$trainId,
+				"scheduleError"=>'',
+				"schedules"=>$a
+			];
+
+
+			if(empty($data['schedules'])){
+				$data['scheduleError']="No schedules to entered";
+			}
+
+			if(empty($data['scheduleError'])){
+				// $this->adminModel();
+
+				// echo $_POST['scheduleField'];
+			
+				// var_dump($a);
+				// echo $a[0]->stationId;
+				// echo $a[2]->distance;
+				// $this->view('admins/manage_schedule/create', $data);
+			
+			
+				
+				if($this->adminModel->addSchedule($data)){
+					header("Location: " . URLROOT . "/Admin_manage_available_days/create/".$data['trainId']);
+				}else{
+					die("Something went wrong");
+				}
+				
+				
+
+
+			}else{
+				$this->view('admins/manage_schedule/create', $data);
+				return;
+			}
+			
+		}
+
+		$this->view('admins/manage_schedule/create', $data);
+
+
+
+	}
+
 	public function edit($routeId){
 
 		$manage_schedule=$this->adminModel->findRoute($routeId);
@@ -216,12 +286,16 @@ class Admin_manage_schedules extends Controller{
 		$this->view('admins/manage_schedule/views', $data);
 	}
 
-	public function delete($routeId){
+	public function delete($stationID){
 
-		$manage_schedule=$this->adminModel->findRoute($routeId);
-
+        $route=$this->adminModel->getRouteId($trainId);
+		$routeId=$route->routeId;
+		$trainId=$route->trainId;
+		$manage_schedule=$this->adminModel->findRoute($stationID);
+		
 		$data = [
 			'manage_schedule'=>$manage_schedule,
+			'trainId'=>'',
 			'routeId'=>'',
 			'stationID'=>'',
 			'stopNo'=>'',
@@ -233,12 +307,121 @@ class Admin_manage_schedules extends Controller{
 
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-		if($this->adminModel->delete($routeId)){
-			header("Location: " . URLROOT . "/Admin_manage_schedules");
+		if($this->adminModel->delete($stationID)){
+			header("Location: " . URLROOT . "/Admin_manage_schedules/viewAllSchedule/". $trainId);
 		}
 		else{
 			die('Something Going Wrong');
 		}
 	}
 	}
+
+
+	public function viewSchedule($trainId)
+	{
+		$manage_train=$this->adminModel->findTrain($trainId);
+		$schedules=$this->adminModel->getScheduleDetails($trainId);
+		$days=$this->adminModel->getAvailableDays($trainId);
+		$compartments=$this->adminModel->getCompartments($trainId);
+
+
+		$data = [
+			'manage_train'=>$manage_train,
+			'trainId'=>$trainId,
+			'schedules'=>$schedules,
+			'days'=>$days,
+			'compartments'=>$compartments
+		];
+
+		
+		$this->view('admins/manage_schedule/viewSchedule', $data);
+	}
+
+	public function addNewStops($trainId,$routeId){
+		$stations=$this->adminModel->getStationID();
+		$route=$this->adminModel->getRouteId($trainId);
+		$routeId=$route->routeId;
+
+		$data=[
+			'trainId'=>$trainId,
+			'routeId'=>$routeId,
+			'stations'=>$stations,
+			// 'added_data'=>$added_data,
+			// "trainId"=>$trainId,
+			"scheduleError"=>'',
+			"schedules"=>''
+		];
+
+		if($_SERVER['REQUEST_METHOD']=='POST'){
+			$a=json_decode($_POST['scheduleField']);
+			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+
+			$data=[
+				'trainId'=>$trainId,
+				// 'routes'=>$routes,
+				'stations'=>$stations,
+				// 'added_data'=>$added_data,
+				// "trainId"=>$trainId,
+				"scheduleError"=>'',
+				"schedules"=>$a
+			];
+
+
+			if(empty($data['schedules'])){
+				$data['scheduleError']="No schedules to entered";
+			}
+
+			if(empty($data['scheduleError'])){
+				// $this->adminModel();
+
+				// echo $_POST['scheduleField'];
+			
+				// var_dump($a);
+				// echo $a[0]->stationId;
+				// echo $a[2]->distance;
+				// $this->view('admins/manage_schedule/create', $data);
+			
+			
+				
+				if($this->adminModel->addNewStops($trainId,$routeId,$data)){
+					header("Location: " . URLROOT . "/Admin_manage_schedules/viewAllSchedule/". $trainId);
+				}else{
+					die("Something went wrong");
+				}
+				
+				
+
+
+			}else{
+				$this->view('admins/manage_schedule/addNewStops', $data);
+				return;
+			}
+			
+		}
+
+		$this->view('admins/manage_schedule/addNewStops', $data);
+	}
+
+		public function viewAllSchedule($trainId)
+	{
+		$route=$this->adminModel->getRouteId($trainId);
+		$routeId=$route->routeId;
+		$routes=$this->adminModel->getRoutes($routeId);
+        
+		$data = [
+			'routes'=>$routes,
+			'trainId'=>$trainId,
+            'routeId'=>$routeId
+            
+		];
+
+		$this->view('admins/manage_schedule/viewAllSchedules', $data);
+	}
+
+	public function editSingle(){
+		
+	}
+
+	
 }	

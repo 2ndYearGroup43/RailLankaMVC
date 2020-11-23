@@ -25,6 +25,52 @@ class Admin_manage_schedule {
         
 	}
 
+
+	
+	public function addSchedule($data){
+		$flag;
+		$this->db->query('INSERT INTO route (trainId) VALUES (:trainId)');
+		$this->db->bind(':trainId', $data['trainId']);
+
+		if($this->db->execute()){
+			$this->db->query('SELECT LAST_INSERT_ID() AS routeId');
+			$row=$this->db->single();
+			$routeId=$row->routeId;
+
+			foreach ($data['schedules'] as $schedule) {
+				$this->db->query('INSERT INTO route_station (routeId, stationID, stopNo, arrivaltime, departuretime, date, distance)
+				 VALUES (:routeId, :stationID, :stopNo, :arrivaltime, :departuretime, :date, :distance )');
+
+				$this->db->bind(':routeId', $routeId);
+				$this->db->bind(':stationID', $schedule->stationId);		
+				$this->db->bind(':stopNo', $schedule->stopNo);
+				$this->db->bind(':arrivaltime', $schedule->arrivaltime);
+				$this->db->bind(':departuretime', $schedule->departuretime);
+				$this->db->bind(':date', $schedule->date);
+				$this->db->bind(':distance', $schedule->distance);
+
+				if($this->db->execute()){
+					 $flag=true;
+				}else{
+					$flag=false;
+				}
+			}
+
+			if($flag){
+				return true;
+			}else{
+				return false;
+			}
+				
+			
+		}else{
+			return false;
+		}
+        
+	}
+
+
+
 	    public function findRouteByRouteId($rid)
     {
         //this is an preapared statement
@@ -70,12 +116,6 @@ class Admin_manage_schedule {
 		$results = $this->db->resultSet();
 		return $results;
 	}
-
-	public function getRouteId(){
-        $this->db->query("SELECT routeId FROM route");
-        $results=$this->db->resultSet();
-        return $results;
-    }
 
     public function getStationID(){
         $this->db->query("SELECT stationID,name FROM station");
@@ -128,10 +168,10 @@ class Admin_manage_schedule {
 		}
 	}
 
-	public function delete($routeId){
-		$this->db->query('DELETE FROM route_station WHERE routeId=:routeId');
+	public function delete($stationID){
+		$this->db->query('DELETE FROM route_station WHERE stationID=:stationID');
 
-		$this->db->bind(':routeId',$routeId);
+		$this->db->bind(':stationID',$stationID);
 
         if($this->db->execute()){
 			return true;
@@ -139,4 +179,100 @@ class Admin_manage_schedule {
 			return false;
 		}
 	}
-}
+
+
+
+	public function findTrain($trainId){
+		$this->db->query('SELECT t1.*,s1.name AS dest FROM 
+		(SELECT t.*, s.name AS src FROM train t JOIN station s ON  t.src_station=s.stationID WHERE trainId=:trainId) t1 
+		JOIN station s1 ON t1.dest_station=s1.stationID WHERE trainId=:trainId');
+
+		$this->db->bind(':trainId', $trainId);
+
+		$row = $this->db->single();
+		return $row;
+	}
+
+	public function getScheduleDetails($trainId)
+	{
+		$this->db->query('SELECT t1.*,s1.name AS station FROM
+		 (SELECT r.trainId,s.* FROM route r INNER JOIN route_station s ON r.routeId=s.routeId WHERE r.trainId=:trainId) t1 
+		 INNER JOIN station s1 ON t1.stationid=s1.stationID');
+
+		 $this->db->bind(':trainId', $trainId);
+
+		 $results=$this->db->resultSet();
+
+		 return $results;
+	}
+
+	public function getAvailableDays($trainId)
+	{
+		$this->db->query('SELECT a.* FROM availabledays a INNER JOIN train t ON t.trainId=a.trainId WHERE a.trainId=:trainId');
+
+		$this->db->bind(':trainId', $trainId);
+
+		$row = $this->db->single();
+		return $row;
+	}
+
+
+	public function getCompartments($trainId)
+	{
+		$this->db->query('SELECT c.*, ct.imageDir FROM compartment c INNER JOIN compartment_type ct ON ct.typeno=c.type WHERE c.trainId=:trainId');
+
+		$this->db->bind(':trainId', $trainId);
+
+		$results = $this->db->resultSet();
+		return $results;
+	}
+
+	public function getRouteId($trainId){
+           $this->db->query('SELECT * FROM route WHERE trainId=:tid');
+
+           $this->db->bind(':tid', $trainId);
+
+           $results = $this->db->single();
+		   return $results;
+	}
+
+	public function addNewStops($trainId,$routeId,$data){
+           $flag;
+			foreach ($data['schedules'] as $schedule) {
+				$this->db->query('INSERT INTO route_station (routeId, stationID, stopNo, arrivaltime, departuretime, date, distance)
+				 VALUES (:routeId, :stationID, :stopNo, :arrivaltime, :departuretime, :date, :distance )');
+
+				$this->db->bind(':routeId', $routeId);
+				$this->db->bind(':stationID', $schedule->stationId);		
+				$this->db->bind(':stopNo', $schedule->stopNo);
+				$this->db->bind(':arrivaltime', $schedule->arrivaltime);
+				$this->db->bind(':departuretime', $schedule->departuretime);
+				$this->db->bind(':date', $schedule->date);
+				$this->db->bind(':distance', $schedule->distance);		
+
+				
+				if($this->db->execute()){
+					 $flag=true;
+				}else{
+					$flag=false;
+				}
+			
+            }
+
+            if($flag){
+				return true;
+			}else{
+				return false;
+		    }
+
+	}
+
+	public function getRoutes($routeId){
+		$this->db->query('SELECT * FROM route_station WHERE routeId=:routeId');
+
+		$this->db->bind(':routeId', $routeId);
+
+           $results = $this->db->resultSet();
+		   return $results;
+	}
+}		

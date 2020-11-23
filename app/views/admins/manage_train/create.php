@@ -2,8 +2,8 @@
     require APPROOT.'/views/includes/resofficer_head.php';
 ?>
 <?php
-    require APPROOT.'/views/includes/train_management_navigation.php';
-?>
+    require APPROOT.'/views/includes/admin_navigation.php';
+?>  
     <div class="body-section">
         <div class="content-flexrow">
            <div class="container">
@@ -30,8 +30,8 @@
                         <label for="reservable_status">Reservable Status</label>
                         <select name="reservable_status" id="reservable_status" required>
                                 <option value="">Select</option>
-                                <option >Yes</option>
-                                <option >No</option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
                         </select>
                         <span class="invalidFeedback">
                             <?php echo $data['reservable_statusError'];?>

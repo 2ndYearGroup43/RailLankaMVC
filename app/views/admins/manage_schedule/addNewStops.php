@@ -11,7 +11,7 @@
         <div class="content-flexrow">
            <div class="container">
             <div class="text" style="color: #13406d;">Manage Trains <small style="color: black;">Add Schedule</small></div>
-            <form action="<?php echo URLROOT; ?>/Admin_manage_schedules/addschedule/<?php echo $data['trainId'];?>" id="scheduleForm" method = "POST">
+            <form action="<?php echo URLROOT; ?>/Admin_manage_schedules/addNewStops/<?php echo $data['trainId'];?>/<?php echo $data['routeId'];?>" id="scheduleForm" method = "POST">
                 <div class="form-row">
                     <div class="input-data">
                         <!-- <label for="routeId">Route Id</label>
@@ -62,7 +62,7 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="date">Date</label>
-                        <select name="date" id="date" required >
+                        <select name="date" id="date" >
                             <option value="Same Day" selected>Same Day</option>
                             <option value="Next Day">Next Day</option>
                         </select>

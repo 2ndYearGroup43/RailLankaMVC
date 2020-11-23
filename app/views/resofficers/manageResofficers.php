@@ -2,14 +2,13 @@
     require APPROOT.'/views/includes/resofficer_head.php';
 ?>
 <?php
-    require APPROOT.'/views/includes/train_management_navigation.php';
-?>
+    require APPROOT.'/views/includes/admin_navigation.php';
+?>  
     <div class="body-section">
         <div class="content-row"></div>
         <div class="content-row">
             <div class="container-table">
                 <h1 style="color: #13406d;">Employee Management <small style="color: black;">Reservation officers</small></h1>
-                <a class= "blue-btn" href="<?php echo URLROOT; ?>/Resofficers/registerResofficer">Add New Employee</a>
                 <div class="table-searchbar">
                     <form action="<?php echo URLROOT?>/resofficers/resofficersSearchBy" method="POST">
                         <input type="text" placeholder="Search by" name=searchbar><span><select name="searchselect" id="searchselect">

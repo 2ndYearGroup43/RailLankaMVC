@@ -156,7 +156,6 @@
 
         public function updateResofficer($userId)
         {
-            echo "here";
 
             $resofficer=$this->resofficerModel->findResofficerById($userId);
             $data=[
