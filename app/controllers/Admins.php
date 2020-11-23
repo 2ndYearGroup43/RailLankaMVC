@@ -5,7 +5,10 @@
             $this->adminModel=$this->model('Admin');
         }
 
-        
+        public function index() {
+      
+        $this->view('admins/index');
+    	}
 
         public function registerAdmin()
         {

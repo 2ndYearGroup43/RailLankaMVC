@@ -11,7 +11,7 @@
 
             <div class="content-row">
                 <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="<?php echo URLROOT; ?>/admins/index">Home</a></li>
                     <li><u>Notice </u></li>
                     <li><a href="<?php echo URLROOT; ?>/adminNotices/addNotice">Add New Notices Management</a></li>
                 </ul>
@@ -37,7 +37,7 @@
                                 </select>
                             </div>
                         </div>
-                        <br>
+                        
                         <!--<div class="form-row">
                             <div class="input-data">
                                 <label for="date">Entered Date</label>

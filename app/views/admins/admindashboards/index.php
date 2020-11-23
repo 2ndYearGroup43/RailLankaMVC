@@ -10,8 +10,17 @@
 
 
 
+<script src="<?php echo URLROOT;?>/javascript/revenueDashChart.js"></script>
 
 <div class="body-section">
+            <div class="content-row">
+                <ul class="breadcrumb">
+                    <li><a href="<?php echo URLROOT; ?>/admins/index">Home</a></li>
+                    <li><u>Dashboards </u></li>
+                    <li><a href="<?php echo URLROOT; ?>/admindashboards/index">Revenue Dashboards </a></li>
+                </ul>
+            </div>    
+
         <div class="content-flexrow dash">
             <div class="dash-column" style="flex: 1;">
                 <div class="controls-container">

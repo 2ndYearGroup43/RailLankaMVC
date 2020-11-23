@@ -13,7 +13,7 @@
 
             
                 <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="<?php echo URLROOT; ?>/admins/index">Home</a></li>
                     <li><u>Station Management</u></li>
                     <li><a href="<?php echo URLROOT; ?>/adminStations/add_station">Add New Station</a></li>
                 </ul>

@@ -9,20 +9,34 @@
 
 <div class="body-section">
 
-            
+            <div class="content-row">
                 <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="<?php echo URLROOT; ?>/admins/index">Home</a></li>
                     <li><u>Reports</u></li>
-                    <li><a href="<?php echo URLROOT; ?>/reports/addRefundDetails">Add Refund Report Details</a></li>
-                    <li><a href="<?php echo URLROOT; ?>/reports/refundReport">Refund Report</a></li>
+                    <!--<li><a href="<?php echo URLROOT; ?>/adminReports/addRefundDetails">Add Refund Report Details</a></li>-->
+                    <li><a href="<?php echo URLROOT; ?>/adminReports/refundReport">Refund Report</a></li>
                 </ul>
-        
+            </div>
+<br><br>
+
+<center>
+<div class="div-alert" >        
 
             
 
             <div class="content-flexrow">
                 <div class="container-table">
+
+                    <center>
+                        <div class="logo-container" align="center">
+                        <a href="index.html">
+                        <img src="<?php echo URLROOT;?>/public/img/logotrack.jpg" height="130px" algin="center" >
+                        </a>
+                        </div>
+                    </center>
+
                     <h2 style="color: #13406d;">Refund Details <small style="color: black;">Admin Id: 0005C</small></h2>
+                    <h2 style="color: #13406d;">Date : <small style="color: black;"> 12/12/2020</small></h2>
                     <table class="data-display">
                         <!--<caption>Online Details</caption>-->
                         <tr>
@@ -60,9 +74,12 @@
                         </tr>
                         
                     </table>
-                    <button onclick="history.go(-1);" type="submit" class="back-btn">Back</button>
+                    <button onclick="history.go(-1);" type="button" class="back-btn">Back</button>
                 </div>
             </div>
+
+        </div>
+    </center>
         </div>
 
 

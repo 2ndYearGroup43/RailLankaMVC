@@ -11,17 +11,30 @@
 
             <div class="content-row">
                 <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="<?php echo URLROOT; ?>/admins/index">Home</a></li>
                     <li><u>Reports</u></li>
-                    <li><a href="<?php echo URLROOT; ?>/reports/allAlertReport">Cancellations/Delays/Reschedulments Alert Report </a></li></ul>
+                    <li><a href="<?php echo URLROOT; ?>/reports/allAlertReport">Cancellations & Delays & Reschedulments Alert Report </a></li></ul>
                 </ul>
             </div>
- 
+<br><br>
+
+<center>
+<div class="div3" > 
     
             <div class="content-flexrow">
                 <div class="container-table">
+
+                    <center>
+                        <div class="logo-container" align="center">
+                        <a href="index.html">
+                        <img src="<?php echo URLROOT;?>/public/img/logotrack.jpg" height="130px" algin="center" >
+                        </a>
+                        </div>
+                    </center>
+
                     <h2 style="color: #13406d;">Alerts Details <small style="color: black;">
                     Admin Id: 00012A</small></h2>
+                    <h2 style="color: #13406d;">Date : <small style="color: black;"> 12/12/2020</small></h2>
                     <table class="data-display">
                         <!--<caption>Reschedulements Details</caption>-->
                         <tr>
@@ -46,7 +59,7 @@
                             <td>to: 30/11/2020</td>
                             <td colspan="2"></td>
                         </tr>
-                        <tr>
+                        
                         <tr>
                             <td>No of Cancellation Total Alerts : </td>
                             <td>8</td>
@@ -76,7 +89,7 @@
                             <td>to: 30/11/2020</td>
                             <td colspan="2"></td>
                         </tr>
-                        <tr>
+                        
                         <tr>
                             <td>No. of Total Delay Alerts : </td>
                             <td>10</td>
@@ -103,7 +116,7 @@
                             <td>to: 30/11/2020</td>
                             <td colspan="2"></td>
                         </tr>
-                        <tr>
+                        
                         <tr>
                             <td>No. of Total Reschedulment Delay Alerts : </td>
                             <td>5</td>
@@ -111,9 +124,12 @@
                         </tr>
                         
                     </table>
-                    <button onclick="history.go(-1);" type="submit" class="back-btn">Back</button>
+                    <button onclick="history.go(-1);" type="button" class="back-btn">Back</button>
                 </div>
             </div>
+
+            </div>
+        </center>
         </div>
 
 

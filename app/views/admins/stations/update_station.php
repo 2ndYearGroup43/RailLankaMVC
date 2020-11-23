@@ -13,7 +13,7 @@
 
             <div class="content-row">
                 <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="<?php echo URLROOT; ?>/admins/index">Home</a></li>
                     <li><u>Station Management</u></li>
                     <li><a href="<?php echo URLROOT; ?>/AdminStations/manage_station">Manage Station</a></li>
                     <li><a href="<?php echo URLROOT; ?>/AdminStations/update_station">Update Station</a></li>
