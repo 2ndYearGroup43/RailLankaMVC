@@ -151,9 +151,9 @@
                                 <input type="checkbox" id="btn-1">
                                 <div class="dropdown">
                                     <ul>
-                                        <li class="dropdown-link" style="--i: .6s">
+                                        <!--<li class="dropdown-link" style="--i: .6s">
                                             <a href="<?php echo URLROOT; ?>/admindashboards/dashboards">Dashboard</a>
-                                        </li>
+                                        </li>-->
                                         <li class="dropdown-link">
                                             <label for="btn-2" class="show2">Create Reports +</label>
                                             <a href="#">Create Reports<i class="fa fa-caret-down"></i></a>
