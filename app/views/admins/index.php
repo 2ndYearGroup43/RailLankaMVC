@@ -14,6 +14,13 @@
 <!--<?php var_dump($_SESSION); ?> -->
 
 <!-- banner area -->
+<div class="marquee-area info-tag">
+	<marquee>
+		<i class="fa fa-exclamation-triangle" aria-hidden="true" size="3x"></i> Coronavirus(COVID-19) - For the latest updates and travel information, please visit our Coronavirus Information Center
+	</marquee>
+</div>
+
+
 <div class="banner">
 	<div class="wrapper-landing">
 			<h1>EXPLORE SRI LANKA ON RAILS</h1>
