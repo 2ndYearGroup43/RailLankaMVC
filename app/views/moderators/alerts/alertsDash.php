@@ -25,7 +25,10 @@
                         <div class="form-row">
                             <div class="input-data">
                                 <input type="button" onclick="location.href='<?php echo URLROOT;?>/moderatorAlerts/alertsrandomdash'" value="Search" class="search-btn" style="line-height: 0rem; color: white;">
-                            </div>    
+                            </div>
+                            <div class="input-data">
+                                <input type="button" onclick="chartAlertType.print()" value="Print" class="search-btn" style="line-height: 0rem; color: white; margin-top: 10px;">
+                            </div>     
                         </div>    
                     </form>
                 </div>
@@ -69,7 +72,7 @@
                 </div>    
             </div>
 
-            <div class="content-flexrow dash">
+            <div class="content-flexrow dash" id="alertChartDiv">
                 <div class="chart-container">
                     <div class="data-chart" id="alertTypeChart"></div>
                 </div>
@@ -78,6 +81,17 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function printAlertDash(el) {
+                       
+                       var restorePage= document.body.innerHTML;
+                       var schedule= document.getElementById(el).innerHTML;
+                       document.body.innerHTML=schedule;
+                       window.print();
+                       document.body.innerHTML=restorePage;
+                   }
+        </script>
 
 
 <?php

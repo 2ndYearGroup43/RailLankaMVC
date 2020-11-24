@@ -669,11 +669,19 @@
             $cancelledCount=random_int(2, 20);
             $delayedCount=random_int(2, 20);
             $rescheduledCount=random_int(2, 20);
+            $technicalCount=random_int(2, 20);
+            $environCount=random_int(2, 20);
+            $railCount=random_int(2, 20);
+            $otherCount=random_int(2, 20);
             
             $data=[
                 'cancelledCount'=>$cancelledCount,
                 'delayedCount'=>$delayedCount,
-                'rescheduledCount'=>$rescheduledCount
+                'rescheduledCount'=>$rescheduledCount,
+                'technicalCount'=>$technicalCount,
+                'environCount'=>$environCount,
+                'railCount'=>$railCount,
+                'otherCount'=>$otherCount
             ];
             $this->view('moderators/alerts/alertsdash', $data);
         }

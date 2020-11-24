@@ -79,10 +79,7 @@
                 <div class="form-row submit-btn">
                     <div class="input-data">
                         <input type="submit" class="blue-btn" value="Register">
-                    </div>    
-                    <div class="input-data">
-                        <input type="submit" class="blue-btn" value="Register & New">
-                    </div>
+                    </div>  
                     <div class="input-data">
                         <input type="button" onclick="history.go(-1);" class="red-btn" value="Back">
                     </div>

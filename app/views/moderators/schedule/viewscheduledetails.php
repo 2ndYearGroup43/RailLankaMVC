@@ -17,25 +17,25 @@
                     <caption>Train Details</caption>
                     <tr>
                         <td>Train Id: </td>
-                        <td>xxxx</td>
+                        <td>101COLKAN0930</td>
                         <td colspan="2"></td>
                     </tr>
                     <tr>
                         <td>Train Name: </td>
-                        <td>xxxx</td>
+                        <td>Udarata Menike</td>
                         <td colspan="2"></td>
                     </tr>
                     <tr>
                         <td >Source Station: </td>
-                        <td>xxxx</td>
+                        <td>Colombo Fort</td>
                         <td >Arrival time: </td>
-                        <td>xxxx</td>
+                        <td>09:30</td>
                     </tr>
                     <tr>
                         <td >Destination Station: </td>
-                        <td>xxxx</td>
+                        <td>Kandy</td>
                         <td >Arrival time: </td>
-                        <td>xxxx</td>
+                        <td>14:30</td>
                     </tr>
                     <tr>
                         <td >Available Classes</td>
@@ -69,7 +69,8 @@
                             <td data-th="2nd Class Price">Rs. 15</td>
                             <td data-th="3rd Class Price">Rs. 10</td>
                         </tr>
-                        <td data-th="Stop Number">1</td>
+                        <tr>
+                            <td data-th="Stop Number">1</td>
                             <td data-th="Station">Maradana</td>
                             <td data-th="Arrival Time">08:40</td>
                             <td data-th="Departure Time">08:45</td>
@@ -77,6 +78,67 @@
                             <td data-th="1st Class Price">Rs. 20</td>
                             <td data-th="2nd Class Price">Rs. 15</td>
                             <td data-th="3rd Class Price">Rs. 10</td>
+                        </tr>
+                        <tr>
+                            <td data-th="Stop Number">4</td>
+                            <td data-th="Station">Kelaniya</td>
+                            <td data-th="Arrival Time">09:20</td>
+                            <td data-th="Departure Time">09:25</td>
+                            <td data-th="Distance">22km</td>
+                            <td data-th="1st Class Price">Rs. 30</td>
+                            <td data-th="2nd Class Price">Rs. 25</td>
+                            <td data-th="3rd Class Price">Rs. 15</td>
+                        </tr>
+                        <tr>
+                            <td data-th="Stop Number">8</td>
+                            <td data-th="Station">Ragama</td>
+                            <td data-th="Arrival Time">10:10</td>
+                            <td data-th="Departure Time">10:15</td>
+                            <td data-th="Distance">31km</td>
+                            <td data-th="1st Class Price">Rs. 45</td>
+                            <td data-th="2nd Class Price">Rs. 30</td>
+                            <td data-th="3rd Class Price">Rs. 20</td>
+                        </tr>
+                        <tr>
+                            <td data-th="Stop Number">34</td>
+                            <td data-th="Station">Polgahawela</td>
+                            <td data-th="Arrival Time">11:40</td>
+                            <td data-th="Departure Time">11:45</td>
+                            <td data-th="Distance">52km</td>
+                            <td data-th="1st Class Price">Rs. 110</td>
+                            <td data-th="2nd Class Price">Rs. 60</td>
+                            <td data-th="3rd Class Price">Rs. 40</td>
+                        </tr>
+                        <tr>
+                            <td data-th="Stop Number">38</td>
+                            <td data-th="Station">Rabukkana</td>
+                            <td data-th="Arrival Time">12:20</td>
+                            <td data-th="Departure Time">12:25</td>
+                            <td data-th="Distance">65km</td>
+                            <td data-th="1st Class Price">Rs. 120</td>
+                            <td data-th="2nd Class Price">Rs. 70</td>
+                            <td data-th="3rd Class Price">Rs. 50</td>
+                        </tr>
+                        <tr>
+                            <td data-th="Stop Number">42</td>
+                            <td data-th="Station">Peradenyiya-Jun</td>
+                            <td data-th="Arrival Time">13:15</td>
+                            <td data-th="Departure Time">13:20</td>
+                            <td data-th="Distance">81km</td>
+                            <td data-th="1st Class Price">Rs. 180</td>
+                            <td data-th="2nd Class Price">Rs. 100</td>
+                            <td data-th="3rd Class Price">Rs. 80</td>
+                        </tr>
+                        <tr>
+                            <td data-th="Stop Number">48</td>
+                            <td data-th="Station">Kandy</td>
+                            <td data-th="Arrival Time">14:30</td>
+                            <td data-th="Departure Time">-</td>
+                            <td data-th="Distance">92km</td>
+                            <td data-th="1st Class Price">Rs. 240</td>
+                            <td data-th="2nd Class Price">Rs. 150</td>
+                            <td data-th="3rd Class Price">Rs. 90</td>
+                        </tr>
                     </tbody>
                 </table>
 

@@ -59,7 +59,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="form-row">
+                <!-- <div class="form-row">
                     <div class="input-data">
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password" required>
@@ -73,15 +73,12 @@
                         <span class="invalidFeedback">
                             <?php echo $data['confirmPasswordError'];?>
                         </span>
-                </div>
-                </div>
+                    </div>
+                </div> -->
                 <div class="form-row submit-btn">
                     <div class="input-data">
                         <input type="submit" class="blue-btn" value="Register">
-                    </div>    
-                    <div class="input-data">
-                        <input type="submit" class="blue-btn" value="Register & New">
-                    </div>
+                    </div> 
                     <div class="input-data">
                         <input type="button" onclick="history.go(-1);" class="red-btn" value="Back">
                     </div>

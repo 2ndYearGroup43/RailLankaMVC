@@ -94,28 +94,57 @@
                             </tr>
                         </thead>
                         <tr>
-                            <td data-th="Train-ID"> BLa</td>
-                            <td data-th="Start Station">BLa</td>
-                            <td data-th="Arrival Time">BLa</td>
-                            <td data-th="End Station">BLa</td>
-                            <td data-th="End Time">BLa</td>
-                            <td data-th="Name">BLa</td>
-                            <td data-th="Type">BLa</td>
+                            <td data-th="Train-ID">101COLKAN0530</td>
+                            <td data-th="Start Station">Colombo Fort</td>
+                            <td data-th="Arrival Time">05:30</td>
+                            <td data-th="End Station">Kandy</td>
+                            <td data-th="End Time">14:30</td>
+                            <td data-th="Name">Udarata Menike</td>
+                            <td data-th="Type">Express</td>
                             <td data-th="View Now"><a class="blue-btn" href="<?php echo URLROOT;?>/moderatorschedules/viewschedule">View Details</a></td>  
                         </tr>
                         <tr>
-                            <td data-th="Train-ID"> BLa</td>
-                            <td data-th="Start Station">BLa</td>
-                            <td data-th="Arrival Time">BLa</td>
-                            <td data-th="End Station">BLa</td>
-                            <td data-th="End Time">BLa</td>
-                            <td data-th="Name">BLa</td>
-                            <td data-th="Type">BLa</td>
+                            <td data-th="Train-ID"> 101COLBAD0930</td>
+                            <td data-th="Start Station">Colombo Fort</td>
+                            <td data-th="Arrival Time">09:30</td>
+                            <td data-th="End Station">Badulla</td>
+                            <td data-th="End Time">18:30</td>
+                            <td data-th="Name">Badulu Kumari</td>
+                            <td data-th="Type">Express</td>
                             <td data-th="View Now"><a class="blue-btn" href="<?php echo URLROOT;?>/moderatorschedules/viewschedule">View Details</a></td>  
                         </tr>
                     </table>  
+
+                    <br>
+                    <div class="pagination">
+                        <ul>
+                            <li><a href="#" class="prev">Prev</a></li>
+                            <li class="pageNumber active"><a href="<?php echo URLROOT; ?>/moderatorSchedules/displayschedulelist">1</a></li>
+                            <li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatorSchedules/displayschedulelist">2</a></li>
+                            <li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatorSchedules/displayschedulelist">3</a></li>
+                            <li><a href="<?php echo URLROOT; ?>/moderatorSchedules/displayschedulelist" class="next">Next</a></li>
+                        </ul>
+                    </div>
+                    <br>	
+
                 </div>      
             </div>
+
+            <!-- pagination -->
+            <script>
+                    $(document).ready(function(){
+                        $('.next').click(function(){
+                            $('.pagination').find('.pageNumber.active').next().addClass('active');
+                            $('.pagination').find('.pageNumber.active').prev().removeClass('active');
+                        });
+                        $('.prev').click(function(){
+                            $('.pagination').find('.pageNumber.active').prev().addClass('active');
+                            $('.pagination').find('.pageNumber.active').next().removeClass('active');
+                        });
+                    });
+                </script>
+            <!-- end of js for pagination -->
+
         </div>
     </div>
 

@@ -234,6 +234,25 @@ class Resofficer{
     }
 
 
+    
+    public function requestReset($email, $code){
+
+        $this->db->query('INSERT INTO resetpasswords (email,code) VALUES (:email, :code)');
+
+        //bind values
+        $this->db->bind(':email', $email);
+        $this->db->bind(':code', $code);
+
+        //Execute function
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
 
 
 }

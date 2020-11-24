@@ -103,6 +103,19 @@
                         <?php $count++;?>    
                     <?php endforeach;?>    
                 </table>
+
+                <br>
+				<div class="pagination">
+					<ul>
+						<li><a href="#" class="prev">Prev</a></li>
+						<li class="pageNumber active"><a href="<?php echo URLROOT; ?>/moderatoralerts/viewDelayedAlerts">1</a></li>
+						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatoralerts/viewDelayedAlerts">2</a></li>
+						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatoralerts/viewDelayedAlerts">3</a></li>
+						<li><a href="<?php echo URLROOT; ?>/moderatoralerts/viewDelayedAlerts" class="next">Next</a></li>
+					</ul>
+				</div>
+				<br>	
+
                 <script>
                     function openDelayAlert(alerts,x) {
                         var table=document.getElementById("delaypopup");
@@ -120,7 +133,24 @@
                     function closeDelayAlert() {
                         document.getElementById("popup-alert").style.display = "none";
                     }
-                </script>                     
+                </script>   
+                
+                
+
+                         <!-- js for pagination --> 
+               <script>
+                    $(document).ready(function(){
+                        $('.next').click(function(){
+                            $('.pagination').find('.pageNumber.active').next().addClass('active');
+                            $('.pagination').find('.pageNumber.active').prev().removeClass('active');
+                        });
+                        $('.prev').click(function(){
+                            $('.pagination').find('.pageNumber.active').prev().addClass('active');
+                            $('.pagination').find('.pageNumber.active').next().removeClass('active');
+                        });
+                    });
+                </script>
+            <!-- end of js for pagination -->
             </div>
         </div>
     </div>

@@ -14,27 +14,24 @@
                         <ul>
 
                         <li class="nav-link" style="--i: .6s">
-                            <a href="" >HOME</a>
+                            <a href="<?php echo URLROOT; ?>/admins/index" >HOME</a>
                         </li>
-                        <li class="nav-link" style="--i: .6s">
-                            <a href="<?php echo URLROOT; ?>/admindashboards/index">Dashboards</a>
-                        </li>
-                        <!--<li class="nav-link" style="--i: 1.1s">
-                                <label for="btn-4" class="show">Dashboard <i class="fa fa-caret-down"></i></label></label>
+                        <li class="nav-link" style="--i: 1.1s">
+                                <!-- <label for="btn-4" class="show">Dashboard <i class="fa fa-caret-down"></i></label></label> -->
                                 <a href="#">Dashboard <i class="fa fa-caret-down"></i></a>
-                                <input type="checkbox" id="btn-4">
-                                <div class="dropdown">
+                                <!-- <input type="checkbox" id="btn-4"> -->
+                                <div class="nav-dropdown">
                                     <ul>
-                                        <li class="dropdown-link">
+                                        <li class="nav-dropdown-link">
                                             <a href="<?php echo URLROOT; ?>/admindashboards/index">Revenue Dashboard</a>
                                         </li>
-                                        <li class="dropdown-link">
+                                        <li class="nav-dropdown-link">
                                             <a href="<?php echo URLROOT; ?>/admindashboards/dashboards">Alert Dashboard</a>
                                         </li>
                                         <div class="arrow"></div>
                                     </ul>
                                 </div>
-                        </li>-->
+                        </li>
                         <li class="nav-link" style="--i: .6s">
                             <a href="<?php echo URLROOT; ?>/adminPassengers/index">Users</a>
                         </li>
@@ -54,13 +51,13 @@
                                                         <a href="<?php echo URLROOT; ?>/admins/registerAdmin">Admins</a>
                                                     </li>
                                                     <li class="nav-dropdown-link">
-                                                        <a href="">Res. officers</a>
+                                                        <a href="<?php echo URLROOT; ?>/resofficers/registerResofficer">Res. officers</a>
                                                     </li>
                                                     <li class="nav-dropdown-link">
-                                                        <a href="#">Moderators</a>
+                                                        <a href="<?php echo URLROOT; ?>/moderators/registermoderator">Moderators</a>
                                                     </li>
                                                     <li class="nav-dropdown-link">
-                                                        <a href="#">Drivers</a>
+                                                        <a href="<?php echo URLROOT; ?>/drivers/registerDriver">Drivers</a>
                                                     </li>
                                                     <div class="arrow"></div>
                                                 </ul>
@@ -76,13 +73,13 @@
                                                         <a href="<?php echo URLROOT; ?>/admins/viewAdmins">Admins</a>
                                                     </li>
                                                     <li class="nav-dropdown-link">
-                                                        <a href="#">Res. officers</a>
+                                                        <a href="<?php echo URLROOT; ?>/resofficers/viewResofficers">Res. officers</a>
                                                     </li>
                                                     <li class="nav-dropdown-link">
-                                                        <a href="#">Moderators</a>
+                                                        <a href="<?php echo URLROOT; ?>/moderators/viewmoderators">Moderators</a>
                                                     </li>
                                                     <li class="nav-dropdown-link">
-                                                        <a href="#">Drivers</a>
+                                                        <a href="<?php echo URLROOT; ?>/drivers/viewDrivers">Drivers</a>
                                                     </li>
                                                     <div class="arrow"></div>
                                                 </ul>
@@ -94,7 +91,23 @@
                         </li>
                         
                         <li class="nav-link" style="--i: .6s">
-                            <a href="#">Trains</a>
+                            <!-- <label for="btn-4" class="show">Trains <i class="fa fa-caret-down"></i></label> -->
+                                    <a href="<?php echo URLROOT; ?>/Admin_manage_trains/index">Trains <i class="fa fa-caret-down"></i></a>
+                                    <!-- <input type="checkbox" id="btn-4"> -->
+                                    <div class="nav-dropdown">
+                                        <ul>
+                                            <li class="nav-dropdown-link">
+                                                <a href="<?php echo URLROOT; ?>/Admin_manage_trains/index">Manage Trains</a>
+                                            </li>
+                                            <li class="nav-dropdown-link">
+                                                <a href="<?php echo URLROOT; ?>/Admin_manage_fares/index">Manage Fare</a>
+                                            </li>
+                                            <li class="nav-dropdown-link">
+                                                <a href="<?php echo URLROOT; ?>/Admin_manage_compartment_types/index">Compartment Type</a>
+                                            </li>
+                                            <div class="arrow"></div>
+                                        </ul>
+                                    </div>
                         </li>
 
                         <li class="nav-link" style="--i: 1.1s">
@@ -187,7 +200,7 @@
                                 <div class="nav-dropdown">
                                     <ul>
                                         <li class="nav-dropdown-link">
-                                            <a href="#">Logout</a>
+                                            <a href="<?php echo URLROOT; ?>/users/logout">Logout</a>
                                         </li>
                                         <div class="arrow"></div>
                                     </ul>

@@ -78,7 +78,7 @@
                     // 'passwordError'=>'',
                     // 'confirmPasswordError'=>''              
                 ];
-                echo "wtf";
+                
                 echo $data['moderatorId'];
                 $idValidation="/^[a-zA-Z0-9]*$/";
                 $nameValidation="/^[a-zA-Z]*$/";
@@ -158,7 +158,7 @@
                 empty($data['emailError']) && empty($data['mobileNoError'])){ //&&
                 //empty($data['passwordError']) && empty($data['confirmPasswordError'])){
                         //Hash passsword
-                        echo "hariiii";
+                        
                         $data['password']=password_hash($data['password'], PASSWORD_DEFAULT);
                         //Rgoster user from model function
                         if($this->moderatorModel->registerModerator($data)){

@@ -35,7 +35,13 @@
 	                    <td data-th="Assigned Date"><?php echo $row->assignment_date;?></td>
 	                    <td data-th="Assigned Time"><?php echo $row->assignment_time;?></td>
 	                    <td data-th="Moderator ID"><?php echo $row->moderatorId;?></td>
-	                    <td data-th="Manage"><input type="submit" class="blue-btn" value="View"><input type="submit" class="blue-btn" value="Edit"><input type="submit" class="red-btn" value="Delete"></td>
+	                    <td data-th="Manage">
+							<form action="#" method="POST">
+								<button type="button" class="table-btn blue" onclick="">View</button>
+								<a href="<?php echo URLROOT;?>/moderatorjourneys/updatejourney/<?php echo $row->journeyId.'/'.$row->driverId;?>" class="blue-btn">Edit</a>
+								<input type="button" class="red-btn" value="Delete">
+							</form>
+                        </td>
 	                </tr>
 	               <?php $count++;?>    
                    <?php endforeach;?> 

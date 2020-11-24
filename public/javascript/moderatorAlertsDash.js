@@ -1,5 +1,6 @@
-window.onload = function () {
-    
+function randomCharts(can, del, resc, tech, env, rail, oth) {
+    var totalTypes=can+resc+del;
+    var totalIss=tech+env+rail+oth;
     var chartAlertType = new CanvasJS.Chart("alertTypeChart", {
         animationEnabled: true,
         title: {
@@ -11,9 +12,9 @@ window.onload = function () {
             yValueFormatString: "##0.00'%'",
             indexLabek: "{label} {y}",
             dataPoints: [
-                {y: 25, label: "Cancellations"},
-                {y: 65,  label: "Delays"}, 
-                {y: 10, label: "Reschedulements"}
+                {y: (can/totalTypes)*100, label: "Cancellations"},
+                {y: (del/totalTypes)*100,  label: "Delays"}, 
+                {y: (resc/totalTypes)*100, label: "Reschedulements"}
             ]
         }]
     
@@ -30,10 +31,10 @@ window.onload = function () {
             yValueFormatString: "##0.00'%'",
             indexLabek: "{label} {y}",
             dataPoints: [
-                {y: 25, label: "Technical"},
-                {y: 45,  label: "Environmental"}, 
-                {y: 17, label: "Rail Road"},
-                {y: 13, label: "Other"}
+                {y: (tech/totalIss)*100, label: "Technical"},
+                {y: (env/totalIss)*100,  label: "Environmental"}, 
+                {y: (rail/totalIss)*100, label: "Rail Road"},
+                {y: (oth/totalIss)*100, label: "Other"}
             ]
         }]
     
@@ -42,6 +43,5 @@ window.onload = function () {
 
     chartAlertType.render();
     chartAlertIssueType.render();
+    
 }
-
-

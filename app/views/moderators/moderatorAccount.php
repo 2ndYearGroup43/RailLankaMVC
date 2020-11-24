@@ -3,7 +3,7 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
-    var_dump($data);
+
 ?>
 
 

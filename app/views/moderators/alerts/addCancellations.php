@@ -55,10 +55,7 @@
                     <div class="form-row submit-btn">
                         <div class="input-data">
                             <input type="submit" class="blue-btn" value="Add Alert">
-                        </div>    
-                        <div class="input-data">
-                            <input type="submit" class="blue-btn" value="Add & New Alert">
-                        </div>
+                        </div> 
                         <div class="input-data">
                             <input type="button" onclick="history.go(-1);" class="red-btn" value="Back">
                         </div>

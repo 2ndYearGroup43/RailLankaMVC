@@ -204,7 +204,7 @@
                                 <div class="dropdown">
                                     <ul>
                                         <li class="dropdown-link">
-                                            <a href="#">Logout</a>
+                                            <a href="<?php echo URLROOT; ?>/users/logout">Logout</a>
                                         </li>
                                         <div class="arrow"></div>
                                     </ul>
