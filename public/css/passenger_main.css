@@ -736,6 +736,19 @@ header{
 	max-height: 600px;
 }
 
+#wrapper-register {
+    top: 12vh;
+}
+
+.container-login .wrapper-login form hr {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.container-login .wrapper-login form p{
+    color: grey;
+}
+
 .wrapper-login input{
 	width: 80%;
 	height: 30px;

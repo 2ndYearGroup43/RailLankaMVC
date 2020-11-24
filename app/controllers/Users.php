@@ -15,6 +15,7 @@
 			$data = [
 				// 'username' => '',
 				'nic' => '',
+				'passport' => '',
 				'email' => '',
 				'password' => '',
 				'confirmPassword' => '',
@@ -22,6 +23,7 @@
 				'reg_date' => '',
 				'reg_time' => '',
 				'nicError' => '',
+				'passportError' => '',
 				'usernameError' => '',
 				'emailError' => '',
 				'passwordError' => '',
@@ -34,6 +36,7 @@
 
 				$data = [
 					'nic' => trim($_POST['nic']),
+					'passport' => trim($_POST['passport']),
 					// 'username' => trim($_POST['username']),
 					'email' => trim($_POST['email']),
 					'password' => trim($_POST['password']),
@@ -42,28 +45,47 @@
 					'reg_date'=>date("Y-m-d"),
                     'reg_time'=>date("H:i:sa"),
                     'nicError' => '',
+                    'passportError' => '',
 					'usernameError' => '',
 					'emailError' => '',
 					'passwordError' => '',
 					'confirmPasswordError' => ''
 				];
 
+				$passportValidation = "/^([a-zA-Z0-9]{8}|[a-zA-Z0-9]{9})$/";
 				$nicValidation = "/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/";
 				$nameValidation = "/^[a-zA-Z0-9]*$/";
 				$passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
 
 
-				//validate nic on letters and numbers
-				if (empty($data['nic'])) {
-					$data['nicError'] = 'Please enter username.';
-				} elseif (!preg_match($nicValidation, $data['nic'])) {
-					$data['nicError'] = 'Invalid NIC number.';
+				//check if either NIC field or passport field is filled
+				if(empty($data['nic']) && empty($data['passport'])){
+					// $data['nicError'] = 'Please enter NIC number or Passport Number.';
+					$data['passportError'] = 'Please enter NIC number or Passport Number.';
 				} else {
-					//check if nic is already registered
-					if ($this->userModel->findPassengerByNIC($data['nic'])) {
-						$data['nicError'] = 'nic is already registered.';
+					//validate nic on letters and numbers
+					if (empty($data['passport'])) {
+
+						if (!preg_match($nicValidation, $data['nic'])) {
+							$data['nicError'] = 'Invalid NIC number.';
+							//check if nic is already registered
+						} elseif ($this->userModel->findPassengerByNIC($data['nic'])) {
+								$data['nicError'] = 'nic is already registered.';
+						}
+					}
+
+					//validate passport number on letters and numbers
+					elseif (empty($data['nic'])) {
+						
+						if (!preg_match($passportValidation, $data['passport'])) {
+							$data['passportError'] = 'Invalid Passport number.';
+							//check if passport is already registered
+						} elseif ($this->userModel->findPassengerByNIC($data['nic'])) {
+								$data['passportError'] = 'passport is already registered.';
+						}
 					}
 				}
+				
 
 				// //validate username on letters and numbers
 				// if (empty($data['username'])) {
@@ -80,7 +102,7 @@
 				} else {
 					//check if email exists
 					if ($this->userModel->findUserByEmail($data['email'])) {
-						$data['emailError'] = 'email is already registered.';
+						$data['emailError'] = 'Email is already taken.';
 					}
 				}
 
@@ -103,7 +125,7 @@
 				}
 
 				//make sure that errors are empty
-				if (empty($data['nicError']) && empty($data['emailError']) && empty($data['passwordError']) && empty($data['confirmPasswordError'])) {
+				if (empty($data['nicError']) && empty($data['passportError']) && empty($data['emailError']) && empty($data['passwordError']) && empty($data['confirmPasswordError'])) {
 
 					//Hash password
 					$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
@@ -122,7 +144,7 @@
 
 			$this->view('users/register', $data);
 		}
-
+	
 
 		public function login() {
 			$data = [
