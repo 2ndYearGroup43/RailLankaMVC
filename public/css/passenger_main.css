@@ -1353,22 +1353,27 @@ form .form-row .textarea{
 		min-width: 420px;
 	}
 
+    #booking-rev-table,
     .map-container .content-table,
 	.table-container .content-table {
 		min-width: 350px;
 		width: 80%;
 	}
-
+    
+    #booking-rev-table,
     .map-container .details-content-table, 
 	.table-container .details-content-table {
 		min-width: 350px;
 	}
 
+    #booking-rev-table thead,
     .map-container .content-table thead ,
 	.table-container .content-table thead {
 		display:none;
 	}
 
+    #booking-rev-table tr,
+    #booking-rev-table td,
     .map-container .content-table tr,
     .map-container .content-table td, 
 	.table-container .content-table tr,
@@ -1376,17 +1381,20 @@ form .form-row .textarea{
 		display: block;
 	}
 
+    #booking-rev-table tbody tr,
     .map-container .content-table tbody tr,
 	.table-container .content-table tbody tr {
 		border-bottom: 3px solid #13406d ;
 	}
 
+    #booking-rev-table tbody td,
     .map-container .content-table tbody td,
 	.table-container .content-table tbody td {
 		padding-left: 55%;
 		position: relative;
 	}
 
+    #booking-rev- td::before,
     .map-container .content-table td::before,
 	.table-container .content-table td::before {
 		position: absolute;
@@ -1402,6 +1410,7 @@ form .form-row .textarea{
 
 	}
 
+    #booking-rev-table tbody tr:nth-of-type(even),
     .map-container .content-table tbody tr:nth-of-type(even),
 	.table-container .content-table tbody tr:nth-of-type(even){
 		background-color:inherit;
@@ -2232,6 +2241,14 @@ section .events h1 {
     display: block;
 }
 
+.conf-ticket img#payment-image  {
+    display: inline;
+    position: absolute;
+    height: 3%;
+    bottom: 30px;
+    right: 70px;
+}
+
 .conf-ticket .summary .content-table .grand-total td{
     padding: 7px 5px 
 }
@@ -2246,6 +2263,14 @@ section .events h1 {
 
 .conf-ticket .print-header{
         display:none;
+}
+
+@media screen and (max-width:740px){
+    #review{
+        width: 90%;
+        padding: 10px;
+    }
+
 }
 
 @media print {
@@ -2764,29 +2789,35 @@ footer{
 
     @media screen and (max-width: 1000px) {
 
+
         .booking-details{
             width: 250px;
             margin: 0 auto;
             padding: 20px 0;
         }
 
+        #booking-rev-table,
         .booking-details .summary .content-table {
             min-width: 220px;
             margin: 0;
         }
 
+        #booking-rev-table tbody tr,
         .booking-details .summary .content-table tbody tr{
             border-bottom: 1px solid #adadad ;
         }
 
+        #booking-rev-table td::before,
         .booking-details .summary .content-table td::before {
             width: 28%;
         }
 
+        #booking-rev-table tbody td,
         .booking-details .summary .content-table tbody td {
             padding-left: 42%;
         }
 
+        #booking-rev-table td:before,
         .booking-details .summary .content-table td:before,
         .booking-details .summary .content-table td {
             padding: 5px;
@@ -2882,7 +2913,7 @@ footer{
 }
 
 .tabs__sidebar{
-    width: 10%;
+    width: 18%;
     flex-shrink: 0; /*paragraphs wont push and make the sidebar small*/
     background: #cccccc;
 }
@@ -2970,6 +3001,40 @@ footer{
     display: none;
 }
 
+.tabs .tabs__sidebar .tabs__button .map-small{
+    display: none;
+}
+
+@media screen and (max-width: 1045px){
+
+    .tabs .tabs__sidebar .tabs__button .map-small{
+        display: inline;
+        font-size: 1rem;
+    }
+
+    .tabs .tabs__sidebar .tabs__button .map-large{
+        display: none;
+    }
+
+    .tabs .tabs__sidebar {
+        width: 10%;
+    }
+}
+
+@media screen and (max-width: 1245px){
+    .tabs {
+        height: 210vh;
+        min-width: 300px;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .tabs{
+        margin-bottom: 20px;
+    }
+}
+
+
 @media screen and (max-width: 800px){
 
     .tabstop .tabs__sidebartop .tabs__buttontop i {
@@ -3028,8 +3093,8 @@ footer{
 
     .popup-box i{
         font-size: 40px;
-        color: #01a9b4; /*#eb9447;*/
-        border: 5px solid #01a9b4; /*#eb9447;*/
+        color: #ff3333; /*#eb9447;*/
+        border: 5px solid #ff3333; /*#eb9447;*/
         padding: 20px;
         border-radius: 50%;
         margin: -10px 0 20px 0;
@@ -3049,7 +3114,7 @@ footer{
 
     .popup-box label {
         font-size: 18px;
-        color: #01a9b4;
+        color: #ff3333;
         font-weight: 500;
     }
 
@@ -3068,9 +3133,9 @@ footer{
     }
 
     .btns .btn2 {
-        background: #01a9b4; /*#ff3333;*/
+        background: #ff3333; /*#ff3333;*/
         margin-left: 20px;
-        border: 1px solid #228be6; /*#cc0000;*/
+        border: 1px solid #cc0000; /*#cc0000;*/
     }
 
     .btn1:hover{
@@ -3080,7 +3145,7 @@ footer{
 
     .btn2:hover{
         transition: 0.5s;
-        background:#0066ff; /*#e60000;*/
+        background:#e60000; /*#e60000;*/
     }
 
     #booking-successful .popup-box i{
@@ -3552,25 +3617,36 @@ div.right-map{
 }
 
 div.left-map{
-    width:60%;
+    width:50%;
 }
 
 div.right-map{
-    width: 35%;
+    width: 40%;
     position: absolute;
+    border-left: 1px solid grey;
+    padding-left: 30px;
+    height: 70%;
 }
 
-div.right-map h3{
+div.right-map h4{
     font-weight: 500;
 }
 
 div.right-map h2{
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 .booking-detailsn{
     margin-bottom: 40px;
 }
+
+div.left-map h3{
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+
 
 div.seatCharts-container {
     /*border-right: 1px dotted #adadad;
@@ -3581,13 +3657,13 @@ div.seatCharts-container {
     margin-right: 10px;
     margin-left: 10px;
 */
-    width: 370px;
+    width: 325px;
     height: 100%;
     background-color: #f6f6f6;  
     margin: 0 auto 30px auto;
     border: 1px solid #adadad;
     border-radius: 10px;
-    padding: 40px 25px;
+    padding: 20px 25px 40px 25px;
 }
 
 div.seatCharts-legend {
@@ -3691,15 +3767,7 @@ div.seatCharts-seat.unavailable {
 }
 
 .front-indicator {
-    /*width: 145px;
-    margin: 5px 32px 15px 32px;
-    background-color: #f6f6f6;  
-    color: #adadad;
-    text-align: center;
-    padding: 3px;
-    border-radius: 5px;*/
-
-    width: 290px;
+    width: 275px;
     height: 30px;
     margin: 10px auto 10px auto;
     background-color: #f6f6f6;  
@@ -3713,96 +3781,157 @@ div.seatCharts-seat.unavailable {
     font-weight: 600;
 }
 
-/*.wrapper {
-    width: 100%;
-    text-align: center;
-    margin-top:50px;
-}
-*/
-/*.booking-details {
-    float: left;
-    text-align: left;
-    margin-right: -100px;
-    font-size: 12px;
-    position: relative;
-    height: 401px;
-    width: 180px; 
-    padding: 20px 0;
-    margin-left: 20px; 
-}
-
-.booking-details h2 {
-    margin: 25px 0 20px 0;
-    font-size: 17px;
-}
-.booking-details h3 {
-    margin: 5px 5px 0 0;
-    font-size: 14px;
-}*/
-
-/*.checkout-button {
-    display: block;
-    margin: 10px 0;
-    font-size: 14px;
-    width: 100px;
-    background-color: #dc3545;
-    border:none;
-    opacity: 1;
-    padding: 8px 8px;
-    color: #fff;
-}
-
-.checkout-button:hover{ 
-    opacity: 0.8;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}*/
-
-#selected-seats, #selected-seats2, #selected-seats3, 
-#selected-seats4, #selected-seats5, #selected-seats6 {
-    max-height: 160px;
+#selected-seats, #selected-seats2, #selected-seats3, #selected-seats4,
+#selected-seats5, #selected-seats6, #selected-seats7, #selected-seats8 {
+    max-height: 320px;
     overflow-y: scroll;
     /*overflow-x: none;*/
-    width: 90%;
+    width: 85%;
     padding: 20px 0;
     margin-bottom: 10px;
 }
 
-/*.compartment-container{ 
-    width: 180px;
-    padding: 20px;
-    float: left;
-    margin-left: -65px;
-    font-size: 12px;
+#selected-seats li,
+#selected-seats2 li, 
+#selected-seats3 li, 
+#selected-seats4 li,
+#selected-seats5 li,
+#selected-seats6 li, 
+#selected-seats7 li, 
+#selected-seats8 li {
+    padding: 15px 10px;
+    width: 95%;
+    margin: 2px 0 2px 4px;
+    height: 55px;
+    line-height: 20px;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;  
+    background: linear-gradient(#eeeeee, #dddddd) border-box;
+    color: #000;
+    --c-sh-txt: #{rgba(#fff, .5)};
+} 
+
+#selected-seats li i,
+#selected-seats2 li i, 
+#selected-seats3 li i, 
+#selected-seats4 li i,
+#selected-seats5 li i,
+#selected-seats6 li i, 
+#selected-seats7 li i, 
+#selected-seats8 li i {
+    color: grey;
+    float: right;
+    margin: 4px 0;
 }
 
-.compartment-container h2 { 
-    margin: 25px 0 20px 0;
-    font-size: 17px;
+.selected-btn {
+    display: inline-block;
+    padding: 2px;
+    text-align: center;
+    border-radius: 0.25rem;
+    width: 50px;
 }
 
-.compartment {
-    display: block;
-    margin: 10px auto;
-    font-size: 14px;
-    width: 80px;
-    box-shadow: 3px 3px 3px #888888;
-    background-color:#17a2b8;
-    border:#17a2b8;
-    opacity: 1;
-    padding: 3px 8px;
-    color: #fff;
-    border-radius: 2px;
+#selected-seats li .selected-btn,
+#selected-seats2 li .selected-btn{
+    
+    background-color: #17a2b8;
+    color: white;
+    border: 1px solid #17a2b8;
 }
 
-.compartment:hover{
-    opacity: 0.8;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);;
+#selected-seats3 li .selected-btn,
+#selected-seats4 li .selected-btn,
+#selected-seats5 li .selected-btn,
+#selected-seats6 li .selected-btn{
+    
+    background-color: #28a745;
+    color: white;
+    border: 1px solid #28a745;
 }
 
-#pos{
-    margin: 70px 200px;
-}*/
+#selected-seats7 li .selected-btn,
+#selected-seats8 li .selected-btn{
+    
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+}
 
+@media screen and (max-width:1240px){
+
+    div.left-map,
+    div.right-map{
+        display:block;
+        width: 100%;
+    }
+
+    div.right-map {
+        border-left: none;
+    }
+
+    #selected-seats, #selected-seats2, #selected-seats3, #selected-seats4,
+    #selected-seats5, #selected-seats6, #selected-seats7, #selected-seats8 {
+        max-height: 190px;
+        width: 70%;
+    }
+}
+
+@media screen and (max-width:500px){
+    .map-container2 {
+        padding: 5px;
+        font-size: 0.9em;
+    }
+
+    .tabs__content {
+        width: 90%;
+    }
+
+    div.seatCharts-container{
+        width: 100%;
+        padding: 2px 9px;
+        min-width: 242px;
+    }
+
+    .front-indicator{
+        width: 100%;
+    }
+
+    div.seatCharts-cell {
+
+        height: 27px;
+        width: 27px;
+        line-height:27px;
+        font-size: 13px;
+    }
+
+    #options-once.checkout-btn{
+        bottom: 1.5%;
+    }
+
+    #options-once.options {
+        bottom: 0.25%;
+    }
+
+    #selected-seats li,
+    #selected-seats2 li, 
+    #selected-seats3 li, 
+    #selected-seats4 li,
+    #selected-seats5 li,
+    #selected-seats6 li, 
+    #selected-seats7 li, 
+    #selected-seats8 li {
+        padding: 10px 5px;
+        width: 100%;
+        height: 60px;
+        font-size: 0.9em;
+    } 
+
+    div.right-map {
+        padding-left: 0;
+    }
+
+}
 
 /*end of seat maps new*/
 

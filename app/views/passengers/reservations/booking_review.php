@@ -74,7 +74,6 @@
 					          	<label>Country *</label>
 					          	<div class="acc-custom_select" required>
 						            <select>
-						              	<option value="">Select</option>
 						              	<option value="Afghanistan">Afghanistan</option>
 						                <option value="Åland Islands">Åland Islands</option>
 						                <option value="Albania">Albania</option>
@@ -279,7 +278,7 @@
 						                <option value="South Africa">South Africa</option>
 						                <option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
 						                <option value="Spain">Spain</option>
-						                <option value="Sri Lanka">Sri Lanka</option>
+						                <option value="Sri Lanka" selected>Sri Lanka</option>
 						                <option value="Sudan">Sudan</option>
 						                <option value="Suriname">Suriname</option>
 						                <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
@@ -360,39 +359,39 @@
 				<h3>BOOKING AND PAYMENT SUMMARY</h3>
 			</div>
 			<div class="summary">
-				<table class="content-table">
+				<table class="content-table" id="booking-rev-table">
 					<thead>
 						<tr>
-							<td>Type</td>
-							<td>Price</td>
-							<td>Quantity</td>
-							<td>Total</td>
+							<td data-label="Type">Type</td>
+							<td data-label="Price">Price</td>
+							<td data-label="Quantity">Quantity</td>
+							<td data-label="Total">Total</td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>First Class</td>
-							<td>Rs. 400.00</td>
-							<td>3</td>
-							<td>Rs. 1200.00</td>
+							<td data-label="Type">First Class</td>
+							<td data-label="Price">Rs. 400.00</td>
+							<td data-label="Quantity">3</td>
+							<td data-label="Total">Rs. 1200.00</td>
 						</tr>
 						<tr>
-							<td>Second Class</td>
-							<td>Rs. 230.00</td>
-							<td>1</td>
-							<td>Rs. 230.00</td>
+							<td data-label="Type">Second Class</td>
+							<td data-label="Price">Rs. 230.00</td>
+							<td data-label="Quantity">1</td>
+							<td data-label="Total">Rs. 230.00</td>
 						</tr>
 						<tr>
-							<td>First Class</td>
-							<td>Rs. 125.00</td>
-							<td>2</td>
-							<td>Rs. 250.00</td>
+							<td data-label="Type">First Class</td>
+							<td data-label="Price">Rs. 125.00</td>
+							<td data-label="Quantity">2</td>
+							<td data-label="Total">Rs. 250.00</td>
 						</tr>
 						<tr class="grand-total">
-							<td>Total</td>
-							<td></td>
-							<td></td>
-							<td>Rs. 1680.00</td>
+							<td data-label="Type">Total</td>
+							<td data-label="Price"></td>
+							<td data-label="Quantity"></td>
+							<td data-label="Total">Rs. 1680.00</td>
 						</tr>
 					</tbody>
 				</table>
@@ -412,7 +411,8 @@
 			<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/bookingConf'" class="btn checkout-btn">Checkout &raquo;</button>
 			<p class="options">Back to seat map? <a href="<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps">Click here.</a></p>
 
-			<!-- <img src="https://www.freepnglogos.com/uploads/visa-and-mastercard-logo-26.png" width="200" alt="visa and mastercard logo" /></a> -->
+			<img id="payment-image" src="<?php echo URLROOT ?>/public/img/payhere.jpg">
+
 		</div>
 		<div class="content-row">
 			<!-- <button type="submit" class="back-btn"><span>Back</span></button> -->

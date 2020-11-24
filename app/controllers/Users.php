@@ -48,7 +48,7 @@
 					'confirmPasswordError' => ''
 				];
 
-				
+				$nicValidation = "/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/";
 				$nameValidation = "/^[a-zA-Z0-9]*$/";
 				$passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
 
@@ -56,8 +56,8 @@
 				//validate nic on letters and numbers
 				if (empty($data['nic'])) {
 					$data['nicError'] = 'Please enter username.';
-				} elseif (!preg_match($nameValidation, $data['nic'])) {
-					$data['nicError'] = 'NIC can only contain letters and numbers.';
+				} elseif (!preg_match($nicValidation, $data['nic'])) {
+					$data['nicError'] = 'Invalid NIC number.';
 				}
 
 				// //validate username on letters and numbers
@@ -309,7 +309,7 @@
 
 					        // Set email format to HTML
 					        $mail->Subject = 'Your Password Request Link';
-					        $mail->Body    = "<h1>You requested a password change</h1> Click on <a href='$url'>this link</a> to reset your password</h1>";
+					        $mail->Body    = "<h1>You requested a password change</h1> Clink on <a href='$url'>this link</a> to reset your password</h1>";
 					        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
 					        $mail->send();
