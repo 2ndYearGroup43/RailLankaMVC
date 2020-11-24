@@ -12,15 +12,22 @@
 
 <div class="banner">
 <div class="container-login">
-	<div class="wrapper-login">
+	<div class="wrapper-login" id="wrapper-register">
 		<h2>Register</h2>
 
 		<form action="<?php echo URLROOT; ?>/users/register" method="POST">
 
-			<input type="text" placeholder="NIC/Passport No *"name="nic">
+			<input type="text" placeholder="NIC No *"name="nic">
 			<span class="invalidFeedback">
 				<?php echo $data['nicError']; ?>
 			</span>
+			<p><center>or</center></p>
+			<input type="text" placeholder="Passport No *"name="passport">
+			<span class="invalidFeedback">
+				<?php echo $data['passportError']; ?>
+			</span>
+			<br>
+			<hr>
 
 			<input type="email" placeholder="Email *"name="email">
 			<span class="invalidFeedback">
@@ -65,4 +72,4 @@
 		}
 	</script>
 
-<?php require APPROOT . '/views/includes/footer.php'; ?>
+<?php require APPROOT . '/views/includes/passenger_footer.php'; ?>
