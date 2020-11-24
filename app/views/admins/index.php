@@ -11,7 +11,7 @@
 	require APPROOT . '/views/includes/admin_navigation_home.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!--<?php var_dump($_SESSION); ?> -->
 
 <!-- banner area -->
 <div class="banner">

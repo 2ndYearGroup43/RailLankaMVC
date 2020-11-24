@@ -46,11 +46,11 @@
                             <div class="input-data">
                                 <label for="dest">Select Train</label>
                                 <select name="dest" id="dest">
-                                    <option value="t1">Ruhunu Kumaree</option>
+                                    <option value="t1">All Trains</option>
                                     <option value="t1">Galuu Kumaree</option>
                                     <option value="t2">Udarata Manike</option>
                                     <option value="t2">Badulu Dewi</option>
-                                    <option value="t2">All Trains</option>
+                                    <option value="t2">Ruhunu Kumaree</option>
                                 </select>
                             </div>
                     </div>

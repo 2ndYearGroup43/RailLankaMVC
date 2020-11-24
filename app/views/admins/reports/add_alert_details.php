@@ -53,8 +53,11 @@
                             <div class="input-data">
                                 <label for="dest">Select Train</label>
                                 <select name="dest" id="dest">
-                                    <option value="t1">t1</option>
-                                    <option value="t2">t2</option>
+                                    <option value="t1">All Trains</option>
+                                    <option value="t1">Galuu Kumaree</option>
+                                    <option value="t2">Udarata Manike</option>
+                                    <option value="t2">Badulu Dewi</option>
+                                    <option value="t2">Ruhunu Kumaree</option>
                                 </select>
                             </div>
                     </div>
@@ -80,12 +83,12 @@
                             <div class="input-data">
                                 <label for="dest">Alert Cause Type</label>
                                 <select name="dest" id="dest">
-                                    <option value="d1">c1</option>
-                                    <option value="d2">c2</option>
+                                    <option value="d1">main</option>
+                                    <option value="d2">normal</option>
                                 </select>
                             </div>
                     </div>
-                     <div class="form-row">
+                     <!--<div class="form-row">
                             <div class="input-data">
                                 <label for="dest">Order By</label>
                                 <select name="dest" id="dest">
@@ -93,7 +96,7 @@
                                     <option value="2">2</option>
                                 </select>
                             </div>
-                    </div>
+                    </div>-->
                     <br>
 
                         <div class="form-row submit-btn">
