@@ -4,6 +4,7 @@
 
 		public function __construct() {
 			$this->resofficerRefundModel = $this->model('ResOfficerManageSeat');
+			isResofficerLoggedIn();
 		}
 
 		public function search() {
