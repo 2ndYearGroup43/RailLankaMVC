@@ -92,7 +92,23 @@
                         </li>
                         
                         <li class="nav-link" style="--i: .6s">
-                            <a href="<?php echo URLROOT; ?>/admin_manage_trains">Trains</a>
+                            <label for="btn-4" class="show">Trains <i class="fa fa-caret-down"></i></label>
+                                    <a href="<?php echo URLROOT; ?>/Admin_manage_trains/index">Trains <i class="fa fa-caret-down"></i></a>
+                                    <input type="checkbox" id="btn-4">
+                                    <div class="dropdown">
+                                        <ul>
+                                            <li class="dropdown-link">
+                                                <a href="<?php echo URLROOT; ?>/Admin_manage_trains/index">Manage Trains</a>
+                                            </li>
+                                            <li class="dropdown-link">
+                                                <a href="<?php echo URLROOT; ?>/Admin_manage_fares/index">Manage Fare</a>
+                                            </li>
+                                            <li class="dropdown-link">
+                                                <a href="<?php echo URLROOT; ?>/Admin_manage_compartment_types/index">Compartment Type</a>
+                                            </li>
+                                            <div class="arrow"></div>
+                                        </ul>
+                                    </div>
                         </li>
 
                         <li class="nav-link" style="--i: 1.1s">

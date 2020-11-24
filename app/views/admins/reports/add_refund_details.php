@@ -9,13 +9,13 @@
 
 <div class="body-section">
 
-            <div class="content-row">
+            <!--<div class="content-row">-->
                 <ul class="breadcrumb">
                     <li><a href="<?php echo URLROOT; ?>/admins/index">Home</a></li>
                     <li><u>Reports</u></li>
                     <li><a href="<?php echo URLROOT; ?>/adminReports/addRefundDetails">Add Refund Report Details</a></li>
                 </ul>
-            </div>
+            
 
             <div class="content-flexrow">
                 <div class="container">
@@ -27,8 +27,11 @@
                             <div class="input-data">
                                 <label for="dest">Select Train</label>
                                 <select name="dest" id="dest">
-                                    <option value="t1">t1</option>
-                                    <option value="t2">t2</opttion>
+                                    <option value="t1">All Trains</option>
+                                    <option value="t1">Galuu Kumaree</option>
+                                    <option value="t2">Udarata Manike</option>
+                                    <option value="t2">Badulu Dewi</option>
+                                    <option value="t2">Ruhunu Kumaree</option>
                                 </select>
                             </div>
                     </div>
@@ -46,7 +49,7 @@
                         
                     </div>
                     <br>
-                     <div class="form-row">
+                     <!--<div class="form-row">
                             <div class="input-data">
                                 <label for="dest">Order By</label>
                                 <select name="dest" id="dest">
@@ -55,7 +58,7 @@
                                 </select>
                             </div>
                     </div>
-                    <br>
+                    <br>-->
     
 
 
