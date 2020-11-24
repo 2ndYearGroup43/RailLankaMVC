@@ -4,7 +4,7 @@
 
 		public function __construct() {
 			$this->resofficerReservationModel = $this->model('ResOfficerReservation');
-			isResofficerLoggedIn();
+                        isResofficerLoggedIn();
 		}
 
 		public function search() {
@@ -17,6 +17,12 @@
 
 			
 			$this->view('resofficers/reservations/display_trains'); 
+		}
+
+		public function displaySeatMapsnn() {
+
+			
+			$this->view('resofficers/reservations/display_seatmapsnn'); 
 		}
 
 		public function displaySeatMaps() {
@@ -63,7 +69,7 @@
 		public function displayETicket() {
 
 			
-			$this->view('resofficers/reservations/e_ticket'); 
+			$this->view('resofficers/reservations/booking_conf'); 
 		}
 		
 	}

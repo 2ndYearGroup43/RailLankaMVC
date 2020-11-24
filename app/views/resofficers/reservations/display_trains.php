@@ -77,7 +77,7 @@
                         });
                     </script>
                     <div class="container-table">
-                        <h1>Searched Trains</h1>
+                        <h2 style="color: #13406d;">Searched Trains</h2>
                         <div class="res-table">
                             <table class="blue">
                                 <thead>
@@ -99,7 +99,7 @@
                                     <td data-th="Arrival">15.00</td>
                                     <td data-th="Date">26.11.2020</td>
                                     <td data-th="Action">                              
-                                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps">Reserve</a>
+                                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/resofficerReservations/displaySeatMapsnn">Reserve</a>
                                    </td>
                                 </tr>
                                 <tr>
@@ -110,7 +110,7 @@
                                     <td data-th="Arrival">19.00</td>
                                     <td data-th="Date">26.11.2020</td>
                                     <td data-th="Action">
-				                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps">Reserve</a>
+				                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/resofficerReservations/displaySeatMapsnn">Reserve</a>
 				                    </td>
                                 </tr>
                             </table>  

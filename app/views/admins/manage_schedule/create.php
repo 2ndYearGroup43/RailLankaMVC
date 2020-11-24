@@ -62,7 +62,7 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="date">Date</label>
-                        <select name="date" id="date" required >
+                        <select name="date" id="date" >
                             <option value="Same Day" selected>Same Day</option>
                             <option value="Next Day">Next Day</option>
                         </select>

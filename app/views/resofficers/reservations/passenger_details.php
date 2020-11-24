@@ -93,11 +93,11 @@
                             </div>  
                             <div class="acc-inputfield">
                                 <label>Email Address *</label>
-                                <input type="text" placeholder="user1@gmail.com" class="acc-input" required>
+                                <input type="text"  class="acc-input" required>
                             </div> 
                             <div class="acc-inputfield">
                                 <label>NIC/Passport No. *</label>
-                                <input type="text" placeholder="976709531V" class="acc-input" required>
+                                <input type="text"  class="acc-input" required>
                             </div> 
                             <div class="acc-inputfield">
                                 <label>Phone Number *</label>

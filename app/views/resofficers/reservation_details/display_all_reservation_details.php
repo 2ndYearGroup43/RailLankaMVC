@@ -77,7 +77,7 @@
                         });
                     </script>
                     <div class="container-table">
-                        <h1>Searched Trains</h1>
+                        <h2 style="color: #13406d;">Searched Trains</h2>
                         <div class="res-table">
                             <table class="blue">
                                 <thead>
