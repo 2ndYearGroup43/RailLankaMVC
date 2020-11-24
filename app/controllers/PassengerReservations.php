@@ -27,7 +27,7 @@
 		public function displaySeatMaps() {
 
 			isPassengerLoggedIn();
-			$this->view('passengers/reservations/display_seatmapsn1'); 
+			$this->view('passengers/reservations/display_seatmapsnn'); 
 		}
 
 		public function displaySeatMapsN() {
