@@ -58,6 +58,11 @@
 					$data['nicError'] = 'Please enter username.';
 				} elseif (!preg_match($nicValidation, $data['nic'])) {
 					$data['nicError'] = 'Invalid NIC number.';
+				} else {
+					//check if nic is already registered
+					if ($this->userModel->findPassengerByNIC($data['nic'])) {
+						$data['nicError'] = 'nic is already registered.';
+					}
 				}
 
 				// //validate username on letters and numbers
@@ -75,7 +80,7 @@
 				} else {
 					//check if email exists
 					if ($this->userModel->findUserByEmail($data['email'])) {
-						$data['emailError'] = 'Email is already taken.';
+						$data['emailError'] = 'email is already registered.';
 					}
 				}
 
