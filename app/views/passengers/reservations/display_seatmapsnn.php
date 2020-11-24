@@ -21,8 +21,17 @@
 		<div class="map-container2">
 			
 			<h1 class="title">Seat Map</h1>
-			<!-- <center><p>	Train ID : 1001</p></center>
-			<center><p>	Colombo - Badulla </p></center> -->
+			<!-- <div class="tooltip">
+				<button class="details-tooltip"><i class="fa fa-train"></i></button>
+				<div class="tooltip-content">
+					<p>Train ID: 1001</p>
+					<P>Colombo-Badulla</P>
+				</div>
+			</div> -->
+			<center><p>	Train ID : 1001</p></center>
+			<center><p>	Colombo - Badulla </p></center>
+			<center><p>Intercity Express - <b>Denuwara Menike</b></p></center>
+			<br>
 
 			<div class="tabs">
 				<div class="tabs__sidebar">
@@ -1336,7 +1345,7 @@
 
 			<br><br><br><br><br>		
 			<button id="options-once" onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/bookingReview'" class="btn checkout-btn">BOOK NOW &raquo;</button>
-			<p class="options" id="options-once">Back to search results? <a href="<?php echo URLROOT; ?>/passengerReservations/displayTrains">Click here.</a></p>
+			<p class="options" id="options-once">Back to search results? <a data-target="alert-warning-popup" class="alert-btn" href="#">Click here.</a></p>
 		</div>		
 		<div class="content-row">
 		</div>
@@ -1345,6 +1354,23 @@
 		<div class="content-row">
 		</div>
 	</div>
+
+	<!-- alert warning pop up -->
+	<div class="flash-alert-box" id="alert-warning-popup">
+		<div class="alert-box-content">
+			<div class="alert-icon">
+				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+			</div>
+			<div class="alert-body">
+				<h3>Are you sure?</h3>
+				<p>You will lose progress if you continue</p>
+				<!-- <p><a>Proceed Anyway?</a></p> -->
+				<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displayTrains'" class="proceed-btn">Proceed Anyway</button>
+			</div>
+			<button type="button" class="close-alert">&times;</button>
+		</div>
+	</div>
+	<!-- end of alert warning popup -->
 
 	<!-- js for tabs  -->
 	<script>
@@ -1384,143 +1410,31 @@
 
 	</script>
 	<!-- end of js for tabs -->
-<!-- 
-	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> 
-	<script src="<?php echo URLROOT ?>/public/javascript/jquery.seat-charts.js"></script> 
 
-	 js for seat map -->
+	<!-- js for flash message -->
+	<script>
+		const alertBtn = document.querySelectorAll(".alert-btn");
+		alertBtn.forEach(function(btn){
+			btn.addEventListener("click", function(){
+				const target = this.getAttribute("data-target");
+				const alertBox = document.getElementById(target)
+				alertBox.classList.add("alert-box-show");
 
-	<!-- <script>
-			var firstSeatLabel = 1;
-		
-			$(document).ready(function() {
-				var $cart = $('#selected-seats'),
-					$counter = $('#counter'),
-					$total = $('#total'),
-					sc = $('#seat-map').seatCharts({
-					map: [
-						'ff__ff',
-						'ff__ff',
-						'ff__ff',
-						'ff__ff',
-						'ff__ff',
-						'ff__ff',
-						'ff__ff',
-						'ff__ff',
-					],
-					seats: {
-						f: {
-							price   : 1000,
-							classes : 'first-class', //your custom CSS class
-							category: 'First Class'
-						},
-						s: {
-							price   : 250,
-							classes : 'second-class', //your custom CSS class
-							category: 'Second Class'
-						},
-						t: {
-							price   : 125,
-							classes : 'third-class', //your custom CSS class
-							category: 'Third Class'
-						}
-					},
-					naming : {
-						top : false,
-						getLabel : function (character, row, column) {
-							return firstSeatLabel++;
-						},
-					},
-					legend : {
-						node : $('#legend'),
-					    items : [
-							[ 'f', 'available',   'First Class' ],
-							[ 's', 'available',   'Second Class'],
-							[ 't', 'available',   'Third Class'],
-							[ 'u', 'unavailable', 'Already Booked']
-					    ]					
-					},
-					click: function () {
-						if (this.status() == 'available') {
-							//let's create a new <li> which we'll add to the cart items
-							$('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
-								.attr('id', 'cart-item-'+this.settings.id)
-								.data('seatId', this.settings.id)
-								.appendTo($cart);
-							
-							/*
-							 * Lets update the counter and total
-							 *
-							 * .find function will not find the current seat, because it will change its stauts only after return
-							 * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
-							 */
-							$counter.text(sc.find('selected').length+1);
-							$total.text(recalculateTotal(sc)+this.data().price);
-							
-							return 'selected';
-						} else if (this.status() == 'selected') {
-							//update the counter
-							$counter.text(sc.find('selected').length-1);
-							//and total
-							$total.text(recalculateTotal(sc)-this.data().price);
-						
-							//remove the item from our cart
-							$('#cart-item-'+this.settings.id).remove();
-						
-							//seat has been vacated
-							return 'available';
-						} else if (this.status() == 'unavailable') {
-							//seat has been already booked
-							return 'unavailable';
-						} else {
-							return this.style();
-						}
+				const closeAlert = alertBox.querySelector(".close-alert");
+				closeAlert.addEventListener("click",function(){
+					alertBox.classList.remove("alert-box-show");
+				});
+
+				alertBox.addEventListener("click",function(event){
+					if(event.target === this){
+						alertBox.classList.remove("alert-box-show");
 					}
 				});
-
-
-				//this will handle "[cancel]" link clicks
-				$('#selected-seats').on('click', '.cancel-cart-item', function () {
-					//let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
-					sc.get($(this).parents('li:first').data('seatId')).click();
-				});
-
-				//let's pretend some seats have already been booked
-				sc.get(['1_2', '7_1', '7_2']).status('unavailable');
-				// sc2.get(['2_1', '2_2', '4_5', '4_6']).status('unavailable');
-				// sc3.get(['3_2']).status('unavailable');
-				// sc4.get(['2_1', '2_2', '2_3', '5_5']).status('unavailable');
-				// sc5.get(['5_1', '5_3']).status('unavailable');
-				// sc6.get(['2_5']).status('unavailable');
-		
 			});
+		});
 
-			function recalculateTotal(sc) {
-				var total = 0;
-			
-				//basically find every selected seat and sum its price
-				sc.find('selected').each(function () {
-					total += this.data().price;
-				});
-				
-				return total;
-			}
-			
-			</script><script type="text/javascript">
-
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-36251023-1']);
-	  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-	  _gaq.push(['_trackPageview']);
-
-	  (function() {
-	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-
-	</script> -->
-	<!-- end of js for seat maps -->
+	</script>
+	<!-- end of js for flash message -->
 
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>
