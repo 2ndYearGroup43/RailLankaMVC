@@ -6,9 +6,9 @@
 	// 	echo "<br>";
 	// }
 	
-	isPassenger();
+	// isPassenger();
 	require APPROOT . '/views/includes/passenger_head.php';
-	require APPROOT . '/views/includes/admin_navigation.php';
+	require APPROOT . '/views/includes/admin_navigation_home.php';
 ?>
 
 <?php var_dump($_SESSION); ?> 

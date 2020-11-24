@@ -11,7 +11,7 @@
             <div class="content-row">
                 <button type="submit" class="submit-btn search" onclick="openForm()">Search</button>    
             </div>
-            <div class="content-row">
+                <div class="content-row">
                 <div class="container-searchbox-popup" id="popupsearch">
                     <form action="#">
                         <div class="form-row logoimg">    
@@ -55,7 +55,7 @@
                         </div>
                         <div class="form-row submit-btn">
                             <div class="input-data" >
-                                <input type="submit" class="blue-btn" style="font-size: 15px;" value="Search">
+                                <input type="button" onclick="location.href='<?php echo URLROOT;?>/moderatorTrackings/displayTrackList'" class="blue-btn" style="font-size: 15px;" value="Search">
                             </div>    
                             <div class="input-data">
                                 <input type="reset" class="blue-btn" value="Reset" style="font-size: 15px;" onclick="closeForm()">
@@ -80,7 +80,19 @@
                 });
             </script>
             <div class="content-row">
-                <div class="container-map">
+                <div class="container-map" style="padding-bottom: 60px">
+                    <div class="container-row">
+                        <img src="<?php echo URLROOT;?>/public/img/logotrack.jpg" alt="logo-track">
+                    </div>
+                    <h2 style="color: #13406d; text-align: center;">Live Location Details </h2>
+                    <div class="date-time">
+                        <h4 style="float: right; color: #13406d" >Date: <span id="curr-date">  </span> Time: <span id="curr-time"></span></h4>
+                    </div>
+                    <script>
+                        var dt = new Date();
+                        document.getElementById("curr-time").innerHTML = dt.toLocaleTimeString();
+                        document.getElementById("curr-date").innerHTML = dt.toLocaleDateString();
+                    </script>
                     <table class="blue">
                         <thead>
                             <tr>
@@ -92,11 +104,11 @@
                             </tr>
                         </thead>
                         <tr>
-                            <td data-th="Train-ID"> BLa</td>
-                            <td data-th="From">BLa</td>
-                            <td data-th="Start Time">BLa</td>
-                            <td data-th="To">BLa</td>
-                            <td data-th="End Time">BLa</td>
+                            <td data-th="Train-ID"> 101COLKAN0530</td>
+                            <td data-th="From">Colombo Fort</td>
+                            <td data-th="Start Time">05:30</td>
+                            <td data-th="To">Kandy</td>
+                            <td data-th="End Time">14:15</td>
                         </tr>
                     </table>
                     <div id="map">

@@ -10,6 +10,6 @@ class Admindashboards extends Controller {
     }
     public function dashboards() {
       
-        $this->view('admins/admindashboards/dashboards');
+        $this->view('admins/admindashboards/index');
     }
 }

@@ -644,14 +644,15 @@ header{
         display: inline-block;
     }
 
-    table.blue{
+     table.blue{
         width: 60%;
         margin-top: 20[x];
     }
+    
     table.blue th{
         display: none;
     }
-    
+     
     table.blue td{
         display: block;
     }
@@ -668,7 +669,7 @@ header{
         font-weight: bold;
         width: 6.5em;
         display: inline-block;
-    }
+    } 
 
     table.data-display td{
         display: block;
@@ -685,6 +686,53 @@ header{
     
 
    
+}
+
+
+
+@media print{
+
+    table.blue td{
+        display: inline-block;
+        padding: 0px 24px;
+        text-align: left;
+        width: 90px;
+    }
+
+
+    #scheduleDiv table.blue td, table.data-display td{
+        display: table-row-group;
+    }
+
+
+    table.blue th{
+        width: 90px;
+        margin: 0px;
+        display: inline-block;
+        padding: 10px 5px;
+        background-color: #13406d;
+        color: white;
+    }
+
+    /* table.blue td{
+        display: inline-block;
+        text-align: left;
+    } */
+    table.blue td::before{
+        content: none;
+        font-weight: initial;
+        width: initial;
+        display: none;
+    }
+
+   
+
+    #availdays-btn{
+        display: block;
+    }
+
+    
+
 }
 
 
@@ -1188,9 +1236,12 @@ table.blue tbody tr:last-of-type{
 /* data display  For account data display and schedule display*/
 
 table.data-display{
-    width: 100%;
+    width: fit-content;
     border-collapse: collapse;
-    margin: 25px 20px  ;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: 25px;
     font-size: 0.9em;
     min-width: 70%;
     border-radius: 5px 5px 0 0;
@@ -1199,8 +1250,24 @@ table.data-display{
     /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); */
 }
 
+.container-row{
+    width: 100%;
+    position: relative;
+    display: flex;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.container-row img{
+    width: 150px;
+    height: 150px;
+}
+
+
 table.data-display caption{
-    text-align: left;
+    text-align: center;
     font-size: 20px;
     font-weight: 600;
     margin: 0px;
@@ -1356,7 +1423,7 @@ span.fa.fa-check{
 
 
 .body-section{
-    background-image: url('../img/bg1.jpg');
+    background-image: url('../img/banner.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     /* height: 160vh; */
@@ -1607,6 +1674,30 @@ span.fa.fa-check{
   
 
 
+
+/*marquee*/
+.marquee-area{
+    height: 40px;
+    padding: 8px 0 12px 0;
+    letter-spacing: 1px;
+}
+
+.info-tag{
+    background-color: rgba(116,192,252,0.2);
+    color:#228be6;
+    border: 1px solid #228be6;
+    font-size: 14px;
+}
+
+.warning-tag{
+
+    background-color:  #ffe066;
+    color:#fab005;
+    border: 1px solid #fab005;
+}
+
+
+/*end of marquee*/
 
  
 

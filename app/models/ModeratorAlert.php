@@ -418,5 +418,13 @@
 
         }
 
+
+        public function getTrains()
+        {
+            $this->db->query('SELECT trainId, name FROM train');
+            $results=$this->db->resultSet();
+            return $results;
+        }
+
         
     }

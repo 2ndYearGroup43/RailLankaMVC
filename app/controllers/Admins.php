@@ -1,14 +1,26 @@
 <?php
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
     class Admins extends Controller{
         public function __construct()
         {
             $this->adminModel=$this->model('Admin');
         }
 
-        public function index() {
-      
-        $this->view('admins/index');
-    	}
+
+        public function index()
+        {
+            $data = [
+				'title' => 'Admin Home Page',
+				// 'users' => $users
+			];
+
+			$this->view('admins/index', $data); //
+        }
+
+        
 
         public function registerAdmin()
         {
@@ -21,7 +33,7 @@
                 'email'=>'',
                 'mobileno'=>'',
                 'password'=>'',
-                'confirmPassword'=>'',
+                // 'confirmPassword'=>'',
                 'reg_date'=>'',
                 'reg_time'=>'',
                 'adminIdError'=>'',
@@ -30,8 +42,8 @@
                 'lastnameError'=>'',
                 'emailError'=>'',
                 'mobilenoError'=>'',
-                'passwordError'=>'',
-                'confirmPasswordError'=>''              
+                // 'passwordError'=>'',
+                // 'confirmPasswordError'=>''              
             ];
 
             if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -45,8 +57,8 @@
                     'lastname'=>trim($_POST['lastname']),
                     'email'=>trim($_POST['email']),
                     'mobileno'=>trim($_POST['mobileno']),
-                    'password'=>trim($_POST['password']),
-                    'confirmPassword'=>trim($_POST['confirmPassword']),
+                    'password'=>'',
+                    // 'confirmPassword'=>trim($_POST['confirmPassword']),
                     'reg_date'=>date("Y-m-d"),
                     'reg_time'=>date("H:i:s"),
                     'adminIdError'=>'',
@@ -55,8 +67,8 @@
                     'lastnameError'=>'',
                     'emailError'=>'',
                     'mobilenoError'=>'',
-                    'passwordError'=>'',
-                    'confirmPasswordError'=>''              
+                    // 'passwordError'=>'',
+                    // 'confirmPasswordError'=>''              
                 ];
             
                 echo $data['adminId'];
@@ -112,33 +124,38 @@
                     $data['mobilenoError']="Name can only contain numbers and +.";
                 }
 
-                //password validate by length and numeric values
-                if(empty($data['password'])){
-                    $data['passwordError']='Please Enter the passsword.';
-                }elseif (strlen($data['password'])<8) {
-                    $data['passwordError']="Password length should be atleast 8 characters long";
-                }elseif(!preg_match($passwordValidation, $data['password'])){
-                    $data['passwordError']="Password must have atleast one numeric value.";
-                }
+                $informPass=$data['email'].$data['adminId'];
+                $data['password']=$informPass;
+                $userEmail=$data['email'];
 
-                if(empty($data['confirmPassword'])){
-                    $data['confirmPasswordError']='Please Enter the passsword.';
-                }else{
-                    if($data['password']!=$data['confirmPassword']){
-                        $data['confirmPasswordError']='Passwords do not match.';
-                    }
-                }
+                //password validate by length and numeric values
+                // if(empty($data['password'])){
+                //     $data['passwordError']='Please Enter the passsword.';
+                // }elseif (strlen($data['password'])<8) {
+                //     $data['passwordError']="Password length should be atleast 8 characters long";
+                // }elseif(!preg_match($passwordValidation, $data['password'])){
+                //     $data['passwordError']="Password must have atleast one numeric value.";
+                // }
+
+                // if(empty($data['confirmPassword'])){
+                //     $data['confirmPasswordError']='Please Enter the passsword.';
+                // }else{
+                //     if($data['password']!=$data['confirmPassword']){
+                //         $data['confirmPasswordError']='Passwords do not match.';
+                //     }
+                // }
 
                 if(empty($data['adminIdError']) && empty($data['employeeIdError']) &&
                 empty($data['firstnameError']) && empty($data['lastnameError']) && 
-                empty($data['emailError']) && empty($data['mobilenoError']) &&
-                empty($data['passwordError']) && empty($data['confirmPasswordError'])){
+                empty($data['emailError']) && empty($data['mobilenoError'])){
+                // empty($data['passwordError']) && empty($data['confirmPasswordError'])){
                         //Hash passsword
                         //echo "hariiii";
                         $data['password']=password_hash($data['password'], PASSWORD_DEFAULT);
                         //Rgoster user from model function
                         if($this->adminModel->registerAdmin($data)){
                             //Redrects to the login page
+                            $this->informEmployeeOfthePassword($userEmail, $informPass);
                             header('Location: '.URLROOT.'/admins/viewAdmins');
                         }else{
                             die('Something went wrong');
@@ -152,6 +169,60 @@
 
             $this->view('admins/registerAdmin', $data);
         }
+
+
+        public function informEmployeeOfthePassword($email, $password)
+        {   
+            require APPROOT . '/libraries/PHPMailer/src/Exception.php';
+            require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
+            require APPROOT . '/libraries/PHPMailer/src/SMTP.php';
+            $code = uniqid(true);
+
+            if(!$this->adminModel->requestReset($email,$code)){
+                die('Something went wrong');
+            }
+
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings   
+                $mail->isSMTP();                                            // Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
+                $mail->Password   = 'Raillanka@2';                               // SMTP password
+                $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+                //Recipients
+                $mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+                $mail->addAddress($email);     // Add a recipient
+                        // Name is optional
+                $mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');
+            
+                // Content
+                $mail->isHTML(true); 
+                $url = URLROOT . "/users/resetPassword?code=$code";   //  
+
+                // Set email format to HTML
+                $mail->Subject = 'Admin Registration';
+                $mail->Body    = "<h1>You have successfully registered as a Administrator</h1><p>Your Password has been set to ".$password." . You can use it 
+                to login and change it to your preferred password at anytime by clicking the link below</p> Click on <a href='$url'>this link</a> to reset your password</h1>";
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                $mail->send();
+                // $msg = 'Reset password link has been sent to your email';
+                return;
+
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+        
+			exit();
+        }
+
+
+
 
 
 

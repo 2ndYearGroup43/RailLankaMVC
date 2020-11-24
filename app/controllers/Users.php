@@ -187,6 +187,13 @@
 			$_SESSION['userid'] = $user->userid;
 			$_SESSION['email'] = $user->email;
 			$_SESSION['role'] = $user->role;
+			$_SESSION['passenger_nic'] = '';
+			$_SESSION['admin_id'] = '';
+			$_SESSION['moderator_id'] = '';
+			$_SESSION['driver_id'] = '';
+			$_SESSION['ro_id'] = '';
+
+
 			
 			if($user->role)
 			{
@@ -211,7 +218,7 @@
 				if($user->role==4)
 				{
 					$driver=$this->userModel->getDriverById($user->userid);
-					$_SESSION['driver_nic'] = $driver->driverId;
+					$_SESSION['driver_id'] = $driver->driverId;
 				}
 
 				if($user->role==5)
@@ -229,6 +236,10 @@
 			unset($_SESSION['email']);
 			unset($_SESSION['role']);
 			unset($_SESSION['passenger_nic']);
+			unset($_SESSION['admin_id']);
+			unset($_SESSION['moderator_id']);
+			unset($_SESSION['driver_id']);
+			unset($_SESSION['ro_id']);
 			header('location:' . URLROOT . '/pages/index');
 		}
 

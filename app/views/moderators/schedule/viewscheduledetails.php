@@ -8,8 +8,11 @@
 
 <div class="body-section">
         <div class="content-flexrow">
-            <div class="container-table">
-                <h3>Schedule for <small>Train Id: xxxx</small></h3>
+            <div class="container-table" id="scheduleDiv">
+                <div class="container-row">
+                    <img src="<?php echo URLROOT?>/public/img/logoschedule.jpg" alt="schedule-logo">
+                </div>
+                <h3 style="text-align: center;">Schedule for <small>Train Id: xxxx</small></h3>
                 <table class="data-display">
                     <caption>Train Details</caption>
                     <tr>
@@ -45,14 +48,14 @@
                 <table class="blue">
                     <thead>
                         <tr>
-                        <th>Stop Number</th>
+                        <th>Stop No</th>
                         <th>Station</th>
-                        <th>Arrival Time</th>
-                        <th>Departure Time</th>
+                        <th>Arr-Time</th>
+                        <th>Dep-Time</th>
                         <th>Distance</th>
-                        <th>1st Class Price</th>
-                        <th>2nd Class Price</th>
-                        <th>3rd Class Price</th>
+                        <th>1stClass</th>
+                        <th>2ndClass</th>
+                        <th>3rdClass</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,7 +114,7 @@
                             <input type="button" onclick="history.go(-1)" class="red-btn" value="Back">
                         </div>
                         <div class="input-data action">
-                            <input type="submit" class="blue-btn" value="Print">
+                            <input type="button" class="blue-btn" onclick="printSchedule('scheduleDiv')" value="Print">
                         </div>
                     </div>
                 </form>
@@ -128,6 +131,15 @@
                             content.style.display="none";
                             coll.style.backgroundColor="#13406d";
                         }
+                    }
+
+                    function printSchedule(el) {
+                       
+                        var restorePage= document.body.innerHTML;
+                        var schedule= document.getElementById(el).innerHTML;
+                        document.body.innerHTML=schedule;
+                        window.print();
+                        document.body.innerHTML=restorePage;
                     }
                 </script>
 

@@ -79,7 +79,10 @@
                         });
                     </script>
                     <div class="container-table">
-                        <h1>Live Trains</h1>
+                        <div class="container-row">
+                            <img src="<?php echo URLROOT;?>/public/img/logotrack.jpg" alt="logo-track">
+                        </div>
+                        <h2 style="color: #13406d;">Live Trains  <small></small></h2>
                         <div class="res-table">
                             <table class="blue">
                                 <thead>
@@ -94,21 +97,21 @@
                                     </tr>
                                 </thead>
                                 <tr>
-                                    <td data-th="Train-ID"> BLa</td>
-                                    <td data-th="From">BLa</td>
-                                    <td data-th="Start Time">BLa</td>
-                                    <td data-th="To">BLa</td>
-                                    <td data-th="End Time">BLa</td>
-                                    <td data-th="Location Status">BLa</td>
+                                    <td data-th="Train-ID"> 101COLBAD0630</td>
+                                    <td data-th="From">Colombo-Fort</td>
+                                    <td data-th="Start Time">06:30</td>
+                                    <td data-th="To">Badulla</td>
+                                    <td data-th="End Time">17:30</td>
+                                    <td data-th="Location Status">Live</td>
                                     <td data-th="Track Now"><a class="blue-btn" href="<?php echo URLROOT;?>/moderatortrackings/tracktrainmap">Track</a></td>  
                                 </tr>
                                 <tr>
-                                    <td data-th="Train-ID"> BLa</td>
-                                    <td data-th="From">BLa</td>
-                                    <td data-th="Start Time">BLa</td>
-                                    <td data-th="To">BLa</td>
-                                    <td data-th="End Time">BLa</td>
-                                    <td data-th="Location Status">BLa</td>
+                                    <td data-th="Train-ID"> 101COLKAN1230</td>
+                                    <td data-th="From">Colombo Fort</td>
+                                    <td data-th="Start Time">12:30</td>
+                                    <td data-th="To">Kandy</td>
+                                    <td data-th="End Time">16:00</td>
+                                    <td data-th="Location Status">Live</td>
                                     <td data-th="Track Now"><a class="blue-btn" href="<?php echo URLROOT;?>/moderatortrackings/tracktrainmap">Track</a></td>  
                                 </tr>
                             </table>  

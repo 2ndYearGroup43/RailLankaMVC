@@ -22,9 +22,10 @@
 
         public function createCancellationAlerts()
         {
-           
+           $trains=$this->alertModel->getTrains();
 
             $data=[
+                'trains'=>$trains,
                 'trainId'=>'',
                 'cancelCause'=>'',
                 'issueType'=>'',
@@ -37,11 +38,11 @@
 
             ];
 
-            var_dump($_SERVER['REQUEST_METHOD']);
 
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);//filter harmful data
                 $data=[
+                    'trains'=>$trains,
                     'trainId'=>trim($_POST['trainid']),
                     'cancelCause'=>trim($_POST['cancelcause']),
                     'issueType'=>trim($_POST['issueType']),
@@ -88,8 +89,6 @@
         public function viewCancelledAlerts()
         {
            
-
-            var_dump($_SESSION);
             $alerts=$this->alertModel->displayCancellations();
             $fields=$this->alertModel->getCancellationFields();
             $data=[
@@ -103,7 +102,6 @@
         public function cancellationsSearchBy()
         {
            
-            var_dump($_SESSION);
             $data=[
                 'alerts'=>'',
                 'fields'=>'',
@@ -133,14 +131,15 @@
 
         public function updateCancellations($id)
         {
-            
-            var_dump($_SESSION);
+            $trains=$this->alertModel->getTrains();
+
              
             $alert=$this->alertModel->findCancellationById($id);
             
         
             $data=[
                 'alert'=>$alert,
+                'trains'=>$trains,
                 'trainId'=>'',
                 'issueType'=>'',
                 'cancelCause'=>'',
@@ -156,6 +155,7 @@
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);//filter harmful data
                 $data=[
                     'alert'=>$alert,
+                    'trains'=>$trains,
                     'alertId'=>$id,
                     'issueType'=>trim($_POST['issueType']),
                     'trainId'=>trim($_POST['trainid']),
@@ -214,10 +214,11 @@
         public function createDelayAlerts()
         {
            
-            var_dump($_SESSION);
+            $trains=$this->alertModel->getTrains();
 
             $data=[
                 'trainId'=>'',
+                'trains'=>$trains,
                 'delayTime'=>'',
                 'delayCause'=>'',
                 'issueType'=>'',
@@ -234,6 +235,7 @@
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);//filter harmful data
                 $data=[
+                    'trains'=>$trains,
                     'trainId'=>trim($_POST['trainid']),
                     'delayTime'=>trim($_POST['delaytime']),
                     'issueType'=>trim($_POST['issueType']),
@@ -285,12 +287,14 @@
         public function updateDelays($id)
         {
 
-           
+            $trains=$this->alertModel->getTrains();
+
             $alert=$this->alertModel->findDelayById($id);
             
         
             $data=[
                 'alert'=>$alert,
+                'trains'=>$trains,
                 'trainId'=>'',
                 'issueType'=>'',
                 'delayTime'=>'',
@@ -310,6 +314,7 @@
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);//filter harmful data
                 $data=[
                     'alert'=>$alert,
+                    'trains'=>$trains,
                     'alertId'=>$id,
                     'trainId'=>trim($_POST['trainid']),
                     'issueType'=>trim($_POST['issueType']),
@@ -423,10 +428,11 @@
 
         public function createRescheduledAlerts()
         {
-           
+            $trains=$this->alertModel->getTrains();
             
             $data=[
                 'trainId'=>'',
+                'trains'=>$trains,
                 'issueType'=>'',
                 'newDate'=>'',
                 'newTime'=>'',
@@ -445,6 +451,7 @@
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);//filter harmful data
                 $data=[
                     'trainId'=>trim($_POST['trainid']),
+                    'trains'=>$trains,
                     'issueType'=>trim($_POST['issueType']),
                     'newDate'=>trim($_POST['newdate']),
                     'newTime'=>trim($_POST['newtime']),
@@ -503,13 +510,15 @@
 
         public function updateReschedulements($id)
         {
- 
+            $trains=$this->alertModel->getTrains();
+
             $alert=$this->alertModel->findReschedulementById($id);
             
         
             $data=[
                 'alert'=>$alert,
                 'alertId'=>$id,
+                'trains'=>$trains,
                 'trainId'=>'',
                 'issueType'=>'',
                 'newDate'=>'',
@@ -531,6 +540,7 @@
                 $data=[
                     'alert'=>$alert,
                     'alertId'=>$id,
+                    'trains'=>$trains,
                     'trainId'=>trim($_POST['trainid']),
                     'issueType'=>trim($_POST['issueType']),
                     'newDate'=>trim($_POST['newdate']),

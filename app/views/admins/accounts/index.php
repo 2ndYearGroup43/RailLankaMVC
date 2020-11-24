@@ -19,7 +19,10 @@
 
             <div class="content-flexrow">
                 <div class="container-table">
-                    <h2 style="color: #13406d;">Account Details <small style="color: black;">Admin Id: 0002A</small></h2>
+                    <div class="container-row">
+                        <img src="<?php echo URLROOT;?>/public/img/account.PNG" alt="account-image">
+                    </div>
+                    <h2 style="color: #13406d; text-align: center;">Account Details </h2>
                     <table class="data-display">
                         <caption>Admin Details</caption>
                         <tr>
