@@ -9,7 +9,7 @@
             </div>
             <div class="content-row">
                     <div class="container-table">
-                        <h1>Ticket Details</h1>
+                        <h2 style="color: #13406d;">Reservation Details <small style="color: black;">Train ID-101COLBAD0630</small></h2>
                         <div class="res-table">
                             <table class="blue">
                                 <thead>

@@ -4,7 +4,7 @@
 
 		public function __construct() {
 			$this->resofficerRefundModel = $this->model('ResOfficerManageSeat');
-			isResofficerLoggedIn();
+                        isResofficerLoggedIn();
 		}
 
 		public function search() {
@@ -17,6 +17,12 @@
 
 			
 			$this->view('resofficers/manage_seats/display_trains'); 
+		}
+
+		public function displaySeatMapsnn() {
+
+			
+			$this->view('resofficers/manage_seats/display_seatmapsnn'); 
 		}
 
 		public function displaySeatMaps() {

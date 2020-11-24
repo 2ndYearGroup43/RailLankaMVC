@@ -9,7 +9,7 @@
             </div>
             <div class="content-row">
                     <div class="container-table">
-                        <h1>Ticket Details</h1>
+                        <h2 style="color: #13406d;">Ticket Details</h2>
                         <div class="res-table">
                             <h8>First Class</h8>
                             <table class="blue">

@@ -39,11 +39,11 @@
 					<tbody>
 						<tr>
 							<td><b>Customer Name:</b></td>
-							<td>John Doe</td>
+							<td>Emma Mackey</td>
 						</tr>
 						<tr>
 							<td><b>NIC:</b></td>
-							<td>976709531V</td>
+							<td>971701617V</td>
 						</tr>
 						<tr>
 							<td><b>Address Number:</b></td>
@@ -51,11 +51,11 @@
 						</tr>
 						<tr>
 							<td><b>Street:</b></td>
-							<td>Park Street</td>
+							<td>Kandy Road</td>
 						</tr>
 						<tr>
 							<td><b>City/Town:</b></td>
-							<td>Colombo 7</td>
+							<td>Gampaha</td>
 						</tr>
 						<tr>
 							<td><b>Country:</b></td>
@@ -63,11 +63,11 @@
 						</tr>
 						<tr>
 							<td><b>Phone:</b></td>
-							<td>+94 777 875634</td>
+							<td>+94 711 409911</td>
 						</tr>
 						<tr>
 							<td><b>Email:</b></td>
-							<td>user1@gmail.com</td>
+							<td>emma@gmail.com</td>
 						</tr>
 					</tbody>
 				</table>
