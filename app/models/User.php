@@ -108,6 +108,26 @@
 
 		}
 
+		//find passenger NIC
+		public function findPassengerByNIC($nic) {
+			//prepared statemnet
+			var_dump($nic);
+			$this->db->query('SELECT * FROM passenger WHERE nic = :nic'); //check all tables!!!!
+
+			//Email param will be binded with the email variable
+			$this->db->bind(':nic', $nic);
+
+			$row = $this->db->single();
+
+			//check if nic is already registered
+			if(!empty($row)) {
+				return true;
+			} else {
+				return false;
+			}
+
+		}
+
 		public function findEmailByCode($code) {
 
 			$this->db->query('SELECT * FROM resetpasswords WHERE code = :code'); 
