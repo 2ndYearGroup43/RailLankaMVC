@@ -4,7 +4,6 @@
 
 		public function __construct() {
 			$this->resofficerReservationModel = $this->model('ResOfficerReservationDetail');
-			isResofficerLoggedIn();
 		}
 
 		public function search() {

@@ -2,8 +2,8 @@
     require APPROOT.'/views/includes/resofficer_head.php';
 ?>
 <?php
-    require APPROOT.'/views/includes/train_management_navigation.php';
-?> 
+    require APPROOT.'/views/includes/admin_navigation.php';
+?>  
 	<div class="body-section">
             <div class="content-row"></div>
             <div class="content-row">

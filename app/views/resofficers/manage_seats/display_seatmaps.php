@@ -39,8 +39,8 @@
 					<!-- </div> -->
 				<!-- </div> -->
 			</div>
-			<button class="btn checkout-btn">Save &raquo;</button>
-				<p class="options">Back to search results? <a href="<?php echo URLROOT; ?>/resofficerManageSeats/displayTrains">Click here.</a></p>
+			<button class="btn checkout-btn">Book now &raquo;</button>
+				<p class="options">Back to search results? <a href="<?php echo URLROOT; ?>/resofficerReservations/displayTrains">Click here.</a></p>
 		</div>		
 		<div class="content-row">
 		</div>

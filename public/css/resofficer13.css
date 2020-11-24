@@ -694,7 +694,7 @@ header{
     justify-content: center;
     min-height: 100vh;
     padding: 40px;  
-    background: url(../img/bg1.jpg) no-repeat;
+    background: url(../img/banner.jpg) no-repeat;
     background-size: cover;
     height: calc(100vh - 80px);
 }
@@ -1379,7 +1379,7 @@ span.fa.fa-check{
 
 
 .body-section{
-    background-image: url('../img/bg1.jpg');
+    background-image: url('../img/banner.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     /* height: 160vh; */
@@ -1590,334 +1590,280 @@ span.fa.fa-check{
   
         }
   
-     /*seat map*/
 
-#map{
-    height: 500px;
-    width: 100%;
-    height: 700px;
-    /*margin-left: 20px;*/
+/*confirmation page*/
+
+
+.conf-ticket{
+    background:white;
+    width: 900px;
     position: relative;
-}
-div.seatCharts-container {
-    /*min-width: 700px;*/
-}
-div.seatCharts-cell {
-
-    height: 16px;
-    width: 16px;
-    margin: 3px;
-    float: left;
-    text-align: center;
-    outline: none;
-    font-size: 13px;
-    line-height:16px;
-    color: blue;
-
-}
-div.seatCharts-seat {
-    background-color: green;
-    color: white;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    cursor: default;
-}
-div.seatCharts-seat:focus {
-    border: none;
-}
-/*
-.seatCharts-seat:focus {
-    outline: none;
-}
-*/
-
-div.seatCharts-space {
-    background-color: white;
-}
-div.seatCharts-row {
-    height: 50px;
+    margin: 0px auto 60px auto;
+    padding: 50px 60px;
+    border-radius: 25px;
 }
 
-div.seatCharts-row:after {
-    clear: both;
+#review{
+    opacity: 0.9;
+    width: 65%;
 }
 
-div.seatCharts-seat.selected {
-    background-color: aqua;
+.conf-ticket .title{
+    font-size: 36px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 3px;
 }
 
-div.seatCharts-seat.focused {
-    background-color: #6db131;
-}
-
-div.seatCharts-seat.available {
-    background-color: green;
-}
-
-div.seatCharts-seat.unavailable {
-    background-color: red;
-    cursor: not-allowed;
-}
-
-ul.seatCharts-legendList {
-    list-style: none;
-}
-li.seatCharts-legendItem {
-    margin-top: 10px;
-    line-height: 2;
-}
-
-
-/* other*/
-
-
-.map-container {
-    background: #ffffff;
-    position: relative;
-    width: 80%;
-    /* width: 800px; */
-    min-width: 600px;
-    padding: 25px 40px 25px 40px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    opacity: 0.95;
-    height: 100vh;
- /*   align-items: center;*/
-    margin:0px auto;
-   /* border-radius: 25px 25px 25px 25px;*/
-}
-
-.seat-map-container a {
-    color: #b71a4c;
-}
-.front-indicator {
-    width: 145px;
-    margin: 5px auto 15px auto;
-    background-color: #f6f6f6;  
-    color: #adadad;
-    text-align: center;
-    padding: 3px;
-    border-radius: 5px;
-}
-.wrapper {
-    width: 100%;
-    text-align: center;
-    margin-top:50px;
-}
-.seat-map-container {
-    margin: 0 auto;
-    width: 500px;
-    /*text-align: left;*/
-}
-
-.booking-details {
-    float: left;
-    text-align: left;
-    margin-right: -170px;
-    font-size: 12px;
-    position: relative;
-    height: 401px;
-    width: 250px; /*me*/
-    padding: 20px 0;/* me*/
-    margin-left: 30px; /* me*/
-}
-
-.booking-details h2 {
-    margin: 25px 0 20px 0;
-    font-size: 17px;
-}
-.booking-details h3 {
-    margin: 5px 5px 0 0;
-    font-size: 14px;
-}
-div.seatCharts-cell {
-    color: #182C4E;
-    height: 25px;
-    width: 25px;
-    line-height: 25px;
-    
-}
-div.seatCharts-seat {
-    color: #FFFFFF;
-    cursor: pointer;    
-}
-div.seatCharts-row {
-    height: 35px;
-}
-div.seatCharts-seat.available {
-    background-color: #B9DEA0;
-
-}
-div.seatCharts-seat.available.first-class {
-/*  background: url(vip.png); */
-    background-color: #3a78c3;
-}
-
-div.seatCharts-seat.available.third-class {
-    /*background: url(vip.png); */
-    background-color: #95c8d8;
-}
-
-div.seatCharts-seat.focused {
-    background-color: #76B474;
-}
-div.seatCharts-seat.selected {
-    background-color: #E6CAC4;
-}
-div.seatCharts-seat.unavailable {
-    background-color: #472B34;
-}
-
-div.seatCharts-container {
-    border-right: 1px dotted #adadad;
-    border-left: 1px dotted #adadad; /*me*/
-    width: 280px;
-    padding: 20px;
-    float: left;
-    margin-right: 10px;
-    margin-left: 10px;
-}
-
-div.seatCharts-legend {
-    padding-left: 0px;
-    position: absolute;
-    bottom: 16px;
-}
-ul.seatCharts-legendList {
-    padding-left: 0px;
-}
-span.seatCharts-legendDescription {
-    margin-left: 5px;
-    line-height: 30px;
-}
-.checkout-btn {
-    background-color: black;
-    color: #fff;
-    border: 1px solid black;
-     position: absolute;
-  bottom: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 45px;
-  width: 250px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-
-
-}
-
-.checkout-btn:hover{ /*me*/
-    opacity: 0.7;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-#selected-seats {
-    max-height: 90px;
-    overflow-y: scroll;
-    overflow-x: none;
-    width: 170px;
-}
-
-.compartment-container{ /*me*/
-    width: 250px;
-    padding: 20px;
-    float: left;
-    margin-left: -160px;
-    font-size: 12px;
-}
-
-.compartment-container h2 { /*me*/
-    margin: 25px 0 20px 0;
-    font-size: 17px;
-}
-
-.compartment {
-    display: block;
-    margin: 10px auto;
+.conf-ticket .summary{
+   /* background: white;*/
+    height: 100%;
+    padding: 10px;
     font-size: 15px;
-    width: 110px;
-    height: 40px;
-    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.15);
-    background-color:#C0C0C0;
-    border:1px solid #5d5d5d;
-    padding: 3px 8px;
+}
+
+.conf-ticket .options {
+    text-align: center;
+}
+
+.conf-ticket .summary-header{
+    background: #e8ffc1;
+    height: 50px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+#review #cancel-policy{
+    background:  rgb(173, 216, 230, 0.4);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#review .summary-header{
+    background:  rgb(173, 216, 230, 0.4);
+}
+
+.conf-ticket h3 {
     color: black;
-    border-radius: 2px;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    font-weight: 700;
 }
 
-.compartment:hover{
-    background-color:#3c4245;
-    color: white;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+.conf-ticket .summary .content-table {
+    box-shadow: none;
+    margin: 10px auto;
 }
 
-.active-comp {
-    background-color:#3c4245;
-    color: white;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+.conf-ticket .summary .content-table thead tr{
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid;
+    font-weight: 500;
 }
 
-#pos{
-    margin: 70px 200px;
+.conf-ticket .summary .content-table tbody tr{
+    border-bottom: none;
+}
+.conf-ticket .summary .content-table tbody tr:nth-of-type(even){
+    background-color:transparent;
 }
 
-.map-container .options{
+.conf-ticket .summary .content-table tbody tr:last-of-type{
+    border-bottom: none;
+}
+
+.conf-ticket .summary .content-table .grand-total {
+    font-weight: 600;
+    font-size: 1.15rem;
+     border-top: 1px solid  #686868;
+    border-bottom: none;
+}
+
+.conf-ticket .summary .content-table th,
+.conf-ticket .summary .content-table td{
+    padding: 3px;
+}
+
+.conf-ticket .summary .journey {
+    padding: 25px 0;
+    color:black;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.conf-ticket .summary .journey i{
+    margin: 0 20px;
+    font-size: 2rem;
+}
+
+
+.conf-ticket .summary .journey-row{
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.conf-ticket .summary .journey-seats{
+    padding-left: 20px;
+    border-left: 1px solid black;
+    float: left;
+    width:40%;
+}
+
+.conf-ticket .summary .journey-details{
+    float:left;
+    width: 60%;
+}
+
+.conf-ticket .summary p {
+    padding: 3px;
+}
+
+.conf-ticket .summary li{
+   font-weight: 600;
+}
+
+.conf-ticket .acc-wrapper{
+    margin: 0 auto;
+    box-shadow: none;
+}
+
+#cancel-policy{
+     background: #e8ffc1;
+     padding: 20px;
+     text-align: center;
+}
+
+#cancel-policy .summary-header{
+    margin-top: 0;
+}
+
+#policy{
+    background: rgb(173, 216, 230, 0.3);
+    padding: 20px;
+    position: relative;
+}
+
+#policy p{
+    width: 68%;
+}
+
+#contact {
+    background-color: rgb(173, 216, 230, 0.3);
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.print{
     position: absolute;
-    bottom: 9%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 40%;
+    right: 5%;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+    height: 40px;
+    width: 200px;
+    cursor: pointer;
+}
+
+#contact ul{
+    text-align: center;
+} 
+
+.conf-ticket img {
+    margin: 0 auto;
+    height: 100px;
+    width: 110px;
+    display: block;
+}
+
+.conf-ticket .summary .content-table .grand-total td{
+    padding: 7px 5px 
+}
+
+#e-ticket .conf-ticket .checkout-btn{
+    bottom: 1%;
+}
+
+#e-ticket .conf-ticket #contact{
+    margin-bottom: 40px;
+}
+
+.conf-ticket .print-header{
+        display:none;
+}
+
+@media print {
+
+    button, br, .content-row, #policy{
+        display:none;
+    }
+
+    @page {
+        margin: 1cm;
+        font-size: 14px;
+    }
+
+    .conf-ticket .summary .content-table{
+        width: 100%;
+    }
+
+    .conf-ticket .summary .content-table th,
+    .conf-ticket .summary .content-table td{
+        padding: 2px;
+    }
+
+    .conf-ticket .print-header{
+        display:inline-flex;
+        padding: 0 100px;
+    }
+
+    .conf-ticket .normal-header{
+        display:none;
+    }
+
+    .conf-ticket .summary-header{
+        padding: 0;
+        margin-top: 10px;
+        text-decoration: underline;
+        height: auto;
+    }
+
+    .conf-ticket .summary {
+        padding: 0 10px;
+    }
+
+    .conf-ticket .summary .journey{
+        padding:10px 0;
+    }
+
+    .conf-ticket img {
+        margin: 0 auto;
+        height: 80px;
+        width: 90px;
+        display: block;
+    }
+
+    .conf-ticket #cancel-policy {
+        text-align: left;
+        padding-left:0;
+    }
+
+    .conf-ticket #contact{
+        padding: 0;
+    }
+
+    .conf-ticket .title{
+        font-size: 30px;
+    }
+
+    .conf-ticket{
+        padding: 50px 60px 10px 60px;
+    }
+
 }
 
 
-@media screen and (max-width: 1170px){
 
-    .map-container {
-        height: 200vh;
-    }
-
-    .map-container {
-        text-align: center;
-    }
-
-    div.seatCharts-container {
-        width: 90%;
-        padding: 0 100px;
-        margin-right: 0;
-        margin-left: 20px;
-        border-right: none;
-        border-left: none;
-        border-top: 1px dotted #adadad; 
-        border-bottom: 1px dotted #adadad; 
-    }
-
-    .compartment-container{ 
-        width: 100%;
-        padding: 20px 100px;
-        margin-right: auto;
-        margin-left: auto;
-    }
-
-    .compartment-container input {
-        margin: 1px auto;
-    }
-
-    .booking-details {
-        margin-right: auto;
-        margin-left: auto;
-        margin-right: 0;
-        width: 100%; 
-        padding: 20px 100px;
-        text-align: center;
-    }
-
-    .checkout-btn {
-        bottom: 5%;
-    }
-
-    .map-container .options {
-        bottom: 4%;
-    }
-} 
   
 
 

@@ -212,7 +212,7 @@ class Admin_manage_trains extends Controller{
 
 			if ($this->adminModel->edit($data)) {
 				if(($data['reservable_status'])=='Yes'){
-					header("Location: " . URLROOT . "/Admin_manage_schedules");
+					header("Location: " . URLROOT . "/Admin_manage_trains");
 				}
 			}else{
 				die("Something Going Wrong");

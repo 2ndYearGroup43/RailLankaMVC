@@ -84,31 +84,31 @@
                                     <tr>
                                         <th>Train ID</th>
                                         <th>From</th>
-                                        <th>Start Time</th>
+                                        <th>Deaparture</th>
                                         <th>To</th>
-                                        <th>End Time</th>
+                                        <th>Arrival</th>
                                         <th>Date</th>
                                         <th>Action</th>    
                                     </tr>
                                 </thead>
                                 <tr>
-                                    <td data-th="Train-ID"> BLa</td>
-                                    <td data-th="From">BLa</td>
-                                    <td data-th="Start Time">BLa</td>
-                                    <td data-th="To">BLa</td>
-                                    <td data-th="End Time">BLa</td>
-                                    <td data-th="Date">BLa</td>
+                                    <td data-th="Train-ID"> 101COLBAD0630</td>
+                                    <td data-th="From">Colombo Fort</td>
+                                    <td data-th="Deaparture">06.30</td>
+                                    <td data-th="To">Badulla</td>
+                                    <td data-th="Arrival">15.00</td>
+                                    <td data-th="Date">26.11.2020</td>
                                     <td data-th="Action">                              
                                     <a class= "blue-btn" href="<?php echo URLROOT; ?>/resofficerManageSeats/displaySeatMaps">Manage</a>
                                    </td>
                                 </tr>
                                 <tr>
-                                    <td data-th="Train-ID"> BLa</td>
-                                    <td data-th="From">BLa</td>
-                                    <td data-th="Start Time">BLa</td>
-                                    <td data-th="To">BLa</td>
-                                    <td data-th="End Time">BLa</td>
-                                    <td data-th="Date">BLa</td>
+                                    <td data-th="Train-ID"> 105COLBAD0730</td>
+                                    <td data-th="From">Colombo Fort</td>
+                                    <td data-th="Deaparture">09.30</td>
+                                    <td data-th="To">Badulla</td>
+                                    <td data-th="Arrival">19.00</td>
+                                    <td data-th="Date">26.11.2020</td>
                                     <td data-th="Action">
 				                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/resofficerManageSeats/displaySeatMaps">Manage</a>
 				                    </td>
