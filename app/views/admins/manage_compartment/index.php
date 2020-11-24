@@ -2,14 +2,13 @@
     require APPROOT.'/views/includes/resofficer_head.php';
 ?>
 <?php
-    require APPROOT.'/views/includes/train_management_navigation.php';
-?>
+    require APPROOT.'/views/includes/admin_navigation.php';
+?>  
 	<div class="body-section">
             <div class="content-row"></div>
             <div class="content-row">
                 <div class="container-table">
                     <h2 style="color: #13406d;">Manage Trains <small style="color: black;">Manage Compartments</small></h2>
-                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_compartments/create">Add New Compartment</a>
                     <table class="blue">
                         <thead>
                             <tr>

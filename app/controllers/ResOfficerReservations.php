@@ -4,7 +4,6 @@
 
 		public function __construct() {
 			$this->resofficerReservationModel = $this->model('ResOfficerReservation');
-			isResofficerLoggedIn();
 		}
 
 		public function search() {
@@ -63,7 +62,7 @@
 		public function displayETicket() {
 
 			
-			$this->view('resofficers/reservations/e_ticket'); 
+			$this->view('resofficers/reservations/booking_conf'); 
 		}
 		
 	}

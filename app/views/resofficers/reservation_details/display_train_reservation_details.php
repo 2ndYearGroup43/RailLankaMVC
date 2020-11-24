@@ -26,27 +26,27 @@
                                     </tr>
                                 </thead>
                                 <tr>
-                                    <td data-th="Train ID"> BLa</td>
-                                    <td data-th="Name">BLa</td>
-                                    <td data-th="Date">BLa</td>
-                                    <td data-th="Time">BLa</td>
-                                    <td data-th="Compartment No">BLa</td>
-                                    <td data-th="Seat No">BLa</td>
-                                    <td data-th="NIC">BLa</td>
-                                    <td data-th="Ticket ID">BLa</td>
+                                    <td data-th="Train ID">101COLBAD0630</td>
+                                    <td data-th="Name">Denuwara Manike</td>
+                                    <td data-th="Date">25.11.2020</td>
+                                    <td data-th="Time">08.30</td>
+                                    <td data-th="Compartment No">2</td>
+                                    <td data-th="Seat No">32</td>
+                                    <td data-th="NIC">971701617V</td>
+                                    <td data-th="Ticket ID">1045</td>
                                     <td data-th="Action">                              
                                     <a class= "blue-btn" href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/viewReservationDetails">View</a>
                                    </td>
                                 </tr>
                                 <tr>
-                                    <td data-th="Train ID"> BLa</td>
-                                    <td data-th="Name">BLa</td>
-                                    <td data-th="Date">BLa</td>
-                                    <td data-th="Time">BLa</td>
-                                    <td data-th="Compartment No">BLa</td>
-                                    <td data-th="Seat No">BLa</td>
-                                    <td data-th="NIC">BLa</td>
-                                    <td data-th="Ticket ID">BLa</td>
+                                    <td data-th="Train ID">101COLBAD0630</td>
+                                    <td data-th="Name">Denuwara Manike</td>
+                                    <td data-th="Date">20.11.2020</td>
+                                    <td data-th="Time">10.30</td>
+                                    <td data-th="Compartment No">5</td>
+                                    <td data-th="Seat No">20</td>
+                                    <td data-th="NIC">971701617V</td>
+                                    <td data-th="Ticket ID">2056</td>
                                     <td data-th="Action">                              
                                     <a class= "blue-btn" href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/viewReservationDetails">View</a>
 				                    </td>

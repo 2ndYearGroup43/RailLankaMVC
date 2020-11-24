@@ -11,7 +11,7 @@
             <form action="#">
                 <div class="form-row">    
                     <div class="searchlogo">
-                        <img src="<?php echo URLROOT;?>/public/img/logobook.jpg" alt="raillankatracktrains">
+                        <img src="<?php echo URLROOT ?>/public/img/logob2.png">
                     </div>
                 </div>  
                 <div class="form-row">

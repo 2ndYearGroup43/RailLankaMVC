@@ -39,15 +39,7 @@
 			   		</li>
 			   		<?php if(isset($_SESSION['userid'])) : ?>
 			   		<li class="nav-link" style="--i: 2.05s">	
-			   			<a href="<?php echo URLROOT; ?>/passengerAccounts/displayAccount">Account <i class="fa fa-caret-down"></i></a>
-			   			<div class="nav-dropdown">	
-			   				<ul>	
-			   					<li class="nav-dropdown-link">	
-			   						<a href="<?php echo URLROOT; ?>/passengerAccounts/editAccount">Edit Profile</a>
-			   					</li>
-			   					<div class="arrow">	</div>
-			   				</ul>
-			   			</div>
+			   			<a href="<?php echo URLROOT; ?>/resofficers/resofficerAccount">Account <i class="fa fa-caret-down"></i></a>
 			   		</li>
 			   		<?php endif; ?>
 			   		<li class="nav-link" style="--i: 2.3s">	
@@ -56,12 +48,6 @@
 						<?php else : ?>
 						<a href="<?php echo URLROOT; ?>/users/login">Log In</a>
 						<div class="nav-dropdown">	
-						<ul>
-							<li class="nav-dropdown-link">
-								<a href="<?php echo URLROOT; ?>/users/register">Register</a>
-							</li>
-							<div class="arrow">	</div>
-						</ul>
 						<?php endif; ?>
 			   		</li>
 			   	</ul>
@@ -74,7 +60,6 @@
 			</div>
 		</div>
 	</header>
-<?php var_dump($_SESSION); ?>
 
 <!-- banner area -->
 <div class="banner">

@@ -1,11 +1,66 @@
-<?php
-    require APPROOT.'/views/includes/resofficer_head.php';
-?>
-<?php
-    require APPROOT.'/views/includes/resofficer_navigation.php';
-?>
-
-
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rail Lanka</title>
+	<meta charset="UTF-8">
+	<meta htttp-equiv="Cache-control" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title><?php echo SITENAME; ?></title>
+	<link rel="stylesheet" type="text/css" href="<?php echo URLROOT ?>/public/css/passenger_main.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet"> 
+</head>
+<header>
+	<div class=nav-container>
+			<input type="checkbox" name="" id="check">
+			<div class="logo-container">	
+				<a href="index.html">
+				<img src="<?php echo URLROOT ?>/public/img/logo.jpg" alt="logo" height="80px">
+				</a>
+			</div>	
+			<div class="nav-btn">
+			    <div class="nav-links">
+			   	<ul>
+			   		<li class="nav-link" style="--i: .6s">	
+			   			<a href="<?php echo URLROOT; ?>/pages/index">Home</a>
+			   		</li>	
+			   		<li class="nav-link" style="--i: .85s">	
+			   			<a href="<?php echo URLROOT; ?>/ResOfficerReservations/search">Reservation</a>
+			   		</li>
+			   		<li class="nav-link" style="--i: 1.1s" >	
+			   			<a href="<?php echo URLROOT; ?>/ResOfficerRefunds/refund">Refund</a>
+			   		</li>
+			   		<li class="nav-link" style="--i: 1.35s">	
+			   			<a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/search">Reservation Details</a>
+			   		</li>
+			   		<li class="nav-link" style="--i: 1.8s">	
+			   			<a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/searchTicketDetails">Ticket Details</a>
+			   		</li>
+			   		<li class="nav-link" style="--i: 1.8s">	
+			   			<a href="<?php echo URLROOT; ?>/ResOfficerManageSeats/search">Manage Seats</a>
+			   		</li>
+			   		<?php if(isset($_SESSION['userid'])) : ?>
+			   		<li class="nav-link" style="--i: 2.05s">	
+			   			<a href="<?php echo URLROOT; ?>/resofficers/resofficerAccount">Account <i class="fa fa-caret-down"></i></a>
+			   		</li>
+			   		<?php endif; ?>
+			   		<li class="nav-link" style="--i: 2.3s">	
+			   			<?php if(isset($_SESSION['userid'])) : ?>
+						<a href="<?php echo URLROOT; ?>/users/logout">Log Out</a>
+						<?php else : ?>
+						<a href="<?php echo URLROOT; ?>/users/login">Log In</a>
+						<div class="nav-dropdown">	
+						<?php endif; ?>
+			   		</li>
+			   	</ul>
+			    </div>	
+			</div>
+			<div class="hamburger-menu-container">
+				<div class="hamburger-menu">
+						<div>	</div>	
+				</div>	
+			</div>
+		</div>
+	</header>
 
 	<div class="body-section">
 		<div class="content-row">
@@ -13,37 +68,175 @@
 		<div class="content-row">
 		</div>
 		<div class="map-container">
-			<!-- <div class="wrapper"> -->
-			  	<div class="seat-map-container">
-			  		<h1 class="title">Seat Map</h1>
-			  		<div class="compartment-container">
-				    	<h2>Select Compartment</h2>
-				    	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps'" type="submit" class="compartment" value="wagon 1">
-				    	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps2'" type="submit" class="compartment" value="wagon 2">
-				    	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps3'" type="submit" class="compartment" value="wagon 3">
-				    	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps4'" type="submit" class="compartment" value="wagon 4">
-				    	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps5'" type="submit" class="compartment" value="wagon 5">
-				    	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps6'" type="submit" class="compartment active-comp" value="wagon 6">
-				    </div>
-			    	<div id="seat-map">
-			      		<div class="front-indicator">Front</div>
-			    	</div>   
-				    <!-- <div class="details-container"> -->
-					    <div class="booking-details">
-					      	<h2>Booking Details</h2>
-					      	<h3> Selected Seats (<span id="counter">0</span>):</h3>
-					      	<ul id="selected-seats">
-					      	</ul>
-					      	Total: <b>$<span id="total">0</span></b>
-					      	<!-- <button class="checkout-button">Checkout &raquo;</button> -->
-					      	<div id="legend"></div>
-					    </div>
-					<!-- </div> -->
-				<!-- </div> -->
+			<h1 class="title">SEAT MAP</h1>
+			
+			<div class="row">
+
+				<div class="compartment-container">
+				   	<h3>Select Compartment</h3>
+				   	<div class='compartment-area'>
+				   		<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps'" type="submit" class="compartment" value="Wagon 1">
+					   	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps2'" type="submit" class="compartment" value="Wagon 2">
+					   	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps3'" type="submit" class="compartment" value="Wagon 3">
+					   	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps4'" type="submit" class="compartment" value="Wagon 4">
+					   	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps5'" type="submit" class="compartment" value="Wagon 5">
+					   	<input onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/displaySeatMaps6'" type="submit" class="compartment active-comp" value="Wagon 6">
+				   	</div>
+				   	<div class="seat-map-legend">
+						<ul class="seat-map-legendList">
+							<li class="seat-map-legendItem">
+								<div class="seat-map-cell seat-map-seat f-c"></div>
+								<span class="seat-map-legendDescription">First Class</span>
+							</li>
+							<li class="seat-map-legendItem">
+								<div class="seat-map-cell seat-map-seat s-c"></div>
+								<span class="seat-map-legendDescription">Second Class</span>
+							</li>
+							<li class="seat-map-legendItem">
+								<div class="seat-map-cell seat-map-seat t-c"></div>
+								<span class="seat-map-legendDescription">Third Class</span>
+							</li>
+							<li class="seat-map-legendItem">
+								<div class="seat-map-cell seat-map-seat unavailable"></div>
+								<span class="seat-map-legendDescription">Unavailable</span>
+							</li>
+						</ul>
+					</div>
+			    </div>
+
+			    <div class="seat-map-container">
+					<h3>Wagon 6 - Third Class</h3>
+					<div class=front>
+						Front
+					</div>
+					<div class="seat-map-compartment">
+						<div class="seat-map-row">
+							<div class="seat-map-cell seat-map-space">A</div>
+							<div class="seat-map-cell seat-map-seat t-c">1</div>
+							<div class="seat-map-cell seat-map-seat t-c">2</div>
+							<div class="seat-map-cell seat-map-seat t-c">3</div>
+							<div class="seat-map-cell seat-map-space"></div>
+							<div class="seat-map-cell seat-map-seat t-c">4</div>
+							<div class="seat-map-cell seat-map-seat t-c">5</div>
+						</div>
+						<div class="seat-map-row">
+							<div class="seat-map-cell seat-map-space">B</div>
+							<div class="seat-map-cell seat-map-seat t-c">6</div>
+							<div class="seat-map-cell seat-map-seat t-c">7</div>
+							<div class="seat-map-cell seat-map-seat t-c">8</div>
+							<div class="seat-map-cell seat-map-space"></div>
+							<div class="seat-map-cell seat-map-seat t-c">9</div>
+							<div class="seat-map-cell seat-map-seat t-c">10</div>
+						</div>
+						<div class="seat-map-row">
+							<div class="seat-map-cell seat-map-space">C</div>
+							<div class="seat-map-cell seat-map-seat t-c">11</div>
+							<div class="seat-map-cell seat-map-seat t-c">12</div>
+							<div class="seat-map-cell seat-map-seat t-c">13</div>
+							<div class="seat-map-cell seat-map-space"></div>
+							<div class="seat-map-cell seat-map-seat t-c">14</div>
+							<div class="seat-map-cell seat-map-seat t-c">15</div>
+						</div>
+						<div class="seat-map-row">
+							<div class="seat-map-cell seat-map-space">D</div>
+							<div class="seat-map-cell seat-map-seat t-c">16</div>
+							<div class="seat-map-cell seat-map-seat t-c">17</div>
+							<div class="seat-map-cell seat-map-seat t-c">18</div>
+							<div class="seat-map-cell seat-map-space"></div>
+							<div class="seat-map-cell seat-map-seat t-c">19</div>
+							<div class="seat-map-cell seat-map-seat t-c">20</div>
+						</div>
+						<div class="seat-map-row">
+							<div class="seat-map-cell seat-map-space">E</div>
+							<div class="seat-map-cell seat-map-seat t-c">21</div>
+							<div class="seat-map-cell seat-map-seat t-c">22</div>
+							<div class="seat-map-cell seat-map-seat t-c">23</div>
+							<div class="seat-map-cell seat-map-space"></div>
+							<div class="seat-map-cell seat-map-seat t-c">24</div>
+							<div class="seat-map-cell seat-map-seat t-c">25</div>
+						</div>
+						<div class="seat-map-row">
+							<div class="seat-map-cell seat-map-space">F</div>
+							<div class="seat-map-cell seat-map-seat t-c unavailable">26</div>
+							<div class="seat-map-cell seat-map-seat t-c">27</div>
+							<div class="seat-map-cell seat-map-seat t-c">28</div>
+							<div class="seat-map-cell seat-map-space"></div>
+							<div class="seat-map-cell seat-map-seat t-c">29</div>
+							<div class="seat-map-cell seat-map-seat t-c">30</div>
+						</div>
+						<div class="seat-map-row">
+							<div class="seat-map-cell seat-map-space">G</div>
+							<div class="seat-map-cell seat-map-seat t-c">31</div>
+							<div class="seat-map-cell seat-map-seat t-c">32</div>
+							<div class="seat-map-cell seat-map-seat t-c">33</div>
+							<div class="seat-map-cell seat-map-space"></div>
+							<div class="seat-map-cell seat-map-seat t-c">34</div>
+							<div class="seat-map-cell seat-map-seat t-c">35</div>
+						</div>
+						<div class="seat-map-row">
+							<div class="seat-map-cell seat-map-space">H</div>
+							<div class="seat-map-cell seat-map-seat t-c">36</div>
+							<div class="seat-map-cell seat-map-seat t-c">37</div>
+							<div class="seat-map-cell seat-map-seat t-c">38</div>
+							<div class="seat-map-cell seat-map-space"></div>
+							<div class="seat-map-cell seat-map-seat t-c">39</div>
+							<div class="seat-map-cell seat-map-seat t-c">40</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<button class="btn checkout-btn" onclick="location.href='<?php echo URLROOT; ?>//resofficerReservations/getPaasengerDetails'" type="button" class="blue-btn btn">Book now &raquo;</button>
-			<p class="options">Back to search results? <a href="<?php echo URLROOT; ?>/resofficerReservations/displayTrains">Click here.</a></p>
-			<!-- <button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displayTrains'" type="submit" class="btn blue-btn back-btn">Back</button> -->
+
+			<div class="booking-details">
+				<h3>Booking Details</h3>
+
+				<div class="summary">
+					<table class="content-table">
+						<thead>
+							<tr>
+								<td>Type</td>
+								<td>Seat Number</td>
+								<td>Price</td>
+								<td>Action</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td data-label="Type">First Class Seat</td>
+								<td data-label="Seat No.">#21</td>
+								<td data-label="Price">Rs. 1500.00</td>
+								<td class="cancel-seat">Cancel</td>
+							</tr>
+							<tr>
+								<td data-label="Type">First Class Seat</td>
+								<td data-label="Seat No.">#21</td>
+								<td data-label="Price">Rs. 1500.00</td>
+								<td class="cancel-seat">Cancel</td>
+							</tr>
+							<tr>
+								<td data-label="Type">First Class Seat</td>
+								<td data-label="Seat No.">#21</td>
+								<td data-label="Price">Rs. 1500.00</td>
+								<td class="cancel-seat">Cancel</td>
+							</tr>
+							<tr class="highlight">
+								<td>Selected Seats</td>
+								<td></td>
+								<td></td>
+								<td>3</td>
+							</tr>
+							<tr class="highlight">
+								<td>Total</td>
+								<td></td>
+								<td></td>
+								<td>Rs. 4500.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<button onclick="location.href='<?php echo URLROOT; ?>/resofficerReservations/getPaasengerDetails'" class="btn checkout-btn">Book now &raquo;</button>
+				<p class="options">Back to search results? <a href="<?php echo URLROOT; ?>/resofficerReservations/displayTrains">Click here.</a></p>
+			<!-- <button type="submit" class="btn blue-btn checkout-btn">Back</button> -->
 		</div>		
 		<div class="content-row">
 		</div>
@@ -51,161 +244,7 @@
 		</div>	
 		<div class="content-row">
 		</div>
+		
 	</div>
 
-	<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> 
-	<script src="<?php echo URLROOT ?>/public/javascript/jquery.seat-charts.js"></script>  -->
-
- <!--  js for toggle menu -->
-	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-	</script>
-
-	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-</script>
-<script>
-			var firstSeatLabel = 1;
-		
-			$(document).ready(function() {
-				var $cart = $('#selected-seats'),
-					$counter = $('#counter'),
-					$total = $('#total'),
-					sc = $('#seat-map').seatCharts({
-					map: [
-						'ttt_tt',
-						'ttt_tt',
-						'ttt_tt',
-						'ttt_tt',
-						'ttt_tt',
-						'ttt_tt',
-						'ttt_tt',
-						'ttt_tt',
-						'ttt_tt',
-					],
-					seats: {
-						f: {
-							price   : 400,
-							classes : 'first-class', //your custom CSS class
-							category: 'First Class'
-						},
-						s: {
-							price   : 230,
-							classes : 'second-class', //your custom CSS class
-							category: 'Second Class'
-						},
-						t: {
-							price   : 125,
-							classes : 'third-class', //your custom CSS class
-							category: 'Third Class'
-						}		
-					},
-					naming : {
-						top : false,
-						getLabel : function (character, row, column) {
-							return firstSeatLabel++;
-						},
-					},
-					legend : {
-						node : $('#legend'),
-					    items : [
-							[ 'f', 'available',   'First Class' ],
-							[ 's', 'available',   'Second Class'],
-							[ 't', 'available',   'Third Class'],
-							[ 'f', 'unavailable', 'Already Booked']
-					    ]					
-					},
-					click: function () {
-						if (this.status() == 'available') {
-							//let's create a new <li> which we'll add to the cart items
-							$('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
-								.attr('id', 'cart-item-'+this.settings.id)
-								.data('seatId', this.settings.id)
-								.appendTo($cart);
-							
-							/*
-							 * Lets update the counter and total
-							 *
-							 * .find function will not find the current seat, because it will change its stauts only after return
-							 * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
-							 */
-							$counter.text(sc.find('selected').length+1);
-							$total.text(recalculateTotal(sc)+this.data().price);
-							
-							return 'selected';
-						} else if (this.status() == 'selected') {
-							//update the counter
-							$counter.text(sc.find('selected').length-1);
-							//and total
-							$total.text(recalculateTotal(sc)-this.data().price);
-						
-							//remove the item from our cart
-							$('#cart-item-'+this.settings.id).remove();
-						
-							//seat has been vacated
-							return 'available';
-						} else if (this.status() == 'unavailable') {
-							//seat has been already booked
-							return 'unavailable';
-						} else {
-							return this.style();
-						}
-					}
-				});
-
-				//this will handle "[cancel]" link clicks
-				$('#selected-seats').on('click', '.cancel-cart-item', function () {
-					//let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
-					sc.get($(this).parents('li:first').data('seatId')).click();
-				});
-
-				//let's pretend some seats have already been booked
-				sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
-		
-		});
-
-		function recalculateTotal(sc) {
-			var total = 0;
-		
-			//basically find every selected seat and sum its price
-			sc.find('selected').each(function () {
-				total += this.data().price;
-			});
-			
-			return total;
-		}
-		
-		</script><script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36251023-1']);
-  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-
-<?php require APPROOT . '/views/includes/footer.php'; ?>
+<?php require APPROOT . '/views/includes/passenger_footer.php'; ?>
