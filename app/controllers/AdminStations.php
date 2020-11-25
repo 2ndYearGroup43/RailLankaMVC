@@ -1,6 +1,7 @@
 <?php
 class AdminStations extends Controller {
     public function __construct() {
+        isAdminLoggedIn();
         $this->adminstationModel = $this->model('AdminStation');
     }
 
