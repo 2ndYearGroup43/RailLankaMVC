@@ -52,6 +52,32 @@
 				                    </td>
                                 </tr>
                             </table>
+                            <br>
+                <div class="pagination">
+                    <ul>
+                        <li><a href="#" class="prev">Prev</a></li>
+                        <li class="pageNumber active"><a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/displayTrainReservationDetails">1</a></li>
+                        <li class="pageNumber"><a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/displayTrainReservationDetails">2</a></li>
+                        <li class="pageNumber"><a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/displayTrainReservationDetails">3</a></li>
+                        <li><a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/displayTrainReservationDetails" class="next">Next</a></li>
+                    </ul>
+                </div>
+                <br>
+
+                <!-- js for pagination --> 
+                <script>
+                    $(document).ready(function(){
+                        $('.next').click(function(){
+                            $('.pagination').find('.pageNumber.active').next().addClass('active');
+                            $('.pagination').find('.pageNumber.active').prev().removeClass('active');
+                        });
+                        $('.prev').click(function(){
+                            $('.pagination').find('.pageNumber.active').prev().addClass('active');
+                            $('.pagination').find('.pageNumber.active').next().removeClass('active');
+                        });
+                    });
+                </script>
+            <!-- end of js for pagination -->   
                             <button type="button" onclick="history.go(-1);" class="back-btn" value="Back">Back</button>  
                         </div>      
                     </div>
