@@ -1,12 +1,5 @@
 <?php 
 
-	//echo out databse info to the screen
-	// foreach ($data['users'] as $user) {
-	// 	echo "Information: " . $user->user_name . $user->user_email;
-	// 	echo "<br>";
-	// }
-	
-	// isPassenger();
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
@@ -62,10 +55,6 @@
 					          	<label>Street *</label>
 					          	<input type="text" class="acc-input" required>
 					      	</div> 
-					      	<!-- <div class="acc-inputfield">
-					          	<label>Address</label>
-					          	<textarea class="acc-textarea"></textarea>
-					      	</div> --> 
 					      	<div class="acc-inputfield">
 					          	<label>City *</label>
 					          	<input type="text" class="acc-input" required>
@@ -328,26 +317,26 @@
 			<div class="summary-header">
 				<h3>YOUR JOURNEY</h3>
 			</div>
-			<div class=summary>
-				<div class=summary>
+			<div class="summary">
+			
 				<div class="journey">
-					Colombo Fort <i class="fa fa-long-arrow-right" aria-hidden="true"></i> Kandy
+					Colombo Fort <i class="fa fa-long-arrow-right" aria-hidden="true"></i> Badulla
 				</div>
 				<div class="journey-row">
 					<div class="journey-details">
-						<p>Express Train <b>Udarata Menike</b></p>
+						<p>Intercity Express Train <b>Denuwara Menike</b></p>
 						<p><i class="fa fa-calendar-o" aria-hidden="true"></i> 20th June 2020</p>
-						<p><i class="fa fa-clock-o" aria-hidden="true"></i> 8.30 AM -> 11.03 AM</p>
-						<p><i class="fa fa-clock-o" aria-hidden="true"></i> 2 hrs 33 mins</p>
+						<p><i class="fa fa-clock-o" aria-hidden="true"></i> 6.30 AM -> 15.01 AM</p>
+						<p><i class="fa fa-clock-o" aria-hidden="true"></i> 8 hrs 43 mins</p>
 						<p>Train to Badulla</p>
 					</div>
 					<div class="journey-seats">
-						<p>Train ID: 0014</p>
+						<p>Train ID: 1001</p>
 						<p>Seat Numbers:</p>
 
 							<ul>
-								<li>Compartment 1 :  21 , 22</li>
-								<li>Compartment 2 :  33 , 34</li>
+								<li>Compartment A :  21 , 22</li>
+								<li>Compartment C :  33 , 34</li>
 							</ul> 
 						
 					</div>
@@ -371,27 +360,21 @@
 					<tbody>
 						<tr>
 							<td data-label="Type">First Class</td>
-							<td data-label="Price">Rs. 400.00</td>
-							<td data-label="Quantity">3</td>
-							<td data-label="Total">Rs. 1200.00</td>
+							<td data-label="Price">Rs. 1700.00</td>
+							<td data-label="Quantity">2</td>
+							<td data-label="Total">Rs. 3400.00</td>
 						</tr>
 						<tr>
 							<td data-label="Type">Second Class</td>
-							<td data-label="Price">Rs. 230.00</td>
-							<td data-label="Quantity">1</td>
-							<td data-label="Total">Rs. 230.00</td>
-						</tr>
-						<tr>
-							<td data-label="Type">First Class</td>
-							<td data-label="Price">Rs. 125.00</td>
+							<td data-label="Price">Rs. 1000.00</td>
 							<td data-label="Quantity">2</td>
-							<td data-label="Total">Rs. 250.00</td>
+							<td data-label="Total">Rs. 1000.00</td>
 						</tr>
 						<tr class="grand-total">
-							<td data-label="Type">Total</td>
-							<td data-label="Price"></td>
-							<td data-label="Quantity"></td>
-							<td data-label="Total">Rs. 1680.00</td>
+							<td>Total</td>
+							<td></td>
+							<td></td>
+							<td>Rs. 4400.00</td>
 						</tr>
 					</tbody>
 				</table>
@@ -406,21 +389,61 @@
 				<p>A passenger is entitled to a refund on the ticket price if a train journey is marked as cancelled, regardless of the reason. A full refund can be obtained by producing the email confirmation/e-ticket at the counter.</p>
 			</div>
 
-			<br><br><!-- <br><br><br> -->
-			<!-- </div> -->
+			<br><br>
+			
 			<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/bookingConf'" class="btn checkout-btn">Checkout &raquo;</button>
-			<p class="options">Back to seat map? <a href="<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps">Click here.</a></p>
+			<p class="options">Back to seat map? <a data-target="alert-warning-popup" class="alert-btn" href="#">Click here.</a></p>
 
 			<img id="payment-image" src="<?php echo URLROOT ?>/public/img/payhere.jpg">
 
 		</div>
 		<div class="content-row">
-			<!-- <button type="submit" class="back-btn"><span>Back</span></button> -->
 		</div>
 		<div class="content-row">		
 		</div>
 	</div>
 	<!-- end of further details -->
+
+	<!-- alert warning pop up -->
+	<div class="flash-alert-box" id="alert-warning-popup">
+		<div class="alert-box-content">
+			<div class="alert-icon">
+				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+			</div>
+			<div class="alert-body">
+				<h3>Are you sure?</h3>
+				<p>You will lose progress if you continue</p>
+				<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps'" class="proceed-btn">Proceed Anyway</button>
+			</div>
+			<button type="button" class="close-alert">&times;</button>
+		</div>
+	</div>
+	<!-- end of alert warning popup -->
+
+	<!-- js for flash message -->
+	<script>
+		const alertBtn = document.querySelectorAll(".alert-btn");
+		alertBtn.forEach(function(btn){
+			btn.addEventListener("click", function(){
+				const target = this.getAttribute("data-target");
+				const alertBox = document.getElementById(target)
+				alertBox.classList.add("alert-box-show");
+
+				const closeAlert = alertBox.querySelector(".close-alert");
+				closeAlert.addEventListener("click",function(){
+					alertBox.classList.remove("alert-box-show");
+				});
+
+				alertBox.addEventListener("click",function(event){
+					if(event.target === this){
+						alertBox.classList.remove("alert-box-show");
+					}
+				});
+			});
+		});
+
+	</script>
+	<!-- end of js for flash message -->
 
 	
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

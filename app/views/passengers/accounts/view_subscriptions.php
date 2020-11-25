@@ -34,33 +34,33 @@
 					</thead>
 					<tbody>
 						<tr class="active-row">
-							<td>Colombo Fort</td>
-							<td>Kandy</td>
-							<td>7.00 a.m.</td>
-							<td>9.38 a.m.</td>
-							<td>A.C.- Intercity</td>
+							<td data-label="From">Colombo Fort</td>
+							<td data-label="To">Kandy</td>
+							<td data-label="Departure Time">7.00 a.m.</td>
+							<td data-label="Arrival Time">9.38 a.m.</td>
+							<td data-label="Type">A.C.- Intercity</td>
 							<td>
 								<button type="submit" data-target="alert-warning-popup" class="alert-btn btn"><span>Unsubscribe</span></button>
 							</td>
 						</tr>
 						<tr>
-							<td>Colombo Fort</td>
-							<td>Kandy</td>
-							<td>7.05 a.m.</td>
-							<td>9.38 a.m.</td>
-							<td>Intercity</td>
+							<td data-label="From">Colombo Fort</td>
+							<td data-label="To">Kandy</td>
+							<td data-label="Departure Time">7.05 a.m.</td>
+							<td data-label="Arrival Time">9.38 a.m.</td>
+							<td data-label="Type">Intercity</td>
 							<td>
-								<button type="submit" class="btn">Unsubscribe</button>
+								<button type="submit" data-target="alert-warning-popup" class="alert-btn btn"><span>Unsubscribe</span></button>
 							</td>
 						</tr>
 						<tr>
-							<td>Colombo Fort</td>
-							<td>Kandy</td>
-							<td>8.30 a.m.</td>
-							<td>11.03 a.m.</td>
-							<td>Express - Udarata Menike</td>
+							<td data-label="From">Colombo Fort</td>
+							<td data-label="To">Kandy</td>
+							<td data-label="Departure Time">8.30 a.m.</td>
+							<td data-label="Arrival Time">11.03 a.m.</td>
+							<td data-label="Type">Express - Udarata Menike</td>
 							<td>
-								<button type="submit" class="btn">Unsubscribe</button>
+								<button type="submit" data-target="alert-warning-popup" class="alert-btn btn"><span>Unsubscribe</span></button>
 							</td>
 						</tr>
 					</tbody>

@@ -26,8 +26,12 @@
 
 					<tbody>	
 						<tr>
+							<th>Train ID:</th>	
+							<td>1001</td>
+						</tr>
+						<tr>
 							<th>Type:</th>	
-							<td>A.C.-Intercity</td>
+							<td>Intercity Express - Denuwara Menike</td>
 						</tr>
 						<tr>
 							<th>From:</th>	
@@ -35,33 +39,34 @@
 						</tr>
 						<tr>
 							<th>To:</th>	
-							<td>Kandy</td>
+							<td>Badulla</td>
 						</tr>
 						<tr>
 							<th>Departure Time:</th>	
-							<td>7.00 a.m.</td>
+							<td>6.30 a.m.</td>
 						</tr>
 						<tr>
 							<th>Arrival Time:</th>	
-							<td>9.38 p.m.</td>
+							<td>15.01 p.m.</td>
 						</tr>
 						<tr>
 							<th>Duration:</th>	
-							<td>2hrs 38min</td>
+							<td>8hrs 31min</td>
 						</tr>
 						<tr>
 							<th>Tickets:</th>	
 							<td>
 								<ul>
-									<li>Commuter: Rs:125.00</li><br>
-									<li>2nd Class: Rs:230.00</li><br>
-									<li>1st Class: N/A</li><br>	
+									<li><label class="label1">1st Class</label>: Rs:1700.00</li><br>
+									<li><label class="label2">2nd Class</label>: Rs:1000.00</li><br>
+									<li><label class="label3">3rd Class</label>: Rs: 700.00</li><br>	
 								</ul>
 							</td>
 						</tr>
 					</tbody>		
 				</table>
 				<br>
+				<h3>Colombo Fort to Badulla Train Stops</h3>
 				<table class="content-table">
 
 					<thead>
@@ -75,22 +80,56 @@
 							<th>Third Class Price</th>
 					<tbody>	
 						<tr>	
-							<td data-label="Stop No.">xxxxxxxxxxxx</td>
-							<td data-label="Station">xxxxxxxxxxxx</td>
-							<td data-label="Arrival Time">xxxxxxxxxxxx</td>
-							<td data-label="Dept. Time">xxxxxxxxxxxx</td>
-							<td data-label="First Class">xxxxxxxxxxxx</td>
-							<td data-label="Second Class">xxxxxxxxxxxx</td>
-							<td data-label="Third Class">xxxxxxxxxxxx</td>
+							<td data-label="Stop No.">001</td>
+							<td data-label="Station">Colombo Fort</td>
+							<td data-label="Arrival Time">6.20 AM</td>
+							<td data-label="Dept. Time">6.30 AM</td>
+							<td data-label="First Class">-</td>
+							<td data-label="Second Class">-</td>
+							<td data-label="Third Class">-</td>
 						</tr>
 						<tr>	
-							<td data-label="Stop No.">xxxxxxxxxxxx</td>
-							<td data-label="Station">xxxxxxxxxxxx</td>
-							<td data-label="Arrival Time">xxxxxxxxxxxx</td>
-							<td data-label="Dept. Time">xxxxxxxxxxxx</td>
-							<td data-label="First Class">xxxxxxxxxxxx</td>
-							<td data-label="Second Class">xxxxxxxxxxxx</td>
-							<td data-label="Third Class">xxxxxxxxxxxx</td>
+							<td data-label="Stop No.">002</td>
+							<td data-label="Station">Peradeniya Junction</td>
+							<td data-label="Arrival Time">8.40 AM</td>
+							<td data-label="Dept. Time">8.50 AM</td>
+							<td data-label="First Class">Rs 340.00</td>
+							<td data-label="Second Class">Rs. 220.00</td>
+							<td data-label="Third Class">Rs. 120.00</td>
+						</tr>
+						<tr>	
+							<td data-label="Stop No.">003</td>
+							<td data-label="Station">Gampola</td>
+							<td data-label="Arrival Time">9.05 AM</td>
+							<td data-label="Dept. Time">9.05 AM</td>
+							<td data-label="First Class">Rs 400.00</td>
+							<td data-label="Second Class">Rs. 230.00</td>
+							<td data-label="Third Class">Rs. 130.00</td>
+						</tr>
+					</tbody>		
+				</table>
+				<br>
+				<h3>Available Days</h3>
+				<table class="content-table">
+
+					<thead>
+						<tr>
+							<th>Monday</th>
+							<th>Tuesday</th>
+							<th>Wednesday</th>
+							<th>Thursday</th>
+							<th>Friday</th>
+							<th>Saturday</th>
+							<th>Sunday</th>
+					<tbody>	
+						<tr>	
+							<td data-label="Monday"><i class="fa fa-check"></i></td>
+							<td data-label="Tuesday"><i class="fa fa-check"></i></td>
+							<td data-label="Wednesday"><i class="fa fa-check"></i></td>
+							<td data-label="Thursday"><i class="fa fa-check"></i></td>
+							<td data-label="Friday"><i class="fa fa-check"></i></td>
+							<td data-label="Saturday"><i class="fa fa-check"></i></td>
+							<td data-label="Sunday"><i class="fa fa-check"></i></td>
 						</tr>
 					</tbody>		
 				</table>
