@@ -167,14 +167,13 @@ class AdminStations extends Controller {
 
     public function update_station() {
 
-        /*$station = $this->stationModel->findStationById($stationID);*/
+        $station = $this->adminstationModel->findStationById($stationID);
 
-       /* if(!isLoggedIn()) {
+       if(!isLoggedIn()) {
             header("Location: " . URLROOT . "/stations");
         } elseif($station->stationID != $_SESSION['stationID']){
             header("Location: " . URLROOT . "/stations");
         }
-*/
               $data = [
                 'station' => '',
                 'stationID'=>'',
@@ -323,7 +322,7 @@ class AdminStations extends Controller {
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            if($this->stationModel->deleteStation($id)) {
+            if($this->adminstationModel->deleteStation($id)) {
                     header("Location: " . URLROOT . "/adminStations");
             } else {
                die('Something went wrong!');

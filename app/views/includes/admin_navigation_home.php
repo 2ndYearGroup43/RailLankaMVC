@@ -16,10 +16,10 @@
                         <li class="nav-link" style="--i: .6s">
                             <a href="<?php echo URLROOT; ?>/admins/index" >HOME</a>
                         </li>
-                        <li class="nav-link" style="--i: 1.1s">
+                        <!--<li class="nav-link" style="--i: 1.1s">-->
                                 <!-- <label for="btn-4" class="show">Dashboard <i class="fa fa-caret-down"></i></label></label> -->
-                                <a href="#">Dashboard <i class="fa fa-caret-down"></i></a>
-                                <!-- <input type="checkbox" id="btn-4"> -->
+                                <!--<a href="#">Dashboard <i class="fa fa-caret-down"></i></a>
+                                <input type="checkbox" id="btn-4"> 
                                 <div class="nav-dropdown">
                                     <ul>
                                         <li class="nav-dropdown-link">
@@ -31,7 +31,7 @@
                                         <div class="arrow"></div>
                                     </ul>
                                 </div>
-                        </li>
+                        </li>-->
                         <li class="nav-link" style="--i: .6s">
                             <a href="<?php echo URLROOT; ?>/adminPassengers/index">Users</a>
                         </li>
@@ -144,25 +144,43 @@
                                     </ul>
                                 </div>
                         </li>
+
                         <li class="nav-link" style="--i: .85s">
-                                <!-- <label for="btn-1" class="show">Reports <i class="fa fa-caret-down"></i></label></label> -->
+                                <!-- <label for="btn-1" class="show">Employees <i class="fa fa-caret-down"></i></label></label> -->
                                 <a href="#">Reports <i class="fa fa-caret-down"></i></a>
                                 <!-- <input type="checkbox" id="btn-1"> -->
                                 <div class="nav-dropdown">
                                     <ul>
                                         <li class="nav-dropdown-link">
-                                            <!-- <label for="btn-2" class="show2">Create Reports +</label> -->
-                                            <a href="#">Create Reports<i class="fa fa-caret-down"></i></a>
+                                            <!-- <label for="btn-2" class="show2">Add New Employees +</label> -->
+                                            <a href="#">Dashboards<i class="fa fa-caret-down"></i></a>
                                             <!-- <input type="checkbox" id="btn-2"> -->
                                             <div class="nav-dropdown second">
                                                 <ul>
                                                     <li class="nav-dropdown-link">
+                                                        <a href="<?php echo URLROOT; ?>/admindashboards/index">Revenue Dashboard</a>
+                                                    </li>
+                                                    <li class="nav-dropdown-link">
+                                                            <a href="<?php echo URLROOT; ?>/admindashboards/dashboards">Alert Dashboard</a>
+                                                    </li>
+                                                    <div class="arrow"></div>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="nav-dropdown-link">
+                                            <!-- <label for="btn-2" class="show2">Add New Employees +</label> -->
+                                            <a href="#">Create Reports<i class="fa fa-caret-down"></i></a>
+                                            <!-- <input type="checkbox" id="btn-2"> -->
+                                            <div class="nav-dropdown second">
+                                                <ul>
+                                                    <li class="dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/adminReports/index">Revenue Reports</a>
                                                     </li>
-                                                    <li class="nav-dropdown-link">
+                                                    <li class="dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/adminReports/addAlertDetails">Alert Reports </a>
                                                     </li>
-                                                    <li class="nav-dropdown-link">
+                                                    <li class="dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/adminReports/addRefundDetails">Refund Reports</a>
                                                     </li>
                                                     <div class="arrow"></div>
@@ -170,18 +188,18 @@
                                             </div>
                                         </li>
                                         <li class="nav-dropdown-link">
-                                            <!-- <label for="btn-3" class="show2">Manage Reports +</label> -->
+                                            <!-- <label for="btn-3" class="show2">Manage Employees +</label> -->
                                             <a href="#">Manage Reports<i class="fa fa-caret-down"></i></a>
                                             <!-- <input type="checkbox" id="btn-3"> -->
                                             <div class="nav-dropdown second">
                                                 <ul>
-                                                    <li class="nav-dropdown-link">
+                                                    <li class="dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/adminReports/manageRevenueReports">Revenue Reports</a>
                                                     </li>
-                                                    <li class="nav-dropdown-link">
+                                                    <li class="dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/adminReports/manageAlertReports">Alert Reports </a>
                                                     </li>
-                                                    <li class="nav-dropdown-link">
+                                                    <li class="dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/adminReports/manageRefundReports">Refund Reports</a>
                                                     </li>
                                                     <div class="arrow"></div>
@@ -192,6 +210,8 @@
                                     </ul>
                                 </div>
                         </li>
+                    
+                        
                         
                             <li class="nav-link" style="--i: 2.05s">
                                 <!-- <label for="btn-6" class="show">Account <i class="fa fa-caret-down"></i></label></label> -->
