@@ -11,7 +11,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?>  -->
 
 
 <!-- display all alerts -->
@@ -22,7 +22,10 @@
 		</div>
 
 		<div class="table-container">
-			<h1 class="title">Alerts</h1>
+			<!-- <div class="img-container">
+				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+			</div> -->
+			<h1 class="title alert-title">Alerts</h1>
 
 				<div class="row alerts-row">
 
@@ -36,6 +39,7 @@
 							           	<li>Train ID</li>
 							           	<li>Alert ID</li>
 							           	<li>Date</li>
+							           	<li>Type</li>
 							        </ul>
 						        </div>
 						      	<div class="search-field">
@@ -112,7 +116,7 @@
 								<button type="submit" class="btn pop-up">View Details</button>
 							</td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td data-label="AlertID">004</td>
 							<td data-label="TrainID">0019</td>
 							<td data-label="Type">Delay</td>
@@ -120,7 +124,7 @@
 							<td>
 								<button type="submit" class="btn pop-up">View Details</button>
 							</td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 				<br>
@@ -147,7 +151,8 @@
 		<div class="modal-content">
 			<div class="close">+</div>
 			<div class="notices-container">
-			<h2 class="title">Train Details</h2>
+			<h2 class="title" id="title3">Alert Details</h2>
+			<br>
 				<table class="content-table" id="details">
 
 					<tbody>	
