@@ -42,7 +42,7 @@
                         <thead>
                             <tr>
                                 <th>NIC</th>
-                                <th>Password</th>
+                                
                                 <th>First name</th>
                                 <th>Last name</th>
                                 <th>Email Address</th>
@@ -58,7 +58,7 @@
                         </thead>
                         <tr>
                             <td data-th="NIC">9012345678V</td>
-                            <td data-th="Password">........</td>
+                        
                             <td data-th="First name">Kamal</td>
                             <td data-th="Last name">Perera</td>
                             <td data-th="Email Address">kamal@gmail.com</td>
@@ -73,7 +73,7 @@
                         <tr>
 
                             <td data-th="NIC">9214725836V</td>
-                            <td data-th="Password">........</td>
+                        
                             <td data-th="First name">John</td>
                             <td data-th="Last name">Blue</td>
                             <td data-th="Email Address">john88@gmail.com</td>

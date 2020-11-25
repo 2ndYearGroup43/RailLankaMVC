@@ -22,7 +22,7 @@
 <div class="div-alert" > 
     
             <div class="content-flexrow">
-                <div class="container-table">
+                <div class="container-table" id="printrev">
 
                     <center>
                         <div class="logo-container" align="center">
@@ -66,6 +66,7 @@
                         </tr>
                         
                     </table>
+                    <button  type="button" onclick="printContent('printrev')" class="back-btn">Print</button>
                     <button onclick="history.go(-1);" type="button" class="back-btn">Back</button>
                 </div>
             </div>
@@ -76,6 +77,16 @@
 
 
 
+<script >
+    function printContent(el){
+        var restorepage = document.body.innerHTML;
+        var printContent = document.getElementById(el).innerHTML;
+        document.body.innerHTML = printContent;
+        window.print();
+        document.body.innerHTML = restorepage;
+
+    }
+</script>
 
 
 <?php

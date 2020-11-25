@@ -24,7 +24,7 @@
             <div class="content-flexrow">
                 <div class="container">
                     <div class="text">Update Station Details</div>
-                    <form action="<?php echo URLROOT; ?>/AdminStations/add_station" method="POST">
+                    <form action="<?php echo URLROOT; ?>/AdminStations/update_station" method="POST">
                         <div class="form-row">
                             <div class="input-data">
                                 <label for="stationID">Station Id</label>
