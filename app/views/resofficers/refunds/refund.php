@@ -37,17 +37,17 @@
                 <i class="fa fa-check" aria-hidden="true"></i>
             </div>
             <div class="alert-body">
-                <h3>Refund Successful!</h3>
+                <h3>Refund Successfull!</h3>
                 <p>You will recieve alert notifications via email.
                 </p>
             </div>
-            <button type="button" class="close-alert">&times;</button>
+            <button onclick="location.href='<?php echo URLROOT; ?>/resofficers/index'" type="button" class="close-alert">&times;</button>
         </div>
     </div>
     <!-- end of alert success popup -->
 
     <script>
-            const alertBtn = document.querySelectorAll(".alert-btn");
+            const alertBtn = document.querySelectorAll(".blue-btn");
             alertBtn.forEach(function(btn){
                 btn.addEventListener("click", function(){
                     const target = this.getAttribute("data-target");

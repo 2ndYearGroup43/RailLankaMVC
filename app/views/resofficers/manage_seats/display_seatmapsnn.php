@@ -1382,8 +1382,48 @@
 			</div>
 
 			<br><br><br><br><br>		
-			<button id="options-once"  class="btn checkout-btn">Save &raquo;</button>
+			<button id="options-once"  class="btn checkout-btn" data-target="alert-success-popup">Save &raquo;</button>
 			<p class="options" id="options-once">Back to search results? <a data-target="alert-warning-popup" class="alert-btn" href="#">Click here.</a></p>
+
+		                <!-- alert success pop up -->
+		    <div class="flash-alert-box" id="alert-success-popup">
+		        <div class="alert-box-content">
+		            <div class="alert-icon">
+		                <i class="fa fa-check" aria-hidden="true"></i>
+		            </div>
+		            <div class="alert-body">
+		                <h3>Seat Marked Successfully!</h3>
+		                <p>Marked Seats Can't Reserve Further.
+		                </p>
+		            </div>
+		            <button onclick="location.href='<?php echo URLROOT; ?>/resofficers/index'" type="button" class="close-alert">&times;</button>
+		        </div>
+		    </div>
+		    <!-- end of alert success popup -->
+
+	    	<script>
+	            const alertBtn = document.querySelectorAll(".checkout-btn");
+	            alertBtn.forEach(function(btn){
+	                btn.addEventListener("click", function(){
+	                    const target = this.getAttribute("data-target");
+	                    const alertBox = document.getElementById(target)
+	                    alertBox.classList.add("alert-box-show");
+
+	                    const closeAlert = alertBox.querySelector(".close-alert");
+	                    closeAlert.addEventListener("click",function(){
+	                        alertBox.classList.remove("alert-box-show");
+	                    });
+
+	                    alertBox.addEventListener("click",function(event){
+	                        if(event.target === this){
+	                            alertBox.classList.remove("alert-box-show");
+	                        }
+	                    });
+	                });
+	            });
+
+	        </script>
+
 		</div>		
 		<div class="content-row">
 		</div>
