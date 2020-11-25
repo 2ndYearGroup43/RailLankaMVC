@@ -1,6 +1,7 @@
 <?php
 class AdminNotices extends Controller {
     public function __construct() {
+        isAdminLoggedIn();
         $this->adminnoticeModel = $this->model('AdminNotice');
     }
 

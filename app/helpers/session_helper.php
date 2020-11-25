@@ -32,13 +32,15 @@
 		}
 	}
 
-	function isAdmin() {
-		if(isset($_SESSION['role']))
+	function isAdminLoggedIn() {
+		if(isset($_SESSION['userid']))
 		{
 			if($_SESSION['role']!=2)
 			{
-				header('location:' . URLROOT . '/users/logout');
+				redirect($_SESSION['role']);
 			}
+		} else {
+			header('location:' . URLROOT . '/users/login');
 		}
 	}
 
