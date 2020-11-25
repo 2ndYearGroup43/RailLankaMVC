@@ -11,7 +11,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?>  -->
 
 <!--live train -->
 	<div class="body-section">
@@ -20,6 +20,9 @@
 		<div class="content-row">
 		</div>
 		<div class="table-container">
+			<div class="img-container">
+				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+			</div>
 			<h1 class="title">Live Train Location</h1>
 				<table class="content-table">
 					<thead>
@@ -43,7 +46,7 @@
 				</table>
 				<div id="map"></div>
 			<!-- </div> -->
-				<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayTrains'" type="submit" class="btn red-btn back-btn">Back</button>
+				<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayTrains'" type="submit" class="btn blue-btn back-btn">Back</button>
 		</div>
 		     <script>
                     function initMap(){

@@ -11,7 +11,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?>  -->
 
 <!-- Further Details -->
 	<div class="body-section">
@@ -20,6 +20,9 @@
 		<div class="content-row">
 		</div>
 		<div class="table-container">
+			<div class="img-container">
+				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+			</div>
 			<h1 class="title">Train Details</h1>
 			<!-- <div class=form-container> -->
 				<table class="details-content-table">

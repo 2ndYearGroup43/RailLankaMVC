@@ -4,7 +4,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?>  -->
 
 <!-- Further Details -->
 	<div class="body-section"  id="e-ticket">
@@ -15,11 +15,11 @@
 		<div class="conf-ticket">
 			<div class="print-header">
 				<img src="<?php echo URLROOT ?>/public/img/logob2.png">
-				<p class="title">BOOKING SUCCESSFUL!</p>	
+				<p class="title" id="title3">BOOKING SUCCESSFUL!</p>	
 			</div>
 			<div class="normal-header">
 				<img src="<?php echo URLROOT ?>/public/img/logob2.png">
-				<h1 class="title">BOOKING SUCCESSFUL!</h1>
+				<h1 class="title" id="title3">BOOKING SUCCESSFUL!</h1>
 				<div class="summary">
 					<center><p>Thank you for booking with us!</p></center>
 				</div>
@@ -178,7 +178,7 @@
 				<p>Please contact us for assistance:  <i class="fa fa-phone" aria-hidden="true"></i> +940112-695-722 / <i class="fa fa-at" aria-hidden="true"></i> raillanka@gmail.com</p>
 			</div>
 			<br><br>	
-			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTickets'" class="btn checkout-btn">View All Tickets</button>
+			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTickets'" class="btn checkout-btn" id="viewalltickets">View All Tickets</button>
 		</div>
 		<div class="content-row">		
 		</div>
