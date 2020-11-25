@@ -82,7 +82,7 @@
 							<td data-label="Type">Delay</td>
 							<td data-label="Date">9/10/2020</td>
 							<td>
-								<button type="submit" id="pop-up" class="btn"><span>View Details</span></button>
+								<button type="submit" class="btn pop-up"><span>View Details</span></button>
 							</td>
 						</tr>
 						<tr>
@@ -91,7 +91,7 @@
 							<td data-label="Type">Rescheduled</td>
 							<td data-label="Date">3/11/2020</td>
 							<td>
-								<button type="submit" id="pop-up" class="btn">View Details</button>
+								<button type="submit" class="btn pop-up">View Details</button>
 							</td>
 						</tr>
 						<tr>
@@ -100,7 +100,7 @@
 							<td data-label="Type">Cancelled</td>
 							<td data-label="Date">1/11/2020</td>
 							<td>
-								<button type="submit" id="pop-up" class="btn">View Details</button>
+								<button type="submit" class="btn pop-up">View Details</button>
 							</td>
 						</tr>
 					</tbody>
@@ -164,23 +164,10 @@
 	</div>
 	<!-- end of pop up -->
 
-	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-	</script>
-
 	<!-- js for pop up -->
 	<script>
 
-		document.getElementById('pop-up').addEventListener('click', function() {
+		$('.pop-up').bind('click', function() {
 				document.querySelector('.bg-modal').style.display = 'flex';
 		});
 

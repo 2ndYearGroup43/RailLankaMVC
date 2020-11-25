@@ -36,7 +36,7 @@
 							<td>001</td>
 							<td>0019</td>
 							<td>20-11-2020</td>
-							<td>xxxx</td>
+							<td>05.50 AM</td>
 							<td>
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
 							</td>
@@ -45,7 +45,7 @@
 							<td>002</td>
 							<td>0013</td>
 							<td>20-11-2020</td>
-							<td>xxxx</td>
+							<td>07.00 AM</td>
 							<td>
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
 							</td>
@@ -54,7 +54,7 @@
 							<td>003</td>
 							<td>0081</td>
 							<td>20-11-2020</td>
-							<td>xxxx</td>
+							<td>10.00 AM</td>
 							<td>
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
 							</td>
@@ -63,7 +63,7 @@
 							<td>004</td>
 							<td>0019</td>
 							<td>20-11-2020</td>
-							<td>xxxx</td>
+							<td>03.00 PM</td>
 							<td>
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
 							</td>
@@ -72,7 +72,7 @@
 							<td>005</td>
 							<td>0051</td>
 							<td>20-11-2020</td>
-							<td>Cancelled</td>
+							<td>08.00 PM</td>
 							<td>
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
 							</td>
@@ -88,18 +88,5 @@
 		</div>
 	</div>
 	<!-- end of rescheduled train results -->
-
-	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-	</script>
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

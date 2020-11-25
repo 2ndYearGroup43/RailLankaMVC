@@ -41,9 +41,9 @@ body{
 	padding: 0 70px;
 	position: relative;
 	line-height: 40px;
-	font-weight: 500;
+	font-weight: 600;
     font-size: 1.75em;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 
 @media screen and (max-width: 932px){
@@ -1223,7 +1223,8 @@ form .form-row .textarea{
 	}
 
 	.form-container{
-		width: 70%;
+		width: 85%;
+        padding: 20px;
 	}
 
 	.form-conatiner form .form-row .input-data{
@@ -1240,6 +1241,14 @@ form .form-row .textarea{
 	.form-container .title{
 		font-size: 28px;
 	}
+
+    .form-container .btn{
+        display: block;
+    }
+
+    .input-data .underline{
+        height: 0.5px;
+    }
 }
 
 
@@ -1263,10 +1272,14 @@ form .form-row .textarea{
     border-radius: 25px;
 }
 
+.table-container h3{
+    margin: 0 25px;
+}
+
 .content-table{
 	border-collapse: collapse;
 	margin: 25px auto; /*space btw content inside and bottom*/
-	font-size: 0.94em;
+	font-size: 0.9em;
 	min-width: 600px;
 	width: 95%;
    /* font-weight: 500;*/
@@ -1285,6 +1298,7 @@ form .form-row .textarea{
 	overflow:hidden; /*cuz table rows dont have the radius */
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
+
 
 .content-table thead tr{
 	background-color: #13406d ;/*#45A29E;*/
@@ -1354,6 +1368,27 @@ form .form-row .textarea{
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);;
 }
 
+.content-table tbody tr td i{
+    color: #279427;
+}
+
+.details-content-table tbody tr td .label1{
+    border: 1px solid #17a2b8;
+    background-color: #95c8d8; 
+    padding: 2px 5px;
+}
+
+.details-content-table tbody tr td .label2{
+    border: 1px solid #28a745;
+    background-color: #B9DEA0; 
+    padding: 2px 5px;
+}
+
+.details-content-table tbody tr td .label3{
+    border: 1px solid #dc3545;
+    background-color: #E6CAC4; 
+    padding: 2px 5px;
+}
 
 @media screen and (max-width: 1000px){
 
@@ -1369,14 +1404,14 @@ form .form-row .textarea{
     #booking-rev-table,
     .map-container .content-table,
 	.table-container .content-table {
-		min-width: 350px;
+		min-width: 280px;
 		width: 80%;
 	}
     
     #booking-rev-table,
     .map-container .details-content-table, 
 	.table-container .details-content-table {
-		min-width: 350px;
+		min-width: 280px;
 	}
 
     #booking-rev-table thead,
@@ -1398,6 +1433,7 @@ form .form-row .textarea{
     .map-container .content-table tbody tr,
 	.table-container .content-table tbody tr {
 		border-bottom: 3px solid #13406d ;
+        padding-bottom: 10px;
 	}
 
     #booking-rev-table tbody td,
@@ -1407,11 +1443,12 @@ form .form-row .textarea{
 		position: relative;
 	}
 
-    #booking-rev- td::before,
+    #booking-rev-table td::before,
     .map-container .content-table td::before,
 	.table-container .content-table td::before {
 		position: absolute;
 		padding: 15px;
+        font-size: 0.9em;
 		left: 0;
 		top: 0;
 		bottom: 0;
@@ -1429,9 +1466,18 @@ form .form-row .textarea{
 		background-color:inherit;
 	}
 
+    ./*table-container .content-table tbody tr:last-of-type{
+        padding-bottom: 20px;
+    }*/
+
 	.back-btn {
 		margin-left: 60%;
 	}
+
+    .details-content-table th, .details-content-table td, .content-table th, .content-table td{
+        padding: 10px;
+        font-size: 0.9rem;
+    }
 }
 /*end of content table*/ 
 
@@ -1471,7 +1517,7 @@ form .form-row .textarea{
 .bg-modal {
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0,0,0,0.4);
+	/*background-color: rgba(0,0,0,0.4);*/
 	position: absolute;
 	top: 0;
 	display: flex;
@@ -1479,6 +1525,8 @@ form .form-row .textarea{
 	align-items: center; /*align vertically*/
 	display: none;
 }
+
+
 
 
 .modal-content {
@@ -1641,99 +1689,6 @@ form .form-row .textarea{
     padding: 0 20px;
 }
 
-/*.table-container .row .alert-search-box{
-	border: 1px solid black;
-	position: relative;
-	float: left;
-	width: 100%;
-	height: 45px;
-	border-radius: 0px;
-	background: white;
-	/*margin: 0 10px;*/
-	/*box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-	padding: 10px 15px;
-
-}
-
-.table-container .row .search-txt{
-	min-width: 150px;
-	width: 70%;
-	color:black;
-}
-
-.table-container .row select{
-	display:block;
-	height: 45px;
-	width: 100%;
-	/*margin:0 10px 0 0;*/
-/*	border: none;
-	font-size: 16px;
-	border: 1px solid black;
-}
-
-
-/* Dropdown Button 
-.dropbtn {
-  background-color: #979797;;
-  color: black;
-  padding: 10px;
-  font-size: 15px;
-  border: none;
-  min-width: 150px;
-  width: 100%;
-  text-transform: uppercase;
-  border-radius: 0.25rem;
-  height: 40px;
-  margin-left: 5px;
-  font-weight: 500;
-}
-
-.dropbtn:hover{
-	background-color: #3c4245;
-	color: white;
-}
-
-/* The container <div> - needed to position the dropdown content 
-.dropdown {
-  position: relative;
-}
-
-/* Dropdown Content (Hidden by Default) 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 150px;
-  width: 100%;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  text-align: center;
-  font-weight: 600;
-}
-
-/* Links inside the dropdown 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover 
-.dropdown-content a:hover {
-	background-color: #ddd;
-}
-
-/* Show the dropdown menu on hover 
-.dropdown:hover .dropdown-content {
-	display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown 
-.dropdown:hover .dropbtn {
-	opacity: 0.9;
-}*/
-
 /*only alerts*/
 .col {
 
@@ -1752,11 +1707,6 @@ form .form-row .textarea{
 	.col {
 	    flex-basis: unset;
 	}
-
-	/*.table-container .col-4 {
-		flex-basis: 80%;
-		min-width: 250px;
-	}*/
 
 }
 /*end of alerts and pop up*/
@@ -1813,11 +1763,6 @@ section .leftbox .content .mini-schedule{
 .leftbox .mini-input-data select {
 	border: 1px solid rgba(0,0,0,0.5);
 }
-
-/*
-section .leftbox .content:hover {
-	background:  #01a9b4;
-}*/
 
 section .leftbox .content h1 {
 
@@ -2048,11 +1993,6 @@ section .events h1 {
     section .events ul li .time-details {
         width: 100%;
     }
-	/*.events #view-all {
-		position: relative;
-
-	}*/
-
 }
 
 
@@ -2115,6 +2055,7 @@ section .events h1 {
     background:  rgb(173, 216, 230, 0.4);
     padding-top: 20px;
     padding-bottom: 20px;
+    margin-bottom: 100px;
 }
 #review .summary-header{
     background:  rgb(173, 216, 230, 0.4);
@@ -2130,6 +2071,7 @@ section .events h1 {
 .conf-ticket .summary .content-table {
     box-shadow: none;
     margin: 10px auto;
+    font-size: 1em;
 }
 
 .conf-ticket .summary .content-table thead tr{
@@ -2257,8 +2199,8 @@ section .events h1 {
 .conf-ticket img#payment-image  {
     display: inline;
     position: absolute;
-    height: 3%;
-    bottom: 30px;
+    height: 50px;
+    bottom: 10px;
     right: 70px;
 }
 
@@ -2278,12 +2220,117 @@ section .events h1 {
         display:none;
 }
 
+.summary{
+        background: white;
+        height: 100%;
+        padding: 10px;
+    }
+
+    .summary .content-table {
+        box-shadow: none;
+    }
+
+    .summary .content-table thead tr{
+        background-color: white;
+        color: black;
+        border-bottom: 1px solid;
+        font-weight: 500;
+    }
+
+    .summary .content-table tbody tr:nth-of-type(even){
+        background-color: white;
+    }
+
+    .summary .content-table tbody tr:last-of-type{
+        border-bottom: 1px solid  #686868;
+    }
+
+    .summary .content-table .highlight {
+        /*color: #01a9b4;*/
+        font-weight: 600;
+    }
+
+    #print-contact {
+        display:none;
+    }
+
+
+     @media screen and (max-width: 1000px) {
+
+
+        .booking-details{
+            width: 250px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        #booking-rev-table,
+        .booking-details .summary .content-table {
+            min-width: 220px;
+            margin: 0;
+        }
+
+        #booking-rev-table tbody tr,
+        .booking-details .summary .content-table tbody tr{
+            border-bottom: 1px solid #adadad ;
+        }
+
+        #booking-rev-table td::before,
+        .booking-details .summary .content-table td::before {
+            width: 28%;
+        }
+
+        #booking-rev-table tbody td,
+        .booking-details .summary .content-table tbody td {
+            padding-left: 42%;
+        }
+
+        #booking-rev-table td:before,
+        .booking-details .summary .content-table td:before,
+        .booking-details .summary .content-table td {
+            padding: 5px;
+        }
+
+        /*.booking-details .summary .content-table tbody tr:nth-of-type(even){
+            background-color: transparent;
+        }*/
+
+    }
+
+
 @media screen and (max-width:740px){
+
+    #review.conf-ticket .summary .content-table .grand-total {
+        font-size: 1em;
+    }
+
+    .conf-ticket img#payment-image {
+        height: 35px;
+    }
+
+    #review.conf-ticket .summary .journey-row{
+        display: grid;
+        margin-bottom: 5px;
+    }
+
+    .conf-ticket .summary .journey-seats{
+        padding-left: 0;
+        border-left: none;
+        width: 100%;
+    }
+
     #review{
         width: 90%;
         padding: 10px;
     }
 
+}
+
+@media screen and (max-width:500px)
+{
+     #review.conf-ticket .options{
+        bottom: 0.85%;
+    }
 }
 
 @media print {
@@ -2327,7 +2374,12 @@ section .events h1 {
     }
 
     .conf-ticket .summary .journey{
-        padding:10px 0;
+        padding:5px 0;
+        font-size: 16px;
+    }
+
+    .conf-ticket h3{
+        margin-bottom: 0;
     }
 
     .conf-ticket img {
@@ -2351,16 +2403,19 @@ section .events h1 {
     }
 
     .conf-ticket{
-        padding: 50px 60px 10px 60px;
+        padding: 10px 40px;
+    }
+
+    #print-contact{
+        display:inline-block;
+    }
+
+    #contact{
+        display:none;
     }
 
 }
 
-
-/*#cancel-policy .summary-header{
-    text-align: center;
-}*/
-/*end of confimation page*/
 
 /*footer*/
 footer{
@@ -2469,7 +2524,7 @@ footer{
 
 /*seat map*/
 
-.seat-map-container{
+/*.seat-map-container{
         background-color: rgba(255,255,255);
         width:550px;
         margin: 0;
@@ -2486,7 +2541,7 @@ footer{
         margin: 30px auto 20px auto;
         background-color: #f6f6f6;  
         color: #adadad;
-    /*  border: 1px solid #adadad;*/
+    /*  border: 1px solid #adadad;
         text-align: center;
         padding: 4px;
         border-radius: 3px;
@@ -2572,40 +2627,18 @@ footer{
     }
 
 
-    .checkout-btn {
-        background-color: black;
-        color: #fff;
-        border: 1px solid black;
-        position: absolute;
-        bottom: 10%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        height: 45px;
-        width: 250px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-
-    .checkout-btn:hover{ /*me*/
+    .checkout-btn:hover{ 
         opacity: 0.7;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     }
 
-    /*#selected-seats {
-        max-height: 90px;
-        overflow-y: scroll;
-        overflow-x: none;
-        width: 170px;
-    }*/
-
     .map-container h3{
-    /*  text-transform: uppercase;*/
         font-weight: 600;
         white-space: nowrap;
     }
 
     
-    .compartment-container{ /*me*/
+    .compartment-container{ 
         background-color: rgba(255,255,255);
         width:320px;
         margin: 0 auto;
@@ -2614,16 +2647,12 @@ footer{
         padding: 30px 0;
     }
 
-    /*.compartment-container h3{
-        margin-bottom: 20px;
-    }*/
-
     .compartment-area{
         width: 280px;
         height: 100%;
         background-color: #f6f6f6;  
         margin: 20px auto 30px auto;
-        /*border: 1px solid #adadad;*/
+        /*border: 1px solid #adadad;
         border-radius: 10px;
         padding: 20px 15px;
     }
@@ -2665,65 +2694,36 @@ footer{
         height: 190vh;
         margin:0px auto;
     }
+*/
 
-
-    .summary{
-        background: white;
-        height: 100%;
-        padding: 10px;
-    }
-
-    .summary .content-table {
-        box-shadow: none;
-    }
-
-    .summary .content-table thead tr{
-        background-color: white;
-        color: black;
-        border-bottom: 1px solid;
-        font-weight: 500;
-    }
-
-    .summary .content-table tbody tr:nth-of-type(even){
-        background-color: white;
-    }
-
-    .summary .content-table tbody tr:last-of-type{
-        border-bottom: 1px solid  #686868;
-    }
-
-    .summary .content-table .highlight {
-        /*color: #01a9b4;*/
-        font-weight: 600;
-    }
-
-    .cancel-seat {
+    
+    /*.cancel-seat {
         color: #dc3545;
         cursor: pointer;
     }
 
     .cancel-seat:hover{
         text-decoration: underline;
-    }
+    }*/
 
-    .booking-details{
+    /*.booking-details{
         margin: 40px 20px;
         padding: 20px 30px;
     }
 
     .booking-details h3{
         text-align: center;
-    }
+    }*/
 
    /* .map-container .title {
         margin-bottom: 15px;
     }
 */
-    .seat-map-legend {
+    /*.seat-map-legend {
         padding: 0px 50px;
         margin: 0 auto;
        /* position: absolute;
-        bottom: 16px;*/
+        bottom: 16px;
     }
 
     ul.seat-map-legendList {
@@ -2731,7 +2731,7 @@ footer{
     }
 
     li.seat-map-legendItem {
-       /* margin-top: 5px;*/
+       /* margin-top: 5px;
         line-height: 3;
         display: flex;
     }
@@ -2739,38 +2739,9 @@ footer{
     span.seat-map-legendDescription {
         margin-left: 5px;
         line-height: 50px;
-    }
+    }*/
 
-    .checkout-btn {
-        background-color: black;
-        color: #fff;
-        border: 1px solid black;
-        position: absolute;
-        bottom: 4%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        height: 45px;
-        width: 250px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-
-    .checkout-btn:hover{ /*me*/
-        opacity: 0.7;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .conf-ticket .options,
-    .map-container2 .options,
-    .map-container .options{
-        position: absolute;
-        bottom: 3.5%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-
-    @media screen and (max-width: 1300px) and (min-width: 751px) {
+   /* @media screen and (max-width: 1300px) and (min-width: 751px) {
         
         .compartment-container{
             width: 600px;
@@ -2798,56 +2769,13 @@ footer{
         .compartment-container h3{
             margin-bottom: 20px;
         }
-    }
+    }*/
 
-    @media screen and (max-width: 1000px) {
-
-
-        .booking-details{
-            width: 250px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-
-        #booking-rev-table,
-        .booking-details .summary .content-table {
-            min-width: 220px;
-            margin: 0;
-        }
-
-        #booking-rev-table tbody tr,
-        .booking-details .summary .content-table tbody tr{
-            border-bottom: 1px solid #adadad ;
-        }
-
-        #booking-rev-table td::before,
-        .booking-details .summary .content-table td::before {
-            width: 28%;
-        }
-
-        #booking-rev-table tbody td,
-        .booking-details .summary .content-table tbody td {
-            padding-left: 42%;
-        }
-
-        #booking-rev-table td:before,
-        .booking-details .summary .content-table td:before,
-        .booking-details .summary .content-table td {
-            padding: 5px;
-        }
-
-        /*.booking-details .summary .content-table tbody tr:nth-of-type(even){
-            background-color: transparent;
-        }*/
-
-    }
+   
 
 
-    @media screen and (max-width:750px) {
+    /*@media screen and (max-width:750px) {
 
-        /*.map-container h2{
-            font-size: 17px;
-        }*/
 
         .seat-map-container{
             width:300px;
@@ -2894,7 +2822,7 @@ footer{
             font-size: 15px;
         }
     }
-
+*/
 
 
 /*end of seat map*/
@@ -3018,6 +2946,20 @@ footer{
     display: none;
 }
 
+.tabstop .details-content-table{
+    background-color: white!important; 
+}
+
+
+/*media query for side tabs*/
+
+@media screen and (max-width: 1245px){
+    .tabs {
+        height: 180vh;
+        min-width: 280px;
+    }
+}
+
 @media screen and (max-width: 1045px){
 
     .tabs .tabs__sidebar .tabs__button .map-small{
@@ -3034,19 +2976,20 @@ footer{
     }
 }
 
-@media screen and (max-width: 1245px){
-    .tabs {
-        height: 210vh;
-        min-width: 300px;
-    }
-}
-
 @media screen and (max-width: 500px){
     .tabs{
         margin-bottom: 20px;
     }
+
+     .tabs .tabs__sidebar .tabs__button .map-small{
+        font-size: 0.9rem;
+    }
 }
 
+/*end of media query for side tabs*/
+
+
+/*media query for top tabs*/
 
 @media screen and (max-width: 800px){
 
@@ -3073,11 +3016,9 @@ footer{
     }
 }
 
-/*end of account page tabs*/
+/*end of media query for top tabs*/
 
-.tabstop .details-content-table{
-    background-color: white!important; 
-}
+/*end of account page tabs*/
 
 
 
@@ -3528,14 +3469,11 @@ width: 150px;
   color: #9fa3b1;
 }
 
-@media screen and (max-width: 870px){
+@media screen and (max-width: 500px){
 
-    /*.alerts-wrapper {
-        position: absolute;
-        top: 6%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }*/
+    .alerts-wrapper .alerts-search-box {
+        width: 280px;
+    }
 }
 
 /*end of laerts drop down*/
@@ -3638,7 +3576,7 @@ div.right-map{
     position: absolute;
     border-left: 1px solid grey;
     padding-left: 30px;
-    height: 70%;
+    height: 65%;
 }
 
 div.right-map h4{
@@ -3662,14 +3600,6 @@ div.left-map h3{
 
 
 div.seatCharts-container {
-    /*border-right: 1px dotted #adadad;
-    border-left: 1px dotted #adadad; 
-    width: 241px;
-    padding: 20px;
-    float: left;
-    margin-right: 10px;
-    margin-left: 10px;
-*/
     width: 325px;
     height: 100%;
     background-color: #f6f6f6;  
@@ -3788,7 +3718,7 @@ div.seatCharts-seat.unavailable {
     text-align: center;
     padding: 4px;
     border-radius: 3px;
-    border: 1px solid grey;
+    border-bottom: 1px solid grey;
     font-size: 15px;
     color: black;
     font-weight: 600;
@@ -3813,6 +3743,7 @@ div.seatCharts-seat.unavailable {
 #selected-seats7 li, 
 #selected-seats8 li {
     padding: 15px 10px;
+    font-size: 0.9em;
     width: 95%;
     margin: 2px 0 2px 4px;
     height: 55px;
@@ -3871,6 +3802,35 @@ div.seatCharts-seat.unavailable {
     border: 1px solid #dc3545;
 }
 
+
+.checkout-btn {
+        background-color: black;
+        color: #fff;
+        border: 1px solid black;
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 45px;
+        width: 250px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .checkout-btn:hover{ /*me*/
+        opacity: 0.7;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .conf-ticket .options,
+    .map-container2 .options,
+    .map-container .options{
+        position: absolute;
+        bottom: 45px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
 @media screen and (max-width:1240px){
 
     div.left-map,
@@ -3881,6 +3841,10 @@ div.seatCharts-seat.unavailable {
 
     div.right-map {
         border-left: none;
+        margin-top: 40px;
+        border-top: 1px solid grey;
+        padding-top: 30px;
+        width: 72%
     }
 
     #selected-seats, #selected-seats2, #selected-seats3, #selected-seats4,
@@ -3888,9 +3852,28 @@ div.seatCharts-seat.unavailable {
         max-height: 190px;
         width: 70%;
     }
+
+    /*.map-container2 .checkout-btn{
+        bottom: 2%;
+    }*/
+
+    /*.map-container2 .options{
+        bottom: 1.5%;
+    }*/
 }
 
-@media screen and (max-width:500px){
+@media screen and (max-width:750px){
+
+    #selected-seats, #selected-seats2, #selected-seats3, #selected-seats4,
+    #selected-seats5, #selected-seats6, #selected-seats7, #selected-seats8 {
+        max-height: 190px;
+        width: 95%;
+    }
+
+}
+
+@media screen and (max-width:550px){
+    #review.conf-ticket,
     .map-container2 {
         padding: 5px;
         font-size: 0.9em;
@@ -3900,10 +3883,13 @@ div.seatCharts-seat.unavailable {
         width: 90%;
     }
 
+    div.right-map{
+        width: 80%;
+    }
+
     div.seatCharts-container{
-        width: 100%;
         padding: 2px 9px;
-        min-width: 242px;
+        width: 242px;
     }
 
     .front-indicator{
@@ -3918,12 +3904,26 @@ div.seatCharts-seat.unavailable {
         font-size: 13px;
     }
 
-    #options-once.checkout-btn{
+    .map-container2 .options{
+        bottom:0.5%;
+    }
+
+
+    .map-container2 .checkout-btn{
+        bottom: 30px;
+    }
+
+    /*#options-once.checkout-btn{
         bottom: 1.5%;
     }
 
     #options-once.options {
         bottom: 0.25%;
+    }*/
+
+    #selected-seats, #selected-seats2, #selected-seats3, #selected-seats4,
+    #selected-seats5, #selected-seats6, #selected-seats7, #selected-seats8 {
+        width: 100%;
     }
 
     #selected-seats li,
@@ -3937,7 +3937,7 @@ div.seatCharts-seat.unavailable {
         padding: 10px 5px;
         width: 100%;
         height: 60px;
-        font-size: 0.9em;
+        font-size: 0.8em;
     } 
 
     div.right-map {
@@ -4137,3 +4137,34 @@ div.seatCharts-seat.unavailable {
     }
 
 /*end of flash messages*/
+
+
+/*reservations tooltip */
+
+/*.tooltip{
+    position: relative;
+}
+
+.details-tooltip{
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    height: 45px;
+    width: 45px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;  
+    background: linear-gradient(#eeeeee, #dddddd) border-box;
+    color: #000;
+    --c-sh-txt: #{rgba(#fff, .5)};
+}
+
+.tooltip-content{
+    position: absolute;
+    background-color: red;
+    bottom: 0;
+    padding: 20px;
+}*/
+/*end of reservations tooltip */

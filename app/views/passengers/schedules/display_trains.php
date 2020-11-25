@@ -28,6 +28,7 @@
 				<table class="content-table">
 					<thead>
 						<tr>
+							<th>Train ID</th>
 							<th>From</th>
 							<th>To</th>
 							<th>Departure Time</th>
@@ -37,52 +38,46 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="active-row">
+						<tr>
+							<td data-label="Train ID">1005</td>
 							<td data-label="From">Colombo Fort</td>
-							<td data-label="To">Kandy</td>
-							<td data-label="Departure Time">7.00 a.m.</td>
-							<td data-label="Arrival Time">9.38 a.m.</td>
-							<td data-label="Type">A.C.- Intercity</td>
+							<td data-label="To">Badulla</td>
+							<td data-label="Departure Time">05.55 a.m.</td>
+							<td data-label="Arrival Time">16.07 p.m.</td>
+							<td data-label="Type">Intercity - Podi Menike</td>
+							<td>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerSchedules/displayTrainDetails'" type="submit" class="btn"><span>Details</span></button>
+							</td>
+						</tr>
+						<tr class="active-row">
+							<td data-label="Train ID">1001</td>
+							<td data-label="From">Colombo Fort</td>
+							<td data-label="To">Badulla</td>
+							<td data-label="Departure Time">06.30 a.m.</td>
+							<td data-label="Arrival Time">15.01 p.m.</td>
+							<td data-label="Type">Intercity - Denuwara Menike</td>
 							<td>
 								<button onclick="location.href='<?php echo URLROOT; ?>/passengerSchedules/displayTrainDetails'" type="submit" class="btn"><span>Details</span></button>
 							</td>
 						</tr>
 						<tr>
+							<td data-label="Train ID">1015</td>
 							<td data-label="From">Colombo Fort</td>
-							<td data-label="To">Kandy</td>
-							<td data-label="Departure Time">7.05 a.m.</td>
-							<td data-label="Arrival Time">9.38 a.m.</td>
-							<td data-label="Type">Intercity</td>
-							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/passengerSchedules/displayTrainDetails'" type="submit" class="btn">Details</button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="From">Colombo Fort</td>
-							<td data-label="To">Kandy</td>
-							<td data-label="Departure Time">8.30 a.m.</td>
-							<td data-label="Arrival Time">11.03 a.m.</td>
+							<td data-label="To">Badulla</td>
+							<td data-label="Departure Time">08.30 a.m.</td>
+							<td data-label="Arrival Time">17.44 p.m.</td>
 							<td data-label="Type">Express - Udarata Menike</td>
 							<td>
 								<button onclick="location.href='<?php echo URLROOT; ?>/passengerSchedules/displayTrainDetails'" type="submit" class="btn">Details</button>
 							</td>
 						</tr>
 						<tr>
+							<td data-label="Train ID">1007</td>
 							<td data-label="From">Colombo Fort</td>
-							<td data-label="To">Kandy</td>
-							<td data-label="Departure Time">10.35 a.m.</td>
-							<td data-label="Arrival Time">1.55 a.m.</td>
-							<td data-label="Type">Colombo Commuter</td>
-							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/passengerSchedules/displayTrainDetails'" type="submit" class="btn">Details</button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="From">Colombo Fort</td>
-							<td data-label="To">Kandy</td>
-							<td data-label="Departure Time">7.05 a.m.</td>
-							<td data-label="Arrival Time">9.38 a.m.</td>
-							<td data-label="Type">Intercity</td>
+							<td data-label="To">Badulla</td>
+							<td data-label="Departure Time">9.45 a.m.</td>
+							<td data-label="Arrival Time">19.20 a.m.</td>
+							<td data-label="Type">Express Train</td>
 							<td>
 								<button onclick="location.href='<?php echo URLROOT; ?>/passengerSchedules/displayTrainDetails'" type="submit" class="btn">Details</button>
 							</td>
@@ -150,19 +145,6 @@
 	</div>
 	<!-- end of pop up -->
 
-	 <!--  js for toggle menu -->
-	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-	</script>
 
 	<!-- js for pop up -->
 	<script>
