@@ -1,6 +1,7 @@
 <?php
 class Admin_manage_compartments extends Controller{
 	public function __construct(){
+		isAdminLoggedIn();
 		$this->adminModel=$this->model('Admin_manage_compartment');
 	}
 

@@ -1,6 +1,7 @@
 <?php
 class Admindashboards extends Controller {
     public function __construct() {
+    	isAdminLoggedIn();
         $this->admindashboardModel = $this->model('Admindashboard');
     }
 

@@ -79,10 +79,10 @@
 						<tr class="active-row">
 							<td data-label="AlertID">001</td>
 							<td data-label="TrainID">0019</td>
-							<td data-label="Type">Delay</td>
+							<td data-label="Type">Cancelled</td>
 							<td data-label="Date">10/11/2020</td>
 							<td>
-								<button type="submit" id="pop-up" class="btn"><span>View Details</span></button>
+								<button type="submit" class="btn pop-up"><span>View Details</span></button>
 							</td>
 						</tr>
 						<tr>
@@ -91,7 +91,7 @@
 							<td data-label="Type">Rescheduled</td>
 							<td data-label="Date">8/11/2020</td>
 							<td>
-								<button type="submit" id="pop-up" class="btn">View Details</button>
+								<button type="submit" class="btn pop-up">View Details</button>
 							</td>
 						</tr>
 						<tr>
@@ -100,7 +100,7 @@
 							<td data-label="Type">Cancelled</td>
 							<td data-label="Date">5/11/2020</td>
 							<td>
-								<button type="submit" id="pop-up" class="btn">View Details</button>
+								<button type="submit" class="btn pop-up">View Details</button>
 							</td>
 						</tr>
 						<tr>
@@ -109,7 +109,7 @@
 							<td data-label="Type">Cancelled</td>
 							<td data-label="Date">4/11/2020</td>
 							<td>
-								<button type="submit" id="pop-up" class="btn">View Details</button>
+								<button type="submit" class="btn pop-up">View Details</button>
 							</td>
 						</tr>
 						<tr>
@@ -118,16 +118,7 @@
 							<td data-label="Type">Delay</td>
 							<td data-label="Date">2/11/2020</td>
 							<td>
-								<button type="submit" class="btn">View Details</button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="AlertID">005</td>
-							<td data-label="TrainID">0051</td>
-							<td data-label="Type">Cancelled</td>
-							<td data-label="Date">1/11/2020</td>
-							<td>
-								<button type="submit" id="pop-up" class="btn">View Details</button>
+								<button type="submit" class="btn pop-up">View Details</button>
 							</td>
 						</tr>
 					</tbody>
@@ -182,7 +173,7 @@
 						</tr>
 						<tr>
 							<th>Cause:</th>	
-							<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</td>
+							<td>Cancelled due to breakdown</td>
 						</tr>
 					</tbody>		
 				</table>
@@ -191,23 +182,11 @@
 	</div>
 	<!-- end of pop up -->
 
-	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-	</script>
-
+	
 	<!-- js for pop up -->
 	<script>
 
-		document.getElementById('pop-up').addEventListener('click', function() {
+		$('.pop-up').bind('click', function() {
 				document.querySelector('.bg-modal').style.display = 'flex';
 		});
 

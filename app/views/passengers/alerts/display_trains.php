@@ -189,20 +189,4 @@
 
 		</script>
 
-	 
-	<!-- js for pop up -->
-	<script>
-
-		document.getElementById('pop-up').addEventListener('click', function() {
-				document.querySelector('.bg-modal').style.display = 'flex';
-		});
-
-		document.querySelector('.close').addEventListener('click', function(){
-			document.querySelector('.bg-modal').style.display = 'none';
-		});
-
-	</script>
-	<!-- end of js for pop up -->
-
-
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

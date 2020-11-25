@@ -77,16 +77,6 @@
 								<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayLiveTrain'" type="submit" class="btn">Track</button>
 							</td>
 						</tr>
-						<tr>
-							<td data-label="From">Colombo Fort</td>
-							<td data-label="To">Kandy</td>
-							<td data-label="Departure Time">7.05 a.m.</td>
-							<td data-label="Arrival Time">9.38 a.m.</td>
-							<td data-label="Type">Intercity</td>
-							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayLiveTrain'" type="submit" class="btn">Track</button>
-							</td>
-						</tr>
 					</tbody>
 				</table>
 			<!-- </div> -->

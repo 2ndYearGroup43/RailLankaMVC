@@ -6,6 +6,7 @@
     class Admins extends Controller{
         public function __construct()
         {
+            isAdminLoggedIn();
             $this->adminModel=$this->model('Admin');
         }
 
@@ -490,6 +491,14 @@
 
             header('location: '.URLROOT.'/pages/index');
             
+        }
+
+        public function logout() {
+            unset($_SESSION['userid']);
+            unset($_SESSION['email']);
+            unset($_SESSION['role']);
+            unset($_SESSION['admin_id']);
+            header('location:' . URLROOT . '/pages/index');
         }
 
     }    

@@ -63,13 +63,15 @@
                     </div>
                 </div>
             </div>
-            <div class="dash-column" style="flex: 2;">
+            <div class="dash-column" style="flex: 2;" id="printrev">
                 <div class="chart-container" style="flex: 2;">
                     <div class="data-chart" id="totalRevenueChart"></div>
                 </div>
                 <div class="chart-container" style="flex: 1;">
                     <div class="data-chart" id="totalRevenueByType"></div>
                 </div>
+
+                <button  type="button" onclick="printContent('printrev')" class="back-btn">Print</button>
             </div>
         </div>
         <div class="content-flexrow dash">
@@ -167,7 +169,16 @@
     </div>
 
     
+<script >
+    function printContent(el){
+        var restorepage = document.body.innerHTML;
+        var printContent = document.getElementById(el).innerHTML;
+        document.body.innerHTML = printContent;
+        window.print();
+        document.body.innerHTML = restorepage;
 
+    }
+</script>
 
 <?php
     require APPROOT . '/views/includes/footer.php';

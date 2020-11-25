@@ -1,12 +1,5 @@
 <?php 
 
-	//echo out databse info to the screen
-	// foreach ($data['users'] as $user) {
-	// 	echo "Information: " . $user->user_name . $user->user_email;
-	// 	echo "<br>";
-	// }
-	
-	// isPassenger();
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
@@ -31,12 +24,15 @@
 					<center><p>Thank you for booking with us!</p></center>
 				</div>
 			</div>
-			<!-- <br> -->
+			<div class="summary">
+				<p><b>Your Ticket ID: B9RBYQ</b></p>
+				<p><b>Booking Date: 26th November 2020  23:00</b></p>
+			</div>
 			<div id="policy" class="summary">
 				<p>We recommend that you print this page and bring it with you. You have been sent an email with a copy of the reservation details. You may also view your reservation details online at any time.</p>
 				<button onclick="printContent('e-ticket')" class="print"><i class="fa fa-print" aria-hidden="true"></i> Print This Page </button>
 			</div>
-		<!-- 	<br> -->
+	
 		
 			<div class="summary-header">
 				<h3>CUSTOMER DETAILS</h3>
@@ -79,25 +75,25 @@
 					</tbody>
 				</table>
 			</div>
-			<!-- <br> -->
+
 			
 			<div class="summary-header">
 				<h3>YOUR JOURNEY</h3>
 			</div>
 			<div class=summary>
 				<div class="journey">
-					Colombo Fort <i class="fa fa-long-arrow-right" aria-hidden="true"></i> Kandy
+					Colombo Fort <i class="fa fa-long-arrow-right" aria-hidden="true"></i> Badulla
 				</div>
 				<div class="journey-row">
 					<div class="journey-details">
-						<p>Express Train <b>Udarata Menike</b></p>
+						<p>Intercity Express - <b>Denuwara Menike</b></p>
 						<p><i class="fa fa-calendar-o" aria-hidden="true"></i> 20th June 2020</p>
-						<p><i class="fa fa-clock-o" aria-hidden="true"></i> 8.30 AM -> 11.03 AM</p>
-						<p><i class="fa fa-clock-o" aria-hidden="true"></i> 2 hrs 33 mins</p>
+						<p><i class="fa fa-clock-o" aria-hidden="true"></i> 6.30 AM -> 15.01 AM</p>
+						<p><i class="fa fa-clock-o" aria-hidden="true"></i> 8 hrs 43 mins</p>
 						<p>Train to Badulla</p>
 					</div>
 					<div class="journey-seats">
-						<p>Train ID: 0014</p>
+						<p>Train ID: 1001</p>
 						<p>Seat Numbers:</p>
 
 							<ul>
@@ -108,7 +104,7 @@
 					</div>
 				</div>
 			</div>
-		<!-- 	<br> -->
+	
 			
 			<div class="summary-header">
 				<h3>BOOKING AND PAYMENT SUMMARY</h3>
@@ -126,39 +122,33 @@
 					<tbody>
 						<tr>
 							<td>First Class</td>
-							<td>Rs. 400.00</td>
-							<td>3</td>
-							<td>Rs. 1200.00</td>
+							<td>Rs. 1700.00</td>
+							<td>2</td>
+							<td>Rs. 3400.00</td>
 						</tr>
 						<tr>
 							<td>Second Class</td>
-							<td>Rs. 230.00</td>
-							<td>1</td>
-							<td>Rs. 230.00</td>
-						</tr>
-						<tr>
-							<td>First Class</td>
-							<td>Rs. 125.00</td>
+							<td>Rs. 1000.00</td>
 							<td>2</td>
-							<td>Rs. 250.00</td>
+							<td>Rs. 2000.00</td>
 						</tr>
 						<tr class="grand-total">
 							<td>Total</td>
 							<td></td>
 							<td></td>
-							<td>Rs. 1680.00</td>
+							<td>Rs. 4400.00</td>
 						</tr>
 						<tr></tr>
 						<tr class="grand-total">
 							<td>Total Payment</td>
 							<td></td>
 							<td></td>
-							<td>Rs. 1680.00</td>
+							<td>Rs. 4400.00</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-		<!-- 	<br> -->
+	
 		
 			<div id="cancel-policy" class="summary">
 				<div class="summary-header">
@@ -184,6 +174,9 @@
 					</div>
 				</div>
 			</div>
+			<div id="print-contact">
+				<p>Please contact us for assistance:  <i class="fa fa-phone" aria-hidden="true"></i> +940112-695-722 / <i class="fa fa-at" aria-hidden="true"></i> raillanka@gmail.com</p>
+			</div>
 			<br><br>	
 			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTickets'" class="btn checkout-btn">View All Tickets</button>
 		</div>
@@ -195,13 +188,13 @@
 	<div class="popup-box" id="booking-successful">
 		<i class="fa fa-check" aria-hidden="true" style="color:#279427; border-color:#279427"></i>
 		<h1>Booking Successful</h1>
-		<!-- <p>We're sorry to hear you'd like to delete your account.<br> Keep in mind that you will not be able to reactivate your account or retrieve any of the content or information you have added.</p> -->
 		<label style="color:#279427">Thank you for booking with us!</label>
 		<div class="btns">
 			<a href="#" class="btn1">Close</a>
 		</div>
 	</div>
 
+	<!-- js for printing e-ticket -->
 	<script>
 		function printContent(el){
 			var restorepage = document.body.innerHTML;
@@ -211,7 +204,7 @@
 			document.body.innerHTML = restorepage;
 		}
 	</script>
-	
+	<!-- end of js for printing e-ticket -->
 
 	<!-- js for pop up alert  -->
 	<script>

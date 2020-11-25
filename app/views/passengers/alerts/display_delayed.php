@@ -34,41 +34,41 @@
 						<tr class="active-row">
 							<td>001</td>
 							<td>0019</td>
-							<td>xxxx</td>
+							<td>09.00 AM</td>
 							<td>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Delayed due to breakdown
 							</td>
 						</tr>
 						<tr>
 							<td>002</td>
 							<td>0013</td>
-							<td>xxxx</td>
+							<td>09.30 AM</td>
 							<td>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Delayed due to breakdown
 							</td>
 						</tr>
 						<tr>
 							<td>003</td>
 							<td>0081</td>
-							<td>xxxx</td>
+							<td>11.00 AM</td>
 							<td>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Delayed due to breakdown
 							</td>
 						</tr>
 						<tr>
 							<td>004</td>
-							<td>0019</td>
-							<td>xxxx</td>
+							<td>1001</td>
+							<td>11.10 AM</td>
 							<td>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Delayed due to breakdown
 							</td>
 						</tr>
 						<tr>
 							<td>005</td>
 							<td>0051</td>
-							<td>Cancelled</td>
+							<td>04.20 PM</td>
 							<td>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Delayed due to breakdown
 							</td>
 						</tr>
 					</tbody>
@@ -82,18 +82,5 @@
 		</div>
 	</div>
 	<!-- end of delayed train results -->
-
-	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-	</script>
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

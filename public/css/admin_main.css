@@ -314,7 +314,7 @@ header{
 
 
 
-@media all and (max-width: 800px){
+@media screen and (max-width: 800px){
     .show + a, ul{
         display: none;
     }
@@ -672,6 +672,7 @@ header{
 
     table.data-display td{
         display: block;
+
     }
 
     .content-flexrow.dash{
@@ -1821,5 +1822,15 @@ table.repo tbody tr:last-of-type{
 /*end of marquee*/
 
  
-
+/*print*/
+button.redbutton{
+    color: white;
+    background: red;
+}
+button.redbutton:hover{
+    color: #fff;
+    background: #b90834;
+    font-size: 89%;
+    transition: 0.20s ease-in-out;
+}
 

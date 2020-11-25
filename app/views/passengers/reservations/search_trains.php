@@ -64,18 +64,6 @@
 
 	</div>
 <!-- js for toggle menu -->
-<script>
-	var menuItems = document.getElementById("menuItems");
-	menuItems.style.maxHeight = "0px"
-	function menutoggle(){
-		if(menuItems.style.maxHeight == "0px"){
-			menuItems.style.maxHeight = "390px";
-		}
-		else{
-			menuItems.style.maxHeight = "0px";
-		}
-	}
-</script>
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>
 
