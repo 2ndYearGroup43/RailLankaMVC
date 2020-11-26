@@ -159,7 +159,7 @@
                             </div>
 						</div>
 					</form>
-					<center><button onclick="location.href='<?php echo URLROOT; ?>/alerts/displayTrains'" class="btn blue-btn">Go <i class="fa fa-long-arrow-right"></i></button></center>
+					<center><button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/displayTrains'" class="btn blue-btn">Go <i class="fa fa-long-arrow-right"></i></button></center>
 				</div>
 			</div>
 		</div>
