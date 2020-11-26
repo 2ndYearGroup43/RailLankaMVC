@@ -11,7 +11,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?>  -->
 
 <!-- search results -->
 	<div class="body-section">
@@ -23,8 +23,10 @@
 		<div class="content-row">
 		</div>
 		<div class="table-container">
-			<h1 class="title">Search Results</h1>
-			<!-- <div class=form-container> -->
+			<div class="img-container">
+				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+			</div>
+			<h1 class="title2">Search Results</h1>
 				<table class="content-table">
 					<thead>
 						<tr>
@@ -77,7 +79,7 @@
 								<button type="submit" data-target="alert-success-popup" class="alert-btn btn">Subscribe</button>
 							</td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td data-label="From">Colombo Fort</td>
 							<td data-label="To">Kandy</td>
 							<td data-label="Departure Time">7.05 a.m.</td>
@@ -86,11 +88,21 @@
 							<td>
 								<button type="submit" data-target="alert-success-popup" class="alert-btn btn">Subscribe</button>
 							</td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
-			<!-- </div> -->
-			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/search'" type="submit" class="btn blue-btn back-btn">Back</button>
+				<br>
+				<div class="pagination">
+					<ul>
+						<li><a href="#" class="prev">Prev</a></li>
+						<li class="pageNumber active"><a href="<?php echo URLROOT; ?>/passengerAlerts/displayTrains">1</a></li>
+						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/passengerAlerts/displayTrains">2</a></li>
+						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/passengerAlerts/displayTrains">3</a></li>
+						<li><a href="<?php echo URLROOT; ?>/passengerAlerts/displayTrains" class="next">Next</a></li>
+					</ul>
+				</div>
+				<br>		
+			<!-- <button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/search'" type="submit" class="btn blue-btn back-btn">Back</button> -->
 		</div>
 		<div class="content-row">
 		</div>
@@ -105,7 +117,11 @@
 			<div class="close">+</div>
 			<div class="notices-container">
 				<div class="mini-schedule">
-					<h2 class="title">SEARCH TRAIN</h2>
+					<div class="img-container">
+						<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+					</div>
+					<br>
+					<!-- <h2 class="title">Search Train</h2> -->
 					<form action="#">
 						<div class="form-row">
 							<div class="mini-input-data">
@@ -143,7 +159,7 @@
                             </div>
 						</div>
 					</form>
-					<button onclick="location.href='<?php echo URLROOT; ?>/alerts/displayTrains'" class="btn blue-btn">Go <i class="fa fa-long-arrow-right"></i></button>
+					<center><button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/displayTrains'" class="btn blue-btn">Go <i class="fa fa-long-arrow-right"></i></button></center>
 				</div>
 			</div>
 		</div>
@@ -166,6 +182,21 @@
 	</div>
 	<!-- end of alert success popup -->
 
+	<!-- js for pop up -->
+	<script>
+
+		document.getElementById('pop-up').addEventListener('click', function() {
+				document.querySelector('.bg-modal').style.display = 'flex';
+		});
+
+		document.querySelector('.close').addEventListener('click', function(){
+			document.querySelector('.bg-modal').style.display = 'none';
+		});
+
+	</script>
+	<!-- end of js for pop up -->
+
+	<!-- js for flash messages  -->
 	<script>
 			const alertBtn = document.querySelectorAll(".alert-btn");
 			alertBtn.forEach(function(btn){
@@ -188,5 +219,21 @@
 			});
 
 		</script>
+		<!-- end of js for flash messages -->
+
+		<!-- js for pagination --> 
+		<script>
+			$(document).ready(function(){
+				$('.next').click(function(){
+					$('.pagination').find('.pageNumber.active').next().addClass('active');
+					$('.pagination').find('.pageNumber.active').prev().removeClass('active');
+				});
+				$('.prev').click(function(){
+					$('.pagination').find('.pageNumber.active').prev().addClass('active');
+					$('.pagination').find('.pageNumber.active').next().removeClass('active');
+				});
+			});
+		</script>
+		<!-- end of js for pagination -->
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

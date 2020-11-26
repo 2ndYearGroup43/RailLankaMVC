@@ -11,7 +11,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?>  -->
 
 <!-- tickets results -->
 	<div class="body-section">
@@ -20,6 +20,9 @@
 		<div class="content-row">
 		</div>
 		<div class="table-container">
+			<!-- <div class="img-container">
+				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+			</div> -->
 			<h1 class="title">My Tickets</h1>
 				<table class="content-table">
 					<thead>
@@ -50,7 +53,7 @@
 							<td data-label="Arrival Time">9.38 a.m.</td>
 							<td data-label="Type">Intercity</td>
 							<td>
-								<button type="submit" class="btn">View Ticket</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTicket1'" type="submit" class="btn"><span>View Ticket</span></button>
 							</td>
 						</tr>
 						<tr>
@@ -60,7 +63,7 @@
 							<td data-label="Arrival Time">11.03 a.m.</td>
 							<td data-label="Type">Express - Udarata Menike</td>
 							<td>
-								<button type="submit" class="btn">View Ticket</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTicket1'" type="submit" class="btn"><span>View Ticket</span></button>
 							</td>
 						</tr>
 					</tbody>

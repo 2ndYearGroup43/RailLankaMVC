@@ -4,7 +4,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?> --> 
 
 	<div class="body-section">
 		<div class="content-row">
@@ -14,16 +14,11 @@
 		<div class="map-container2">
 			
 			<h1 class="title">Seat Map</h1>
-			<!-- <div class="tooltip">
-				<button class="details-tooltip"><i class="fa fa-train"></i></button>
-				<div class="tooltip-content">
-					<p>Train ID: 1001</p>
-					<P>Colombo-Badulla</P>
-				</div>
-			</div> -->
+			<!-- <div class="tooltip"> -->
+				<button onclick="toggleSMPopup()" class="details-tooltip"><i class="fa fa-train"></i></button>
+			<!-- </div> -->
 			<center><p>	Train ID : 1001</p></center>
 			<center><p>	Colombo - Badulla </p></center>
-			<center><p>Intercity Express - <b>Denuwara Menike</b></p></center>
 			<br>
 
 			<div class="tabs">
@@ -1121,8 +1116,8 @@
 				</div>
 
 				<br><br><br><br><br>		
-				<button id="options-once" onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/bookingReview'" class="btn checkout-btn">BOOK NOW &raquo;</button>
-				<p class="options">Back to search results? <a data-target="alert-warning-popup" class="alert-btn" href="#">Click here.</a></p>
+				<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/bookingReview'" class="btn checkout-btn">BOOK NOW &raquo;</button>
+				<p class="options" id="options-once">Back to search results? <a data-target="alert-warning-popup" class="alert-btn" href="#">Click here.</a></p>
 			</div>		
 			<div class="content-row">
 			</div>
@@ -1148,6 +1143,23 @@
 	</div>
 	<!-- end of alert warning popup -->
 
+	<!-- train-details pop-up -->
+	<div class="seat-map-popup" id="popup-1">
+		<div class="seat-map-popup-overlay"></div>
+		<div class="seat-map-popup-content">
+			<div class="seat-map-popup-close" onclick="toggleSMPopup()">&times</div>
+			<h3>Journey Details</h3>
+			<p>Train ID: 1001</p>
+			<p>Colombo - Badulla</p>
+			<p>Intercity Express Train <b>Denuwara Menike</b></p>
+			<p><i class="fa fa-calendar-o" aria-hidden="true"></i> 20th June 2020</p>
+			<p><i class="fa fa-clock-o" aria-hidden="true"></i> 6.30 AM -> 15.01 AM</p>
+			<p><i class="fa fa-clock-o" aria-hidden="true"></i> 8 hrs 43 mins</p>
+			<p>Train to Badulla</p>
+		</div>
+	</div>
+	<!-- end of train-details pop up
+ -->
 	<!-- js for tabs  -->
 	<script>
 		function setupTabs() {
@@ -1211,6 +1223,14 @@
 
 	</script>
 	<!-- end of js for flash message -->
+
+	<!-- js for train details popup -->
+	<script>
+		function toggleSMPopup(){
+			document.getElementById("popup-1").classList.toggle("seat-map-popup-active");
+		}
+	</script>
+	<!-- end of js for train details popup -->
 
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

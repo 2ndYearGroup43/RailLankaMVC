@@ -113,7 +113,33 @@
 				                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/resofficerReservations/displaySeatMapsnn">Reserve</a>
 				                    </td>
                                 </tr>
-                            </table>  
+                            </table>
+                            <br>
+                <div class="pagination">
+                    <ul>
+                        <li><a href="#" class="prev">Prev</a></li>
+                        <li class="pageNumber active"><a href="<?php echo URLROOT; ?>/resofficerReservations/displayTrains">1</a></li>
+                        <li class="pageNumber"><a href="<?php echo URLROOT; ?>/resofficerReservations/displayTrains">2</a></li>
+                        <li class="pageNumber"><a href="<?php echo URLROOT; ?>/resofficerReservations/displayTrains">3</a></li>
+                        <li><a href="<?php echo URLROOT; ?>/resofficerReservations/displayTrains" class="next">Next</a></li>
+                    </ul>
+                </div>
+                <br>
+
+                 <!-- js for pagination --> 
+                <script>
+                    $(document).ready(function(){
+                        $('.next').click(function(){
+                            $('.pagination').find('.pageNumber.active').next().addClass('active');
+                            $('.pagination').find('.pageNumber.active').prev().removeClass('active');
+                        });
+                        $('.prev').click(function(){
+                            $('.pagination').find('.pageNumber.active').prev().addClass('active');
+                            $('.pagination').find('.pageNumber.active').next().removeClass('active');
+                        });
+                    });
+                </script>
+            <!-- end of js for pagination -->  
                         </div>      
                     </div>
                 </div>

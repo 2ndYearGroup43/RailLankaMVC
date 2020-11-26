@@ -11,7 +11,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?>  -->
 
 <!-- search results -->
 	<div class="body-section">
@@ -23,7 +23,10 @@
 		<div class="content-row">
 		</div>
 		<div class="table-container">
-			<h1 class="title">Search Results</h1>
+			<div class="img-container">
+				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+			</div>
+			<h1 class="title2">Search Results</h1>
 			<!-- <div class=form-container> -->
 				<table class="content-table">
 					<thead>
@@ -79,8 +82,18 @@
 						</tr>
 					</tbody>
 				</table>
-			<!-- </div> -->
-			<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/search'" type="submit" class="btn blue-btn back-btn">Back</button>
+				<br>
+				<div class="pagination">
+					<ul>
+						<li><a href="#" class="prev">Prev</a></li>
+						<li class="pageNumber active"><a href="<?php echo URLROOT; ?>/passengerTrackings/displayTrains">1</a></li>
+						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/passengerTrackings/displayTrains">2</a></li>
+						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/passengerTrackings/displayTrains">3</a></li>
+						<li><a href="<?php echo URLROOT; ?>/passengerTrackings/displayTrains" class="next">Next</a></li>
+					</ul>
+				</div>
+				<br>
+			<!-- <button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/search'" type="submit" class="btn blue-btn back-btn">Back</button> -->
 		</div>
 		<div class="content-row">
 		</div>
@@ -95,7 +108,11 @@
 			<div class="close">+</div>
 			<div class="notices-container">
 				<div class="mini-schedule">
-					<h2 class="title">SEARCH TRAIN</h2>
+					<div class="img-container">
+						<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+					</div>
+					<br>
+					<!-- <h2 class="title">Search Train</h2> -->
 					<form action="#">
 						<div class="form-row">
 							<div class="mini-input-data">
@@ -133,26 +150,12 @@
                             </div>
 						</div>
 					</form>
-					<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayTrains'" class="btn blue-btn">Go <i class="fa fa-long-arrow-right"></i></button>
+					<center><button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayTrains'" class="btn blue-btn">Go <i class="fa fa-long-arrow-right"></i></button></center>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- end of pop up -->
-
-	 <!--  js for toggle menu -->
-	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-	</script>
 
 	<!-- js for pop up -->
 	<script>
@@ -167,6 +170,21 @@
 
 	</script>
 	<!-- end of js for pop up -->
+
+		<!-- js for pagination --> 
+	<script>
+		$(document).ready(function(){
+			$('.next').click(function(){
+				$('.pagination').find('.pageNumber.active').next().addClass('active');
+				$('.pagination').find('.pageNumber.active').prev().removeClass('active');
+			});
+			$('.prev').click(function(){
+				$('.pagination').find('.pageNumber.active').prev().addClass('active');
+				$('.pagination').find('.pageNumber.active').next().removeClass('active');
+			});
+		});
+	</script>
+	<!-- end of js for pagination -->
 
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

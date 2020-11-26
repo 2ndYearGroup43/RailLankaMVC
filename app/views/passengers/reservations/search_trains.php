@@ -11,7 +11,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?>  -->
 
 <!-- form -->
 	<div class="body-section">
@@ -20,19 +20,28 @@
 		<div class="content-row">
 		</div>
 		<div class="form-container">
-			<h1 class="title">Search Trains</h1>
-			<br>
+			<div class="img-container">
+				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+			</div>  
+			<h1 class="title" id="title4">Search Trains</h1>
+			<!-- <br> -->
 			<form action="#">
 				<div class="form-row">	
 					<div class="input-data">
-						<input type="text" name="" required>
+						<input type="text" name="" list="stationList" required>
+						<datalist id="stationList">
+							<option>Fort</option>
+							<option>Kandy</option>
+							<option>Galle</option>
+							<option>Badulla</option>
+						</datalist>
 						<div class="underline"></div>
 						<label>Source Station</label>
 					</div>
 				</div>	
 				<div class="form-row">
 					<div class="input-data">
-						<input type="text" name="" required>
+						<input type="text" name="" list="stationList" required>
 						<div class="underline"></div>
 						<label>Destination Station</label>
 					</div>

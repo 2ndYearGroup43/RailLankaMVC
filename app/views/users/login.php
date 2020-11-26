@@ -13,7 +13,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?>
+<!-- <?php var_dump($_SESSION); ?> -->
 <div class="banner">
 <div class="container-login">
 	<div class="wrapper-login">

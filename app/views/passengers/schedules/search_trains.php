@@ -11,7 +11,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?>  -->
 
 <!-- form -->
 	<div class="body-section">
@@ -20,8 +20,11 @@
 		<div class="content-row">
 		</div>
 		<div class="form-container">
-			<h1 class="title">Search Trains</h1>
-			<br>
+			<div class="img-container">
+				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+			</div>  
+			<h1 class="title" id="title4">Search Trains</h1>
+			<!-- <br> -->
 			<form action="#">
 				<div class="form-row">	
 					<div class="input-data">
@@ -70,19 +73,7 @@
 		</div>
 
 	</div>
-<!-- js for toggle menu -->
-<script>
-	var menuItems = document.getElementById("menuItems");
-	menuItems.style.maxHeight = "0px"
-	function menutoggle(){
-		if(menuItems.style.maxHeight == "0px"){
-			menuItems.style.maxHeight = "390px";
-		}
-		else{
-			menuItems.style.maxHeight = "0px";
-		}
-	}
-</script>
+
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>
 

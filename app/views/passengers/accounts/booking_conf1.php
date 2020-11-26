@@ -11,7 +11,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?>  -->
 
 <!-- Further Details -->
 	<div class="body-section"  id="e-ticket">
@@ -22,16 +22,19 @@
 		<div class="conf-ticket">
 			<div class="print-header">
 				<img src="<?php echo URLROOT ?>/public/img/logob2.png">
-				<p class="title">BOOKING SUCCESSFUL!</p>	
+				<p class="title" id="title3">BOOKING SUCCESSFUL!</p>	
 			</div>
 			<div class="normal-header">
 				<img src="<?php echo URLROOT ?>/public/img/logob2.png">
-				<h1 class="title">BOOKING SUCCESSFUL!</h1>
+				<h1 class="title" id="title3">BOOKING SUCCESSFUL!</h1>
 				<div class="summary">
 					<center><p>Thank you for booking with us!</p></center>
 				</div>
 			</div>
-			<!-- <br> -->
+			<div class="summary">
+				<p><b>Your Ticket ID: B9RBYQ</b></p>
+				<p><b>Booking Date: 26th November 2020  23:00</b></p>
+			</div>
 			<div id="policy" class="summary">
 				<p>We recommend that you print this page and bring it with you. You have been sent an email with a copy of the reservation details. You may also view your reservation details online at any time.</p>
 				<button onclick="printContent('e-ticket')" class="print"><i class="fa fa-print" aria-hidden="true"></i> Print This Page </button>
@@ -185,7 +188,7 @@
 				</div>
 			</div>
 			<br><br>	
-			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTickets'" class="btn checkout-btn">Back</button>
+			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTickets'" class="btn checkout-btn" id="viewalltickets">Back</button>
 		</div>
 		<div class="content-row">		
 		</div>

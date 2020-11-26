@@ -4,7 +4,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?>  -->
 
 <!-- Further Details -->
 	<div class="body-section">
@@ -412,7 +412,7 @@
 			</div>
 			<div class="alert-body">
 				<h3>Are you sure?</h3>
-				<p>You will lose progress if you continue</p>
+				<p>You will lose unsaved changes if you continue</p>
 				<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps'" class="proceed-btn">Proceed Anyway</button>
 			</div>
 			<button type="button" class="close-alert">&times;</button>
