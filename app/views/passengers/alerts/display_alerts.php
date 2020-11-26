@@ -151,7 +151,7 @@
 		<div class="modal-content">
 			<div class="close">+</div>
 			<div class="notices-container">
-			<h2 class="title" id="title3">Alert Details</h2>
+			<h2 class="title">Alert Details</h2>
 			<br>
 				<table class="content-table" id="details">
 

@@ -53,7 +53,7 @@
 							<td data-label="Arrival Time">9.38 a.m.</td>
 							<td data-label="Type">Intercity</td>
 							<td>
-								<button type="submit" class="btn">View Ticket</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTicket1'" type="submit" class="btn"><span>View Ticket</span></button>
 							</td>
 						</tr>
 						<tr>
@@ -63,7 +63,7 @@
 							<td data-label="Arrival Time">11.03 a.m.</td>
 							<td data-label="Type">Express - Udarata Menike</td>
 							<td>
-								<button type="submit" class="btn">View Ticket</button>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTicket1'" type="submit" class="btn"><span>View Ticket</span></button>
 							</td>
 						</tr>
 					</tbody>

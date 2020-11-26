@@ -41,7 +41,7 @@
 							<td data-label="New Date">20-11-2020</td>
 							<td data-label="New Time">05.50 AM</td>
 							<td data-label="Cause">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Rescheduled due to a breakdown
 							</td>
 						</tr>
 						<tr>
@@ -50,7 +50,7 @@
 							<td data-label="New Date">20-11-2020</td>
 							<td data-label="New Time">07.00 AM</td>
 							<td data-label="Cause">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Rescheduled due to a breakdown
 							</td>
 						</tr>
 						<tr>
@@ -59,7 +59,7 @@
 							<td data-label="New Date">20-11-2020</td>
 							<td data-label="New Time">10.00 AM</td>
 							<td data-label="Cause">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Rescheduled due to a breakdown
 							</td>
 						</tr>
 						<tr>
@@ -68,7 +68,7 @@
 							<td data-label="New Date">20-11-2020</td>
 							<td data-label="New Time">03.00 PM</td>
 							<td data-label="Cause">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Rescheduled due to a breakdown
 							</td>
 						</tr>
 						<!-- <tr>

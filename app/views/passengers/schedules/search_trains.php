@@ -20,11 +20,11 @@
 		<div class="content-row">
 		</div>
 		<div class="form-container">
-			<!-- <div class="img-container">
+			<div class="img-container">
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
-			</div> -->
-			<h1 class="title">Search Trains</h1>
-			<br>
+			</div>  
+			<h1 class="title" id="title4">Search Trains</h1>
+			<!-- <br> -->
 			<form action="#">
 				<div class="form-row">	
 					<div class="input-data">

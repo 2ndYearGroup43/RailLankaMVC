@@ -11,9 +11,11 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
+<!-- <?php var_dump($_SESSION); ?>  -->
+
 <div class="marquee-area info-tag">
 	<marquee>
-		<i class="fa fa-exclamation-triangle" aria-hidden="true" size="3x"></i> Coronavirus(COVID-19) - For the latest updates and travel information, please visit our Coronavirus Information Center
+		<i class="fa fa-exclamation-triangle" aria-hidden="true" size="3x"></i> All stations closed until further notice due to COVID-19
 	</marquee>
 </div>
 
@@ -22,7 +24,13 @@
 	<div class="wrapper-landing">
 			<h1>EXPLORE SRI LANKA ON RAILS</h1>
 			<div class="search-box">
-				<input class="search-txt" type="text" name="" placeholder="Search">
+				<input class="search-txt" type="text" list="keywordList" placeholder="Search">
+				<datalist id="keywordList">
+					<option>Reserve</option>
+					<option>Track</option>
+					<option>Schedule</option>
+					<option>Notices</option>
+				</datalist>
 				<a class="search-btn" href="#">
 					<i class="fa fa-search"></i>
 				</a>
@@ -75,7 +83,7 @@
 	<div class="leftbox">
 		<div class="content">
 			<div class="mini-schedule">
-				<h2 class="title">SEARCH TRAIN</h2>
+				<h2 class="title" id="title3">SEARCH TRAIN</h2>
 				<form action="#">
 					<div class="form-row">
 						<div class="mini-input-data">
@@ -123,7 +131,7 @@
 				</div>
 				<div class="time-details">
 					<h3>Unawatuna Sub Railway Station Temporarily Closed Due To COVID-19</h3>
-					<a id=pop-up href="#">
+					<a class="pop-up" href="#">
 						<p>Read More <i class="fa fa-angle-double-right"></i></p>
 					</a>
 				</div>
@@ -135,7 +143,7 @@
 				</div>
 				<div class="time-details">
 					<h3>Beliatta-Anuradhapura Express Train won't be in operation until further notice</h3>
-					<a id=pop-up href="#">
+					<a class="pop-up" href="#">
 						<p>Read More <i class="fa fa-angle-double-right"></i></p>
 					</a>
 				</div>
@@ -147,7 +155,7 @@
 				</div>
 				<div class="time-details">
 					<h3>Denuwara Menike And KKS Intercity Trains To Run On Weekends</h3>
-					<a id=pop-up href="#">
+					<a class="pop-up" href="#">
 						<p>Read More <i class="fa fa-angle-double-right"></i></p>
 					</a>
 				</div>
@@ -159,7 +167,7 @@
 </section>
 
 <!-- pop up -->
-	<div class="bg-modal">
+	<div class="bg-modal" id="front-page">
 		<div class="modal-content">
 			<div class="close">+</div>
 			<div class="notices-container">
@@ -171,7 +179,7 @@
 							<td>2nd October 2020</td>
 						</tr>
 						<tr>
-							<td><h3>Unawatuna sub railway station temporarily closed due to COVID-19</h3></td>
+							<td><center><h3>Unawatuna sub railway station temporarily closed due to COVID-19</h3></center></td>
 						</tr>
 						<tr>	
 							<td>The Unawatuna Railway Station was temporarily closed on Monday (July 13), according to the Department of Railways.
@@ -188,25 +196,10 @@
 	</div>
 	<!-- end of pop up -->
 
-
-<!-- js for toggle menu -->
-<script>
-	var menuItems = document.getElementById("menuItems");
-	menuItems.style.maxHeight = "0px"
-	function menutoggle(){
-		if(menuItems.style.maxHeight == "0px"){
-			menuItems.style.maxHeight = "390px";
-		}
-		else{
-			menuItems.style.maxHeight = "0px";
-		}
-	}
-</script>
-
 <!-- js for pop up -->
 <script>
 
-	document.getElementById('pop-up').addEventListener('click', function() {
+	$('.pop-up').bind('click', function() {
 				document.querySelector('.bg-modal').style.display = 'flex';
 		});
 

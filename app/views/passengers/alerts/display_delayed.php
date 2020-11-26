@@ -29,7 +29,8 @@
 						<tr>
 							<th>AlertID</th>
 							<th>TrainID</th>
-							<th>Delay Time/th>
+							<th>Date</th>
+							<th>Delay Time</th>
 							<th>Delay Cause</th>
 						</tr>
 					</thead>
@@ -37,6 +38,7 @@
 						<tr class="active-row">
 							<td data-label="Alert ID">001</td>
 							<td data-label="Train ID">0019</td>
+							<td data-label="Date">26/11/2020</td>
 							<td data-label="Delay Time">09.00 AM</td>
 							<td data-label="Cause">
 								Delayed due to breakdown
@@ -45,6 +47,7 @@
 						<tr>
 							<td data-label="Alert ID">002</td>
 							<td data-label="Train ID">0013</td>
+							<td data-label="Date">24/11/2020</td>
 							<td data-label="Delay Time">09.30 AM</td>
 							<td data-label="Cause">
 								Delayed due to breakdown
@@ -53,6 +56,7 @@
 						<tr>
 							<td data-label="Alert ID">003</td>
 							<td data-label="Train ID">0081</td>
+							<td data-label="Date">20/11/2020</td>
 							<td data-label="Delay Time">11.00 AM</td>
 							<td data-label="Cause">
 								Delayed due to breakdown
@@ -61,6 +65,7 @@
 						<tr>
 							<td data-label="Alert ID">004</td>
 							<td data-label="Train ID">1001</td>
+							<td data-label="Date">15/11/2020</td>
 							<td data-label="Delay Time">11.10 AM</td>
 							<td data-label="Cause">
 								Delayed due to breakdown

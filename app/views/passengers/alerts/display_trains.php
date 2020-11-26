@@ -120,7 +120,8 @@
 					<div class="img-container">
 						<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 					</div>
-					<h2 class="title">Search Train</h2>
+					<br>
+					<!-- <h2 class="title">Search Train</h2> -->
 					<form action="#">
 						<div class="form-row">
 							<div class="mini-input-data">
