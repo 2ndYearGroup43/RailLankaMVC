@@ -36,6 +36,10 @@
 					      UPDATE ACCOUNT
 					    </div>
 					    <div class="acc-form">
+					    	<div class="acc-inputfield">
+					          	<label>NIC/Passport No.</label>
+					          	<input type="text" placeholder="986711523V" class="acc-input">
+					      	</div> 
 					      	<div class="acc-inputfield">
 					          	<label>First Name</label>
 					          	<input type="text" placeholder="John" class="acc-input">
