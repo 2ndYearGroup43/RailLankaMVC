@@ -165,7 +165,7 @@
                             </div>
 						</div>
 					</form>
-					<center><button onclick="location.href='<?php echo URLROOT; ?>/reservations/displayTrains'" class="btn blue-btn">Go <i class="fa fa-long-arrow-right"></i></button></center>
+					<center><button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displayTrains'" class="btn blue-btn">Go <i class="fa fa-long-arrow-right"></i></button></center>
 				</div>
 			</div>
 		</div>
