@@ -4,7 +4,7 @@
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
 ?>
-<?php var_dump($_SESSION); ?>
+<!-- <?php var_dump($_SESSION); ?> -->
 <div class="body-section">
 	<div class="content-row"></div>
     <div class="content-row">

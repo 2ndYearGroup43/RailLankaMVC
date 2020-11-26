@@ -78,6 +78,9 @@
 
         <div class="content-row">
             <div class="container-table">
+                <div class="container-row">
+                    <img src="<?php echo URLROOT;?>/public/img/logoschedule.jpg" alt="logo-track">
+                </div>
                 <h1>Schedule</h1>
                 <div class="res-table">
                     <table class="blue">
