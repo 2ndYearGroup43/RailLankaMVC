@@ -11,7 +11,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?> 
+<!-- <?php var_dump($_SESSION); ?>  -->
 
 
 <!-- display all alerts -->
@@ -37,7 +37,7 @@
 							<td data-label="Date">02/10/2020</td>
 							<td data-label="Description">Unawatuna sub railway station temporarily closed over COVID-19 scare</td>
 							<td>
-								<button type="submit" id="pop-up" class="btn"><span>View Details</span></button>
+								<button type="submit" class="btn pop-up"><span>View Details</span></button>
 							</td>
 						</tr>
 						<tr>
@@ -45,7 +45,7 @@
 							<td data-label="TrainID">28/08/2020</td>
 							<td data-label="Type">Beliatta-Anuradhapura Express Train won't be in operation until further notice</td>
 							<td>
-								<button type="submit" id="pop-up" class="btn">View Details</button>
+								<button type="submit" class="btn pop-up">View Details</button>
 							</td>
 						</tr>
 						<tr>
@@ -53,7 +53,7 @@
 							<td data-label="TrainID">27/06/2020</td>
 							<td data-label="Type">Class s5 718 - 719 finds a new home</td>
 							<td>
-								<button type="submit" id="pop-up" class="btn">View Details</button>
+								<button type="submit" class="btn pop-up">View Details</button>
 							</td>
 						</tr>
 						<tr>
@@ -61,7 +61,7 @@
 							<td data-label="TrainID">13/06/2020</td>
 							<td data-label="Type">Fort-Station closed for renovation</td>
 							<td>
-								<button type="submit" class="btn">View Details</button>
+								<button type="submit" class="btn pop-up">View Details</button>
 							</td>
 						</tr>
 					</tbody>
@@ -81,7 +81,7 @@
 		<div class="modal-content">
 			<div class="close">+</div>
 			<div class="notices-container">
-			<h2 class="title">Alert ID:001</h2>
+			<h2 class="title">Notice</h2>
 				<table class="content-table" id="details">
 					<tbody>	
 						<tr>
@@ -105,23 +105,10 @@
 	</div>
 	<!-- end of pop up -->
 
-	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-	</script>
-
 	<!-- js for pop up -->
 	<script>
 
-		document.getElementById('pop-up').addEventListener('click', function() {
+		$('.pop-up').bind('click', function() {
 				document.querySelector('.bg-modal').style.display = 'flex';
 		});
 
@@ -131,5 +118,7 @@
 
 	</script>
 	<!-- end of js for pop up -->
+
+	
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

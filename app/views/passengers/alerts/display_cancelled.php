@@ -29,6 +29,7 @@
 						<tr>
 							<th>AlertID</th>
 							<th>TrainID</th>
+							<th>Date</th>
 							<th>Cancellation Cause</th>
 						</tr>
 					</thead>
@@ -36,29 +37,33 @@
 						<tr>
 							<td data-label="Alert ID">001</td>
 							<td data-label="Train ID">0019</td>
+							<td data-label="Date">26/11/202</td>
 							<td data-label="Cause">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Cancelled due to COVID_19
 							</td>
 						</tr>
 						<tr>
 							<td data-label="Alert ID">002</td>
 							<td data-label="Train ID">0013</td>
+							<td data-label="Date">24/11/202</td>
 							<td data-label="Cause">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Cancelled due to COVID_19
 							</td>
 						</tr>
 						<tr>
 							<td data-label="Alert ID">003</td>
 							<td data-label="Train ID">0081</td>
+							<td data-label="Date">20/11/202</td>
 							<td data-label="Cause">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Cancelled due to COVID_19
 							</td>
 						</tr>
 						<tr>
 							<td data-label="Alert ID">004</td>
 							<td data-label="Train ID">0019</td>
+							<td data-label="Date">13/11/202</td>
 							<td data-label="Cause">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+								Cancelled due to COVID_19
 							</td>
 						</tr>
 						<!-- <tr>
