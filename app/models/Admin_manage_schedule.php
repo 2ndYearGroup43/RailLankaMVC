@@ -133,7 +133,7 @@ class Admin_manage_schedule {
 	}
 
 	public function edit($data){
-		$this->db->query('UPDATE route_station SET routeId=:routeId, stationID=:stationID, stopNo=:stopNo, arrivaltime=:arrivaltime, departuretime=:departuretime, date=:date, distance=:distance WHERE routeId=:routeId');
+		$this->db->query('UPDATE route_station SET routeId=:routeId, stationID=:stationID, stopNo=:stopNo, arrivaltime=:arrivaltime, departuretime=:departuretime, date=:date, distance=:distance WHERE stationID=:stationID');
 
 		$this->db->bind(':routeId', $data['routeId']);
 		$this->db->bind(':stationID', $data['stationID']);		
@@ -149,6 +149,19 @@ class Admin_manage_schedule {
 			return false;
 		}
 	}
+
+	public function getSchedule($routeId, $stationID)
+	{
+		$this->db->query('SELECT * FROM route_station WHERE routeId=:routeId AND stationID=:stationID');
+
+		$this->db->bind(':routeId', $routeId);
+		$this->db->bind(':stationID', $stationID);
+
+		$row = $this->db->single();
+		return $row;
+	}
+
+
 
 		public function views($data){
 		$this->db->query('SELECT route_station SET routeId=:routeId, stationID=:stationID, stopNo=:stopNo, arrivaltime=:arrivaltime, departuretime=:departuretime, date=:date, distance=:distance WHERE routeId=:routeId');
@@ -180,7 +193,14 @@ class Admin_manage_schedule {
 		}
 	}
 
+    public function findTrain2($trainId){
+		$this->db->query('SELECT * FROM route WHERE trainId=:trainId');
 
+		$this->db->bind(':trainId', $trainId);
+
+		$row = $this->db->single();
+		return $row;
+	}
 
 	public function findTrain($trainId){
 		$this->db->query('SELECT t1.*,s1.name AS dest FROM 
