@@ -287,16 +287,15 @@ class Admin_manage_schedules extends Controller{
 		$this->view('admins/manage_schedule/views', $data);
 	}
 
-	public function delete($stationID){
+	public function delete($stationID, $trainId){
 
-        $route=$this->adminModel->getRouteId($trainId);
-		$routeId=$route->routeId;
-		$trainId=$route->trainId;
 		$manage_schedule=$this->adminModel->findRoute($stationID);
+		$route=$this->adminModel->getRouteId($trainId);
+		$trainId=$route->trainId;
 		
 		$data = [
 			'manage_schedule'=>$manage_schedule,
-			'trainId'=>'',
+			'trainId'=>$trainId,
 			'routeId'=>'',
 			'stationID'=>'',
 			'stopNo'=>'',
@@ -309,7 +308,7 @@ class Admin_manage_schedules extends Controller{
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 		if($this->adminModel->delete($stationID)){
-			header("Location: " . URLROOT . "/Admin_manage_schedules/viewAllSchedule/". $trainId);
+			header("Location: " . URLROOT . "/Admin_manage_schedules/viewAllSchedule/" . $trainId);
 		}
 		else{
 			die('Something Going Wrong');
@@ -420,8 +419,95 @@ class Admin_manage_schedules extends Controller{
 		$this->view('admins/manage_schedule/viewAllSchedules', $data);
 	}
 
-	public function editSingle(){
-		
+	public function editSingle($routeId, $stationID, $trainId){
+		$manage_schedule=$this->adminModel->findRoute($routeId);
+		$schedule=$this->adminModel->getSchedule($routeId, $stationID);
+		$route=$this->adminModel->getRouteId($trainId);
+		$trainId=$route->trainId;
+
+		$data = [
+			'manage_schedule'=>$manage_schedule,
+			'schedule'=>$schedule,
+	        'trainId'=>$trainId,
+			'routeId'=>$schedule->routeId,
+			'stationID'=>$schedule->stationID,
+			'stopNo'=>$schedule->stopNo,
+			'arrivaltime'=>$schedule->arrivaltime,
+			'departuretime'=>$schedule->departuretime,
+			'date'=>$schedule->date,
+            'distance'=>$schedule->distance,
+            'routeIdError'=>'',
+            'stationIDError'=>'',
+            'stopNoError'=>'',
+            'distanceError'=>''
+		];
+
+		if($_SERVER['REQUEST_METHOD']=='POST'){
+			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+			$data=[
+			'manage_schedule'=>$manage_schedule,
+			'schedule'=>$schedule,
+			'trainId'=>$trainId,		
+			'routeId'=>$schedule->routeId,		
+			'stationID'=>$schedule->stationID,			
+			'stopNo'=>trim($_POST['stopNo']),
+			'arrivaltime'=>trim($_POST['arrivaltime']),
+			'departuretime'=>trim($_POST['departuretime']),
+			'date'=>trim($_POST['date']),
+			'distance'=>trim($_POST['distance']),
+			'routeIdError'=>'',
+            'stationIDError'=>'',
+            'stopNoError'=>'',
+            'distanceError'=>''
+			];
+            $idValidation="/^[a-zA-Z0-9]*$/";
+            $numberValidation="/^[0-9]*$/";
+
+                if(empty($data['routeId'])){
+                $data['routeIdError']='Please Enter the Route ID.';
+                }elseif(!preg_match($idValidation, $data['routeId'])){
+                    $data['routeIdError']="Route ID can only contain letters and numbers.";
+                }
+                elseif($schedule->routeId!=$data['routeId']){
+                if($this->adminModel->findRouteByRouteId($data['routeId'])){
+                    $data['routeIdError']='This compartment is already registered as a compartment in the system.'; 
+                    }
+                }
+
+                if(empty($data['stationID'])){
+                    $data['stationIDError']='Please Enter the Compartment No.';
+                }elseif(!preg_match($idValidation, $data['stationID'])){
+                    $data['stationIDError']="Compartment No can only contain letters and numbers.";
+                }
+                elseif($schedule->stationID!=$data['stationID']){
+                if($this->adminModel->findRouteByStationID($data['stationID'])){
+                    $data['stationIDError']='This compartment is already registered as a compartment in the system.'; 
+                    }
+                }
+
+                if(empty($data['stopNo'])){
+                    $data['stopNoError']='Please Enter the Stop Number.';
+                }elseif(!preg_match($numberValidation, $data['stopNo'])){
+                    $data['stopNoError']="Stop Number can only contain numbers.";
+                }
+                if(empty($data['distance'])){
+                    $data['distanceError']='Please Enter the Last Name.';
+                }elseif(!preg_match($numberValidation, $data['distance'])){
+                    $data['distanceError']="Distance can only contain numbers.";
+                }
+
+                if(empty($data['routeIdError']) && empty($data['stationIDError']) &&
+                empty($data['stopNoError']) && empty($data['distanceError']) ){
+
+			if ($this->adminModel->edit($data)) {
+				header("Location: " . URLROOT . "/Admin_manage_schedules/viewAllSchedule/" . $trainId);
+			}else{
+				die("Something Going Wrong");
+			}           
+		}
+	}
+		$this->view('admins/manage_schedule/editSingle', $data);
+	 	
 	}
 
 	

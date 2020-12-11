@@ -12,11 +12,11 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="trainId">Train Id</label>
-                        <input type="text" name="trainId" value="<?php echo $data['manage_train']->trainId?>" id="trainId" required >
+                        <input type="text" name="trainId" value="<?php echo $data['manage_train']->trainId?>" id="trainId"  >
                     </div>
                     <div class="input-data">
                         <label for="name">Name</label>
-                        <input type="text" name="name" value="<?php echo $data['manage_train']->name?>" id="name" required >
+                        <input type="text" name="name" value="<?php echo $data['manage_train']->name?>" id="name" >
                         <span class="invalidFeedback">
                             <?php echo $data['nameError'];?>
                         </span>
@@ -25,7 +25,7 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="reservable_status">Reservable Status</label>
-                        <select name="reservable_status" id="reservable_status" required>
+                        <select name="reservable_status" id="reservable_status" >
                                 <option value=""><?php echo $data['manage_train']->reservable_status?></option>
                                 <option >Yes</option>
                                 <option >No</option>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="input-data">
                         <label for="type">Type</label>
-                        <select name="type" id="type" required>
+                        <select name="type" id="type" >
                                 <option value=""><?php echo $data['manage_train']->type?></option>
                                 <option >Express</option>
                                 <option >IntercityExpress</option>
@@ -50,7 +50,7 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="src_station">Source Station</label>
-                        <select name="src_station" id="src_station" required>
+                        <select name="src_station" id="src_station" >
                                 <option value=""><?php echo $data['manage_train']->src_station?></option>
                                 <?php foreach ($data['stationids'] as $stationid ):?>
                                 <option value="<?php echo $stationid->stationID?>"><?php echo $stationid->stationID?> : <?php echo $stationid->name?></option>
@@ -62,13 +62,13 @@
                     </div>
                     <div class="input-data">
                         <label for="starttime">Start Time</label>
-                        <input type="time" name="starttime" value="<?php echo $data['manage_train']->starttime?>" id="starttime" required >
+                        <input type="time" name="starttime" value="<?php echo $data['manage_train']->starttime?>" id="starttime" >
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="input-data">
                         <label for="dest_station">Destination</label>
-                        <select name="dest_station" id="dest_station" required>
+                        <select name="dest_station" id="dest_station">
                                 <option value=""><?php echo $data['manage_train']->dest_station?></option>
                                 <?php foreach ($data['stationids'] as $stationid ):?>
                                 <option value="<?php echo $stationid->stationID?>"><?php echo $stationid->stationID?> : <?php echo $stationid->name?></option>
@@ -80,13 +80,13 @@
                     </div>
                     <div class="input-data">
                         <label for="endtime">End Time</label>
-                        <input type="time" name="endtime" value="<?php echo $data['manage_train']->endtime?>" id="endtime" required >
+                        <input type="time" name="endtime" value="<?php echo $data['manage_train']->endtime?>" id="endtime"  >
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="input-data">
                         <label for="rateId">Rate ID</label>
-                        <select name="rateId" id="rateId" required>
+                        <select name="rateId" id="rateId" >
                                 <option value=""><?php echo $data['manage_train']->rateId?></option>
                                 <?php foreach ($data['rates'] as $rate ):?>
                                 <option value="<?php echo $rate->rateId?>"><?php echo $rate->rateId?></option>

@@ -33,9 +33,9 @@
                             <td data-th="Date"><?php echo $route->date?></td>
                             <td data-th="Distance"><?php echo $route->distance?></td>
                             <td data-th="Manage">
-                            <form action="<?php echo URLROOT . "/Admin_manage_schedules/delete/" . $route->stationID?>" method="POST">    
+                            <form action="<?php echo URLROOT . "/Admin_manage_schedules/delete/" . $route->stationID?>/<?php echo $data['trainId'];?>" method="POST">    
                             <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_schedules/views/" . $route->routeId?>">View</a>
-                            <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_schedules/edit/" . $route->trainId?>">Edit</a>
+                            <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_schedules/editSingle/" . $route->routeId?>/<?php echo $route->stationID?>/<?php echo $data['trainId'];?>">Edit</a>
                             <input type="submit" name="delete" value="Remove" class="red-btn">
                             </form></td>
                         </tr>

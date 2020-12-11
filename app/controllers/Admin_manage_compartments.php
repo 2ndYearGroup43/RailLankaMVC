@@ -135,6 +135,9 @@ class Admin_manage_compartments extends Controller{
             }elseif(!preg_match($numberValidation, $data['noofseats'])){
                 $data['noofseatsError']="Number of Seats can only contain numbers.";
             }
+            elseif(($data['noofseats'])>40){
+                $data['noofseatsError']="Maximum of number of Seats is 40.";
+            }
             if(empty($data['type'])){
                 $data['typeError']='Please Enter the Compartment No.';
             }
@@ -274,7 +277,7 @@ class Admin_manage_compartments extends Controller{
 		$this->view('admins/manage_compartment/views', $data);
 	}
 
-	public function delete($compartmentNo){
+	public function delete($compartmentNo, $trainId){
 
 		$manage_compartment=$this->adminModel->findTrain($trainId);
 
@@ -289,7 +292,7 @@ class Admin_manage_compartments extends Controller{
 
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-		if($this->adminModel->delete($compartmentNo)){
+		if($this->adminModel->delete($compartmentNo, $trainId)){
 			header("Location: " . URLROOT . "/Admin_manage_compartments/viewCompartments/" . $trainId);
 		}
 		else{

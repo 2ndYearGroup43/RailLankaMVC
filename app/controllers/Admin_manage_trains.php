@@ -194,7 +194,7 @@ class Admin_manage_trains extends Controller{
                 $data['dest_stationError']='Please Enter the Train ID.';
                 }else{
 
-                    if(($data['dest_station']) == ($data['dest_station'])){
+                    if(($data['src_station']) == ($data['dest_station'])){
                         $data['dest_stationError']='Source and Destination Stations Cannot be Same.'; 
                     }
                 }
