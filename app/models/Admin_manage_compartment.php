@@ -156,9 +156,10 @@ class Admin_manage_compartment {
 		}
 	}
 
-	public function delete($compartmentNo){
-		$this->db->query('DELETE FROM compartment WHERE compartmentNo=:compartmentNo');
+	public function delete($compartmentNo, $trainId){
+		$this->db->query('DELETE FROM compartment WHERE trainId=:trainId AND compartmentNo=:compartmentNo');
 
+		$this->db->bind(':trainId',$trainId);
 		$this->db->bind(':compartmentNo',$compartmentNo);
 
         if($this->db->execute()){
