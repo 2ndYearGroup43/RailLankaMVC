@@ -62,6 +62,8 @@ class AdminStations extends Controller {
 
             if(empty($data['stationID'])) {
                 $data['stationIDError'] = 'The stationID of a station cannot be empty';
+            }elseif ($this->adminstationModel->findStationById($data['stationID'])){
+                $data['stationIDError']= "This station already exists!!" ;
             }
 
             if(empty($data['name'])) {
@@ -92,7 +94,8 @@ class AdminStations extends Controller {
 
             if (empty($data['stationIDError']) && empty($data['nameError']) && empty($data['telephoneNoError']) && empty($data['typeError']) ) {
                 if ($this->adminstationModel->addStation($data)) {
-                    header("Location: " . URLROOT . "/adminStations");
+                    echo $data["name"]." station added successfully";
+                    header("Location: " . URLROOT . "/adminstations/add_station");
                 } else {
                     die("Something went wrong, please try again!");
                 }
@@ -167,13 +170,13 @@ class AdminStations extends Controller {
 
     public function update_station() {
 
-        $station = $this->adminstationModel->findStationById($stationID);
+    //     $station = $this->adminstationModel->findStationById($stationID);
 
-       if(!isLoggedIn()) {
-            header("Location: " . URLROOT . "/stations");
-        } elseif($station->stationID != $_SESSION['stationID']){
-            header("Location: " . URLROOT . "/stations");
-        }
+    //    if(!isLoggedIn()) {
+    //         header("Location: " . URLROOT . "/stations");
+    //     } elseif($station->stationID != $_SESSION['stationID']){
+    //         header("Location: " . URLROOT . "/stations");
+    //     }
               $data = [
                 'station' => '',
                 'stationID'=>'',
@@ -190,101 +193,101 @@ class AdminStations extends Controller {
                 'entered_timeError'=>''
         ];
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    //     if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data = [
-                    'stationID'=>trim($_POST['stationID']),
-                    'name'=>trim($_POST['name']),
-                    'telephoneNo'=>trim($_POST['telephoneNo']),
-                    'type'=>trim($_POST['type']),
-                    'entered_date'=>date("Y-m-d"),
-                    'entered_time'=>date("H:i:sa"),
-                    //'adminID'=>$_SESSION['adminID'],
-                    'stationIDError'=>'',
-                    'nameError'=>'',
-                    'telephoneNoError'=>'',
-                    'typeError'=>'',
-                    'entered_dateError'=>'',
-                    'entered_timeError'=>''
-            ];
+    //         $data = [
+    //                 'stationID'=>trim($_POST['stationID']),
+    //                 'name'=>trim($_POST['name']),
+    //                 'telephoneNo'=>trim($_POST['telephoneNo']),
+    //                 'type'=>trim($_POST['type']),
+    //                 'entered_date'=>date("Y-m-d"),
+    //                 'entered_time'=>date("H:i:sa"),
+    //                 //'adminID'=>$_SESSION['adminID'],
+    //                 'stationIDError'=>'',
+    //                 'nameError'=>'',
+    //                 'telephoneNoError'=>'',
+    //                 'typeError'=>'',
+    //                 'entered_dateError'=>'',
+    //                 'entered_timeError'=>''
+    //         ];
 
-           // echo $data['adminId'];
+    //        // echo $data['adminId'];
 
-            $telephoneValidation="/^[0-9]{10}+$/";
+    //         $telephoneValidation="/^[0-9]{10}+$/";
 
 
             
 
 
-            if(empty($data['stationID'])) {
-                $data['stationIDError'] = 'The stationID of a station cannot be empty';
-            }
+    //         if(empty($data['stationID'])) {
+    //             $data['stationIDError'] = 'The stationID of a station cannot be empty';
+    //         }
 
-            if(empty($data['name'])) {
-                $data['nameError'] = 'The name of a station cannot be empty';
-            }
+    //         if(empty($data['name'])) {
+    //             $data['nameError'] = 'The name of a station cannot be empty';
+    //         }
 
-            /*if(empty($data['telephoneNo'])) {
-                $data['telephoneNoError'] = 'The telephoneNo of a station cannot be empty';
-            }*/
-            if(empty($data['telephoneNo'])){
-                    $data['telephoneNoError']='Please Enter the Telephone No.';
-                }elseif(!preg_match($telephoneValidation, $data['telephoneNo'])){
-                    $data['telephoneNoError']="Name can only contain numbers and +.";
-                }
-
-
+    //         /*if(empty($data['telephoneNo'])) {
+    //             $data['telephoneNoError'] = 'The telephoneNo of a station cannot be empty';
+    //         }*/
+    //         if(empty($data['telephoneNo'])){
+    //                 $data['telephoneNoError']='Please Enter the Telephone No.';
+    //             }elseif(!preg_match($telephoneValidation, $data['telephoneNo'])){
+    //                 $data['telephoneNoError']="Name can only contain numbers and +.";
+    //             }
 
 
-            if(empty($data['type'])) {
-                $data['typeError'] = 'The type of a station cannot be empty';
-            }
-
-            if(empty($data['entered_date'])) {
-                $data['entered_dateError'] = 'The entered_date of a station cannot be empty';
-            }
-
-            if(empty($data['entered_time'])) {
-                $data['entered_timeError'] = 'The entered_time of a station cannot be empty';
-            }
 
 
-            if($data['stationID'] == $this->stationModel->findStationById($stationID)->stationID) {
-                $data['stationIDError'] == 'At least change the stationID!';
-            }
+    //         if(empty($data['type'])) {
+    //             $data['typeError'] = 'The type of a station cannot be empty';
+    //         }
 
-            if($data['name'] == $this->stationModel->findStationById($stationID)->name) {
-                $data['nameError'] == 'At least change the name!';
-            }
+    //         if(empty($data['entered_date'])) {
+    //             $data['entered_dateError'] = 'The entered_date of a station cannot be empty';
+    //         }
 
-            if($data['telephoneNo'] == $this->stationModel->findStationById($stationID)->telephoneNo) {
-                $data['telephoneNoError'] == 'At least change the telephoneNo!';
-            }
-
-            if($data['type'] == $this->stationModel->findStationById($stationID)->type) {
-                $data['typeError'] == 'At least change the type!';
-            }
-
-            if($data['entered_date'] == $this->stationModel->findStationById($stationID)->entered_date) {
-                $data['entered_dateError'] == 'At least change the entered_date!';
-            }
-
-            if($data['entered_time'] == $this->stationModel->findStationById($stationID)->entered_time) {
-                $data['entered_timeError'] == 'At least change the entered_time!';
-            }
+    //         if(empty($data['entered_time'])) {
+    //             $data['entered_timeError'] = 'The entered_time of a station cannot be empty';
+    //         }
 
 
-            if (empty($data['stationIDError']) && empty($data['nameError']) && empty($data['telephoneNoError']) && empty($data['typeError']) && empty($data['entered_dateError']) && empty($data['entered_timeError'])) {
-                if ($this->adminstationModel->updateStation($data)) {
-                    header("Location: " . URLROOT . "/adminStations");
-                } else {
-                    die("Something went wrong, please try again!");
-                }
-            } else {
-                $this->view('admins/stations/update_station', $data);
-            }
-        }
+    //         if($data['stationID'] == $this->stationModel->findStationById($stationID)->stationID) {
+    //             $data['stationIDError'] == 'At least change the stationID!';
+    //         }
+
+    //         if($data['name'] == $this->stationModel->findStationById($stationID)->name) {
+    //             $data['nameError'] == 'At least change the name!';
+    //         }
+
+    //         if($data['telephoneNo'] == $this->stationModel->findStationById($stationID)->telephoneNo) {
+    //             $data['telephoneNoError'] == 'At least change the telephoneNo!';
+    //         }
+
+    //         if($data['type'] == $this->stationModel->findStationById($stationID)->type) {
+    //             $data['typeError'] == 'At least change the type!';
+    //         }
+
+    //         if($data['entered_date'] == $this->stationModel->findStationById($stationID)->entered_date) {
+    //             $data['entered_dateError'] == 'At least change the entered_date!';
+    //         }
+
+    //         if($data['entered_time'] == $this->stationModel->findStationById($stationID)->entered_time) {
+    //             $data['entered_timeError'] == 'At least change the entered_time!';
+    //         }
+
+
+    //         if (empty($data['stationIDError']) && empty($data['nameError']) && empty($data['telephoneNoError']) && empty($data['typeError']) && empty($data['entered_dateError']) && empty($data['entered_timeError'])) {
+    //             if ($this->adminstationModel->updateStation($data)) {
+    //                 header("Location: " . URLROOT . "/adminStations");
+    //             } else {
+    //                 die("Something went wrong, please try again!");
+    //             }
+    //         } else {
+    //             $this->view('admins/stations/update_station', $data);
+    //         }
+    //     }
 
         $this->view('admins/stations/update_station', $data);
     }

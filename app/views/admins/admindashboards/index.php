@@ -28,7 +28,7 @@
                         <h1>Revenue Booking Types</h1><br>
                         <h3><small>From:  </small>2020-10-20  <small>To:  </small>2020-11-20</h3>
                     </div>
-                    <div class="container dash">
+                    <div class="container dash" style="border: none; box-shadow: none;">
                         <form action="#">
                             <div class="form-row">
                                 <div class="input-data">
@@ -81,7 +81,7 @@
                         <h1>Revenue Classes Summary</h1><br>
                         <h3><small>From:  </small>2020-10-20  <small>To:  </small>2020-11-20</h3>
                     </div>
-                    <div class="container dash">
+                    <div class="container dash" style="border: none; box-shadow: none;">
                         <form action="#">
                             <div class="form-row">
                                 <div class="input-data">
@@ -118,7 +118,7 @@
             </div>
                 
             <div class="dash-column" style="flex: 2;">
-                <div class="card-container">
+                <!-- <div class="card-container">
                     <div class="count-card">
                         <div class="card-title">
                             1st Class<br>
@@ -155,7 +155,7 @@
                             <a href="#">Manage</a>
                         </div>
                     </div>
-                </div> 
+                </div>  -->
                 <div class="dash-row">
                     <div class="chart-container">
                         <div class="data-chart" id="revenueClassChart"></div>

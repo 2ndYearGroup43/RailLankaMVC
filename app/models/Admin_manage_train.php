@@ -155,6 +155,20 @@ class Admin_manage_train {
 		}
 	}
 
+    public function findStationById($stationID) {
+        $this->db->query('SELECT COUNT(*) AS count FROM station WHERE stationID = :stationID');
+
+        $this->db->bind(':stationID', $stationID);
+
+        $row = $this->db->single();
+        if($row->count>0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
 	public function delete($trainId){
 		$this->db->query('DELETE FROM train WHERE trainId=:trainId');
 

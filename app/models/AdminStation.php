@@ -34,13 +34,17 @@ class AdminStation {
 
 
     public function findStationById($stationID) {
-        $this->db->query('SELECT * FROM station WHERE stationID = :stationID');
+        $this->db->query('SELECT COUNT(*) AS count FROM station WHERE stationID = :stationID');
 
         $this->db->bind(':stationID', $stationID);
 
         $row = $this->db->single();
+        if($row->count>0){
+            return true;
+        }else{
+            return false;
+        }
 
-        return $row;
     }
 
 

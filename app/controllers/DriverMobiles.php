@@ -4,6 +4,8 @@
     use PHPMailer\PHPMailer\Exception;
 
 class DriverMobiles extends Controller{
+
+    private $driverModel;
     public function __construct()
     {
         $this->driverModel=$this->model('DriverMobile');
@@ -129,6 +131,10 @@ class DriverMobiles extends Controller{
     
         exit();
     }
+
+
+
+
 
 
 
