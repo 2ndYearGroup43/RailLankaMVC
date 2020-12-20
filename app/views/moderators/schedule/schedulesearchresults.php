@@ -4,6 +4,7 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
+    var_dump($data['trains']);
 ?>
     <div class="body-section">
         <div class="content-row">
@@ -96,26 +97,18 @@
                                 <th>Schedule</th>    
                             </tr>
                         </thead>
+                        <?php foreach ($data['trains'] as $train):?>
                         <tr>
-                            <td data-th="Train-ID">101COLKAN0530</td>
-                            <td data-th="Start Station">Colombo Fort</td>
-                            <td data-th="Arrival Time">05:30</td>
-                            <td data-th="End Station">Kandy</td>
-                            <td data-th="End Time">14:30</td>
-                            <td data-th="Name">Udarata Menike</td>
-                            <td data-th="Type">Express</td>
-                            <td data-th="View Now"><a class="blue-btn" href="<?php echo URLROOT;?>/moderatorschedules/viewschedule">View Details</a></td>  
+                            <td data-th="Train-ID"><?php echo $train->trainId;?></td>
+                            <td data-th="Start Station"><?php echo $train->src_station;?></td>
+                            <td data-th="Arrival Time"><?php echo $train->starttime;?></td>
+                            <td data-th="End Station"><?php echo $train->dest_station;?></td>
+                            <td data-th="End Time"><?php echo $train->endtime;?></td>
+                            <td data-th="Name"><?php echo $train->name;?></td>
+                            <td data-th="Type"><?php echo $train->type;?></td>
+                            <td data-th="View Now"><a class="blue-btn" href="<?php echo URLROOT;?>/moderatorschedules/viewschedule/<?php echo $train->trainId;?>">View Details</a></td>
                         </tr>
-                        <tr>
-                            <td data-th="Train-ID"> 101COLBAD0930</td>
-                            <td data-th="Start Station">Colombo Fort</td>
-                            <td data-th="Arrival Time">09:30</td>
-                            <td data-th="End Station">Badulla</td>
-                            <td data-th="End Time">18:30</td>
-                            <td data-th="Name">Badulu Kumari</td>
-                            <td data-th="Type">Express</td>
-                            <td data-th="View Now"><a class="blue-btn" href="<?php echo URLROOT;?>/moderatorschedules/viewschedule">View Details</a></td>  
-                        </tr>
+                        <?php endforeach;?>
                     </table>  
 
                     <br>
