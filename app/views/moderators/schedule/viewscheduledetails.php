@@ -59,6 +59,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php $it=0;?>
                     <?php foreach ($data['routes'] as $route):?>
                         <tr>
                             <td data-th="Stop Number"><?php echo $route->stopNo;?></td>
@@ -66,9 +67,10 @@
                             <td data-th="Arrival Time"><?php echo $route->arrivaltime;?></td>
                             <td data-th="Departure Time"><?php echo $route->departuretime;?></td>
                             <td data-th="Distance"><?php echo $route->distance;?></td>
-                            <td data-th="1st Class Price">Rs. 20</td>
-                            <td data-th="2nd Class Price">Rs. 15</td>
-                            <td data-th="3rd Class Price">Rs. 10</td>
+                            <td data-th="1st Class Price"><?php echo 'Rs. '.$data['prices'][$it]["fclass"];?></td>
+                            <td data-th="2nd Class Price"><?php echo 'Rs. '.$data['prices'][$it]["sclass"];?></td>
+                            <td data-th="3rd Class Price"><?php echo 'Rs. '.$data['prices'][$it]["tclass"];?></td>
+                            <?php $it++?>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

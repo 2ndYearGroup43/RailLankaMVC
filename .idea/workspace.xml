@@ -6,7 +6,6 @@
       <change beforePath="$PROJECT_DIR$/app/controllers/ModeratorSchedules.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/ModeratorSchedules.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/ModeratorSchedule.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/ModeratorSchedule.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/moderators/schedule/schedulesearchresults.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/moderators/schedule/schedulesearchresults.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/moderators/schedule/searchtrains.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/moderators/schedule/searchtrains.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/moderators/schedule/viewscheduledetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/moderators/schedule/viewscheduledetails.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,7 +49,10 @@
       <workItem from="1607265436300" duration="992000" />
       <workItem from="1607328653008" duration="239000" />
       <workItem from="1607435890397" duration="2804000" />
-      <workItem from="1608455104431" duration="16862000" />
+      <workItem from="1608455104431" duration="18382000" />
+      <workItem from="1608738673267" duration="2583000" />
+      <workItem from="1608743848017" duration="123000" />
+      <workItem from="1608881730763" duration="10398000" />
     </task>
     <servers />
   </component>

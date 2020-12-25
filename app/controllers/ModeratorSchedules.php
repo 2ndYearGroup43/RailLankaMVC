@@ -97,7 +97,8 @@
                         }
                     }
 
-                    $this->view('moderators/schedule/scheduleSearchResults', $data);
+                    //$this->view('moderators/schedule/scheduleSearchResults', $data);
+                    $this->displayScheduleList($data);
                     return;
 
 
@@ -110,21 +111,60 @@
 
         public function displayScheduleList($data)
         {
-            $this->view('moderators/schedule/scheduleSearchResults');
+            $this->view('moderators/schedule/scheduleSearchResults', $data);
         }
 
         public function viewSchedule($trainId)
         {
             $train=$this->scheduleModel->getTrain($trainId);
-            $routes=$this->scheduleModel->getSchedule($trainId);
             $days=$this->scheduleModel->getDays($trainId);
+            $rate=$this->scheduleModel->getRate($trainId);
+            $routes=$this->scheduleModel->getSchedule($trainId);
+            $prices=$this->calPrices($routes, $rate);
             $data=[
               'train'=>$train,
               'trainId'=>$trainId,
               'routes'=>$routes,
+              'prices'=>$prices,
               'days'=>$days
             ];
             $this->view('moderators/schedule/viewScheduleDetails',$data);
+        }
+
+        public function calPrices($routes, $rate){
+            //var_dump($routes);
+            $data= array();
+            foreach ($routes as $route){
+                $prices=[
+                    "fclass"=>'',
+                    "sclass"=>'',
+                    "tclass"=>''
+                ];
+                $fb=$rate->fclassbase;
+                $sb=$rate->sclassbase;
+                $tb=$rate->tclassbase;
+                $dis=$rate->distance;
+                $rdis=$route->distance;
+                $r=$rate->rate;
+                if($rdis==0){
+                    $prices['fclass']=0;
+                    $prices['sclass']=0;
+                    $prices['tclass']=0;
+
+                }else{
+                    $prices['fclass']=$fb+(floor($rdis/$dis))*($fb/$r);
+                    $prices['sclass']=$sb+(floor($rdis/$dis))*($sb/$r);
+                    $prices['tclass']=$tb+(floor($rdis/$dis))*($tb/$r);
+
+                }
+                array_push($data, $prices);
+            }
+            //var_dump($data);
+            //echo sizeof($data);
+
+
+
+            return $data;
         }
 
 

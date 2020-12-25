@@ -100,9 +100,9 @@
                         <?php foreach ($data['trains'] as $train):?>
                         <tr>
                             <td data-th="Train-ID"><?php echo $train->trainId;?></td>
-                            <td data-th="Start Station"><?php echo $train->src_station;?></td>
+                            <td data-th="Start Station"><?php echo $train->src_name;?></td>
                             <td data-th="Arrival Time"><?php echo $train->starttime;?></td>
-                            <td data-th="End Station"><?php echo $train->dest_station;?></td>
+                            <td data-th="End Station"><?php echo $train->dest_name;?></td>
                             <td data-th="End Time"><?php echo $train->endtime;?></td>
                             <td data-th="Name"><?php echo $train->name;?></td>
                             <td data-th="Type"><?php echo $train->type;?></td>
