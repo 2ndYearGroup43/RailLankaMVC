@@ -22,7 +22,7 @@
                                     <a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/search">Reservation Details</a>
                                 </li>
                                 <li class="nav-link" style="--i: 1.1s">
-                                    <a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/searchTicketDetails">Ticket Details</a>
+                                    <a href="<?php echo URLROOT; ?>/ResOfficerTicketDetails/search">Ticket Details</a>
                                 </li>
                                 <li class="nav-link" style="--i: .6s"> 
                                     <a href="<?php echo URLROOT; ?>/ResOfficerManageSeats/search">Manage Seats</a>

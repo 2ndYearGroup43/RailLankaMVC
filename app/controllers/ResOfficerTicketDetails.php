@@ -1,10 +1,10 @@
 <?php 
 	
-	class ResOfficerReservations extends Controller {
+	class ResOfficerTicketDetails extends Controller {
 
 		public function __construct() {
-			$this->resofficerReservationModel = $this->model('ResOfficerReservation');
-                        isResofficerLoggedIn();
+			$this->resofficerReservationModel = $this->model('ResOfficerTicketDetail');
+			isResofficerLoggedIn();
 		}
 
 		public function index()
@@ -13,7 +13,7 @@
             $data=[
                 'stations'=>$stations
             ];
-            $this->view('resofficers/reservations/search_trains',$data);
+            $this->view('resofficers/ticket_details/search_ticket_details',$data);
         }
 
 		public function search() {
@@ -99,73 +99,26 @@
                     }
 
                     //$this->view('moderators/schedule/scheduleSearchResults', $data);
-                    $this->displayTrains($data);
+                    $this->displayTicketTrains($data);
                     return;
 
 
                 }else{
-                    $this->view('resofficers/reservations/search_trains',$data);
+                    $this->view('resofficers/ticket_details/search_ticket_details',$data);
                 }
             }
-            $this->view('resofficers/reservations/search_trains',$data);
+            $this->view('resofficers/ticket_details/search_ticket_details',$data);
 		}
 
-		public function displayTrains($data) {
+		public function displayTicketTrains($data) {
 
-			$this->view('resofficers/reservations/display_trains', $data);
+			$this->view('resofficers/ticket_details/display_ticket_trains', $data);
+
 		}
 
-		public function displaySeatMapsnn() {
-
+		public function displayTicketDetails() {
 			
-			$this->view('resofficers/reservations/display_seatmapsnn'); 
-		}
-
-		public function displaySeatMaps() {
-
-			
-			$this->view('resofficers/reservations/display_seatmaps1'); 
-		}
-
-		public function displaySeatMaps2() {
-
-	
-			$this->view('resofficers/reservations/display_seatmaps2'); 
-		}
-
-		public function displaySeatMaps3() {
-
-			$this->view('resofficers/reservations/display_seatmaps3'); 
-		}
-
-		public function displaySeatMaps4() {
-
-		
-			$this->view('resofficers/reservations/display_seatmaps4'); 
-		}
-
-		public function displaySeatMaps5() {
-
-	
-			$this->view('resofficers/reservations/display_seatmaps5'); 
-		}
-
-		public function displaySeatMaps6() {
-
-		
-			$this->view('resofficers/reservations/display_seatmaps6'); 
-		}
-
-		public function getPaasengerDetails() {
-
-			
-			$this->view('resofficers/reservations/passenger_details'); 
-		}
-
-		public function displayETicket() {
-
-			
-			$this->view('resofficers/reservations/booking_conf'); 
+			$this->view('resofficers/ticket_details/display_ticket_details'); 
 		}
 		
 	}

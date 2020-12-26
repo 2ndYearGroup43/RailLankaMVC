@@ -7,7 +7,7 @@
         <div class="body-section">
             <div class="content-flexrow">
                 <div class="container-searchbox">
-                    <form action="<?php echo URLROOT;?>/ResOfficerManageSeats/search" method="POST">
+                    <form action="<?php echo URLROOT;?>/ResOfficerTicketDetails/search" method="POST">
                         <div class="form-row">    
                             <div class="searchlogo">
                                 <img src="<?php echo URLROOT;?>/public/img/logoschedule.jpg" alt="raillankatracktrains">

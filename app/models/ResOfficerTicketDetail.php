@@ -1,5 +1,5 @@
 <?php 
-	class ResofficerManageSeat {
+	class ResOfficerTicketDetail {
 		private $db;
 
 		public function __construct() {
@@ -306,7 +306,7 @@
 
     public function getTrain($trainId){
         $this->db->query('
-SELECT t1.*, ss.name AS src_name FROM
+    SELECT t1.*, ss.name AS src_name FROM
     (SELECT t.*, sd.name AS dest_name FROM train t INNER JOIN station sd ON t.dest_station=sd.stationID WHERE t.trainId=:trainId)
     t1 INNER JOIN station ss ON t1.src_station=ss.stationID');
         $this->db->bind(':trainId', $trainId);
