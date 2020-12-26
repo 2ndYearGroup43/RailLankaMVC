@@ -79,40 +79,31 @@
                     <div class="container-table">
                         <h2 style="color: #13406d;">Searched Trains</h2>
                         <div class="res-table">
-                            <table class="blue">
+                                <table class="blue">
                                 <thead>
                                     <tr>
                                         <th>Train ID</th>
-                                        <th>From</th>
-                                        <th>Deaparture</th>
-                                        <th>To</th>
-                                        <th>Arrival</th>
-                                        <th>Date</th>
-                                        <th>Action</th>     
+                                        <th>Start Station</th>
+                                        <th>Arrival Time</th>
+                                        <th>End Station</th>
+                                        <th>End Time</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Schedule</th>    
                                     </tr>
                                 </thead>
-                                <tr>
-                                    <td data-th="Train-ID"> 101COLBAD0630</td>
-                                    <td data-th="From">Colombo Fort</td>
-                                    <td data-th="Deaparture">06.30</td>
-                                    <td data-th="To">Badulla</td>
-                                    <td data-th="Arrival">15.00</td>
-                                    <td data-th="Date">26.11.2020</td>
-                                    <td data-th="Action">                              
-                                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/displayTrainReservationDetails">Select</a>
-                                   </td>
-                                </tr>
-                                <tr>
-                                    <td data-th="Train-ID"> 105COLBAD0730</td>
-                                    <td data-th="From">Colombo Fort</td>
-                                    <td data-th="Deaparture">09.30</td>
-                                    <td data-th="To">Badulla</td>
-                                    <td data-th="Arrival">19.00</td>
-                                    <td data-th="Date">26.11.2020</td>
-                                    <td data-th="Action">
-				                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/displayTrainReservationDetails">Select</a>
-				                    </td>
-                                </tr>
+                                <?php foreach ($data['trains'] as $train):?>
+                                    <tr>
+                                        <td data-th="Train-ID"><?php echo $train->trainId;?></td>
+                                        <td data-th="Start Station"><?php echo $train->src_name;?></td>
+                                        <td data-th="Arrival Time"><?php echo $train->starttime;?></td>
+                                        <td data-th="End Station"><?php echo $train->dest_name;?></td>
+                                        <td data-th="End Time"><?php echo $train->endtime;?></td>
+                                        <td data-th="Name"><?php echo $train->name;?></td>
+                                        <td data-th="Type"><?php echo $train->type;?></td>
+                                        <td data-th="View Now"><a class= "blue-btn" href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/displayTrainReservationDetails">Select</a></td>
+                                    </tr>
+                                <?php endforeach;?>
                             </table>
                             <br>
                 <div class="pagination">

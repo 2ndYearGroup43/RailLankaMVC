@@ -8,21 +8,32 @@
         <div class="content-flexrow">
             <div class="container">
             <h2 style="color: #13406d;">Reservations <small style="color: black;">Refund</small></h2>
-            <form action="#">
+            <form action="<?php echo URLROOT; ?>/ResOfficerRefunds/refund" method = "POST">
                 <div class="form-row">    
                     <div class="searchlogo">
                         <img src="<?php echo URLROOT ?>/public/img/logob2.png">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-data">
+                        <label for="refundNo">Refund No</label>
+                        <input type="text" name="refundNo" id="refundNo" required >
                     </div>
                 </div>  
                 <div class="form-row">
                     <div class="input-data">
                         <label for="ticketId">Ticket ID</label>
-                        <input type="text" name="ticketId" id="ticketId" required >
+                        <select name="ticketId" id="ticketId" required>
+                                <option value="">Select</option>
+                                <?php foreach ($data['tickets'] as $ticket ):?>
+                                <option value="<?php echo $ticket->ticketId?>"><?php echo $ticket->ticketId?></option>
+                            <?php endforeach;?>
+                        </select>                      
                     </div>
                 </div>
                 <div class="form-row submit-btn">
                     <div class="input-data">
-                        <a class= "blue-btn" style="padding-left: 70px;" data-target="alert-success-popup">Refund</a>
+                        <input type="submit" class="blue-btn" name="submit" value="Refund" data-target="alert-success-popup">
                     </div>     
                 </div>
             </form>

@@ -82,7 +82,7 @@
                             <table class="blue">
                                 <thead>
                                     <tr>
-                                        <th >Train ID</th>
+                                        <th>Train ID</th>
                                         <th>Start Station</th>
                                         <th>Arrival Time</th>
                                         <th>End Station</th>
@@ -101,7 +101,7 @@
                                         <td data-th="End Time"><?php echo $train->endtime;?></td>
                                         <td data-th="Name"><?php echo $train->name;?></td>
                                         <td data-th="Type"><?php echo $train->type;?></td>
-                                        <td data-th="View Now"><a class= "blue-btn" href="<?php echo URLROOT; ?>/resofficerManageSeats/displaySeatMapsnn">Manage</a></td>
+                                        <td data-th="View Now"><a class= "blue-btn" href="<?php echo URLROOT; ?>/ResOfficerTicketDetails/displayTicketDetails">View</a></td>
                                     </tr>
                                 <?php endforeach;?>
                             </table>
@@ -109,10 +109,10 @@
                 <div class="pagination">
                     <ul>
                         <li><a href="#" class="prev">Prev</a></li>
-                        <li class="pageNumber active"><a href="<?php echo URLROOT; ?>/resofficerManageSeats/displayTrains">1</a></li>
-                        <li class="pageNumber"><a href="<?php echo URLROOT; ?>/resofficerManageSeats/displayTrains">2</a></li>
-                        <li class="pageNumber"><a href="<?php echo URLROOT; ?>/resofficerManageSeats/displayTrains">3</a></li>
-                        <li><a href="<?php echo URLROOT; ?>/resofficerManageSeats/displayTrains" class="next">Next</a></li>
+                        <li class="pageNumber active"><a href="<?php echo URLROOT; ?>/ResOfficerTicketDetails/displayTicketTrains">1</a></li>
+                        <li class="pageNumber"><a href="<?php echo URLROOT; ?>/ResOfficerTicketDetails/displayTicketTrains">2</a></li>
+                        <li class="pageNumber"><a href="<?php echo URLROOT; ?>/ResOfficerTicketDetails/displayTicketTrains">3</a></li>
+                        <li><a href="<?php echo URLROOT; ?>/ResOfficerTicketDetails/displayTicketTrains" class="next">Next</a></li>
                     </ul>
                 </div>
                 <br>
@@ -130,7 +130,7 @@
                         });
                     });
                 </script>
-            <!-- end of js for pagination -->  
+            <!-- end of js for pagination -->     
                         </div>      
                     </div>
                 </div>
