@@ -11,57 +11,52 @@
                     <table class="data-display">
                         <tr>
                             <td >Ticket ID: </td>
-                            <td>1045</td>
+                            <td><?php echo $data['manage_train']->ticketId?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
                             <td >Name: </td>
-                            <td>H.C Walpita</td>
+                            <td><?php echo $data['nics']->firstname?> <?php echo $data['nics']->lastname?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
                             <td>NIC: </td>
-                            <td>971701617V</td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr>
-                            <td >Email: </td>
-                            <td>harshanawalpita@gmail.com</td>
+                            <td><?php echo $data['nics']->nic?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
                             <td >Mobile No: </td>
-                            <td>0711409911</td>
+                            <td><?php echo $data['nics']->mobileno?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
                             <td >Source Station: </td>
-                            <td>Colombo Fort</td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr>
-                            <td >Time: </td>
-                            <td>06.30</td>
+                            <td><?php echo $data['seats']->start_station?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
                             <td >Destination: </td>
-                            <td>Badulla</td>
+                            <td><?php echo $data['seats']->dest_station?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
                             <td >Date: </td>
-                            <td>26.11.2020</td>
+                            <td><?php echo $data['seats']->date?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td >Class: </td>
-                            <td>1</td>
+                            <td >Compartment No: </td>
+                            <td><?php echo $data['seats']->compartmentNo?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
                             <td >Seat No: </td>
-                            <td>32</td>
+                            <td><?php echo $data['seats']->seatNo?></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td >Class: </td>
+                            <td><?php echo $data['seats']->classtype?></td>
                             <td colspan="2"></td>
                         </tr>
                     </table>

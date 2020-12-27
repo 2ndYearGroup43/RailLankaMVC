@@ -336,4 +336,40 @@
         return $row;
     }
 
+    public function findTrain($trainId){
+        $this->db->query('SELECT * FROM ticket WHERE trainid=:trainId');
+
+        $this->db->bind(':trainId', $trainId);
+
+        $row = $this->db->single();
+        return $row;
+    }
+
+    public function findTrainName($trainId){
+        $this->db->query('SELECT name FROM train WHERE trainid=:trainId');
+
+        $this->db->bind(':trainId', $trainId);
+
+        $row = $this->db->single();
+        return $row;
+    }
+
+    public function findPassengerDetails($nic){
+        $this->db->query('SELECT * FROM passenger WHERE nic=:nic');
+
+        $this->db->bind(':nic', $nic);
+
+        $row = $this->db->single();
+        return $row;
+    }
+
+    public function findSeatDetails($nic){
+        $this->db->query('SELECT * FROM seat WHERE nic=:nic');
+
+        $this->db->bind(':nic', $nic);
+
+        $row = $this->db->single();
+        return $row;
+    }
+
 	}

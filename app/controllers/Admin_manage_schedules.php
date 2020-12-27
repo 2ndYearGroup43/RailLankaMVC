@@ -322,14 +322,16 @@ class Admin_manage_schedules extends Controller{
 		$manage_train=$this->adminModel->findTrain($trainId);
 		$schedules=$this->adminModel->getScheduleDetails($trainId);
 		$days=$this->adminModel->getAvailableDays($trainId);
+		$rate=$this->adminModel->getRate($trainId);
 		$compartments=$this->adminModel->getCompartments($trainId);
-
+        $prices=$this->calPrices($schedules, $rate);
 
 		$data = [
 			'manage_train'=>$manage_train,
 			'trainId'=>$trainId,
 			'schedules'=>$schedules,
 			'days'=>$days,
+			'prices'=>$prices,
 			'compartments'=>$compartments
 		];
 
@@ -509,6 +511,42 @@ class Admin_manage_schedules extends Controller{
 		$this->view('admins/manage_schedule/editSingle', $data);
 	 	
 	}
+
+	public function calPrices($schedules, $rate){
+            //var_dump($routes);
+            $data= array();
+            foreach ($schedules as $schedule){
+                $prices=[
+                    "fclass"=>'',
+                    "sclass"=>'',
+                    "tclass"=>''
+                ];
+                $fb=$rate->fclassbase;
+                $sb=$rate->sclassbase;
+                $tb=$rate->tclassbase;
+                $dis=$rate->distance;
+                $rdis=$schedule->distance;
+                $r=$rate->rate;
+                if($rdis==0){
+                    $prices['fclass']=0;
+                    $prices['sclass']=0;
+                    $prices['tclass']=0;
+
+                }else{
+                    $prices['fclass']=$fb+(floor($rdis/$dis))*($fb/$r);
+                    $prices['sclass']=$sb+(floor($rdis/$dis))*($sb/$r);
+                    $prices['tclass']=$tb+(floor($rdis/$dis))*($tb/$r);
+
+                }
+                array_push($data, $prices);
+            }
+            //var_dump($data);
+            //echo sizeof($data);
+
+
+
+            return $data;
+        }
 
 	
 }	

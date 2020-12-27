@@ -89,7 +89,7 @@
                                         <th>End Time</th>
                                         <th>Name</th>
                                         <th>Type</th>
-                                        <th>Schedule</th>    
+                                        <th>Action</th>    
                                     </tr>
                                 </thead>
                                 <?php foreach ($data['trains'] as $train):?>
@@ -101,7 +101,8 @@
                                         <td data-th="End Time"><?php echo $train->endtime;?></td>
                                         <td data-th="Name"><?php echo $train->name;?></td>
                                         <td data-th="Type"><?php echo $train->type;?></td>
-                                        <td data-th="View Now"><a class= "blue-btn" href="<?php echo URLROOT; ?>/ResOfficerTicketDetails/displayTicketDetails">View</a></td>
+                                        <td data-th="View Now">
+                                        <a class= "blue-btn" href="<?php echo URLROOT . "/ResOfficerTicketDetails/displayTicketDetails/" . $train->trainId?>">View</a></td>
                                     </tr>
                                 <?php endforeach;?>
                             </table>

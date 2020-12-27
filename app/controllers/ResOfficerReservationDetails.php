@@ -116,34 +116,38 @@
 
 		}
 
-		public function displayTrainReservationDetails() {
+		public function displayTrainReservationDetails($trainId) {
+
+        $train=$this->resofficerReservationModel->findTrain($trainId);
+        $names=$this->resofficerReservationModel->findTrainName($trainId);
+
+        $data = [
+            'train'=>$train,
+            'trainId'=>$trainId,
+            'names'=>$names
+        ];
 
 			
-			$this->view('resofficers/reservation_details/display_train_reservation_details'); 
+			$this->view('resofficers/reservation_details/display_train_reservation_details', $data); 
 		}
 
-		public function viewReservationDetails() {
+		public function viewReservationDetails($trainId, $ticketId, $nic) {
+
+        $manage_train=$this->resofficerReservationModel->findTrain($trainId);
+        $names=$this->resofficerReservationModel->findTrainName($trainId);
+        $nics=$this->resofficerReservationModel->findPassengerDetails($nic);
+        $seats=$this->resofficerReservationModel->findSeatDetails($nic);
+
+        $data = [
+            'manage_train'=>$manage_train,
+            'trainId'=>$trainId,
+            'names'=>$names,
+            'nics'=>$nics,
+            'seats'=>$seats
+        ];    
 
 			
-			$this->view('resofficers/reservation_details/view_reservation_details'); 
-		}
-
-		public function searchTicketDetails() {
-
-			
-			$this->view('resofficers/reservation_details/search_ticket_details'); 
-		}
-
-		public function displayTicketTrains() {
-
-			
-			$this->view('resofficers/reservation_details/display_ticket_trains'); 
-		}
-
-		public function displayTicketDetails() {
-
-			
-			$this->view('resofficers/reservation_details/display_ticket_details'); 
+			$this->view('resofficers/reservation_details/view_reservation_details', $data); 
 		}
 		
 	}

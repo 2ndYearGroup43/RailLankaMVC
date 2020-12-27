@@ -1,5 +1,5 @@
 <?php 
-	
+
 	class ResOfficerTicketDetails extends Controller {
 
 		public function __construct() {
@@ -15,7 +15,7 @@
             ];
             $this->view('resofficers/ticket_details/search_ticket_details',$data);
         }
-
+        
 		public function search() {
 			
 	        $stations=$this->resofficerReservationModel->getStations();
@@ -65,6 +65,7 @@
                     $data['time']=1;
                 }
                 if (!empty($data['date'])){
+                    $search_date=$data['date'];
                     $data['date']= date('l', strtotime($data['date']));
 
                 }
@@ -116,9 +117,18 @@
 
 		}
 
-		public function displayTicketDetails() {
-			
-			$this->view('resofficers/ticket_details/display_ticket_details'); 
+		public function displayTicketDetails($trainId) {
+
+        $train=$this->resofficerReservationModel->getTicketDetails($trainId);
+        $names=$this->resofficerReservationModel->findTrainName($trainId);
+
+        $data = [
+            'train'=>$train,
+            'trainId'=>$trainId,
+            'names'=>$names
+        ];
+            
+			$this->view('resofficers/ticket_details/display_ticket_details', $data); 
 		}
 		
 	}

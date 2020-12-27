@@ -89,7 +89,7 @@
                                         <th>End Time</th>
                                         <th>Name</th>
                                         <th>Type</th>
-                                        <th>Schedule</th>    
+                                        <th>Action</th>    
                                     </tr>
                                 </thead>
                                 <?php foreach ($data['trains'] as $train):?>

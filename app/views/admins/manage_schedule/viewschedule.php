@@ -6,7 +6,10 @@
 ?>  
         <div class="body-section">
             <div class="content-flexrow">
-                <div class="container-table">
+                <div class="container-table" id="scheduleDiv">
+                    <div class="container-row">
+                        <img src="<?php echo URLROOT?>/public/img/logoschedule.jpg" alt="schedule-logo">
+                    </div>
                     <h3>Schedule for <?php echo $data['manage_train']->name?> <small>Train Id: <?php echo $data['manage_train']->trainId?></small></h3>
                     <table class="data-display">
                         <caption>Train Details</caption>
@@ -54,6 +57,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $it=0;?>
                             <?php foreach ($data['schedules'] as $schedule):?> 
                                 
 
@@ -63,9 +67,10 @@
                                 <td data-th="Arrival Time"><?php echo $schedule->arrivaltime?></td>
                                 <td data-th="Departure Time"><?php echo $schedule->departuretime?></td>
                                 <td data-th="Distance"><?php echo $schedule->distance?>km</td>
-                                <td data-th="1st Class Price">Rs. 20</td>
-                                <td data-th="2nd Class Price">Rs. 15</td>
-                                <td data-th="3rd Class Price">Rs. 10</td>
+                                <td data-th="1st Class Price"><?php echo 'Rs. '.$data['prices'][$it]["fclass"];?></td>
+                                <td data-th="2nd Class Price"><?php echo 'Rs. '.$data['prices'][$it]["sclass"];?></td>
+                                <td data-th="3rd Class Price"><?php echo 'Rs. '.$data['prices'][$it]["tclass"];?></td>
+                                <?php $it++?>
                             </tr>
 
                             <?php endforeach;?> 
@@ -108,7 +113,7 @@
                                 <input type="button" onclick="history.go(-1)" class="red-btn" value="Back">
                             </div>
                             <div class="input-data action">
-                                <input type="button" class="blue-btn" value="Print">
+                                <input type="button" class="blue-btn" onclick="printSchedule('scheduleDiv')" value="Print">
                             </div>
                             <div class="input-data action" style="padding: 5px";>
                                 <a type="button" class="blue-btn" href="<?php echo URLROOT; ?>/Admin_manage_schedules/viewAllSchedule/<?php echo $data['trainId'];?>" style="padding-left: 125px";>Manage Schedule</a>
@@ -129,6 +134,15 @@
                                 coll.style.backgroundColor="#13406d";
                             }
                         }
+
+                        function printSchedule(el) {
+                       
+                        var restorePage= document.body.innerHTML;
+                        var schedule= document.getElementById(el).innerHTML;
+                        document.body.innerHTML=schedule;
+                        window.print();
+                        document.body.innerHTML=restorePage;
+                    }
                     </script>
 
                 </div>

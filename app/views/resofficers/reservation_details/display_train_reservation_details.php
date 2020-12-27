@@ -9,15 +9,14 @@
             </div>
             <div class="content-row">
                     <div class="container-table">
-                        <h2 style="color: #13406d;">Reservation Details <small style="color: black;">Train ID-101COLBAD0630</small></h2>
+                        <h2 style="color: #13406d;">Reservation Details <small style="color: black;">Train ID-<?php echo $data['train']->trainId?></small></h2>
                         <div class="res-table">
                             <table class="blue">
                                 <thead>
                                     <tr>
                                         <th>Train ID</th>
-                                        <th>Name</th>
-                                        <th>Date</th>
-                                        <th>Time</th>
+                                        <th>Reservation Type</th>
+                                        <th>Price</th>
                                         <th>Compartment No</th>
                                         <th>Seat No</th>
                                         <th>NIC</th>
@@ -25,32 +24,20 @@
                                         <th>Action</th>   
                                     </tr>
                                 </thead>
+                                <?php foreach ($data['train'] as $train):?>
                                 <tr>
-                                    <td data-th="Train ID">101COLBAD0630</td>
-                                    <td data-th="Name">Denuwara Manike</td>
-                                    <td data-th="Date">25.11.2020</td>
-                                    <td data-th="Time">08.30</td>
-                                    <td data-th="Compartment No">2</td>
-                                    <td data-th="Seat No">32</td>
-                                    <td data-th="NIC">971701617V</td>
-                                    <td data-th="Ticket ID">1045</td>
+                                    <td data-th="Train ID"><?php echo $data['train']->trainId?></td>
+                                    <td data-th="Reservation Type"><?php echo $data['train']->reservationType?></td>
+                                    <td data-th="Price"><?php echo $data['train']->price?></td>
+                                    <td data-th="Compartment No"><?php echo $data['train']->compartmentNo?></td>
+                                    <td data-th="Seat No"><?php echo $data['train']->seatNo?></td>
+                                    <td data-th="NIC"><?php echo $data['train']->nic?></td>
+                                    <td data-th="Ticket ID"><?php echo $data['train']->ticketId?></td>
                                     <td data-th="Action">                              
-                                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/viewReservationDetails">View</a>
+                                    <a class= "blue-btn" href="<?php echo URLROOT . "/ResOfficerReservationDetails/viewReservationDetails/" . $data['train']->trainId?>/<?php echo $data['train']->ticketId?>/<?php echo $data['train']->nic?>">View</a>
                                    </td>
                                 </tr>
-                                <tr>
-                                    <td data-th="Train ID">101COLBAD0630</td>
-                                    <td data-th="Name">Denuwara Manike</td>
-                                    <td data-th="Date">20.11.2020</td>
-                                    <td data-th="Time">10.30</td>
-                                    <td data-th="Compartment No">5</td>
-                                    <td data-th="Seat No">20</td>
-                                    <td data-th="NIC">971701617V</td>
-                                    <td data-th="Ticket ID">2056</td>
-                                    <td data-th="Action">                              
-                                    <a class= "blue-btn" href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/viewReservationDetails">View</a>
-				                    </td>
-                                </tr>
+                                <?php endforeach;?>
                             </table>
                             <br>
                 <div class="pagination">

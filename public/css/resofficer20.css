@@ -2160,7 +2160,50 @@ span.fa.fa-check{
 }
 /*end of pagination*/  
 
+@media print{
 
+    table.blue td{
+        display: inline-block;
+        padding: 0px 24px;
+        text-align: left;
+        width: 90px;
+    }
+
+
+    #scheduleDiv table.blue td, table.data-display td{
+        display: table-row-group;
+    }
+
+
+    table.blue th{
+        width: 90px;
+        margin: 0px;
+        display: inline-block;
+        padding: 10px 5px;
+        background-color: #13406d;
+        color: white;
+    }
+
+    /* table.blue td{
+        display: inline-block;
+        text-align: left;
+    } */
+    table.blue td::before{
+        content: none;
+        font-weight: initial;
+        width: initial;
+        display: none;
+    }
+
+   
+
+    #availdays-btn{
+        display: block;
+    }
+
+    
+
+}
 
  
 
