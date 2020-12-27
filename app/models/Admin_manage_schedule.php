@@ -295,4 +295,12 @@ class Admin_manage_schedule {
            $results = $this->db->resultSet();
 		   return $results;
 	}
+
+	public function getRate ($trainId)
+    {
+        $this->db->query('SELECT f.* FROM fare f INNER JOIN train t ON f.rateID=f.rateID WHERE t.trainId=:trainId');
+        $this->db->bind(":trainId", $trainId);
+        $row=$this->db->single();
+        return $row;
+    }
 }		

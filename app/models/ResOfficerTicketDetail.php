@@ -336,4 +336,20 @@
         return $row;
     }
 
+    public function getTicketDetails($trainId){
+        $this->db->query('SELECT t.ticketId, t.reservationType, t.price, t.trainId, t.compartmentNo, t.seatNo, t.nic, s.classType, s.date FROM ticket t INNER JOIN seat s ON t.trainId = s.trainId WHERE t.trainId=:trainId ORDER BY s.classType ASC');
+        $this->db->bind(":trainId", $trainId);
+        $row=$this->db->single();
+        return $row;
+    }
+
+    public function findTrainName($trainId){
+        $this->db->query('SELECT name FROM train WHERE trainid=:trainId');
+
+        $this->db->bind(':trainId', $trainId);
+
+        $row = $this->db->single();
+        return $row;
+    }
+
 	}
