@@ -20,7 +20,8 @@
 			'refundDate'=>'',
             'refundTime'=>'',
             'ticketId'=>'',
-            'officerId'=>$resofficer->officerId
+            'officerId'=>$resofficer->officerId,
+            'ticketIdError'=>''
 		];
 
 		if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -32,14 +33,28 @@
 			'refundDate'=>date("Y-m-d"),
             'refundTime'=>date("H:i:sa"),
             'ticketId'=>trim($_POST['ticketId']),
-            'officerId'=>$resofficer->officerId
+            'officerId'=>$resofficer->officerId,
+            'ticketIdError'=>''
 			];
 
-			if ($this->resofficerRefundModel->refund($data)){				
-					header("Location: " . URLROOT . "/ResOfficers/index");								
-			}else{
-				die("Something Going Wrong");
-			}
+			if(empty($data['ticketId'])){
+                $data['ticketIdError']='Please Enter the ticket ID.';
+                }else{
+                    $dates=$this->resofficerRefundModel->checkDate($data['ticketId']);
+                    $dates->seat_date;
+                    $dates->cancelled_date;
+
+                    if($dates->seat_date!=$dates->cancelled_date){
+                    	$data['ticketIdError']='This Train is not cancelled.';
+                    }
+                    else{
+                        if ($this->resofficerRefundModel->refund($data)){				
+					        header("Location: " . URLROOT . "/ResOfficers/index");								
+			            }else{
+				            die("Something Going Wrong");
+			            }
+                    }                                         
+                }
             
 		}
 	

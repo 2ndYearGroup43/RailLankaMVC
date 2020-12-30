@@ -33,6 +33,22 @@
         $this->db->query("SELECT ticketId FROM ticket");
         $results=$this->db->resultSet();
         return $results;
-    }	
+    }
+
+    public function checkDate($ticketId){
+            $this->db->query('SELECT t.ticketId, t.trainId, t.seatNo, s.date AS seat_date, a.alertId, a.cancelled_date, c.alertId AS cancelled_alertId 
+			FROM ticket t 
+			INNER JOIN seat s 
+			ON t.trainId=s.trainId 
+			INNER JOIN  alerts a 
+			ON t.trainId=a.trainId 
+			INNER JOIN  cancelled_alerts c 
+			ON a.alertId=c.alertId WHERE t.ticketId=:ticketId');
+
+            $this->db->bind(":ticketId",$ticketId);
+            $row=$this->db->single();
+            return $row; 
+
+    }		
 
 	}
