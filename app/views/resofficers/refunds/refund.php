@@ -28,7 +28,10 @@
                                 <?php foreach ($data['tickets'] as $ticket ):?>
                                 <option value="<?php echo $ticket->ticketId?>"><?php echo $ticket->ticketId?></option>
                             <?php endforeach;?>
-                        </select>                      
+                        </select>
+                        <span class="invalidFeedback">
+                            <?php echo $data['ticketIdError'];?>
+                        </span>                      
                     </div>
                 </div>
                 <div class="form-row submit-btn">
