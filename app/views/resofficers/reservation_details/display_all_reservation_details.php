@@ -10,7 +10,7 @@
             </div>
             <div class="content-row">
                 <div class="container-searchbox-popup" id="popupsearch">
-                    <form action="#">
+                    <form action="<?php echo URLROOT;?>/ResOfficerReservationDetails/search" method="POST">
                         <div class="form-row">    
                             <div class="searchlogo">
                                 <img src="<?php echo URLROOT;?>/public/img/logoschedule.jpg" alt="raillankatracktrains">
@@ -19,35 +19,48 @@
                         <div class="form-row">
                             <div class="input-data">
                                 <label for="src">Source Station</label>
-                                <select name="src" id="src">
-                                    <option value="Fort">Fort</option>
-                                    <option value="Kandy">Kandy</option>
-                                    <option value="Galle">Galle</option>
-                                    <option value="Baadulla">Baadulla</option>
-                                </select>
+                                <input list="srcStations" name="src" id="src">
+                                <datalist id="srcStations">
+                                    <?php foreach ( $data['stations'] as $station ):?>
+                                        <?php var_dump($data['stations']);?>
+                                        <option value="<?php echo $station->stationID;?>"><?php echo $station->stationID.' '.$station->name?></option>
+                                    <?php endforeach;?>    
+                                </datalist>
+                                <span class="invalidFeedback">
+                                    <?php echo $data['srcError'];?>
+                                </span>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="input-data">
                                 <label for="dest">Destination Station</label>
-                                <select name="dest" id="dest">
-                                    <option value="Fort">Fort</option>
-                                    <option value="Kandy">Kandy</option>
-                                    <option value="Galle">Galle</option>
-                                    <option value="Baadulla">Baadulla</option>
-                                </select>
+                                <input list="destStations" name="dest" id="dest">
+                                <datalist id="destStations">
+                                    <?php foreach ($data['stations'] as $station ):?>
+                                        <option value="<?php echo $station->stationID;?>"><?php echo $station->stationID.' '.$station->name;?></option>
+                                    <?php endforeach;?>    
+                                </datalist>
+                                <span class="invalidFeedback">
+                                    <?php echo $data['destError'];?>
+                                </span>        
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="input-data">
                                 <label for="date">Date</label>
-                                <input type="date" id="date" >
+                                <input type="date" id="date" name="date" >
+                                <span class="invalidFeedback">
+                                    <?php echo $data['dateError'];?>
+                                </span>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="input-data">
-                                <label for="time">Time</label>
-                                <input type="time" id="time" >
+                                <label for="time">Departure Time</label>
+                                <input type="time" id="time" name="time" >
+                                <span class="invalidFeedback">
+                                    <?php echo $data['timeError'];?>
+                                </span>
                             </div>
                         </div>
                         <div class="form-row submit-btn">
