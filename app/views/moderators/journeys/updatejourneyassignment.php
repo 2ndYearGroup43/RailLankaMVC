@@ -45,7 +45,7 @@
                                 <label for="jstatus">Joruney Status</label>
                                 <select name="jstatus" id="jstatus">
                                     <option value="<?php echo $data['journey']->journey_status;?>"><?php echo $data['journey']->journey_status;?></option>    
-                                    <option value="Live">Ended</option>   
+                                    <option value="Ended">Ended</option>
                                     <option value="Live">Live</option>
                                     <option value="Off-Line">Off-Line</option> 
                                 </select>

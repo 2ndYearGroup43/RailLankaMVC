@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="49bd4311-1f9d-438f-a591-d24d5e950cc6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/ModeratorSchedules.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/ModeratorSchedules.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/ModeratorSchedule.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/ModeratorSchedule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/ModeratorJourney.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/ModeratorJourney.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/moderators/journeys/updatejourneyassignment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/moderators/journeys/updatejourneyassignment.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/moderators/schedule/schedulesearchresults.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/moderators/schedule/schedulesearchresults.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/moderators/schedule/viewscheduledetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/moderators/schedule/viewscheduledetails.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +51,13 @@
       <workItem from="1608455104431" duration="18382000" />
       <workItem from="1608738673267" duration="2583000" />
       <workItem from="1608743848017" duration="123000" />
-      <workItem from="1608881730763" duration="10398000" />
+      <workItem from="1608881730763" duration="11048000" />
+      <workItem from="1609247466125" duration="822000" />
+      <workItem from="1609427856081" duration="1233000" />
+      <workItem from="1609429262290" duration="11255000" />
+      <workItem from="1609605075369" duration="1897000" />
+      <workItem from="1609686501001" duration="348000" />
+      <workItem from="1609695247961" duration="458000" />
     </task>
     <servers />
   </component>

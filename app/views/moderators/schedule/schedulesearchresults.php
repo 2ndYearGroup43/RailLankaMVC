@@ -4,7 +4,8 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
-    var_dump($data['trains']);
+//    var_dump($data);
+//    var_dump($data['trains']);
 ?>
     <div class="body-section">
         <div class="content-row">

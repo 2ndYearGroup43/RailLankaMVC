@@ -76,23 +76,21 @@
 
         public function getTrains()
         {
-            $this->db->query("SELECT DISTINCT t.trainId AS trainId1, t.name, j.* FROM train t LEFT JOIN journey j  ON t.trainId=j.trainId WHERE j.journeyid IS NULL OR j.journey_status='ended'");
+            $this->db->query("SELECT DISTINCT t.trainId AS trainId1, t.name, t1.* FROM train t LEFT JOIN (SELECT * FROM journey WHERE journey_status <>'Ended') t1  ON t.trainId=t1.trainId WHERE t1.journeyId IS NULL");
             $results=$this->db->resultSet();
             return $results;
         }
 
         public function getDrivers()
         {
-            $this->db->query("SELECT DISTINCT t.driverId, j.* FROM (SELECT d.*, a.journeyId FROM driver d LEFT join driver_assignment a ON d.driverId=a.driverId) t LEFT JOIN journey j  ON t.journeyid=j.journeyId WHERE t.journeyid IS NULL OR j.journey_status='ended'");
+            $this->db->query("SELECT d.driverId FROM (SELECT da.driverId, j.* FROM journey j INNER JOIN driver_assignment da ON j.journeyId=da.journeyId WHERE j.journey_status<>'Ended') t1 RIGHT JOIN driver d ON d.driverId=t1.driverId where t1.journeyid IS NULL");
             $results=$this->db->resultSet();
             return $results;
         }
 
         public function checkDriver($driverId)
         {
-            $this->db->query("SELECT COUNT(*) AS count FROM (SELECT d.*, a.journeyId FROM driver d 
-            LEFT join driver_assignment a ON d.driverId=a.driverId where a.driverId=:driverId)
-             t LEFT JOIN journey j  ON t.journeyid=j.journeyId WHERE t.journeyid IS NULL OR (j.journey_status='live' OR j.journey_status='off-line')");
+            $this->db->query("SELECT COUNT(*) AS count FROM journey j INNER JOIN driver_assignment da ON j.journeyId=da.journeyId WHERE j.journey_status<>'Ended' AND da.driverId=:driverId");
             $this->db->bind(':driverId', $driverId);
             $row=$this->db->single();
             if($row->count>0){
@@ -104,14 +102,14 @@
 
         public function checkTrain($trainid)
         {
-            $this->db->query("SELECT COUNT(*) AS count  FROM train t LEFT JOIN
-             journey j  ON t.trainId=j.trainId WHERE (j.journeyid IS NULL OR j.journey_status='ended') AND t.trainId=:trainId");
+            $this->db->query("SELECT COUNT(*) AS count FROM journey WHERE journey_status <>'Ended' AND trainId=:trainId");
             $this->db->bind(':trainId', $trainid);
             $row=$this->db->single();
+            var_dump($row);
             if($row->count>0){
-                return false;
-            }else{
                 return true;
+            }else{
+                return false;
             }
         }
 
