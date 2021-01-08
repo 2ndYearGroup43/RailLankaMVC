@@ -54,6 +54,23 @@ class DriverMobiles extends Controller{
 
     }
 
+    public function getStations(){
+        $response = array();
+
+        $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $driverId=$_POST['driverId'];
+        $stations=$this->driverModel->getMainStations();
+        if ($stations){
+            $response['result']=true;
+            $response['stations']=$stations;
+        }else{
+            $response['result']=false;
+        }
+
+        echo json_encode($response);
+
+    }
+
 
     public function driverforgotpassword()
     {

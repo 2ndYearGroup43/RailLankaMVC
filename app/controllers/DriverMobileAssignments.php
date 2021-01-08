@@ -31,6 +31,20 @@
             $response = Array();
             $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $driverId=$_POST['driverId'];
+//           $driverId="01";
+            $assignments=$this->driverAssignmentModel->getPastAssignments($driverId);
+//            echo  $assignments;
+            if ($assignments){
+                $response['result']=true;
+                $response['assignments']=$assignments;
+            }else{
+                $response['result']=false;
+            }
+
+//            return json_encode($response);
+//            header('Content-Type: application/json');
+            echo json_encode($response);
+
 
 //            $assignments=$this->driverAssignmentModel->
 
