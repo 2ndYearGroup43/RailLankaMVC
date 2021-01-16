@@ -4,11 +4,15 @@
 <?php
     require APPROOT.'/views/includes/admin_navigation.php';
 ?>
+
+<!--<?php var_dump($data['fields'])?>-->
+
     <div class="body-section">
         <div class="content-row"></div>
         <div class="content-row">
             <div class="container-table">
                 <h1>Admins <small>User Management</small></h1>
+
                 <div class="table-searchbar">
                     <form action="<?php echo URLROOT?>/admins/adminsSearchBy" method="POST">
                         <input type="text" placeholder="Search by" name=searchbar><span><select name="searchselect" id="searchselect">
@@ -18,6 +22,7 @@
                         </select></span><span><input type="submit" value=" " class="search-btn"></span><span><i class="fa fa-search glyph"></i></span>
                     </form>
                 </div>
+
                 <div class="container-table popup" id="popup-alert">
                     <h3>Admin Details</h3>
                     <table class="data-display" id="cancelpopup">
@@ -26,9 +31,9 @@
                             <td id="userId">Not available</td>
                             <td colspan="2"></td>
                         </tr>
-                        <tr id="driverId">
+                        <tr id="adminId">
                             <td>admin Id: </td>
-                            <td id="driverId">Not available</td>
+                            <td id="adminId">Not available</td>
                             <td colspan="2"></td>
                         </tr>
                         <tr id="employeeId">
@@ -37,7 +42,7 @@
                             <td colspan="2"></td>
                         </tr><tr id="firstName">
                             <td>First Name: </td>
-                            <td id="firstname">Not available</td>
+                            <td id="firstName">Not available</td>
                             <td colspan="2"></td>
                         </tr><tr id="lastname">
                             <td>Last Name: </td>
@@ -64,6 +69,8 @@
                         </tr>
                        
                         <button style="position: relative; padding: 10px 15px;" class="back-btn"><i class="fa fa-times" onclick="closeAdminView()"></i></button>
+
+                        <!--<button style="position: relative; padding: 10px 15px;" class="back-btn"><i class="fa fa-times" onclick="closeResofficerView()"></i></button>-->
                     </table>
                 </div>
                 <table class="blue">
@@ -100,11 +107,14 @@
                             <td data-th="Registered Time"><?php echo $row->reg_time;?></td>    
                             <script> 
                                 alerts[c]=<?php echo json_encode($row, JSON_PRETTY_PRINT)?>;
-
+ 
                             </script>
                             <td data-th="Manage">
                                 <form action="<?php echo URLROOT;?>/admins/deleteUser/<?php echo $row->userid;?>" method="POST">
                                 <button type="button" class="table-btn blue" onclick="openAdminView(alerts,<?php echo $count;?>)">View</button>
+
+                                <!--<button type="button" class="table-btn blue" onclick="openResofficerView(alerts,<?php echo $count;?>)">View</button>-->
+
                                 <a href="<?php echo URLROOT;?>/admins/updateAdmin/<?php echo $row->userid;?>" class="blue-btn">Edit</a>
                                 <input type="submit" class="red-btn" value="Delete">
                                 </form>
@@ -122,7 +132,7 @@
                         table.rows.namedItem("userId").cells.namedItem("userId").innerHTML=alerts[x].userid;
                         table.rows.namedItem("adminId").cells.namedItem("adminId").innerHTML=alerts[x].adminId;
                         table.rows.namedItem("employeeId").cells.namedItem("employeeId").innerHTML=alerts[x].employeeId;
-                        table.rows.namedItem("firstname").cells.namedItem("firstname").innerHTML=alerts[x].firstname;
+                        table.rows.namedItem("firstName").cells.namedItem("firstName").innerHTML=alerts[x].firstname;
                         table.rows.namedItem("lastname").cells.namedItem("lastname").innerHTML=alerts[x].lastname;
                         table.rows.namedItem("email").cells.namedItem("email").innerHTML=alerts[x].email;
                         table.rows.namedItem("mobileno").cells.namedItem("mobileno").innerHTML=alerts[x].mobileno;

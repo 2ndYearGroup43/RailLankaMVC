@@ -10,7 +10,7 @@
     <div class="content-flexrow">
         <div class="container">
             <div class="text">Update Employee <small>Admin</small></div>
-            <form action="<?php echo URLROOT;?>/admins/updateAdmins/<?php echo $data['userId']?>" method="POST">
+            <form action="<?php echo URLROOT;?>/admins/updateAdmin/<?php echo $data['userid']?>" method="POST">
                 <div class="form-row">
                     <div class="input-data">
                         <label for="employeeId">Emloyee-Id</label>

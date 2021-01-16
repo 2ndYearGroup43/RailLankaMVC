@@ -18,6 +18,13 @@
 				// 'users' => $users
 			];
 
+            $admins=$this->adminModel->getAdmins();
+            $fields=$this->adminModel->getAdminFields();
+            $data=[
+                'admins'=>$admins,
+                'fields'=>$fields
+            ];
+
 			$this->view('admins/index', $data); //
         }
 
@@ -225,18 +232,13 @@
 
 
 
-
-
-
- 
-        
-        public function updateAdmin($userId)
+        public function updateAdmin($userid)
         {
             //echo "here";
 
-            $admin=$this->adminModel->findAdminById($userId);
+            $admin=$this->adminModel->findAdminById($userid);
             $data=[
-                'userId'=>$userId,
+                'userid'=>$userid,
                 'admin'=>$admin,
                 'employeeId'=>'',
                 'firstname'=>'',
@@ -253,9 +255,9 @@
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 //sanitize post data
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-                echo "hariiii";
+                //echo "hariiii";
                 $data=[
-                    'userId'=>$userId,
+                    'userid'=>$userid,
                     'admin'=>$admin,
                     'employeeId'=>trim($_POST['employeeId']),
                     'firstname'=>trim($_POST['firstname']),
@@ -275,7 +277,7 @@
                 $passwordValidation= "/^(?=.*[a-z])(?=.*\\d).{8,}$/i";
                 if(empty($data['adminId'])){
                     $data['adminIdError']='Please Enter the Admin ID.';
-                }elseif(!preg_match($idValidation, $data['driverId'])){
+                }elseif(!preg_match($idValidation, $data['adminId'])){
                     $data['adminIdError']="Admin ID can only contain letters and numbers.";
                 }else{
                     //if driverId exists
@@ -289,8 +291,8 @@
                     $data['employeeIdError']="Employee ID can only contain letters and numbers.";
                 }else{
                     //if Employee ID exists
-                    if($this->adminModel->findDriverByEmployeeId($data['employeeId']) &&
-                    $this->adminModel->findDriverById($userId)->employeeId!=$data['employeeId']){
+                    if($this->adminModel->findAdminByEmployeeId($data['employeeId']) &&
+                    $this->adminModel->findAdminById($userid)->employeeId!=$data['employeeId']){
                         $data['employeeIdError']='This employee is already registered as a Admin in the system.'; 
                     }
                 }
@@ -311,7 +313,7 @@
                 }else{
                     //if email exists
                     if($this->adminModel->findAdminByEmail($data['email']) &&
-                    $this->adminModel->findAdminById($userId)->email!=$data['email']){
+                    $this->adminModel->findAdminById($userid)->email!=$data['email']){
                         $data['emailError']='Entered email is already registered in the system.'; 
                     }
                 }
@@ -325,11 +327,11 @@
                 //password validate by length and numeric values
                
 
-                if ($data['employeeId']==$this->adminModel->findAdminById($userId)->employeeId &&
-                    $data['firstname']==$this->adminModel->findAdminById($userId)->firstname &&
-                    $data['lastname']==$this->adminModel->findAdminById($userId)->lastname &&
-                    $data['email']==$this->adminModel->findAdminById($userId)->email &&
-                    $data['mobileno']==$this->adminModel->findAdminById($userId)->mobileno
+                if ($data['employeeId']==$this->adminModel->findAdminById($userid)->employeeId &&
+                    $data['firstname']==$this->adminModel->findAdminById($userid)->firstname &&
+                    $data['lastname']==$this->adminModel->findAdminById($userid)->lastname &&
+                    $data['email']==$this->adminModel->findAdminById($userid)->email &&
+                    $data['mobileno']==$this->adminModel->findAdminById($userid)->mobileno
                     ){
                         $data['adminIdError']='No change was detected at any field';
                         $data['employeeIdError']='No change was detected at any field'; 
@@ -360,6 +362,16 @@
             $this->view('admins/updateAdmins', $data);
         }
 
+
+
+
+
+
+
+
+ 
+        
+        
 
 
 
