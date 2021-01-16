@@ -47,6 +47,11 @@
                             <td>Issue Type: </td>
                             <td id="issueType">Not available</td>
                         </tr>
+                        <tr id="cancellationDate" style="font-size: 20px;">
+                            <td >Cancellation Date: </td>
+                            <td id="cancellationDate">Not available </td>
+                            <td colspan="2"></td>
+                        </tr>
                         <tr id="cancellationCause" style="font-size: 25px;">
                             <td rowspan="2">Cause: </td>
                             <td rowspan="2" id="cancellationCause">Not available </td>
@@ -60,6 +65,7 @@
                         <tr>
                             <th>Alert ID</th>
                             <th>Train ID</th>
+                            <th>Cancellation Date</th>
                             <th>Entered Date</th>
                             <th>Entered Time</th>
                             <th>Issue Type</th>
@@ -77,6 +83,7 @@
     
                             <td data-th="Alert ID"><?php echo $row->alertId;?></td>
                             <td data-th="Train ID"><?php echo $row->trainId;?></td>
+                            <td data-th="Cancellation Date"><?php echo $row->cancellation_date;?></td>
                             <td data-th="Entered Date"><?php echo $row->date;?></td>
                             <td data-th="Entered Time"><?php echo $row->time;?></td>
                             <td data-th="Issue Type"><?php echo $row->issuetype;?></td>
@@ -122,6 +129,7 @@
                         table.rows.namedItem("moderatorId").cells.namedItem("moderatorId").innerHTML=alerts[x].moderatorId;
                         table.rows.namedItem("moderatorId").cells.namedItem("issueType").innerHTML=alerts[x].issuetype;
                         table.rows.namedItem("cancellationCause").cells.namedItem("cancellationCause").innerHTML=alerts[x].cancellation_cause;
+                        table.rows.namedItem("cancellationDate").cells.namedItem("cancellationDate").innerHTML=alerts[x].cancellation_date;
                         document.getElementById("popup-alert").style.display = "block";
                     }
     

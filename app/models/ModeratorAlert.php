@@ -29,9 +29,10 @@
                 $this->db->query('SELECT LAST_INSERT_ID() AS alertId');
                 $resultId=[];
                 $resultId=$this->db->resultSet();
-                $this->db->query('INSERT INTO cancelled_alerts (alertId, cancellation_cause) VALUES(:alertId, :cancelcause)');
+                $this->db->query('INSERT INTO cancelled_alerts (alertId, cancellation_date, cancellation_cause) VALUES(:alertId, :cancelDate, :cancelcause)');
                 $this->db->bind(':alertId', $resultId[0]->alertId);
                 $this->db->bind(':cancelcause', $data['cancelCause']);
+                $this->db->bind(':cancelDate', $data['cancelDate']);
                 if($this->db->execute()){
                     return true;
                 }else{
@@ -119,7 +120,7 @@
 
         public function displayCancellations()
         {
-            $this->db->query('SELECT a.*,c.cancellation_cause FROM cancelled_alerts c INNER JOIN alerts a ON c.alertId=a.alertId');
+            $this->db->query('SELECT a.*,c.cancellation_cause, c.cancellation_date FROM cancelled_alerts c INNER JOIN alerts a ON c.alertId=a.alertId');
             $results=$this->db->resultSet();
             return $results;
         }
@@ -175,7 +176,7 @@
 
         public function findCancellationById($id) 
         {
-            $this->db->query('SELECT a.*, c.cancellation_cause FROM cancelled_alerts c
+            $this->db->query('SELECT a.*, c.cancellation_cause, c.cancellation_date FROM cancelled_alerts c
              INNER JOIN alerts a ON a.alertId=c.alertId WHERE a.alertId=:alertId');
             $this->db->bind(":alertId",$id);
             $row=$this->db->single();
@@ -191,8 +192,9 @@
             $this->db->bind(':issueType', $data['issueType']);
 
             if($this->db->execute()){
-                $this->db->query('UPDATE cancelled_alerts SET cancellation_cause=:cancelCause WHERE alertid=:id');
+                $this->db->query('UPDATE cancelled_alerts SET cancellation_cause=:cancelCause, cancellation_date=:cancelDate WHERE alertid=:id');
                 $this->db->bind(":cancelCause", $data['cancelCause']);
+                $this->db->bind("cancelDate", $data['cancelDate']);
                 $this->db->bind(":id", $data['alertId']);
 
                 if ($this->db->execute()) {

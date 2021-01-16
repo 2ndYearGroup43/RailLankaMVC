@@ -28,11 +28,13 @@
                 'trains'=>$trains,
                 'trainId'=>'',
                 'cancelCause'=>'',
+                'cancelDate'=>'',
                 'issueType'=>'',
                 'insertedDate'=>'',
                 'insertedTime'=>'',
                 'moderatorId'=>'',
                 'trainIdError'=>'',
+                'cancelDateError'=>'',
                 'issueTypeError'=>'',
                 'cancelCauseError'=>''
 
@@ -44,12 +46,14 @@
                 $data=[
                     'trains'=>$trains,
                     'trainId'=>trim($_POST['trainid']),
+                    'cancelDate'=>trim($_POST['cancelDate']),
                     'cancelCause'=>trim($_POST['cancelcause']),
                     'issueType'=>trim($_POST['issueType']),
                     'insertedDate'=>date("Y-m-d"),
                     'insertedTime'=>date("H:i:sa"),
                     'moderatorId'=>$_SESSION['moderator_id'],
                     'trainIdError'=>'',
+                    'cancelDateError'=>'',
                     'issueTypeError'=>'',
                     'cancelCauseError'=>''
                 ];
@@ -65,13 +69,21 @@
                 if(empty($data['cancelCause'])){
                     $data['cancelCauseError']='The Cancellation cause should not be empty';    
                 }
+                $cdate= new DateTime($data['cancelDate']);
+                $now=new DateTime();
+                if(empty($data['cancelDate'])){
+                    $data['cancelDateError']='The Cancellation date should not be empty';
+                }elseif ($cdate<$now){
+                    $data['cancelDateError']='Cancellation date is not valid maybe in the past';
+                }
 
                 
                 if(empty($data['issueType'])){
                     $data['issueTypeError']='The Issue Type should not be empty';    
                 }
 
-                if(empty($data['trainIdError'])&& empty($data['cancelCauseError']) && empty($data['issueTypeError'])){
+                if(empty($data['trainIdError'])&& empty($data['cancelCauseError']) && empty($data['issueTypeError'])
+                && empty($data['cancelDateError'])){
                     if($this->alertModel->addCancellationAlert($data)){
                         header("Location: ".URLROOT."/moderatoralerts/viewcancelledalerts");
                     }else{
@@ -141,12 +153,14 @@
                 'alert'=>$alert,
                 'trains'=>$trains,
                 'trainId'=>'',
+                'cancelDate'=>'',
                 'issueType'=>'',
                 'cancelCause'=>'',
                 'insertedDate'=>'',
                 'insertedTime'=>'',
                 'moderatorId'=>'',
                 'trainIdError'=>'',
+                'cancelDateError'=>'',
                 'issueTypeError'=>'',
                 'cancelCauseError'=>''
             ];
@@ -159,12 +173,14 @@
                     'alertId'=>$id,
                     'issueType'=>trim($_POST['issueType']),
                     'trainId'=>trim($_POST['trainid']),
+                    'cancelDate'=>trim($_POST['cancelDate']),
                     'cancelCause'=>trim($_POST['cancelcause']),
                     'insertedDate'=>date("Y-m-d"),
                     'insertedTime'=>date("H:i:sa"),
                     'moderatorId'=>$_SESSION['moderator_id'],
                     'issueTypeError'=>'',
                     'trainIdError'=>'',
+                    'cancelDateError'=>'',
                     'cancelCauseError'=>''
                 ];
 
@@ -181,20 +197,33 @@
                     $data['cancelCauseError']='The Cancellation cause should not be empty';    
                 }
 
+                $cdate= new DateTime($data['cancelDate']);
+                $now=new DateTime();
+                if(empty($data['cancelDate'])){
+                    $data['cancelDateError']='The Cancellation date should not be empty';
+                }elseif ($cdate<$now){
+                    $data['cancelDateError']='Cancellation date is not valid maybe in the past';
+                }
+
                 
                 if(empty($data['issueType'])){
                     $data['issueTypeError']='The Issue type should not be empty';    
                 }
 
+
+
                 if($data['trainId']==$this->alertModel->findCancellationById($id)->trainId
                      && $data['cancelCause']==$this->alertModel->findCancellationById($id)->cancellation_cause
-                     && $data['issueType']==$this->alertModel->findCancellationById($id)->issueType){
+                     && $data['issueType']==$this->alertModel->findCancellationById($id)->issuetype
+                    && $data['cancelDate']==$this->alertModel->findCancellationById($id)->cancellation_date){
                     $data['trainIdError']='No change done to any field.';
-                    $data['cancelCauseError']='No change done to any field.'; 
+                    $data['cancelCauseError']='No change done to any field.';
+                    $data['cancelDateError']='No change done to any field';
                     $data['issueTypeError']='No change done to any field.';    
                 }
 
-                if(empty($data['trainIdError'])&& empty($data['cancelCauseError']) && empty($data['issueTypeError'])){
+                if(empty($data['trainIdError'])&& empty($data['cancelCauseError']) && empty($data['issueTypeError'])
+                && empty($data['cancelDateError'])){
                     if($this->alertModel->updateCancellationAlert($data)){
                         header("Location: ".URLROOT."/moderatoralerts/viewcancelledalerts");
                     }else{

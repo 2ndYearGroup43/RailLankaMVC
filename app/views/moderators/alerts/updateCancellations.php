@@ -3,6 +3,7 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
+//    var_dump($data);
 ?>
 <div class="marquee-area info-tag">
 	<marquee>
@@ -29,6 +30,11 @@
                         </div>
                     </div>
                     <div class="form-row">
+                        <div class="input-data">
+                            <label for="cancelDate">Cancellation Date</label>
+                            <input type="date" name="cancelDate" id="cancelDate" value="<?php echo $data['alert']->cancellation_date;?>" required>
+                            <span class="invalidFeedback"><?php echo $data['cancelDateError'];?></span>
+                        </div>
                         <div class="input-data">
                             <label for="issueType">Train Id</label>
                             <select name="issueType" id="issueType">
