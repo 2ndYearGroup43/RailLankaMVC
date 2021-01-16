@@ -64,7 +64,7 @@
                     $data['time']=1;
                 }
                 if (!empty($data['date'])){
-                    $data['date']= date('l', strtotime($data['date']));
+                    $data['date']= date('l', strtotime($data['date']));//monday
                     echo $data['date'];
                 }
 
