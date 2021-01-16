@@ -115,7 +115,7 @@
                                         <td data-th="Name"><?php echo $train->name;?></td>
                                         <td data-th="Type"><?php echo $train->type;?></td>
                                         <td data-th="View Now">
-                                        <a class= "blue-btn" href="<?php echo URLROOT . "/ResOfficerReservationDetails/displayTrainReservationDetails/" . $train->trainId?>">Select</a>
+                                        <a class= "blue-btn" href="<?php echo URLROOT . "/ResOfficerReservationDetails/displayTrainReservationDetails/" . $train->trainId?>/<?php echo $data['search_date']?>">Select</a>
                                         </td>
                                     </tr>
                                 <?php endforeach;?>

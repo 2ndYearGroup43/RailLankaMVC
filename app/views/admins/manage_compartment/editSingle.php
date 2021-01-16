@@ -33,13 +33,6 @@
                             </div>
                             <div class="form-row">
                                 <div class="input-data">
-                                    <label for="noofseats">No of Seats</label>
-                                    <input type="text" name="noofseats"  value="<?php echo $data['noofseats'];?>"  id="noofseats" required >
-                                    <span class="invalidFeedback">
-                                        <?php echo $data['noofseatsError'];?>
-                                    </span>
-                                </div>
-                                <div class="input-data">
                                     <label for="type">Type</label>
                                     <select name="type" id="type" required>
                                         <option  value="<?php echo $data['type'];?>" > <?php echo $data['type'];?> </option>

@@ -19,19 +19,19 @@
                                         <th>Compartment No</th>
                                         <th>Seat No</th>
                                         <th>NIC</th>
+                                        <th>Class</th>
                                         <th>Ticket ID</th>   
                                     </tr>
                                 </thead>
-                                <?php foreach ($data['train'] as $train):?>
+                                <?php foreach ($data['trains'] as $train):?>
                                 <tr>
-                                    <td data-th="Train ID"><?php echo $data['train']->ticketId?></td>
-                                    <td data-th="Date"><?php echo $data['train']->date?></td>
-                                    <td data-th="Compartment No"><?php echo $data['train']->compartmentNo?></td>
-                                    <td data-th="Seat No"><?php echo $data['train']->seatNo?></td>
-                                    <td data-th="NIC"><?php echo $data['train']->nic?></td>
-                                    <td data-th="Class"><?php echo $data['train']->classType?></td>
-                                    <td data-th="Date"><?php echo $data['train']->date?></td>
-                                    <td data-th="Ticket ID"><?php echo $data['train']->ticketId?></td>
+                                    <td data-th="Train ID"><?php echo $train->trainId?></td>
+                                    <td data-th="Date"><?php echo $train->date?></td>
+                                    <td data-th="Compartment No"><?php echo $train->compartmentNo?></td>
+                                    <td data-th="Seat No"><?php echo $train->seatNo?></td>
+                                    <td data-th="NIC"><?php echo $train->nic?></td>
+                                    <td data-th="Class"><?php echo $train->classType?></td>
+                                    <td data-th="Ticket ID"><?php echo $train->ticketId?></td>
                                    </td>
                                 </tr>
                                 <?php endforeach;?>

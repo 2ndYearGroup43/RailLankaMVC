@@ -15,7 +15,6 @@
                                 <th>Train ID</th>
                                 <th>Compartment No</th>
                                 <th>Class</th>
-                                <th>No of Seats</th>
                                 <th>Type</th>
                                 <th>Manage</th>    
                             </tr>
@@ -25,7 +24,6 @@
                             <td data-th="Train ID"><?php echo $post->trainId?></td>
                             <td data-th="Compartment No"><?php echo $post->compartmentNo?></td>
                             <td data-th="Class"><?php echo $post->class?></td>
-                            <td data-th="No of Seats"><?php echo $post->noofseats?></td>
                             <td data-th="Type"><?php echo $post->type?></td>
                             <td data-th="Manage">
                             <form action="<?php echo URLROOT . "/Admin_manage_compartments/delete/" . $post->trainId?>" method="POST">    

@@ -86,12 +86,10 @@ class Admin_manage_compartments extends Controller{
 			'compartment'=>$compartment,
 			'compartmentNo'=>$compartment->compartmentNo,
 			'class'=>$compartment->class,
-			'noofseats'=>$compartment->noofseats,
 			'type'=>$compartment->type,
 			'trainIdError'=>'',
             'compartmentNoError'=>'',
             'classError'=>'',
-            'noofseatsError'=>'',
             'typeError'=>''
 		];
 
@@ -104,12 +102,10 @@ class Admin_manage_compartments extends Controller{
 			'compartment'=>$compartment,	
 			'compartmentNo'=>trim($_POST['compartmentNo']),			
 			'class'=>trim($_POST['class']),
-			'noofseats'=>trim($_POST['noofseats']),
 			'type'=>trim($_POST['type']),
 			'trainIdError'=>'',
             'compartmentNoError'=>'',
             'classError'=>'',
-            'noofseatsError'=>'',
             'typeError'=>''
 			];
 
@@ -130,21 +126,13 @@ class Admin_manage_compartments extends Controller{
             if(empty($data['class'])){
                 $data['classError']='Please Enter the First Name.';
             }
-            if(empty($data['noofseats'])){
-                $data['noofseatsError']='Please Enter the Last Name.';
-            }elseif(!preg_match($numberValidation, $data['noofseats'])){
-                $data['noofseatsError']="Number of Seats can only contain numbers.";
-            }
-            elseif(($data['noofseats'])>40){
-                $data['noofseatsError']="Maximum of number of Seats is 40.";
-            }
+            
             if(empty($data['type'])){
                 $data['typeError']='Please Enter the Compartment No.';
             }
             
             if(empty($data['compartmentNoError']) &&
-                empty($data['classError']) && empty($data['noofseatsError']) && 
-                empty($data['typeError']) ){
+                empty($data['classError']) &&  empty($data['typeError']) ){
 
             	if ($this->adminModel->editSingle($data)) {
 				    header("Location: " . URLROOT . "/Admin_manage_compartments/viewCompartments/". $trainId);
@@ -169,12 +157,10 @@ class Admin_manage_compartments extends Controller{
 			'compartments'=>$compartments,
 			'compartmentNo'=>'',
 			'class'=>'',
-			'noofseats'=>'',
 			'type'=>'',
 			'trainIdError'=>'',
             'compartmentNoError'=>'',
             'classError'=>'',
-            'noofseatsError'=>'',
             'typeError'=>''
 		];
 
@@ -187,12 +173,10 @@ class Admin_manage_compartments extends Controller{
 			'compartments'=>$compartments,	
 			'compartmentNo'=>trim($_POST['compartmentNo']),			
 			'class'=>trim($_POST['class']),
-			'noofseats'=>trim($_POST['noofseats']),
 			'type'=>trim($_POST['type']),
 			'trainIdError'=>'',
             'compartmentNoError'=>'',
             'classError'=>'',
-            'noofseatsError'=>'',
             'typeError'=>''
 			];
 
@@ -216,11 +200,7 @@ class Admin_manage_compartments extends Controller{
                 }elseif(!preg_match($nameValidation, $data['class'])){
                     $data['classError']="Class can only contain letters.";
                 }
-                if(empty($data['noofseats'])){
-                    $data['noofseatsError']='Please Enter the Last Name.';
-                }elseif(!preg_match($numberValidation, $data['noofseats'])){
-                    $data['noofseatsError']="Number of Seats can only contain numbers.";
-                }
+
                 if(empty($data['type'])){
                     $data['typeError']='Please Enter the Compartment No.';
                 }elseif(!preg_match($numberValidation, $data['compartmentNo'])){
@@ -233,8 +213,7 @@ class Admin_manage_compartments extends Controller{
                 }
 
                 if(empty($data['trainIdError']) && empty($data['compartmentNoError']) &&
-                empty($data['classError']) && empty($data['noofseatsError']) && 
-                empty($data['typeError']) ){
+                empty($data['classError']) && empty($data['typeError']) ){
 
 			if ($this->adminModel->edit($data)) {
 				header("Location: " . URLROOT . "/Admin_manage_compartments");
@@ -246,16 +225,17 @@ class Admin_manage_compartments extends Controller{
 		$this->view('admins/manage_compartment/edit', $data);
 	}
 
-		public function views($trainId){
+		public function views($trainId, $typeNo){
 
 		$manage_compartment=$this->adminModel->findTrain($trainId);
+		$noofseats=$this->adminModel->getNoofSeats($typeNo);
 
 		$data = [
 			'manage_compartment'=>$manage_compartment,
+			'noofseats'=>$noofseats,
 			'trainId'=>'',
 			'compartmentNo'=>'',
 			'class'=>'',
-			'noofseats'=>'',
 			'type'=>''
 		];
 
@@ -265,7 +245,6 @@ class Admin_manage_compartments extends Controller{
 			'trainId'=>$trainId,	
 			'compartmentNo'=>trim($_POST['compartmentNo']),			
 			'class'=>trim($_POST['class']),
-			'noofseats'=>trim($_POST['noofseats']),
 			'type'=>trim($_POST['type'])
 			];
 			if ($this->adminModel->views($data)) {
@@ -286,7 +265,6 @@ class Admin_manage_compartments extends Controller{
 			'trainId'=>'trainId',
 			'compartmentNo'=>'',
 			'class'=>'',
-			'noofseats'=>'',
 			'type'=>''
 		];
 

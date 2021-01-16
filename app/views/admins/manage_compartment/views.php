@@ -25,13 +25,13 @@
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td>Number of Seats: </td>
-                            <td><?php echo $data['manage_compartment']->noofseats?></td>
+                            <td >Type: </td>
+                            <td><?php echo $data['manage_compartment']->type?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td >Type: </td>
-                            <td><?php echo $data['manage_compartment']->type?></td>
+                            <td >Number of Seats: </td>
+                            <td><?php echo $data['noofseats']->noofseats?></td>
                             <td colspan="2"></td>
                         </tr>
                     </table>

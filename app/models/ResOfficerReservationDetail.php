@@ -372,4 +372,19 @@
         return $row;
     }
 
+    public function getReservationDetails($trainId, $searchDate){
+        $this->db->query('SELECT t.trainId, t.name, ti.ticketId, ti.price, ti.reservationType, ti.compartmentNo, ti.seatNo, ti.nic, s.classType, s.status, s.date, s.start_station, s.dest_station
+        FROM train t 
+        INNER JOIN ticket ti 
+        ON t.trainId=ti.trainId
+        INNER JOIN  seat s 
+        ON t.trainId=s.trainId WHERE t.trainId=:trainId AND s.date=:searchDate');
+
+        $this->db->bind(":trainId",$trainId);
+        $this->db->bind(":searchDate", $searchDate);
+        $results=$this->db->resultSet();
+        return $results;
+
+    }
+
 	}
