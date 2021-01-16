@@ -155,7 +155,7 @@ class Admin{
                         break;
                     case 'email':
                         $this->db->query('SELECT a.*,u.email FROM admin a
-                        INNER JOIN users u ON u.userId=a.userId WHERE u.email = :searchTerm');
+                        INNER JOIN users u ON u.userId=a.userId WHERE a.email = :searchTerm');
                         break;
                     case 'mobileno':
                         $this->db->query('SELECT a.*,u.email FROM admin a
@@ -180,14 +180,35 @@ class Admin{
             return $row; 
         }
 
+        // public function updateAdmin($data)
+        // {
+        //     $this->db->query("UPDATE users SET email=:email WHERE userid=:userid");
+        //     $this->db->bind(":userid", $data['userid']);
+        //     $this->db->bind(":email", $data['email']);
+        //     if($this->db->execute()){
+        //         $this->db->query('UPDATE admin SET employeeId=:employeeId, firstname=:firstname, lastname=:lastname,
+        //         mobileno=:mobileno WHERE userid=:userid');
+        //         $this->db->bind(":userid", $data['userid']);
+        //         $this->db->bind(":employeeId", $data['employeeId']);
+        //         $this->db->bind(":firstname", $data['firstname']);
+        //         $this->db->bind(":lastname", $data['lastname']);
+        //         $this->db->bind(":mobileno", $data['mobileno']);  
+        //         if ($this->db->execute()) {
+        //             return true;
+        //         } else {
+        //             return false;
+        //         }
+        //         return false;              
+        //     }
+        // }
+
         public function updateAdmin($data)
         {
             $this->db->query("UPDATE users SET email=:email WHERE userid=:userid");
             $this->db->bind(":userid", $data['userid']);
             $this->db->bind(":email", $data['email']);
             if($this->db->execute()){
-                $this->db->query('UPDATE admin SET employeeId=:employeeId, firstname=:firstname, lastname=:lastname,
-                mobileno=:mobileno WHERE userid=:userid');
+                $this->db->query('UPDATE admin SET employeeId=:employeeId, firstname=:firstname, lastname=:lastname, mobileno=:mobileno WHERE userid=:userid');
                 $this->db->bind(":userid", $data['userid']);
                 $this->db->bind(":employeeId", $data['employeeId']);
                 $this->db->bind(":firstname", $data['firstname']);
@@ -212,6 +233,16 @@ class Admin{
                 return false;   
             }
         }
+        // public function deleteUser($id)
+        // {
+        //     $this->db->query('DELETE FROM users WHERE userid=:userid');
+        //     $this->db->bind(":userid", $id);
+        //     if($this->db->execute()){
+        //         return true;
+        //     }else{
+        //         return false;   
+        //     }
+        // }
               
     
 
@@ -219,7 +250,7 @@ class Admin{
 
     public function login($username, $password)
     {
-        $this->db->query('SELECT * FROM admin a INNER JOIN users u ON a.userId=u.userId WHERE adminId = :username');
+        $this->db->query('SELECT * FROM admin a INNER JOIN users u ON a.userid=u.userid WHERE adminId = :username');
 
         //Find value in the db
         //bind it with variables

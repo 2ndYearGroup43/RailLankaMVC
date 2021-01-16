@@ -21,6 +21,7 @@
 	        $stations=$this->resofficerReservationModel->getStations();
             $data=[
                 'stations'=>$stations,
+                'search_date'=>'',
                 'trains'=>'',
                 'srcStation'=>'',
                 'destStation'=>'',
@@ -37,6 +38,7 @@
                 $data=[
                     'stations'=>$stations,
                     'trains'=>'',
+                    'search_date'=>trim($_POST['date']),
                     'srcStation'=>trim($_POST['src']),
                     'destStation'=>trim($_POST['dest']),
                     'date'=>trim($_POST['date']),
@@ -65,7 +67,8 @@
                     $data['time']=1;
                 }
                 if (!empty($data['date'])){
-                    $search_date=$data['date'];
+                    //$search_date=$data['date'];
+                    //echo $data['search_date'];
                     $data['date']= date('l', strtotime($data['date']));
 
                 }
@@ -117,13 +120,13 @@
 
 		}
 
-		public function displayTicketDetails($trainId) {
+		public function displayTicketDetails($trainId, $searchDate) {
 
-        $train=$this->resofficerReservationModel->getTicketDetails($trainId);
+        $trains=$this->resofficerReservationModel->getTicketDetails($trainId, $searchDate);
         $names=$this->resofficerReservationModel->findTrainName($trainId);
 
         $data = [
-            'train'=>$train,
+            'trains'=>$trains,
             'trainId'=>$trainId,
             'names'=>$names
         ];

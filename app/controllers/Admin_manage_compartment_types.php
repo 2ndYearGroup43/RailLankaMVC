@@ -63,7 +63,9 @@ class Admin_manage_compartment_types extends Controller{
 		$data = [
 			'manage_compartment_type'=>$manage_compartment_type,
 			'typeNo'=>'',
-			'imageDir'=>''
+			'imageDir'=>'',
+			'noofseats'=>''
+			
 		];
 
 		if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -71,6 +73,7 @@ class Admin_manage_compartment_types extends Controller{
 			$data=[
 			'typeNo'=>$typeNo,
 			'imageDir'=>trim($_POST['imageDir']),
+			'noofseats'=>trim($_POST['noofseats']),
 			];
 			if ($this->adminModel->views($data)) {
 				header("Location: " . URLROOT . "/Admin_manage_compartment_types");

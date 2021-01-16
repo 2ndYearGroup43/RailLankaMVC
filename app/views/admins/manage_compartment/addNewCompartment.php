@@ -6,7 +6,7 @@
 ?>   
 
 
-<script src="<?php echo URLROOT;?>/javascript/trainCompartmentAdd.js"></script>
+<script src="<?php echo URLROOT;?>/javascript/trainCompartmentAddNew.js"></script>
         <div class="body-section">
             <div class="content-flexrow">
                 <div class="container">
@@ -34,13 +34,6 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="input-data">
-                                    <label for="noofseats">No of Seats</label>
-                                    <input type="text" name="noofseats" id="noofseats"  >
-                                    <span class="invalidFeedback" id="noSeatsError">
-                                        <!-- <?php echo $data['noSeatsError'];?> -->
-                                    </span>
-                                </div>
                                 <div class="input-data">
                                     <label for="type">Type</label>
                                     <select name="type" id="type" >
@@ -79,7 +72,6 @@
                                 <tr>
                                     <th>Compartment No</th>
                                     <th>Class</th>
-                                    <th>No of Seats</th>
                                     <th>Type</th>
                                     <th>Manage</th>
                                 </tr>

@@ -9,7 +9,7 @@
             </div>
             <div class="content-row">
                     <div class="container-table">
-                        <h2 style="color: #13406d;">Reservation Details <small style="color: black;">Train ID-<?php echo $data['train']->trainId?></small></h2>
+                        <h2 style="color: #13406d;">Reservation Details</h2>
                         <div class="res-table">
                             <table class="blue">
                                 <thead>
@@ -24,17 +24,17 @@
                                         <th>Action</th>   
                                     </tr>
                                 </thead>
-                                <?php foreach ($data['train'] as $train):?>
+                                <?php foreach ($data['trains'] as $train):?>
                                 <tr>
-                                    <td data-th="Train ID"><?php echo $data['train']->trainId?></td>
-                                    <td data-th="Reservation Type"><?php echo $data['train']->reservationType?></td>
-                                    <td data-th="Price"><?php echo $data['train']->price?></td>
-                                    <td data-th="Compartment No"><?php echo $data['train']->compartmentNo?></td>
-                                    <td data-th="Seat No"><?php echo $data['train']->seatNo?></td>
-                                    <td data-th="NIC"><?php echo $data['train']->nic?></td>
-                                    <td data-th="Ticket ID"><?php echo $data['train']->ticketId?></td>
+                                    <td data-th="Train ID"><?php echo $train->trainId?></td>
+                                    <td data-th="Reservation Type"><?php echo $train->reservationType?></td>
+                                    <td data-th="Price"><?php echo $train->price?></td>
+                                    <td data-th="Compartment No"><?php echo $train->compartmentNo?></td>
+                                    <td data-th="Seat No"><?php echo $train->seatNo?></td>
+                                    <td data-th="NIC"><?php echo $train->nic?></td>
+                                    <td data-th="Ticket ID"><?php echo $train->ticketId?></td>
                                     <td data-th="Action">                              
-                                    <a class= "blue-btn" href="<?php echo URLROOT . "/ResOfficerReservationDetails/viewReservationDetails/" . $data['train']->trainId?>/<?php echo $data['train']->ticketId?>/<?php echo $data['train']->nic?>">View</a>
+                                    <a class= "blue-btn" href="<?php echo URLROOT . "/ResOfficerReservationDetails/viewReservationDetails/" . $train->trainId?>/<?php echo $train->ticketId?>/<?php echo $train->nic?>">View</a>
                                    </td>
                                 </tr>
                                 <?php endforeach;?>

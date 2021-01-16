@@ -16,7 +16,6 @@
                                 <th>Train ID</th>
                                 <th>Compartment No</th>
                                 <th>Class</th>
-                                <th>No of Seats</th>
                                 <th>Type</th>
                                 <th>Manage</th>    
                             </tr>
@@ -26,11 +25,10 @@
                             <td data-th="Train ID"><?php echo $compartment->trainId?></td>
                             <td data-th="Compartment No"><?php echo $compartment->compartmentNo?></td>
                             <td data-th="Class"><?php echo $compartment->class?></td>
-                            <td data-th="No of Seats"><?php echo $compartment->noofseats?></td>
                             <td data-th="Type"><?php echo $compartment->type?></td>
                             <td data-th="Manage">
                             <form action="<?php echo URLROOT . "/Admin_manage_compartments/delete/" . $compartment->compartmentNo?>/<?php echo $compartment->trainId?>" method="POST">    
-                            <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_compartments/views/" . $compartment->trainId?>">View</a>
+                            <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_compartments/views/" . $compartment->trainId?>/<?php echo $compartment->type?>">View</a>
                             <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_compartments/editSingle/" . $compartment->trainId?>/<?php echo $compartment->compartmentNo?>">Edit</a>
                             <input type="submit" name="delete" value="Remove" class="red-btn">
                             </form></td>

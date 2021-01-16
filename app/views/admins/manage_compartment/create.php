@@ -35,13 +35,6 @@
                             </div>
                             <div class="form-row">
                                 <div class="input-data">
-                                    <label for="noofseats">No of Seats</label>
-                                    <input type="text" name="noofseats" id="noofseats"  >
-                                    <span class="invalidFeedback" id="noSeatsError">
-                                        <!-- <?php echo $data['noSeatsError'];?> -->
-                                    </span>
-                                </div>
-                                <div class="input-data">
                                     <label for="type">Type</label>
                                     <select name="type" id="type" >
                                         <option value="">Select</option>
