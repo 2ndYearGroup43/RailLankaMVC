@@ -56,10 +56,11 @@ class Admin_manage_compartment_type {
 	}
 
 	public function views($data){
-		$this->db->query('SELECT compartment_type SET (typeNo=:typeNo, imageDir=:imageDir) WHERE typeNo=:typeNo');
+		$this->db->query('SELECT compartment_type SET (typeNo=:typeNo, imageDir=:imageDir, noofseats=:noofseats) WHERE typeNo=:typeNo');
 
 		$this->db->bind(':typeNo', $data['typeNo']);
 		$this->db->bind(':imageDir', $data['imageDir']);
+		$this->db->bind(':noofseats', $data['noofseats']);
 
 		if($this->db->execute()){
 			return true;

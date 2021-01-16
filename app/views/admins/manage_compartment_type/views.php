@@ -15,6 +15,11 @@
                             <td colspan="4"></td>
                         </tr>
                         <tr>
+                            <td >Number of Seats: </td>
+                            <td><?php echo $data['manage_compartment_type']->noofseats?></td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
                             <td><div class="logo"><a ><img src="<?php echo URLROOT;?><?php echo $data['manage_compartment_type']->imageDir?>" alt="logo" height="500px" width="300px"></a></div></td>
                             <td colspan="4"></td>
                         </tr>

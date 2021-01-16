@@ -10,12 +10,11 @@ class Admin_manage_compartment {
 		$flag;
 
 		foreach ($data['compartments'] as $comp) {
-			$this->db->query('INSERT INTO compartment (trainId, compartmentNo, class, noofseats, type) VALUES (:trainId, :compartmentNo, :class, :noofseats, :type)');
+			$this->db->query('INSERT INTO compartment (trainId, compartmentNo, class, type) VALUES (:trainId, :compartmentNo, :class, :type)');
 
 			$this->db->bind(':trainId', $data['trainId']);
 			$this->db->bind(':compartmentNo', $comp->compartmentNo);		
 			$this->db->bind(':class', $comp->trainClass);
-			$this->db->bind(':noofseats', $comp->noSeats);
 			$this->db->bind(':type', $comp->type);
 
 			if($this->db->execute()){
@@ -124,13 +123,18 @@ class Admin_manage_compartment {
         return $results;
     }
 
+    public function getMax(){
+        $this->db->query("SELECT max FROM compartment_type");
+        $results=$this->db->resultSet();
+        return $results;
+    }
+
 	public function edit($data){
-		$this->db->query('UPDATE compartment SET trainId=:trainId, compartmentNo=:compartmentNo, class=:class, noofseats=:noofseats, type=:type WHERE trainId=:trainId');
+		$this->db->query('UPDATE compartment SET trainId=:trainId, compartmentNo=:compartmentNo, class=:class, type=:type WHERE trainId=:trainId');
 
 		$this->db->bind(':trainId', $data['trainId']);
 		$this->db->bind(':compartmentNo', $data['compartmentNo']);
 		$this->db->bind(':class', $data['class']);
-		$this->db->bind(':noofseats', $data['noofseats']);
 		$this->db->bind(':type', $data['type']);
 
 		if($this->db->execute()){
@@ -141,12 +145,11 @@ class Admin_manage_compartment {
 	}
 
 		public function views($data){
-		$this->db->query('SELECT compartment SET trainId=:trainId, compartmentNo=:compartmentNo, class=:class, noofseats=:noofseats, type=:type WHERE trainId=:trainId');
+		$this->db->query('SELECT compartment SET trainId=:trainId, compartmentNo=:compartmentNo, class=:class, type=:type WHERE trainId=:trainId');
 
 		$this->db->bind(':trainId', $data['trainId']);
 		$this->db->bind(':compartmentNo', $data['compartmentNo']);
 		$this->db->bind(':class', $data['class']);
-		$this->db->bind(':noofseats', $data['noofseats']);
 		$this->db->bind(':type', $data['type']);
 
 		if($this->db->execute()){
@@ -232,13 +235,12 @@ class Admin_manage_compartment {
 
 	public function editSingle($data)	
 	{
-		$this->db->query('UPDATE compartment SET trainId=:trainId, compartmentNo=:compartmentNo, class=:class, noofseats=:noofseats, type=:type WHERE trainId=:trainId AND compartmentNo=:cno');
+		$this->db->query('UPDATE compartment SET trainId=:trainId, compartmentNo=:compartmentNo, class=:class, type=:type WHERE trainId=:trainId AND compartmentNo=:cno');
 
 		$this->db->bind(':trainId', $data['trainId']);
 		$this->db->bind(':compartmentNo', $data['compartmentNo']);
 		$this->db->bind(':cno', $data['compartment']->compartmentNo);
 		$this->db->bind(':class', $data['class']);
-		$this->db->bind(':noofseats', $data['noofseats']);
 		$this->db->bind(':type', $data['type']);
 
 		if($this->db->execute()){
@@ -246,5 +248,15 @@ class Admin_manage_compartment {
 		}else{
 			return false;
 		}
+	}
+
+	public function getNoofSeats($typeNo)
+	{
+		$this->db->query('SELECT * FROM compartment_type WHERE typeNo=:typeNo');
+
+		$this->db->bind(':typeNo', $typeNo);
+
+		$row = $this->db->single();
+		return $row;
 	}
 }

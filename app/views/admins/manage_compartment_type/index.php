@@ -14,6 +14,7 @@
                             <tr>
                                 <th>Type No</th>
                                 <th>Image Directory</th>
+                                <th>Number of Seats</th>
                                 <th>Manage</th>    
                             </tr>
                         </thead>
@@ -21,6 +22,7 @@
                         <tr>
                             <td data-th="Type"><?php echo $post->typeNo?></td>
                             <td data-th="Type"><?php echo $post->imageDir?></td>
+                            <td data-th="Type"><?php echo $post->noofseats?></td>
                             <td data-th="Manage">
                             <form action="<?php echo URLROOT . "/Admin_manage_compartment_types/delete/" . $post->typeNo?>" method="POST">    
                             <a class= "blue-btn" href="<?php echo URLROOT . "/Admin_manage_compartment_types/views/" . $post->typeNo?>">View</a>
