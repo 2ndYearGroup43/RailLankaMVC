@@ -30,7 +30,7 @@
     }
 
     public function getTicketId(){
-        $this->db->query("SELECT ticketId FROM ticket");
+        $this->db->query("SELECT ticketId FROM ticket ORDER BY ticketId ASC");
         $results=$this->db->resultSet();
         return $results;
     }
@@ -44,6 +44,21 @@
 			ON t.trainId=a.trainId 
 			INNER JOIN  cancelled_alerts c 
 			ON a.alertId=c.alertId WHERE t.ticketId=:ticketId');
+
+            $this->db->bind(":ticketId",$ticketId);
+            $row=$this->db->single();
+            return $row; 
+
+    }
+
+    public function getPassengerEmail($ticketId){
+            $this->db->query('SELECT t.ticketId, t.nic, p.userid, u.email 
+			FROM ticket t 
+			INNER JOIN passenger p 
+			ON t.nic=p.nic 
+			INNER JOIN  users u 
+			ON p.userid=u.userid 
+            WHERE t.ticketId=:ticketId');
 
             $this->db->bind(":ticketId",$ticketId);
             $row=$this->db->single();

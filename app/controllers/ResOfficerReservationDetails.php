@@ -135,17 +135,19 @@
 
 		public function viewReservationDetails($trainId, $ticketId, $nic) {
 
-        $manage_train=$this->resofficerReservationModel->findTrain($trainId);
-        $names=$this->resofficerReservationModel->findTrainName($trainId);
-        $nics=$this->resofficerReservationModel->findPassengerDetails($nic);
-        $seats=$this->resofficerReservationModel->findSeatDetails($nic);
+        //$manage_train=$this->resofficerReservationModel->findTrain($trainId, $nic);
+        //$names=$this->resofficerReservationModel->findTrainName($trainId);
+        //$nics=$this->resofficerReservationModel->findPassengerDetails($nic);
+        //$seats=$this->resofficerReservationModel->findSeatDetails($nic);
+          $passengers=$this->resofficerReservationModel->getPassengerDetails($trainId, $ticketId, $nic);  
 
         $data = [
-            'manage_train'=>$manage_train,
-            'trainId'=>$trainId,
-            'names'=>$names,
-            'nics'=>$nics,
-            'seats'=>$seats
+            //'manage_train'=>$manage_train,
+            //'trainId'=>$trainId,
+            //'names'=>$names,
+            //'nics'=>$nics,
+            //'seats'=>$seats
+            'passengers'=>$passengers
         ];    
 
 			

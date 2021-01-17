@@ -322,7 +322,7 @@
     }
 
     public function getDays($trainId){
-        $this->db->query('SELECT * FROM availabledays WHERE trainid=:trainId');
+        $this->db->query('SELECT * FROM availabledays WHERE trainId=:trainId');
         $this->db->bind(':trainId', $trainId);
         $row=$this->db->single();
         return $row;
@@ -336,17 +336,18 @@
         return $row;
     }
 
-    public function findTrain($trainId){
-        $this->db->query('SELECT * FROM ticket WHERE trainid=:trainId');
+    public function findTrain($trainId, $nic){
+        $this->db->query('SELECT * FROM ticket WHERE trainId=:trainId AND nic=:nic');
 
         $this->db->bind(':trainId', $trainId);
+        $this->db->bind(':nic', $nic);
 
         $row = $this->db->single();
         return $row;
     }
 
     public function findTrainName($trainId){
-        $this->db->query('SELECT name FROM train WHERE trainid=:trainId');
+        $this->db->query('SELECT name FROM train WHERE trainId=:trainId');
 
         $this->db->bind(':trainId', $trainId);
 
@@ -385,6 +386,25 @@
         $results=$this->db->resultSet();
         return $results;
 
+    }
+
+    public function getPassengerDetails($trainId, $ticketId, $nic){
+        $this->db->query('SELECT t.trainId, t.name, ti.ticketId, ti.price, ti.reservationType, ti.compartmentNo, ti.seatNo, ti.nic, s.classType, s.status, s.date, s.start_station, s.dest_station, s.classtype, p.firstname, p.lastname, p.mobileno
+        FROM train t 
+        INNER JOIN ticket ti 
+        ON t.trainId=ti.trainId
+        INNER JOIN  seat s 
+        ON t.trainId=s.trainId 
+        INNER JOIN passenger p
+        ON p.nic=ti.nic
+        WHERE t.trainId=:trainId AND ti.ticketId=:ticketId AND ti.nic=:nic');
+
+        $this->db->bind(":trainId",$trainId);
+        $this->db->bind(':ticketId', $ticketId);
+        $this->db->bind(':nic', $nic);
+
+        $row = $this->db->single();
+        return $row;
     }
 
 	}

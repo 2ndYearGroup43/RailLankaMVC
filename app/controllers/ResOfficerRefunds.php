@@ -45,11 +45,14 @@
             $dates->seat_date;
             $dates->cancelled_date;
 
+            echo $dates->seat_date;
+            echo $dates->cancelled_date;
+
 			if(empty($data['ticketId'])){
                 $data['ticketIdError']='Please Enter the ticket ID.';
                 }
             elseif($dates->seat_date!=$dates->cancelled_date){
-                $data['ticketIdError']='This Train is not cancelled.';
+                $data['ticketIdError']='This Ticket does not belong to a cancelled train.';
                 }
             if(empty($data['ticketIdError'])){
 
