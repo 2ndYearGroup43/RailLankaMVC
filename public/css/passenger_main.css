@@ -1135,7 +1135,8 @@ header{
     max-height: 700px;
     position: relative;
     margin: 0px auto;
-    padding: 25px 50px 25px 40px;
+    padding: 5px;
+    /*padding: 25px 50px 25px 40px;*/
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     opacity: 0.95;
     border-radius: 25px;
@@ -1193,9 +1194,9 @@ form .form-row .textarea{
 }
 
 .textarea textarea:focus ~ label,
-.textarea textarea:valid ~ label,
+.textarea textarea:not(:placehlolder-shown) ~ label,
 .input-data input:focus ~ label,
-.input-data input:valid ~ label{
+.input-data input:not(:placehlolder-shown) ~ label{
 	transform: translateY(-20px);
 	color:#2476c7 /*#17a2b8*/;
 	font-size: 14px;
@@ -1208,8 +1209,8 @@ form .form-row .textarea{
 	opacity: 0.9;
 }
 
-.textarea textarea:valid,
-.input-data input:valid{
+.textarea textarea:not(:placehlolder-shown),
+.input-data input:not(:placehlolder-shown){
 	color: black;
 	opacity: 0.9;
 }
@@ -1236,9 +1237,9 @@ form .form-row .textarea{
 }
 
 .textarea textarea:focus ~ .underline:before, .underline:after,
-.textarea textarea:valid ~ .underline:before, .underline:after,
+.textarea textarea:not(:placehlolder-shown) ~ .underline:before, .underline:after,
 .input-data input:focus ~ .underline:before, .underline:after,
-.input-data input:valid ~ .underline:before, .underline:after{
+.input-data input:not(:placehlolder-shown) ~ .underline:before, .underline:after{
 	transform: scaleX(1);
 }
 
@@ -1398,23 +1399,29 @@ form .form-row .textarea{
 }
 
 .content-table tr button{
-	border-radius: .25rem;
-	background-color: #6c757d;
-	border:none;
+	/*border-radius: .25rem;*/
+	background-color: #13406d;
+    padding: 5px;
+    min-width: 0px;
+	border:#13406d;
 	margin: 0;
 	font-size: 1em;
-	/*opacity: 0.8;*/
+	opacity: 0.9;
 	transition: 0.3s;
 }
 
 .content-table tr button:hover{
 	/*opacity: 1;*/
-	background-color:  #343a40;
+	background-color:  #2476c7;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);;
 }
 
-.content-table tbody tr td i{
+.content-table tbody tr td i.check{
     color: #279427;
+}
+
+.content-table tbody tr td i.cross{
+    color: red;
 }
 
 .details-content-table tbody tr td .label1{
@@ -1576,7 +1583,7 @@ form .form-row .textarea{
 
 .modal-content {
 	width: 400px;
-	height: 500px;
+	height: 550px;
 	background-color: white;
 	opacity:1;
 	position: relative;
@@ -1612,7 +1619,7 @@ form .form-row .textarea{
 .modal-content .title {
 	margin-bottom: 10px;
 	margin-top: 10px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-weight: 500;
     font-size:1.5em;
     color: black;
@@ -2924,6 +2931,11 @@ footer{
     margin:50px 0 20px 0;
 }
 
+#new_tabs_sidebar{
+
+    width:100%;
+}
+
 .tabs__sidebar{
     width: 18%;
     flex-shrink: 0; /*paragraphs wont push and make the sidebar small*/
@@ -3013,7 +3025,7 @@ footer{
     display: none;
 }
 
-.tabs .tabs__sidebar .tabs__button .map-small{
+.map-small{
     display: none;
 }
 
@@ -3033,12 +3045,12 @@ footer{
 
 @media screen and (max-width: 1045px){
 
-    .tabs .tabs__sidebar .tabs__button .map-small{
+    .map-small{
         display: inline;
         font-size: 1rem;
     }
 
-    .tabs .tabs__sidebar .tabs__button .map-large{
+    .map-large{
         display: none;
     }
 
@@ -3053,7 +3065,7 @@ footer{
         margin-bottom: 20px;
     }
 
-     .tabs .tabs__sidebar .tabs__button .map-small{
+    .map-small{
         font-size: 0.9rem;
     }
 }
@@ -3243,6 +3255,10 @@ footer{
   text-align: center;
 }
 
+.form-container .acc-wrapper .acc-inputfield{
+    margin-top: 10px;
+}
+
 .acc-wrapper .acc-form{
   width: 100%;
 }
@@ -3351,6 +3367,51 @@ footer{
 .acc-wrapper .acc-form .acc-inputfield:last-child{
   margin-bottom: 0;
 }
+
+.form-container .acc-wrapper{
+    margin: 0 auto;
+    padding: 30px 70px;
+    border-radius: 25px;
+}
+
+.modal-content .acc-wrapper {
+    margin: 0;
+    padding: 30px 50px;
+}
+
+.modal-content .acc-wrapper .acc-inputfield{
+    margin-bottom: 8px;
+}
+
+.modal-content .acc-wrapper .img-container img{
+    width: 90px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.modal-content .acc-wrapper .acc-form label{
+   /*width: 200px;
+   margin-right: 10px;*/
+   font-size: 14px;
+}
+
+.modal-content .acc-wrapper .acc-form .acc-inputfield .acc-btn{
+    min-width: 150px;
+    height: 35px;
+    width: 15%;
+    margin: 15px auto;
+    padding: 8px 10px;
+    font-size: 16px; 
+    text-transform: uppercase;
+    border: 0px;
+    background:#13406d;/*#01a9b4;*/
+    border: 1px solid #13406d;/*#01a9b4; */
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+    outline: none;
+}
+
 
 @media (max-width:810px) {
     .acc-wrapper{
@@ -3622,7 +3683,7 @@ width: 150px;
 
 /*seat map new*/
 
-.map-container2 {
+/*.map-container2 {
         background: #ffffff;
         position: relative;
         width: 90%;
@@ -3675,6 +3736,414 @@ div.left-map h3{
 div.seatCharts-container {
     width: 325px;
     height: 100%;
+    background-color: #f6f6f6;  
+    margin: 0 auto 30px auto;
+    border: 1px solid #adadad;
+    border-radius: 10px;
+    padding: 20px 25px 40px 25px;
+}
+
+div.seatCharts-legend {
+    padding-left: 0px;
+
+}
+ul.seatCharts-legendList {
+    padding-left: 0px;
+    list-style: none;
+}
+
+li.seatCharts-legendItem {
+    margin-top: 5px;
+    line-height: 3;
+}
+
+span.seatCharts-legendDescription {
+    margin-left: 5px;
+    line-height: 30px;
+}
+
+div.seatCharts-cell {
+
+    height: 35px;
+    width: 35px;
+    line-height:35px;
+    margin: 5px;
+    float: left;
+    text-align: center;
+    outline: none;
+    font-size: 14px;
+}
+
+div.seatCharts-seat {
+    background-color: grey;
+    color: black;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+div.seatCharts-seat:focus {
+    border: none;
+}
+
+div.seatCharts-space {
+    background-color: transparent;
+}
+
+div.seatCharts-row {
+    height: 45px;
+    padding: 5px 0;
+}
+
+div.seatCharts-row:after {
+    clear: both;
+}
+
+div.seatCharts-seat.available {
+    background-color: lightgrey;
+}
+
+div.seatCharts-seat.available.first-class {
+    background-color: #95c8d8;
+}
+
+div.seatCharts-seat.focused.first-class {
+    background-color: #17a2b8;
+    color: white;
+}
+
+div.seatCharts-seat.available.second-class {
+    background-color: #B9DEA0;
+}
+
+div.seatCharts-seat.focused.second-class {
+    background-color: #28a745;
+    color: white;
+}
+
+div.seatCharts-seat.available.third-class {
+    background-color: #E6CAC4;
+}
+
+div.seatCharts-seat.focused.third-class {
+    background-color: #dc3545;
+    color: white;
+}
+
+div.seatCharts-seat.selected {
+    background-color: grey;
+    color: white;
+}
+
+div.seatCharts-seat.unavailable {
+    background-color: black;
+    color: white;
+    cursor: not-allowed;
+}
+
+.front-indicator {
+    width: 275px;
+    height: 30px;
+    margin: 10px auto 10px auto;
+    background-color: #f6f6f6;  
+    opacity: 0.5;
+    text-align: center;
+    padding: 4px;
+    border-radius: 3px;
+    border-bottom: 1px solid grey;
+    font-size: 15px;
+    color: black;
+    font-weight: 600;
+}
+
+#selected-seats, #selected-seats2, #selected-seats3, #selected-seats4,
+#selected-seats5, #selected-seats6, #selected-seats7, #selected-seats8 {
+    max-height: 320px;
+    overflow-y: scroll;
+    width: 85%;
+    padding: 20px 0;
+    margin-bottom: 10px;
+}
+
+#selected-seats li,
+#selected-seats2 li, 
+#selected-seats3 li, 
+#selected-seats4 li,
+#selected-seats5 li,
+#selected-seats6 li, 
+#selected-seats7 li, 
+#selected-seats8 li {
+    padding: 15px 10px;
+    font-size: 0.9em;
+    width: 95%;
+    margin: 2px 0 2px 4px;
+    height: 55px;
+    line-height: 20px;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;  
+    background: linear-gradient(#eeeeee, #dddddd) border-box;
+    color: #000;
+    --c-sh-txt: #{rgba(#fff, .5)};
+} 
+
+#selected-seats li i,
+#selected-seats2 li i, 
+#selected-seats3 li i, 
+#selected-seats4 li i,
+#selected-seats5 li i,
+#selected-seats6 li i, 
+#selected-seats7 li i, 
+#selected-seats8 li i {
+    color: grey;
+    float: right;
+    margin: 4px 0;
+}
+
+.selected-btn {
+    display: inline-block;
+    padding: 2px;
+    text-align: center;
+    border-radius: 0.25rem;
+    width: 50px;
+}
+
+#selected-seats li .selected-btn,
+#selected-seats2 li .selected-btn{
+    
+    background-color: #17a2b8;
+    color: white;
+    border: 1px solid #17a2b8;
+}
+
+#selected-seats3 li .selected-btn,
+#selected-seats4 li .selected-btn,
+#selected-seats5 li .selected-btn,
+#selected-seats6 li .selected-btn{
+    
+    background-color: #28a745;
+    color: white;
+    border: 1px solid #28a745;
+}
+
+#selected-seats7 li .selected-btn,
+#selected-seats8 li .selected-btn{
+    
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+}
+
+
+.checkout-btn {
+        background-color: #13406d;
+        color: #fff;
+        border: 1px solid #13406d;
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 45px;
+        width: 250px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .checkout-btn:hover{ 
+        border-color: #2476c7;
+        background: #2476c7;
+        font-size: 89%;
+        transition: 0.20s ease-in-out;
+    }
+
+    #viewalltickets{
+        background-color: black;
+        border: 1px solid black;
+    }
+
+     #viewalltickets:hover{
+        background-color:  black;
+        border: 1px solid black;
+    }
+
+    .conf-ticket .options,
+    .map-container2 .options,
+    .map-container .options{
+        position: absolute;
+        bottom: 45px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+@media screen and (max-width:1240px){
+
+    div.left-map,
+    div.right-map{
+        display:block;
+        width: 100%;
+    }
+
+    div.right-map {
+        border-left: none;
+        margin-top: 40px;
+        border-top: 1px solid grey;
+        padding-top: 30px;
+        width: 72%
+    }
+
+    #selected-seats, #selected-seats2, #selected-seats3, #selected-seats4,
+    #selected-seats5, #selected-seats6, #selected-seats7, #selected-seats8 {
+        max-height: 190px;
+        width: 70%;
+    }
+}
+
+@media screen and (max-width:750px){
+
+    #selected-seats, #selected-seats2, #selected-seats3, #selected-seats4,
+    #selected-seats5, #selected-seats6, #selected-seats7, #selected-seats8 {
+        max-height: 190px;
+        width: 95%;
+    }
+
+}
+
+@media screen and (max-width:550px){
+    #review.conf-ticket,
+    .map-container2 {
+        padding: 5px;
+        font-size: 0.9em;
+    }
+
+    .tabs__content {
+        width: 90%;
+    }
+
+    div.right-map{
+        width: 80%;
+    }
+
+    div.seatCharts-container{
+        padding: 2px 9px;
+        width: 242px;
+    }
+
+    .front-indicator{
+        width: 100%;
+    }
+
+    div.seatCharts-cell {
+
+        height: 27px;
+        width: 27px;
+        line-height:27px;
+        font-size: 13px;
+    }
+
+    .map-container2 .options{
+        bottom:0.5%;
+    }
+
+
+    .map-container2 .checkout-btn{
+        bottom: 30px;
+    }
+
+    #selected-seats, #selected-seats2, #selected-seats3, #selected-seats4,
+    #selected-seats5, #selected-seats6, #selected-seats7, #selected-seats8 {
+        width: 100%;
+    }
+
+    #selected-seats li,
+    #selected-seats2 li, 
+    #selected-seats3 li, 
+    #selected-seats4 li,
+    #selected-seats5 li,
+    #selected-seats6 li, 
+    #selected-seats7 li, 
+    #selected-seats8 li {
+        padding: 10px 5px;
+        width: 100%;
+        height: 60px;
+        font-size: 0.8em;
+    } 
+
+    div.right-map {
+        padding-left: 0;
+    }
+
+}
+*/
+/*end of seat maps new*/
+
+/*seat maps new 2*/
+
+.map-container2 {
+        background: #ffffff;
+        position: relative;
+        width: 90%;
+        min-width: 300px;
+        padding: 25px 40px 25px 40px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        opacity: 0.95;
+        height:1000px;/*height: 100%;*/
+        margin:0px auto;
+        border-radius: 25px;
+}
+
+div.map-column{
+    float:left;
+}
+
+/*div.left-map,
+div.center-map,
+div.right-map{
+    display:inline-block;
+}*/
+
+
+div.left-map{
+    width: 15%;
+    /*position: absolute;*/
+}
+
+div.center-map{
+    width:45%;
+    height: 100%;
+    /*margin-left: 15%;*/
+}
+
+div.right-map{
+    width: 40%;
+   /* position: absolute;*/
+    border-left: 1px solid grey;
+    padding-left: 30px;
+    height: 65%;
+}
+
+div.right-map h4{
+    font-weight: 500;
+}
+
+div.right-map h2{
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.booking-detailsn{
+    margin-bottom: 40px;
+}
+
+div.center-map h3{
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+
+
+div.seatCharts-container {
+    width: 325px;
+    /*height: 100%;*/
     background-color: #f6f6f6;  
     margin: 0 auto 30px auto;
     border: 1px solid #adadad;
@@ -3849,26 +4318,29 @@ div.seatCharts-seat.unavailable {
     width: 50px;
 }
 
-#selected-seats li .selected-btn,
-#selected-seats2 li .selected-btn{
+/*#selected-seats li .selected-btn,
+#selected-seats2 li .selected-btn,*/
+.btn-f{
     
     background-color: #17a2b8;
     color: white;
     border: 1px solid #17a2b8;
 }
 
-#selected-seats3 li .selected-btn,
+/*#selected-seats3 li .selected-btn,
 #selected-seats4 li .selected-btn,
 #selected-seats5 li .selected-btn,
-#selected-seats6 li .selected-btn{
+#selected-seats6 li .selected-btn,*/
+.btn-s{
     
     background-color: #28a745;
     color: white;
     border: 1px solid #28a745;
 }
 
-#selected-seats7 li .selected-btn,
-#selected-seats8 li .selected-btn{
+/*#selected-seats7 li .selected-btn,
+#selected-seats8 li .selected-btn,*/
+.btn-t{
     
     background-color: #dc3545;
     color: white;
@@ -3919,9 +4391,14 @@ div.seatCharts-seat.unavailable {
 @media screen and (max-width:1240px){
 
     div.left-map,
+    div.center-map,
     div.right-map{
-        display:block;
+        /*display:block;*/
         width: 100%;
+    }
+
+    .map-container2{
+        height:2000px;
     }
 
     div.right-map {
@@ -4032,6 +4509,8 @@ div.seatCharts-seat.unavailable {
 }
 
 /*end of seat maps new*/
+
+/*end of seat maps new 2*/
 
 /*flash messages */
 .flash-alert-box {
@@ -4330,7 +4809,52 @@ div.seatCharts-seat.unavailable {
     transform: translate(-50%,-50%) scale(1);
 }   
 
+ .table-searchbar{
+      float: right;
+      margin: 10px;
+  }
 
+  .glyph{
+      position: relative;
+      right: 25px;
+      pointer-events: none;
+      color: #FFFFFF;
+  }
+
+  .table-searchbar form input {
+        width: auto;
+        margin: 16px -5px;
+        height: 36px;
+        border: 1px solid #13406d;
+        border-right: none;
+  }
+
+  .table-searchbar select{
+        height: 36px;
+        width: 100px;
+        border: 1px solid #13406d;
+        border-right: none;
+        color: #13406d;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 0px 5px;
+  }
+
+  input.table-search-btn{
+      background-color: #13406d;
+      border: 1px solid #13406d;
+      padding: 10px 15px;
+      margin-top: 1px;
+    }
+    input.table-search-btn:hover{
+        background-color: #2476c7;
+        /*border: #ffffff;*/
+     /*   font-size: initial;*/
+      }
 
 
 /*end of reservations tooltip */
+
+#xxx{
+    
+}
