@@ -46,15 +46,24 @@
 		        if(empty($data['src'])){
 		        	$data['srcError']="Please enter the source station to proceed.";
 		        }else{
-		        	$result=$this->passengerScheduleModel->getStationId($data['src']);
-		        	$data['src']=$result->stationId;
-		        	var_dump($data['src']);
+		        	if(!$this->passengerScheduleModel->checkStation($data['src'])){
+		        		$data['srcError']='Source station doesnt exist';
+		        	} else{
+		        		$result=$this->passengerScheduleModel->getStationId($data['src']);
+		        		$data['src']=$result->stationId;
+		        		var_dump($data['src']);
+		        	} 
+		        	
 		        }
 
 		        if(!empty($data['dest'])){
-		        	$result=$this->passengerScheduleModel->getStationId($data['dest']);
-		        	$data['dest']=$result->stationId;
-		        	var_dump($data['dest']);
+		        	if(!$this->passengerScheduleModel->checkStation($data['dest'])){
+		        		$data['destError']='Destination station doesnt exist';
+		        	} else{
+		        		$result=$this->passengerScheduleModel->getStationId($data['dest']);
+		        		$data['dest']=$result->stationId;
+		        		var_dump($data['dest']);
+		        	}
 		        }
 
 		        if(!empty($data['date'])){

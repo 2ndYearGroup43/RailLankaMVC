@@ -366,5 +366,16 @@
 			return $results;
 		}
 
+		public function checkStation($station){
+
+			$this->db->query('SELECT COUNT(*) AS count FROM station WHERE name=:station');
+	        $this->db->bind(':station', $station);
+	        $row=$this->db->single();
+	        if ($row->count>0){
+	            return true;
+	        }else{
+	            return false;
+	        }
+		}
 
 	}
