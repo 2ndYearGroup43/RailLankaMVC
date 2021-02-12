@@ -3,52 +3,53 @@
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
-	class ResOfficerRefunds extends Controller {
+    class ResOfficerRefunds extends Controller {
 
-		public function __construct() {
-			$this->resofficerRefundModel = $this->model('ResOfficerRefund');
-			isResofficerLoggedIn();
-		}
+        public function __construct() {
+            $this->resofficerRefundModel = $this->model('ResOfficerRefund');
+            isResofficerLoggedIn();
+        }
 
-		public function refund(){
+        public function refund(){
 
         $id = $_SESSION['userid'];
-		$resofficer=$this->resofficerRefundModel->findResofficerById($id);
-		$tickets=$this->resofficerRefundModel->getTicketId();	
+        $resofficer=$this->resofficerRefundModel->findResofficerById($id);
+        $tickets=$this->resofficerRefundModel->getTicketId();   
 
-		$data = [
-			'resofficer'=>$resofficer,
-			'tickets'=>$tickets,
-			'refundNo'=>'',
-			'refundDate'=>'',
+        $data = [
+            'resofficer'=>$resofficer,
+            'tickets'=>$tickets,
+            'refundNo'=>'',
+            'refundDate'=>'',
             'refundTime'=>'',
             'ticketId'=>'',
             'officerId'=>$resofficer->officerId,
             'ticketIdError'=>''
-		];
+        ];
 
-		if($_SERVER['REQUEST_METHOD']=='POST'){
-			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-			$data=[
-			'resofficer'=>$resofficer,
-			'tickets'=>$tickets,	
-			'refundNo'=>trim($_POST['refundNo']),	
-			'refundDate'=>date("Y-m-d"),
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data=[
+            'resofficer'=>$resofficer,
+            'tickets'=>$tickets,    
+            'refundNo'=>trim($_POST['refundNo']),   
+            'refundDate'=>date("Y-m-d"),
             'refundTime'=>date("H:i:sa"),
             'ticketId'=>trim($_POST['ticketId']),
             'officerId'=>$resofficer->officerId,
             'ticketIdError'=>''
-			];
+            ];
 
-			$emails=$this->resofficerRefundModel->getPassengerEmail($data['ticketId']);
+            $emails=$this->resofficerRefundModel->getPassengerEmail($data['ticketId']);
             $dates=$this->resofficerRefundModel->checkDate($data['ticketId']);
+            $tickets=$this->resofficerRefundModel->getTicketDetails($data['ticketId']);
             $dates->seat_date;
             $dates->cancelled_date;
 
             echo $dates->seat_date;
             echo $dates->cancelled_date;
 
-			if(empty($data['ticketId'])){
+            if(empty($data['ticketId'])){
                 $data['ticketIdError']='Please Enter the ticket ID.';
                 }
             elseif($dates->seat_date!=$dates->cancelled_date){
@@ -57,18 +58,18 @@
             if(empty($data['ticketIdError'])){
 
                 if ($this->resofficerRefundModel->refund($data)){
-                    $this->informPassengerOftheRefund($emails->email);				
-				    header("Location: " . URLROOT . "/ResOfficers/index");								
-			    }else{
-				    die("Something Going Wrong");
-			    }
+                    $this->informPassengerOftheRefund($emails->email, $tickets->ticketId, $tickets->price, $tickets->trainId, $tickets->nic);               
+                    header("Location: " . URLROOT . "/ResOfficers/index");                              
+                }else{
+                    die("Something Going Wrong");
+                }
             }                                                                     
-		}
-	
-		$this->view('resofficers/refunds/refund', $data); 
-	    }
+        }
+    
+        $this->view('resofficers/refunds/refund', $data); 
+        }
 
-	    public function informPassengerOftheRefund($email)
+        public function informPassengerOftheRefund($email, $ticketId, $price, $trainId, $nic)
         {   
             require APPROOT . '/libraries/PHPMailer/src/Exception.php';
             require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
@@ -97,8 +98,13 @@
  
                 // Set email format to HTML
                 $mail->Subject = 'Ticket Refund';
-                $mail->Body    = "<h1>You have successfully refunded your ticket.</h1><p>Your railway ticket has refunded.
-                You can visit the railway station with your NIC and collect your money.</p>";
+                $mail->Body    = "<h1>We have successfully refunded your ticket.</h1><p>Your railway ticket has refunded.
+                You can visit the railway station with your Railway Ticket, NIC and collect your money.
+                <br> Your Ticket ID : $ticketId</br>
+                <br> Your Ticket Price : $price</br>
+                <br> Train ID : $trainId</br>
+                <br> Your NIC : $nic</br>  
+                </p>";
                 $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
                 $mail->send();
@@ -109,6 +115,6 @@
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }
         
-			exit();
-        }			
-	}
+            exit();
+        }           
+    }
