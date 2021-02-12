@@ -26,7 +26,21 @@
 			   			<a href="<?php echo URLROOT; ?>/ResOfficerReservations/search">Reservation</a>
 			   		</li>
 			   		<li class="nav-link" style="--i: 1.1s" >	
-			   			<a href="<?php echo URLROOT; ?>/ResOfficerRefunds/refund">Refund</a>
+			   			<a href="<?php echo URLROOT; ?>/ResOfficerRefunds/refund">Refund<i class="fa fa-caret-down"></i></a>
+			   			<div class="nav-dropdown">
+			   			    <ul>
+			   					<li class="nav-dropdown-link">	
+			   						<a href="<?php echo URLROOT; ?>/ResOfficerRefunds/refund">Refund<i class="fa fa-caret-down"></i></a>
+			   					</li>	
+			   					<div class="arrow">	</div>
+			   				</ul>	
+			   				<ul>
+			   					<li class="nav-dropdown-link">	
+			   						<a href="<?php echo URLROOT; ?>/ResOfficerRefundDetails/views">Refund Details</a>
+			   					</li>	
+			   					<div class="arrow">	</div>
+			   				</ul>
+			   			</div>
 			   		</li>
 			   		<li class="nav-link" style="--i: 1.35s">	
 			   			<a href="<?php echo URLROOT; ?>/ResOfficerReservationDetails/search">Reservation Details</a>
