@@ -7,7 +7,7 @@
 <div class="body-section">
             <div class="content-flexrow">
                 <div class="container-table">
-                    <h2 style="color: #13406d;">Reservation Details</h2>
+                    <h2 style="color: #13406d;">Refund Details</h2>
                     <table class="data-display">
                         <tr>
                             <td >Ticket ID: </td>

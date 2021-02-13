@@ -55,7 +55,7 @@
                 <p>You will recieve alert notifications via email.
                 </p>
             </div>
-            <button onclick="location.href='<?php echo URLROOT; ?>/resofficers/index'" type="button" class="close-alert">&times;</button>
+            <button onclick="location.href='<?php echo URLROOT; ?>/ResOfficerRefunds/displayRefundConf'" type="button" class="close-alert">&times;</button>
         </div>
     </div>
     <!-- end of alert success popup -->
