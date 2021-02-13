@@ -59,7 +59,7 @@
 
                 if ($this->resofficerRefundModel->refund($data)){
                     $this->informPassengerOftheRefund($emails->email, $tickets->ticketId, $tickets->price, $tickets->trainId, $tickets->nic);               
-                    header("Location: " . URLROOT . "/ResOfficers/index");                              
+                    header("Location: " . URLROOT . "/ResOfficerRefunds/displayRefundConf/" . $data['ticketId']);                              
                 }else{
                     die("Something Going Wrong");
                 }
@@ -99,7 +99,7 @@
                 // Set email format to HTML
                 $mail->Subject = 'Ticket Refund';
                 $mail->Body    = "<h1>We have successfully refunded your ticket.</h1><p>Your railway ticket has refunded.
-                You can visit the railway station with your Railway Ticket, NIC and collect your money.
+                And you collected you money. The ticket details of you as follow.
                 <br> Your Ticket ID : $ticketId</br>
                 <br> Your Ticket Price : $price</br>
                 <br> Train ID : $trainId</br>
@@ -116,5 +116,17 @@
             }
         
             exit();
+        }
+
+        public function displayRefundConf($ticketId) {
+            
+            $tickets=$this->resofficerRefundModel->getRefundDetails($ticketId);
+
+
+            $data = [
+                'tickets'=>$tickets
+            ];
+            
+            $this->view('resofficers/refunds/refundConf',  $data); 
         }           
     }
