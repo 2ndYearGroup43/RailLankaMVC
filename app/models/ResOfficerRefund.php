@@ -64,6 +64,24 @@
             $row=$this->db->single();
             return $row; 
 
+    }
+
+    public function getTicketDetails($ticketId){
+            $this->db->query('SELECT * FROM ticket WHERE ticketId=:ticketId');
+
+            $this->db->bind(":ticketId",$ticketId);
+            $row=$this->db->single();
+            return $row; 
+
+    }
+
+    public function getRefundDetails($ticketId){
+        $this->db->query('SELECT * FROM ticket WHERE ticketId=:ticketId');
+
+        $this->db->bind(':ticketId', $ticketId);
+
+        $row = $this->db->single();
+        return $row;
     }		
 
 	}
