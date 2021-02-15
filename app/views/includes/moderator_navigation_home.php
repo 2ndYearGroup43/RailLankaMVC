@@ -157,12 +157,12 @@
                                 </li>
                                 <li class="nav-link" style="--i: 1.35s">
                                     <!-- <label for="btn-5" class="show">Tracking <i class="fa fa-caret-down"></i></label></label> -->
-                                    <a href="<?php echo URLROOT;?>/ModeratorTrackings/index">Tracking <i class="fa fa-caret-down"></i></a>
+                                    <a href="<?php echo URLROOT;?>/ModeratorTrackings/searchTrains">Tracking <i class="fa fa-caret-down"></i></a>
                                     <!-- <input type="checkbox" id="btn-5"> -->
                                     <div class="nav-dropdown">
                                         <ul>
                                             <li class="nav-dropdown-link">
-                                                <a href="<?php echo URLROOT;?>/ModeratorTrackings/index">Track Trains</a>
+                                                <a href="<?php echo URLROOT;?>/ModeratorTrackings/searchTrains">Track Trains</a>
                                             </li>
                                             <li class="nav-dropdown-link">
                                                 <a href="<?php echo URLROOT;?>/ModeratorTrackings/viewlivetrains">View Live Map</a>
