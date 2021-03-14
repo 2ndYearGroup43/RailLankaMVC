@@ -26,11 +26,11 @@
                                 <?php foreach ($data['trains'] as $train):?>
                                 <tr>
                                     <td data-th="Train ID"><?php echo $train->trainId?></td>
-                                    <td data-th="Date"><?php echo $train->date?></td>
+                                    <td data-th="Date"><?php echo $train->JourneyDate?></td>
                                     <td data-th="Compartment No"><?php echo $train->compartmentNo?></td>
                                     <td data-th="Seat No"><?php echo $train->seatNo?></td>
                                     <td data-th="NIC"><?php echo $train->nic?></td>
-                                    <td data-th="Class"><?php echo $train->classType?></td>
+                                    <td data-th="Class"><?php echo $train->classtype?></td>
                                     <td data-th="Ticket ID"><?php echo $train->ticketId?></td>
                                    </td>
                                 </tr>

@@ -68,7 +68,7 @@
                 }
                 if (!empty($data['date'])){
                     //$search_date=$data['date'];
-                    //echo $data['search_date'];
+                    //echo $data['date'];
                     $data['date']= date('l', strtotime($data['date']));
 
                 }
