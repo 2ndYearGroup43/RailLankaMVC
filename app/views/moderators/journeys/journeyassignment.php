@@ -4,7 +4,7 @@
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
 ?>
-
+    <script src="<?php echo URLROOT;?>/javascript/journeyAssValidation.js"></script>
     <div class="body-section">
             <div class="content-flexrow">
                 <div class="container">
@@ -40,8 +40,8 @@
                             <div class="input-data">
                                 <label for="jstatus">Status</label>
                                 <select name="jstatus" id="jstatus">
+                                    <option value="Off-Line">Off-Line</option>
                                     <option value="Live">Live</option>
-                                    <option value="Off-Line">Off-Line</option> 
                                 </select>
                             </div>
                             <div class="input-data">

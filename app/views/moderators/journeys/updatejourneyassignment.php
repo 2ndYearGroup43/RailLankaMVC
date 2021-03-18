@@ -7,6 +7,7 @@
     // var_dump($data['drivers']);
     
 ?>
+    <script src="<?php echo URLROOT;?>/javascript/journeyAssValidation.js"></script>
     <div class="body-section">
             <div class="content-flexrow">
                 <div class="container">
