@@ -41,7 +41,7 @@
                         </tr>
                         <tr>
                             <td >Date: </td>
-                            <td><?php echo $data['passengers']->date?></td>
+                            <td><?php echo $data['passengers']->JourneyDate?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>

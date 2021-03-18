@@ -58,7 +58,7 @@
             if(empty($data['ticketIdError'])){
 
                 if ($this->resofficerRefundModel->refund($data)){
-                    $this->informPassengerOftheRefund($emails->email, $tickets->ticketId, $tickets->price, $tickets->trainId, $tickets->nic);               
+                    $this->informPassengerOftheRefund($emails->email, $tickets->ticketId, $tickets->price, $tickets->trainId, $tickets->nic, $dates->cancelled_date);               
                     header("Location: " . URLROOT . "/ResOfficerRefunds/displayRefundConf/" . $data['ticketId']);                              
                 }else{
                     die("Something Going Wrong");
@@ -69,7 +69,7 @@
         $this->view('resofficers/refunds/refund', $data); 
         }
 
-        public function informPassengerOftheRefund($email, $ticketId, $price, $trainId, $nic)
+        public function informPassengerOftheRefund($email, $ticketId, $price, $trainId, $nic, $cancelled_date)
         {   
             require APPROOT . '/libraries/PHPMailer/src/Exception.php';
             require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
@@ -103,7 +103,8 @@
                 <br> Your Ticket ID : $ticketId</br>
                 <br> Your Ticket Price : $price</br>
                 <br> Train ID : $trainId</br>
-                <br> Your NIC : $nic</br>  
+                <br> Your NIC : $nic</br>
+                <br> Cancelled Date : $cancelled_date</br>  
                 </p>";
                 $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
