@@ -17,7 +17,7 @@
 
         public function addCancellationAlert($data)
         { 
-            $this->db->query('INSERT INTO alerts (date, time, trainId, issueType, moderatorId) VALUES(:insDate, :insTime, :trainId, :issueType, :modId)');
+            $this->db->query("INSERT INTO alerts (date, time, trainId, issueType, moderatorId, type) VALUES(:insDate, :insTime, :trainId, :issueType, :modId, 'c')");
             $this->db->bind(':insDate', $data['insertedDate']);
             $this->db->bind(':insTime', $data['insertedTime']);
             $this->db->bind(':trainId', $data['trainId']);
@@ -47,7 +47,7 @@
 
         public function addDelayAlert($data)
         { 
-            $this->db->query('INSERT INTO alerts (date, time, trainId, moderatorId, issueType) VALUES(:insDate, :insTime, :trainId, :modId, :issueType)');
+            $this->db->query("INSERT INTO alerts (date, time, trainId, moderatorId, issueType, type) VALUES(:insDate, :insTime, :trainId, :modId, :issueType, 'd')");
             $this->db->bind(':insDate', $data['insertedDate']);
             $this->db->bind(':insTime', $data['insertedTime']);
             $this->db->bind(':trainId', $data['trainId']);
@@ -58,8 +58,10 @@
                 $this->db->query('SELECT LAST_INSERT_ID() AS alertId');
                 $resultId=[];
                 $resultId=$this->db->resultSet();
-                $this->db->query('INSERT INTO delayed_alerts (alertId, delaytime, delay_cause) VALUES(:alertId, :delaytime, :delaycause)');
+                $this->db->query('INSERT INTO delayed_alerts (alertId, delaydate, delaytime, delay_cause) VALUES(:alertId, :delaydate, :delaytime, :delaycause)');
                 $this->db->bind(':alertId', $resultId[0]->alertId);
+                $this->db->bind(':delaydate', $data['delayDate']);
+                $this->db->bind(':delaydate', $data['delayDate']);
                 $this->db->bind(':delaytime', $data['delayTime']);
                 $this->db->bind(':delaycause', $data['delayCause']);
                 if($this->db->execute()){
@@ -75,7 +77,7 @@
 
         public function addRescheduledAlert($data)
         { 
-            $this->db->query('INSERT INTO alerts (date, time, trainId, moderatorId, issueType) VALUES(:insDate, :insTime, :trainId, :modId, :issueType)');
+            $this->db->query("INSERT INTO alerts (date, time, trainId, moderatorId, issueType, type) VALUES(:insDate, :insTime, :trainId, :modId, :issueType, 'r')");
             $this->db->bind(':insDate', $data['insertedDate']);
             $this->db->bind(':insTime', $data['insertedTime']);
             $this->db->bind(':trainId', $data['trainId']);
@@ -86,9 +88,10 @@
                 $this->db->query('SELECT LAST_INSERT_ID() AS alertId');
                 $resultId=[];
                 $resultId=$this->db->resultSet();
-                $this->db->query('INSERT INTO rescheduled_alerts (alertId, newdate, newtime, reschedulement_cause)
-                 VALUES(:alertId, :newdate, :newtime, :rescheduledcause)');
+                $this->db->query('INSERT INTO rescheduled_alerts (alertId, olddate, newdate, newtime, reschedulement_cause)
+                 VALUES(:alertId, :olddate, :newdate, :newtime, :rescheduledcause)');
                 $this->db->bind(':alertId', $resultId[0]->alertId);
+                $this->db->bind(':olddate', $data['oldDate']);
                 $this->db->bind(':newdate', $data['newDate']);
                 $this->db->bind(':newtime', $data['newTime']);
                 $this->db->bind(':rescheduledcause', $data['reschedulementCause']);
@@ -118,9 +121,17 @@
             }
         }
 
-        public function displayCancellations()
+        public function countCancellations(){
+            $this->db->query('SELECT COUNT(*) AS count FROM cancelled_alerts c INNER JOIN alerts a ON c.alertId=a.alertId');
+            $result=$this->db->single();
+            return $result->count;
+        }
+
+        public function displayCancellations($start, $limit)
         {
-            $this->db->query('SELECT a.*,c.cancellation_cause, c.cancellation_date FROM cancelled_alerts c INNER JOIN alerts a ON c.alertId=a.alertId');
+            $this->db->query('SELECT a.*,c.cancellation_cause, c.cancellation_date FROM cancelled_alerts c INNER JOIN alerts a ON c.alertId=a.alertId ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+            $this->db->bind(':start', $start);
+            $this->db->bind(':limit', $limit);
             $results=$this->db->resultSet();
             return $results;
         }
@@ -132,36 +143,90 @@
             return $results;
         }
 
-        public function searchCancellations($searchterm, $searchfield)
-        {
+        public function countFilteredCancellations($searchterm, $searchfield){
             if($searchterm==''){
-                $this->db->query('SELECT a.*,c.cancellation_cause FROM cancelled_alerts c
+                $this->db->query('SELECT COUNT(*) AS count FROM cancelled_alerts c
                       INNER JOIN alerts a ON c.alertId=a.alertId');
             }else{
                 switch ($searchfield) {
                     case 'alertId':
-                        $this->db->query('SELECT a.*,c.cancellation_cause FROM cancelled_alerts c
+                        $this->db->query('SELECT COUNT(*) AS count FROM cancelled_alerts c
                         INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.alertId = :searchTerm');
                         break;
                     case 'trainId':
-                        $this->db->query('SELECT a.*,c.cancellation_cause FROM cancelled_alerts c
+                        $this->db->query('SELECT COUNT(*) AS count FROM cancelled_alerts c
                         INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.trainId = :searchTerm');
                         break;
                     case 'issuetype':
-                        $this->db->query('SELECT a.*,c.cancellation_cause FROM cancelled_alerts c
+                        $this->db->query('SELECT COUNT(*) AS count FROM cancelled_alerts c
                         INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.issueType = :searchTerm');
                         break;
                     case 'moderatorId':
-                        $this->db->query('SELECT a.*,c.cancellation_cause FROM cancelled_alerts c
+                        $this->db->query('SELECT COUNT(*) AS count FROM cancelled_alerts c
                         INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.moderatorId = :searchTerm');
                         break;
+                    case 'cancellation_date':
+                        $this->db->query('SELECT COUNT(*) AS count FROM cancelled_alerts c
+                        INNER JOIN alerts a ON c.alertId=a.alertId WHERE c.cancellation_date = :searchTerm');
+                        break;
                     case 'date':
-                        $this->db->query('SELECT a.*,c.cancellation_cause FROM cancelled_alerts c
+                        $this->db->query('SELECT COUNT(*) AS count FROM cancelled_alerts c
                         INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.date = :searchTerm');
                         break;
                     case 'time':
-                        $this->db->query('SELECT a.*,c.cancellation_cause FROM cancelled_alerts c
+                        $this->db->query('SELECT COUNT(*) AS count FROM cancelled_alerts c
                         INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.time = :searchTerm');
+                        break;
+                }
+            }
+
+
+
+            $this->db->bind(':searchTerm',$searchterm);
+            $result=$this->db->single();
+            return $result->count;
+
+        }
+
+        public function searchCancellations($searchterm, $searchfield , $start, $limit)
+        {
+            if($searchterm==''){
+                $this->db->query('SELECT a.*, c.cancellation_date, c.cancellation_cause FROM cancelled_alerts c
+                      INNER JOIN alerts a ON c.alertId=a.alertId ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+                $this->db->bind(':start', $start);
+                $this->db->bind(':limit', $limit);
+                $results=$this->db->resultSet();
+                return $results;
+
+            }else{
+                switch ($searchfield) {
+                    case 'alertId':
+                        $this->db->query('SELECT a.*, c.cancellation_date, c.cancellation_cause FROM cancelled_alerts c
+                        INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.alertId = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+                        break;
+                    case 'trainId':
+                        $this->db->query('SELECT a.*, c.cancellation_date, c.cancellation_cause FROM cancelled_alerts c
+                        INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.trainId = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+                        break;
+                    case 'issuetype':
+                        $this->db->query('SELECT a.*, c.cancellation_date, c.cancellation_cause FROM cancelled_alerts c
+                        INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.issueType = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+                        break;
+                    case 'moderatorId':
+                        $this->db->query('SELECT a.*, c.cancellation_date, c.cancellation_cause FROM cancelled_alerts c
+                        INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.moderatorId = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+                        break;
+                    case 'cancellation_date':
+                        $this->db->query('SELECT a.*, c.cancellation_date, c.cancellation_cause FROM cancelled_alerts c
+                        INNER JOIN alerts a ON c.alertId=a.alertId WHERE c.cancellation_date = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+                        break;
+                    case 'date':
+                        $this->db->query('SELECT a.*, c.cancellation_date, c.cancellation_cause FROM cancelled_alerts c
+                        INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.date = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+                        break;
+                    case 'time':
+                        $this->db->query('SELECT a.*, c.cancellation_date, c.cancellation_cause FROM cancelled_alerts c
+                        INNER JOIN alerts a ON c.alertId=a.alertId WHERE a.time = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                 }
             }
@@ -169,6 +234,8 @@
             
             
             $this->db->bind(':searchTerm',$searchterm);
+            $this->db->bind(':start', $start);
+            $this->db->bind(':limit', $limit);
             $results=$this->db->resultSet();
             return $results;
             
@@ -210,11 +277,20 @@
 
 
 
-        public function displayDelays()
+        public function displayDelays($start, $limit)
         {
-            $this->db->query('SELECT a.*,d.delay_cause, d.delaytime FROM delayed_alerts d INNER JOIN alerts a ON d.alertId=a.alertId');
+            $this->db->query('SELECT a.*,d.delay_cause, d.delaytime, d.delaydate FROM delayed_alerts d INNER JOIN
+    alerts a ON d.alertId=a.alertId ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+            $this->db->bind(':start', $start);
+            $this->db->bind(':limit', $limit);
             $results=$this->db->resultSet();
             return $results;
+        }
+
+        public function countDelays(){
+            $this->db->query('SELECT COUNT(*) AS count FROM delayed_alerts d INNER JOIN alerts a ON d.alertId=a.alertId');
+            $result=$this->db->single();
+            return $result->count;
         }
 
         public function getDelayFields()
@@ -224,48 +300,103 @@
             return $results;
         }
 
-        public function searchDelays($searchterm, $searchfield)
+        public function searchDelays($searchterm, $searchfield, $start, $limit)
         {
             if($searchterm==''){
-                $this->db->query('SELECT a.*, d.delay_cause, d.delaytime FROM delayed_alerts d
-                      INNER JOIN alerts a ON d.alertId=a.alertId');
+                $this->db->query('SELECT a.*, d.delay_cause, d.delaytime, d.delaydate FROM delayed_alerts d
+                      INNER JOIN alerts a ON d.alertId=a.alertId ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+
+                $this->db->bind(':start', $start);
+                $this->db->bind(':limit', $limit);
+                $results=$this->db->resultSet();
+                return $results;
             }else{
                 switch ($searchfield) {
                     case 'alertId':
-                        $this->db->query('SELECT a.*, d.delay_cause, d.delaytime FROM delayed_alerts d
-                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.alertId = :searchTerm');
+                        $this->db->query('SELECT a.*, d.delay_cause, d.delaydate, d.delaytime FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.alertId = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                     case 'trainId':
-                        $this->db->query('SELECT a.*, d.delay_cause, d.delaytime FROM delayed_alerts d
-                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.trainId = :searchTerm');
+                        $this->db->query('SELECT a.*, d.delay_cause, d.delaydate, d.delaytime FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.trainId = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                     case 'issuetype':
-                        $this->db->query('SELECT a.*, d.delay_cause, d.delaytime FROM delayed_alerts d
-                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.issueType = :searchTerm');
+                        $this->db->query('SELECT a.*, d.delay_cause, d.delaydate, d.delaytime FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.issueType = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                     case 'moderatorId':
-                        $this->db->query('SELECT a.*, d.delay_cause, d.delaytime FROM delayed_alerts d
-                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.moderatorId = :searchTerm');
+                        $this->db->query('SELECT a.*, d.delay_cause, d.delaydate, d.delaytime FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.moderatorId = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                     case 'date':
-                        $this->db->query('SELECT a.*,d.delay_cause, d.delaytime FROM delayed_alerts d
-                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.date = :searchTerm');
+                        $this->db->query('SELECT a.*,d.delay_cause, d.delaydate, d.delaytime FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.date = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                     case 'time':
-                        $this->db->query('SELECT a.*,d.delay_cause, d.delaytime FROM delayed_alerts d
-                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.time = :searchTerm');
+                        $this->db->query('SELECT a.*,d.delay_cause, d.delaydate, d.delaytime FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.time = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+                        break;
+                    case 'delaydate':
+                        $this->db->query('SELECT a.*,d.delay_cause, d.delaydate, d.delaytime FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE d.delaydate = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                     case 'delaytime':
-                        $this->db->query('SELECT a.*,d.delay_cause, d.delaytime FROM delayed_alerts d
-                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE d.newtime = :searchTerm');
+                        $this->db->query('SELECT a.*,d.delay_cause, d.delaydate, d.delaytime FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE d.delaytime = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                 }
             }
                          
             $this->db->bind(':searchTerm',$searchterm);
+            $this->db->bind(':start', $start);
+            $this->db->bind(':limit', $limit);
             $results=$this->db->resultSet();
             return $results;
             
+        }
+        public function countFilteredDelays($searchterm, $searchfield){
+            if($searchterm==''){
+                $this->db->query("SELECT COUNT(*) AS count FROM delayed_alerts d INNER JOIN alerts a ON d.alertId=a.alertId");
+            }else{
+                switch ($searchfield) {
+                    case 'alertId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.alertId = :searchTerm');
+                        break;
+                    case 'trainId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.trainId = :searchTerm');
+                        break;
+                    case 'issuetype':
+                        $this->db->query('SELECT COUNT(*) AS count FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.issueType = :searchTerm');
+                        break;
+                    case 'moderatorId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.moderatorId = :searchTerm');
+                        break;
+                    case 'date':
+                        $this->db->query('SELECT COUNT(*) AS count FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.date = :searchTerm');
+                        break;
+                    case 'time':
+                        $this->db->query('SELECT COUNT(*) AS count FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE a.time = :searchTerm');
+                        break;
+                    case 'delaydate':
+                        $this->db->query('SELECT COUNT(*) AS count FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE d.delaydate = :searchTerm');
+                        break;
+                    case 'delaytime':
+                        $this->db->query('SELECT COUNT(*) AS count FROM delayed_alerts d
+                        INNER JOIN alerts a ON d.alertId=a.alertId WHERE d.delaytime = :searchTerm');
+                        break;
+                }
+            }
+
+            $this->db->bind(':searchTerm',$searchterm);
+            $result=$this->db->single();
+            return $result->count;
         }
 
 
@@ -273,7 +404,7 @@
 
         public function findDelayById($id) 
         {
-            $this->db->query('SELECT a.*, d.delay_cause FROM delayed_alerts d
+            $this->db->query('SELECT a.*, d.delay_cause, d.delaydate, d.delaytime FROM delayed_alerts d
              INNER JOIN alerts a ON a.alertId=d.alertId WHERE a.alertId=:alertId');
             $this->db->bind(":alertId",$id);
             $row=$this->db->single();
@@ -290,8 +421,9 @@
 
 
             if($this->db->execute()){
-                $this->db->query('UPDATE delayed_alerts SET delay_cause=:delayCause, delaytime=:delayTime WHERE alertid=:id');
+                $this->db->query('UPDATE delayed_alerts SET delay_cause=:delayCause, delaydate=:delayDate, delaytime=:delayTime WHERE alertid=:id');
                 $this->db->bind(":delayCause", $data['delayCause']);
+                $this->db->bind(':delayDate', $data['delayDate']);
                 $this->db->bind(":delayTime", $data['delayTime']);
                 $this->db->bind(":id", $data['alertId']);
 
@@ -310,11 +442,19 @@
 
 
 
-        public function displayReschedulements()
+        public function displayReschedulements($start, $limit)
         {
-            $this->db->query('SELECT a.*,r.reschedulement_cause, r.newtime,  r.newdate FROM rescheduled_alerts r INNER JOIN alerts a ON r.alertId=a.alertId');
+            $this->db->query('SELECT a.*,r.reschedulement_cause, r.olddate, r.newtime,  r.newdate FROM rescheduled_alerts r INNER JOIN alerts a ON r.alertId=a.alertId ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+            $this->db->bind(':start', $start);
+            $this->db->bind(':limit', $limit);
             $results=$this->db->resultSet();
             return $results;
+        }
+
+        public function countReshedulements(){
+            $this->db->query('SELECT COUNT(*) AS count FROM rescheduled_alerts r INNER JOIN alerts a ON r.alertId=a.alertId');
+            $result=$this->db->single();
+            return $result->count;
         }
 
         public function getReschedulementFields()
@@ -324,58 +464,119 @@
             return $results;
         }
 
-        public function searchReschedulements($searchterm, $searchfield)
+        public function searchReschedulements($searchterm, $searchfield, $start, $limit)
         {
             if($searchterm==''){
-                $this->db->query('SELECT a.*, r.reschedulement_cause, r.newdate, r.newtime FROM rescheduled_alerts r
-                      INNER JOIN alerts a ON r.alertId=a.alertId');
+                $this->db->query('SELECT a.*, r.reschedulement_cause, r.olddate, r.newdate, r.newtime FROM rescheduled_alerts r
+                      INNER JOIN alerts a ON r.alertId=a.alertId ORDER BY a.date DESC LIMIT :start, :limit');
+                $this->db->bind(':start', $start);
+                $this->db->bind(':limit', $limit);
+                $results=$this->db->resultSet();
+                return $results;
             }else{
                 switch ($searchfield) {
                     case 'alertId':
-                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.newdate, r.newtime FROM rescheduled_alerts r
-                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.alertId = :searchTerm');
+                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.olddate, r.newdate, r.newtime FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.alertId = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                     case 'trainId':
-                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.newdate, r.newtime FROM rescheduled_alerts r
-                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.trainId = :searchTerm');
+                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.olddate, r.newdate, r.newtime FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.trainId = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                     case 'issuetype':
-                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.newdate, r.newtime FROM rescheduled_alerts r
-                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.issueType = :searchTerm');
+                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.olddate, r.newdate, r.newtime FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.issueType = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                     case 'moderatorId':
-                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.newdate, r.newtime FROM rescheduled_alerts r
-                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.moderatorId = :searchTerm');
+                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.olddate, r.newdate, r.newtime FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.moderatorId = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                     case 'date':
-                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.newdate, r.newtime FROM rescheduled_alerts r
-                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.date = :searchTerm');
+                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.olddate, r.newdate, r.newtime FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.date = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                     case 'time':
-                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.newdate, r.newtime FROM rescheduled_alerts r
-                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.time = :searchTerm');
+                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.olddate, r.newdate, r.newtime FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.time = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
-                    case 'newtime':
-                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.newdate, r.newtime FROM rescheduled_alerts r
-                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE r.newdate = :searchTerm');
+                    case 'olddate':
+                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.olddate, r.newdate, r.newtime FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE r.olddate = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                     case 'newdate':
-                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.newdate, r.newtime FROM rescheduled_alerts r
-                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE r.newtime = :searchTerm');
+                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.olddate, r.newdate, r.newtime FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE r.newdate = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
+                        break;
+                    case 'newtime':
+                        $this->db->query('SELECT a.*, r.reschedulement_cause, r.olddate, r.newdate, r.newtime FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE r.newtime = :searchTerm ORDER BY a.date DESC, a.time DESC LIMIT :start, :limit');
                         break;
                 }
             }
                          
             $this->db->bind(':searchTerm',$searchterm);
+            $this->db->bind(':start', $start);
+            $this->db->bind(':limit', $limit);
             $results=$this->db->resultSet();
             return $results;
             
+        }
+
+        public function countFilteredReshedulements($searchterm, $searchfield){
+            if($searchterm==''){
+                $this->db->query('SELECT COUNT(*) AS count FROM rescheduled_alerts r
+                      INNER JOIN alerts a ON r.alertId=a.alertId');
+            }else{
+                switch ($searchfield) {
+                    case 'alertId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.alertId = :searchTerm');
+                        break;
+                    case 'trainId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.trainId = :searchTerm');
+                        break;
+                    case 'issuetype':
+                        $this->db->query('SELECT COUNT(*) AS count FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.issueType = :searchTerm');
+                        break;
+                    case 'moderatorId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.moderatorId = :searchTerm');
+                        break;
+                    case 'date':
+                        $this->db->query('SELECT COUNT(*) AS count FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.date = :searchTerm');
+                        break;
+                    case 'time':
+                        $this->db->query('SELECT COUNT(*) AS count FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE a.time = :searchTerm');
+                        break;
+                    case 'olddate':
+                        $this->db->query('SELECT COUNT(*) AS count FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE r.olddate = :searchTerm');
+                        break;
+                    case 'newtime':
+                        $this->db->query('SELECT COUNT(*) AS count FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE r.newdate = :searchTerm');
+                        break;
+                    case 'newdate':
+                        $this->db->query('SELECT COUNT(*) AS count FROM rescheduled_alerts r
+                        INNER JOIN alerts a ON r.alertId=a.alertId WHERE r.newtime = :searchTerm');
+                        break;
+                }
+            }
+
+            $this->db->bind(':searchTerm',$searchterm);
+            $result=$this->db->single();
+            return $result->count;
+
         }
         
 
         public function findReschedulementById($id) 
         {
-            $this->db->query('SELECT a.*, r.reschedulement_cause FROM rescheduled_alerts r
+            $this->db->query('SELECT a.*, r.reschedulement_cause, r.olddate, r.newdate, r.newtime FROM rescheduled_alerts r
              INNER JOIN alerts a ON a.alertId=r.alertId WHERE a.alertId=:alertId');
             $this->db->bind(":alertId",$id);
             $row=$this->db->single();
@@ -391,8 +592,9 @@
             $this->db->bind(':issueType', $data['issueType']);
 
             if($this->db->execute()){
-                $this->db->query('UPDATE rescheduled_alerts SET reschedulement_cause=:rescheduledCause, newDate=:newDate, newtime=:newTime WHERE alertid=:id');
-                $this->db->bind(":rescheduledCause", $data['rescheduledCause']);
+                $this->db->query('UPDATE rescheduled_alerts SET reschedulement_cause=:rescheduledCause, olddate=:oldDate, newdate=:newDate, newtime=:newTime WHERE alertid=:id');
+                $this->db->bind(":rescheduledCause", $data['reschedulementCause']);;
+                $this->db->bind(":oldDate", $data['oldDate']);
                 $this->db->bind(":newDate", $data['newDate']);
                 $this->db->bind(":newTime", $data['newTime']);
                 $this->db->bind(":id", $data['alertId']);
@@ -427,6 +629,130 @@
             $results=$this->db->resultSet();
             return $results;
         }
+
+        public function getCancelCount($date=0){
+            if($date==0){
+                $date=date("Y-m-d");
+            }
+            $this->db->query('SELECT COUNT(*) AS count FROM cancelled_alerts c 
+    INNER JOIN alerts a ON a.alertId=c.alertId
+    WHERE c.cancellation_date=:date');
+            $this->db->bind(':date', $date);
+            $row=$this->db->single();
+            return $row->count;
+        }
+
+        public function getDelayCount($date=0){
+            if($date==0){
+                $date=date("Y-m-d");
+            }
+            $this->db->query('SELECT COUNT(*) AS count FROM delayed_alerts d 
+    INNER JOIN alerts a ON a.alertId=d.alertId
+    WHERE d.delaydate=:date');
+            $this->db->bind(':date', $date);
+            $row=$this->db->single();
+            return $row->count;
+        }
+
+        public function getReschCount($date=0){
+            if($date==0){
+                $date=date("Y-m-d");
+            }
+            $this->db->query('SELECT COUNT(*) AS count FROM rescheduled_alerts r
+    INNER JOIN alerts a ON a.alertId=r.alertId
+    WHERE r.olddate=:date');
+            $this->db->bind(':date', $date);
+            $row=$this->db->single();
+            return $row->count;
+        }
+
+        public function getIssueCounts($date=0){
+            if($date==0){
+                $date=date("Y-m-d");
+            }
+            $issueCounts=[
+                'environmental'=>'',
+                'technical'=>'',
+                'railroad'=>'',
+                'unspecified'=>'',
+                'other'=>''
+            ];
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId 
+            WHERE a.issuetype='Environmental' AND c.cancellation_date=:date");
+            $this->db->bind(':date', $date);
+            $cEnv=$this->db->single()->count;
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN delayed_alerts d ON a.alertId=d.alertId 
+            WHERE a.issuetype='Environmental' AND d.delaydate=:date");
+            $this->db->bind(':date', $date);
+            $dEnv=$this->db->single()->count;
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId 
+            WHERE a.issuetype='Environmental' AND r.olddate=:date");
+            $this->db->bind(':date', $date);
+            $rEnv=$this->db->single()->count;
+            $issueCounts['environmental']=$cEnv+$dEnv+$rEnv;
+
+
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId
+            WHERE a.issuetype='Technical' AND c.cancellation_date=:date");
+            $this->db->bind(':date', $date);
+            $cTech=$this->db->single()->count;
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN delayed_alerts d ON a.alertId=d.alertId
+            WHERE a.issuetype='Technical' AND d.delaydate=:date");
+            $this->db->bind(':date', $date);
+            $dTech=$this->db->single()->count;
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId
+            WHERE a.issuetype='Technical' AND r.olddate=:date");
+            $this->db->bind(':date', $date);
+            $rTech=$this->db->single()->count;
+            $issueCounts['technical']=$cTech+$dTech+$rTech;
+
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId
+            WHERE a.issuetype='Rail Road' AND c.cancellation_date=:date");
+            $this->db->bind(':date', $date);
+            $cRRoad=$this->db->single()->count;
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN delayed_alerts d ON a.alertId=d.alertId
+            WHERE a.issuetype='Rail Road' AND d.delaydate=:date");
+            $this->db->bind(':date', $date);
+            $dRRoad=$this->db->single()->count;
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId
+            WHERE a.issuetype='Rail Road' AND r.olddate=:date");
+            $this->db->bind(':date', $date);
+            $rRRoad=$this->db->single()->count;
+            $issueCounts['railroad']=$cRRoad+$dRRoad+$rRRoad;
+
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId
+            WHERE a.issuetype='Unspecified' AND c.cancellation_date=:date");
+            $this->db->bind(':date', $date);
+            $cUnspec=$this->db->single()->count;
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN delayed_alerts d ON a.alertId=d.alertId
+            WHERE a.issuetype='Unspecified' AND d.delaydate=:date");
+            $this->db->bind(':date', $date);
+            $dUnspec=$this->db->single()->count;
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId
+            WHERE a.issuetype='Unspecified' AND r.olddate=:date");
+            $this->db->bind(':date', $date);
+            $rUnspec=$this->db->single()->count;
+            $issueCounts['unspecified']=$cUnspec+$dUnspec+$rUnspec;
+
+
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId
+            WHERE a.issuetype='Other' AND c.cancellation_date=:date");
+            $this->db->bind(':date', $date);
+            $cOther=$this->db->single()->count;
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN delayed_alerts d ON a.alertId=d.alertId
+            WHERE a.issuetype='Other' AND d.delaydate=:date");
+            $this->db->bind(':date', $date);
+            $dOther=$this->db->single()->count;
+            $this->db->query("SELECT COUNT(*) AS count FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId
+            WHERE a.issuetype='Other' AND r.olddate=:date");
+            $this->db->bind(':date', $date);
+            $rOther=$this->db->single()->count;
+            $issueCounts['other']=$cOther+$rOther+$dOther;
+
+            return $issueCounts;
+
+        }
+
 
         
     }
