@@ -45,3 +45,7 @@ function randomCharts(can, del, resc, tech, env, rail, oth) {
     chartAlertIssueType.render();
     
 }
+
+function printCharts(){
+    chart
+}
