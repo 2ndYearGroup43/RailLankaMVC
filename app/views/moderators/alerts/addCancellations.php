@@ -3,8 +3,12 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
-    var_dump($data);
+//    var_dump($data);
+$now=new DateTime();
+echo $now->format('Y-m-d H:i:s');
 ?>
+
+<script src="<?php echo URLROOT;?>/javascript/alertValidations/cancelValidation.js"></script>
 <div class="marquee-area info-tag">
 	<marquee>
 		<i class="fa fa-exclamation-triangle" aria-hidden="true" size="3x"></i> Coronavirus(COVID-19) - For the latest updates and travel information, please visit our Coronavirus Information Center

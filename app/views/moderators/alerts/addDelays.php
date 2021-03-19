@@ -3,7 +3,8 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
-?>  
+?>
+    <script src="<?php echo URLROOT;?>/javascript/alertValidations/delayValidation.js"></script>
 <div class="marquee-area info-tag">
 	<marquee>
 		<i class="fa fa-exclamation-triangle" aria-hidden="true" size="3x"></i> Coronavirus(COVID-19) - For the latest updates and travel information, please visit our Coronavirus Information Center
@@ -37,6 +38,13 @@
                         </div>
                     </div>
                     <div class="form-row">
+                        <div class="input-data">
+                            <label for="delayDate">Cancellation Date</label>
+                            <input type="date" name="delaydate" id="delaydate" required>
+                            <span class="invalidFeedback">
+                                <?php echo $data['delayDateError'];?>
+                            </span>
+                        </div>
                         <div class="input-data">
                             <label for="issueType">Issue Type</label>
                             <select name="issueType" id="issueType">
