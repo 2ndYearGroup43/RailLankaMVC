@@ -149,7 +149,26 @@
                                                 <a href="<?php echo URLROOT;?>/ModeratorJourneys/createJourneyAssignment">Driver Assignment</a>
                                             </li>
                                             <li class="dropdown-link">
-                                                <a href="<?php echo URLROOT;?>/ModeratorJourneys/index">Manage Journey</a>
+                                                <label for="btn-7" class="show2">Manage Journeys +</label>
+                                                <a href="<?php echo URLROOT;?>/ModeratorJourneys/index">Manage Journey <i class="fa fa-caret-down"></i></a>
+                                                <input type="checkbox" id="btn-7">
+                                                <div class="dropdown second">
+                                                    <ul>
+                                                        <li class="dropdown-link">
+                                                            <a href="<?php echo URLROOT;?>/moderatorJourneys/index">All Journeys</a>
+                                                        </li>
+                                                        <li class="dropdown-link">
+                                                            <a href="<?php echo URLROOT;?>/moderatorJourneys/viewJourneys/live">Live Journeys</a>
+                                                        </li>
+                                                        <li class="dropdown-link">
+                                                            <a href="<?php echo URLROOT;?>/moderatorJourneys/viewJourneys/offline">Off-Line Journeys</a>
+                                                        </li>
+                                                        <li class="dropdown-link">
+                                                            <a href="<?php echo URLROOT;?>/moderatorJourneys/viewJourneys/ended">Ended Journeys</a>
+                                                        </li>
+                                                        <div class="arrow"></div>
+                                                    </ul>
+                                                </div>
                                             </li>
                                             <div class="arrow"></div>
                                         </ul>
@@ -157,12 +176,12 @@
                                 </li>
                                 <li class="nav-link" style="--i: 1.35s">
                                     <label for="btn-5" class="show">Tracking <i class="fa fa-caret-down"></i></label></label>
-                                    <a href="<?php echo URLROOT;?>/ModeratorTrackings/searchTrains">Tracking <i class="fa fa-caret-down"></i></a>
+                                    <a href="<?php echo URLROOT;?>/ModeratorTrackings/searchTrains/search">Tracking <i class="fa fa-caret-down"></i></a>
                                     <input type="checkbox" id="btn-5">
                                     <div class="dropdown">
                                         <ul>
                                             <li class="dropdown-link">
-                                                <a href="<?php echo URLROOT;?>/ModeratorTrackings/searchTrains">Track Trains</a>
+                                                <a href="<?php echo URLROOT;?>/ModeratorTrackings/searchTrains/search">Track Trains</a>
                                             </li>
                                             <li class="dropdown-link">
                                                 <a href="<?php echo URLROOT;?>/ModeratorTrackings/viewlivetrains">View Live Map</a>
@@ -172,7 +191,7 @@
                                     </div>
                                 </li>
                                 <li class="nav-link" style="--i: 1.8s">
-                                    <a href="<?php echo URLROOT;?>/moderatorSchedules/searchtrains">Schedule</a>
+                                    <a href="<?php echo URLROOT;?>/moderatorSchedules/searchtrains/search">Schedule</a>
                                 </li>
                                 <li class="nav-link" style="--i: 2.05s">
                                     <label for="btn-6" class="show">Account <i class="fa fa-caret-down"></i></label></label>
