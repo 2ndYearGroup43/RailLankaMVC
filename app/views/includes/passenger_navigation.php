@@ -26,7 +26,7 @@
 			   			<div class="nav-dropdown">	
 			   				<ul>
 			   					<li class="nav-dropdown-link">	
-			   						<a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts">All Alerts</a>
+			   						<a href="<?php echo URLROOT; ?>/passengerAlerts/searchAlertsBy">All Alerts</a>
 			   					</li>	
 			   					<li class="nav-dropdown-link">	
 			   						<a href="<?php echo URLROOT; ?>/passengerAlerts/displayDelayed">Delayed</a>
