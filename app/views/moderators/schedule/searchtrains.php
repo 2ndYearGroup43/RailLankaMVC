@@ -14,8 +14,8 @@
 <div class="body-section">
             <div class="content-flexrow">
                 <div class="container-searchbox">
-                    <form action="<?php echo URLROOT;?>/moderatorschedules/searchTrains" method="POST">
-                        <div class="form-row logoimg">    
+                    <form action="<?php echo URLROOT;?>/moderatorschedules/searchTrains/search" method="POST">
+                        <div class="form-row logoimg">
                             <div class="searchlogo">
                                 <img src="<?php echo URLROOT;?>/public/img/logoschedule.jpg" alt="raillankatracktrains">
                             </div>

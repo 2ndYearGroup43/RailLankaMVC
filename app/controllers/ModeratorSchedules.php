@@ -15,7 +15,7 @@
             $this->view('moderators/schedule/searchTrains',$data);
         }
 
-        public function searchTrains()
+        public function searchTrains($flag)
         {
             $stations=$this->scheduleModel->getStations();
             $data=[
@@ -32,6 +32,9 @@
             ];
 
             if($_SERVER['REQUEST_METHOD']=='POST'){
+                if($flag=='results'){
+                    $trains=json_decode($_POST['searchResults']);
+                }
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 $data=[
                     'stations'=>$stations,
@@ -103,7 +106,16 @@
 
 
                 }else{
-                    $this->view('moderators/schedule/searchTrains',$data);
+                    switch ($flag){
+                        case 'search':
+                            $this->view('moderators/schedule/searchTrains',$data);
+                            break;
+                        case 'results':
+                            $data['trains']=$trains;
+                            $this->displayScheduleList($data);
+                            break;
+                    }
+                    return;
                 }
             }
             $this->view('moderators/schedule/searchTrains',$data);

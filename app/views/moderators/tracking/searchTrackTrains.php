@@ -44,15 +44,15 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="input-data">
-                                <label for="date">Date</label>
-                                <input type="date" id="date" name="date" >
-                                <span class="invalidFeedback">
-                                    <?php echo $data['dateError'];?>
-                                </span>
-                            </div>
-                        </div>
+<!--                        <div class="form-row">-->
+<!--                            <div class="input-data">-->
+<!--                                <label for="date">Date</label>-->
+<!--                                <input type="date" id="date" name="date" >-->
+<!--                                <span class="invalidFeedback">-->
+<!--                                    --><?php //echo $data['dateError'];?>
+<!--                                </span>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <div class="form-row">
                             <div class="input-data">
                                 <label for="time">Departure Time</label>
