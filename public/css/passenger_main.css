@@ -119,7 +119,7 @@ form input{
 }
 
 .col-l{
-	flex-basis: 85%;
+	flex-basis: /*85%*/100%;
 	min-width: 400px;
 }
 
@@ -984,6 +984,7 @@ header{
 #carousel{
 	background-color: black;
 	margin: 60px auto;
+    margin-top: 0;
 }
 
 #carousel .btn{
@@ -1005,7 +1006,7 @@ header{
 
 .slideshow{
 	width: 100%;
-	height: 70vh;
+	height: 80vh;
 	position: relative;
 	overflow: hidden;
 }
@@ -1039,8 +1040,14 @@ header{
 	animation-delay: 20s;
 }
 
+/*.slideshow-item:nth-child(4),
+.slideshow-item:nth-child(4) img{
+    animation-delay: 30s;
+}*/
+
 .slideshow-item-text{
-	width: 55%;
+	width: 35%;
+    height: 50%;
 	position: absolute;
 	top: 50%;
 	left: 0;
@@ -1066,10 +1073,10 @@ header{
 }
 
 @keyframes cycleImages {
-	25%{
+	1%{
 		opacity: 1;
 	}
-	40%{
+	99%{
 		opacity: 0;
 	}
 }
@@ -1583,7 +1590,7 @@ form .form-row .textarea{
 
 .modal-content {
 	width: 400px;
-	height: 550px;
+	height: 560px;
 	background-color: white;
 	opacity:1;
 	position: relative;
@@ -1591,7 +1598,7 @@ form .form-row .textarea{
 }
 
 .modal-content .notices-container{
-	margin: 0;
+	margin: 20px 0 0 0;
 	width: 100%;
 	height: 500px;
 	padding: 10px;
@@ -1614,26 +1621,47 @@ form .form-row .textarea{
 .modal-content .content-table {
 	margin-top: 10px;
 	font-size: 14px;
+   /* box-shadow: none;*/
 }
 
 .modal-content .title {
-	margin-bottom: 10px;
+	/*margin-bottom: 10px;
 	margin-top: 10px;
-    /*text-transform: uppercase;*/
-    font-weight: 500;
+    text-transform: uppercase;
+    font-weight: 500;*/
     font-size:1.5em;
-    color: black;
+    /*color: black;*/
 }
 
 
 .modal-content #details{
 	min-width: 300px;
 	width: 90%;
+    box-shadow: none;
+    text-align: left;
 }
 
-.modal-content .content-table tbody tr:last-of-type{
-    border-bottom: none;
+.modal-content .content-table tbody tr{
+    border-top:1px solid #C5C6C7;
+    border-bottom:1px solid #C5C6C7;
+    border-left:1px solid #C5C6C7;
+    border-right:1px solid #C5C6C7;
 }
+
+/*.modal-content .content-table tbody tr{
+    border-bottom:none;
+}
+.modal-content .content-table tbody tr:last-of-type{
+    border-bottom: 1px solid #C5C6C7;
+}
+
+.modal-content .content-table tbody tr:first-of-type{
+    border-top: 1px solid #C5C6C7;
+}*/
+
+/*.modal-content .content-table tbody tr:first-of-type{
+    border-top:1px solid #13406d;
+}*/
 
 /*end of pop up*/
 
@@ -2170,7 +2198,7 @@ section .events h1 {
 }
 
 .conf-ticket .summary .journey {
-    padding: 25px 0;
+    padding: 10px 0;
     color:black;
     font-size: 22px;
     font-weight: 500;
@@ -2951,12 +2979,17 @@ footer{
     display: block;
     font-size: 17px;
     padding: 10px;
-    background: #eeeeee;
-    border: none;
+    background: #dddddd;
+    border:1px solid #cccccc;
+    /*border: none;*/
     width: 100%;
     outline:none;
     cursor: pointer;
     height: 50px;
+}
+
+.tabs__button:hover{
+    background-color: #eeeeee;
 }
 
 .tabs__buttontop{
@@ -2977,9 +3010,9 @@ footer{
     background: #dddddd;
 }
 
-.tabs__button:not(:last-of-type){
+/*.tabs__button:not(:last-of-type){
     border-bottom: 1px solid #cccccc;
-}
+}*/
 
 .tabs__buttontop:not(:last-of-type){
     border-right: 1px solid #cccccc;
@@ -2987,9 +3020,9 @@ footer{
 
 
 .tabs__button--active{
-    font-weight: bold;
-    border-right: 3px solid #17a2b8;
-    background: #dddddd;
+    font-weight: 600;
+    border-right: 4px solid #17a2b8;
+    background: #eeeeee;
 }
 
 .tabs__buttontop--active{
@@ -4703,6 +4736,28 @@ div.seatCharts-seat.unavailable {
 /*end of flash messages*/
 
 
+/*alert labels*/
+
+.delayed-label{
+    border: 1px solid #f2a53b;
+    background-color: #F7C987; 
+    padding: 2px 5px;
+}
+
+.cancelled-label {
+    border: 1px solid #ef754c;
+    background-color: #F4A58A; 
+    padding: 2px 5px;
+}
+
+.rescheduled-label {
+    border: 1px solid #279427;
+    background-color: #85DF85; 
+    padding: 2px 5px;
+}
+
+/*end of alert labels*/
+
 /*image for search results*/
 
 .img-container{
@@ -4728,8 +4783,8 @@ div.seatCharts-seat.unavailable {
     top: 30px;
     right: 40px;
     height: 45px;
-    width: 45px;
-    font-size: 20px;
+    width: 155px;
+    font-size: 17px;
     border: none;
     cursor: pointer;
     border: 1px solid #DDDDDD;
@@ -4739,6 +4794,45 @@ div.seatCharts-seat.unavailable {
     --c-sh-txt: #{rgba(#fff, .5)};
 }
 
+.details-tooltip i{
+    font-size: 19px;
+}
+
+.timer{
+    position: absolute;
+    top: 30px;
+    right: 200px;
+    height: 45px;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 210px;
+    background: #cce5ff;
+    border: 1px solid #b8daff;
+    border-radius: 5px;
+    padding: 0 8px;
+}
+
+.timer .time-text{
+    font-weight: 400;
+    font-size: 17px;
+    user-select: none;
+}
+
+.timer .timer_sec{
+    font-size: 18px;
+    font-weight: 500;
+    background-color: #343a40;
+    height: 30px;
+    width: 100px;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+    border: 1px solid #343a40;
+    user-select:none;
+}
+
 @media screen and (max-width: 550px)
 {
     .details-tooltip{
@@ -4746,6 +4840,9 @@ div.seatCharts-seat.unavailable {
         right: 20px;
     }
 }
+
+
+
 
 .seat-map-popup .seat-map-popup-overlay{
     position: fixed;
