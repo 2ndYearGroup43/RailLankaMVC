@@ -155,6 +155,11 @@ form input{
     text-transform: uppercase;
 }
 
+
+.hidden-btn{
+    display:none;
+}
+
 .pop-up-btn:hover{
     color: #212529;
 	background-color: #f8f9fa;
@@ -983,7 +988,7 @@ header{
 
 #carousel{
 	background-color: black;
-	margin: 60px auto;
+	/*margin: 60px auto;*/
     margin-top: 0;
 }
 
@@ -1015,14 +1020,14 @@ header{
 	height: inherit;
 	position: absolute;
 	opacity: 0;
-	animation: cycleImages 30s infinite;
+	animation: cycleImages 31s infinite;
 }
 
 .slideshow-item img{
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	animation: zoomImages 30s infinite;
+	animation: zoomImages 31s infinite;
 }
 
 .slideshow-item:nth-child(1),
@@ -1073,10 +1078,10 @@ header{
 }
 
 @keyframes cycleImages {
-	1%{
+	20%{
 		opacity: 1;
 	}
-	99%{
+	40%{
 		opacity: 0;
 	}
 }
@@ -1648,6 +1653,10 @@ form .form-row .textarea{
     border-right:1px solid #C5C6C7;
 }
 
+.modal-content .content-table tbody tr td p{
+    text-align: center;
+    margin-bottom: 5px;
+}
 /*.modal-content .content-table tbody tr{
     border-bottom:none;
 }
@@ -4401,6 +4410,10 @@ div.seatCharts-seat.unavailable {
         font-size: 89%;
         transition: 0.20s ease-in-out;
     }
+/*
+    #checkoutBtn{
+        cursor: not-allowed;
+    }*/
 
     #viewalltickets{
         background-color: black;
@@ -4649,25 +4662,31 @@ div.seatCharts-seat.unavailable {
     }
 
     /*warning*/
+    #alert-enquire-popup .alert-box-content .alert-icon i,
     #alert-warning-popup .alert-box-content .alert-icon i{
         color: #f2a53b; 
         border-color:  #f2a53b; 
     }
 
+    #alert-enquire-popup .alert-box-content,
     #alert-warning-popup .alert-box-content{
         background-color: #fef2da;
         border: 2px solid #f2a53b;
     }
 
+    #alert-enquire-popup .alert-box-content .close-alert,
+    #alert-enquire-popup .alert-box-content h3,
     #alert-warning-popup .alert-box-content .close-alert,
     #alert-warning-popup .alert-box-content h3{
         color:#f2a53b;
     }
 
+    #alert-enquire-popup .alert-box-content p,
     #alert-warning-popup .alert-box-content p{
         color:#897754;
     }
 
+    #alert-enquire-popup .alert-box-content .proceed-btn,
     #alert-warning-popup .alert-box-content .proceed-btn{
         color:#f2a53b;
         margin: 5px auto;
@@ -4718,6 +4737,15 @@ div.seatCharts-seat.unavailable {
 
     #alert-info-popup .alert-box-content p{
         color:#566587;
+    }
+
+    #alert-info-popup .alert-box-content .proceed-btn{
+        color:#57a7ec;
+        margin: 5px auto;
+        border: 1px solid #57a7ec;
+        background-color: #e0eefb;
+        padding: 5px;
+        cursor: pointer;
     }
 
     .alert-box-show{
@@ -4781,18 +4809,20 @@ div.seatCharts-seat.unavailable {
 .details-tooltip{
     position: absolute;
     top: 30px;
-    right: 40px;
+    right: 260px;
     height: 45px;
     width: 155px;
     font-size: 17px;
     border: none;
     cursor: pointer;
-    border: 1px solid #DDDDDD;
+    border: 1px solid #b8daff;/* #DDDDDD;*/
     border-radius: 5px;  
-    background: linear-gradient(#eeeeee, #dddddd) border-box;
+   /* background: linear-gradient(#eeeeee, #dddddd) border-box;*/
+    background: #cce5ff border-box;
     color: #000;
-    --c-sh-txt: #{rgba(#fff, .5)};
+    /*--c-sh-txt: #{rgba(#fff, .5)};*/
 }
+
 
 .details-tooltip i{
     font-size: 19px;
@@ -4801,7 +4831,7 @@ div.seatCharts-seat.unavailable {
 .timer{
     position: absolute;
     top: 30px;
-    right: 200px;
+    right: 40px;
     height: 45px;
     display:flex;
     align-items: center;
