@@ -25,8 +25,8 @@
 				</div>
 			</div>
 			<div class="summary">
-				<p><b>Your Ticket ID: B9RBYQ</b></p>
-				<p><b>Booking Date: 26th November 2020  23:00</b></p>
+				<p><b>Your Ticket ID: <?php echo $data['resNo']; ?></b></p>
+				<p><b>Booking Date: <?php echo $data['endTime']; ?></b></p>
 			</div>
 			<div id="policy" class="summary">
 				<p>We recommend that you print this page and bring it with you. You have been sent an email with a copy of the reservation details. You may also view your reservation details online at any time.</p>
@@ -42,35 +42,15 @@
 					<tbody>
 						<tr>
 							<td><b>Customer Name:</b></td>
-							<td>John Doe</td>
+							<td><?php echo $data['account']->firstname; ?> <?php echo $data['account']->lastname; ?></td>
 						</tr>
 						<tr>
 							<td><b>NIC:</b></td>
-							<td>976709531V</td>
+							<td><?php echo $data['account']->nic; ?></td>
 						</tr>
 						<tr>
-							<td><b>Address Number:</b></td>
-							<td>40</td>
-						</tr>
-						<tr>
-							<td><b>Street:</b></td>
-							<td>Park Street</td>
-						</tr>
-						<tr>
-							<td><b>City/Town:</b></td>
-							<td>Colombo 7</td>
-						</tr>
-						<tr>
-							<td><b>Country:</b></td>
-							<td>Sri Lanka</td>
-						</tr>
-						<tr>
-							<td><b>Phone:</b></td>
-							<td>+94 777 875634</td>
-						</tr>
-						<tr>
-							<td><b>Email:</b></td>
-							<td>user1@gmail.com</td>
+							<td><b>Mobile Number:</b></td>
+							<td><?php echo $data['account']->mobileno; ?></td>
 						</tr>
 					</tbody>
 				</table>
@@ -80,28 +60,30 @@
 			<div class="summary-header">
 				<h3>YOUR JOURNEY</h3>
 			</div>
-			<div class=summary>
+			<div class="summary">
+			
 				<div class="journey">
-					Colombo Fort <i class="fa fa-long-arrow-right" aria-hidden="true"></i> Badulla
+					<?php echo $data['reservation']->srcName; ?><i class="fa fa-long-arrow-right" aria-hidden="true"></i> <?php echo $data['reservation']->destName; ?>
 				</div>
 				<div class="journey-row">
 					<div class="journey-details">
-						<p>Intercity Express - <b>Denuwara Menike</b></p>
-						<p><i class="fa fa-calendar-o" aria-hidden="true"></i> 20th June 2020</p>
-						<p><i class="fa fa-clock-o" aria-hidden="true"></i> 6.30 AM -> 15.01 AM</p>
-						<p><i class="fa fa-clock-o" aria-hidden="true"></i> 8 hrs 43 mins</p>
-						<p>Train to Badulla</p>
+						<p><?php echo $data['train']->type; ?> Train <b><?php echo $data['train']->name; ?></b></p>
+						<p>Train ID: <?php echo $data['train']->trainId; ?></p>
+						<p><i class="fa fa-calendar-o" aria-hidden="true"></i> <?php echo $data['reservation']->journeyDate; ?></p>
+						<p><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $data['train']->starttime; ?> -> <?php echo $data['train']->endtime; ?></p>
+						<p><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $data['duration']->format('%h hour(s) %i minute(s)'); ?></p>
+						<p>Train to <?php echo $data['train']->destName; ?></p>
 					</div>
-					<div class="journey-seats">
-						<p>Train ID: 1001</p>
+					<!-- <div class="journey-seats">
+						<p>Train ID: <?php echo $data['train']->trainId; ?></p>
 						<p>Seat Numbers:</p>
 
 							<ul>
-								<li>Compartment 1 :  21 , 22</li>
-								<li>Compartment 2 :  33 , 34</li>
+								<li>Compartment A :  21 , 22</li>
+								<li>Compartment C :  33 , 34</li>
 							</ul> 
 						
-					</div>
+					</div> -->
 				</div>
 			</div>
 	
@@ -110,40 +92,35 @@
 				<h3>BOOKING AND PAYMENT SUMMARY</h3>
 			</div>
 			<div class="summary">
-				<table class="content-table">
+				<table class="content-table" id="booking-rev-table">
 					<thead>
 						<tr>
-							<td>Type</td>
-							<td>Price</td>
-							<td>Quantity</td>
-							<td>Total</td>
+							<td data-label="Compartment">Comprtment</td>
+							<td data-label="SeatNo">Seat Number</td>
+							<td data-label="Type">Type</td>
+							<td data-label="Price">Price</td>
 						</tr>
 					</thead>
 					<tbody>
+						<?php foreach ($data['seats'] as $seat):?>
 						<tr>
-							<td>First Class</td>
-							<td>Rs. 1700.00</td>
-							<td>2</td>
-							<td>Rs. 3400.00</td>
+							<td data-label="Compartment"><?php echo $seat->compartmentNo; ?></td>
+							<td data-label="SeatNo"><?php echo $seat->seatNo; ?></td>
+							<td data-label="Type"><?php echo $seat->classtype; ?> Seat</td>
+							<td data-label="Price"><?php echo $seat->price; ?></td>
 						</tr>
-						<tr>
-							<td>Second Class</td>
-							<td>Rs. 1000.00</td>
-							<td>2</td>
-							<td>Rs. 2000.00</td>
+						<?php endforeach; ?>
+						<tr class="grand-total">
+							<td>Seat Count</td>
+							<td></td>
+							<td></td>
+							<td><?php echo $data['reservation']->itemCount; ?></td>
 						</tr>
 						<tr class="grand-total">
 							<td>Total</td>
 							<td></td>
 							<td></td>
-							<td>Rs. 4400.00</td>
-						</tr>
-						<tr></tr>
-						<tr class="grand-total">
-							<td>Total Payment</td>
-							<td></td>
-							<td></td>
-							<td>Rs. 4400.00</td>
+							<td><?php echo $data['reservation']->total; ?></td>
 						</tr>
 					</tbody>
 				</table>
