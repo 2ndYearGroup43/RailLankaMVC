@@ -57,16 +57,16 @@
                             <div class="input-data">
                                 <label for="type">Station Type</label>
                                 <select name="type" id="type">
-                                    <option value="Main" required
+                                    <option value="Main" 
                                     <?php 
-                                        if($data['type']=="Main")
+                                        if($data['station']->type=="Main")
                                             {echo "selected";}
                                     ?>
                                     >Main</option>
 
-                                    <option value="Normal"required
+                                    <option value="Normal"
                                     <?php 
-                                        if($data['type']=="Normal")
+                                        if($data['station']->type=="Normal")
                                     
                                             {echo "selected";}
                                     ?>
