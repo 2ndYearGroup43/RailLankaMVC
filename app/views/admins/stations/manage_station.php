@@ -62,7 +62,14 @@
 	                    <td data-th="Type"><?php echo $row->type;?></td>
 	                    <td data-th="Entered Date"><?php echo $row->entered_date;?></td>
 	                    <td data-th="Entered Time"><?php echo $row->entered_time;?></td>
-	                    <td data-th="Manage"><input onclick="location.href='<?php echo URLROOT; ?>/adminStations/update_station' " type="submit" class="blue-btn" value="Edit"><input type="submit" class="red-btn" value="Delete"></td>
+	                    <td data-th="Manage">
+                            
+                            <form action="<?php echo URLROOT;?>/adminStations/deleteStation/<?php echo $row->stationID;?>" method="POST">
+                            <a href="<?php echo URLROOT;?>/adminStations/update_station/<?php echo $row->stationID;?>" class="blue-btn">Edit</a>
+
+                            <input type="submit" class="red-btn" value="Delete"></td>
+
+                        </td>
 	                </tr>
 	                
                    <?php endforeach;?>

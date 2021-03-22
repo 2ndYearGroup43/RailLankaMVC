@@ -207,6 +207,14 @@
             return $row; 
 		}
 
+		public function getSuperAdminById($id)
+        {
+            $this->db->query('SELECT s.*, u.email FROM super_admin s INNER JOIN users u ON s.userId=u.userId WHERE s.userId=:userId');
+            $this->db->bind(":userId",$id);
+            $row=$this->db->single();
+            return $row; 
+        }
+
 		public function getModeratorById($id)
 		{
 			$this->db->query('SELECT m.*, u.email FROM moderator m INNER JOIN users u ON m.userId=u.userId WHERE m.userId=:userId');

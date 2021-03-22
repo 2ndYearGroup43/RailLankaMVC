@@ -72,12 +72,7 @@ public function displaystations()
 
 
 
-
-
-
-
-
-    public function updateStation($data) {
+public function updateStation($data) {
         $this->db->query('UPDATE station SET stationID = :stationID, name = :name, telephoneNo = :telephoneNo, type = :type, entered_date = :entered_date, entered_time = :entered_time  WHERE stationID = :stationID');
 
         $this->db->bind(':stationID', $data['stationID']);
@@ -96,7 +91,6 @@ public function displaystations()
     }
 
 
-
     public function deleteStation($stationID) {
         $this->db->query('DELETE FROM station WHERE stationID = :stationID');
 
@@ -108,4 +102,40 @@ public function displaystations()
             return false;
         }
     }
+  
+
+
+
+
+    // public function updateStation($data) {
+    //     $this->db->query('UPDATE station SET stationID = :stationID, name = :name, telephoneNo = :telephoneNo, type = :type, entered_date = :entered_date, entered_time = :entered_time  WHERE stationID = :stationID');
+
+    //     $this->db->bind(':stationID', $data['stationID']);
+    //     $this->db->bind(':name', $data['name']);
+    //     $this->db->bind(':telephoneNo', $data['telephoneNo']);
+    //     $this->db->bind(':type', $data['type']);
+    //     $this->db->bind(':entered_date', $data['entered_date']);
+    //     $this->db->bind(':entered_time', $data['entered_time']);
+
+
+    //     if ($this->db->execute()) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+
+
+
+    // public function deleteStation($stationID) {
+    //     $this->db->query('DELETE FROM station WHERE stationID = :stationID');
+
+    //     $this->db->bind(':stationID', $stationID);
+
+    //     if ($this->db->execute()) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 }

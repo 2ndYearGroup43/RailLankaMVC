@@ -214,6 +214,7 @@
 			$_SESSION['moderator_id'] = '';
 			$_SESSION['driver_id'] = '';
 			$_SESSION['ro_id'] = '';
+			$_SESSION['superadmin_id'] = '';
 
 
 			
@@ -248,6 +249,11 @@
 					$RO=$this->userModel->getROById($user->userid);
 					$_SESSION['ro_id'] = $RO->officerId;
 				}
+				if($user->role==6)
+                {
+                    $RO=$this->userModel->getSuperAdminById($user->userid);
+                    $_SESSION['superadmin_id'] = $RO->super_adminId;
+                }
 			}
 
 			redirect($_SESSION['role']);	
@@ -262,6 +268,7 @@
 			unset($_SESSION['moderator_id']);
 			unset($_SESSION['driver_id']);
 			unset($_SESSION['ro_id']);
+			unset($_SESSION['superadmin_id']);
 			header('location:' . URLROOT . '/pages/index');
 		}
 
