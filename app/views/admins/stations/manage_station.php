@@ -8,7 +8,7 @@
     ?>
 
 
-
+<!--<?php var_dump($data['fields'])?>-->
 
 
 <div class="body-section">
@@ -27,7 +27,7 @@
                 <div class="container-table">
                     <h2>Station Management </h2>
 
-                <div class="table-searchbar">
+                <!--<div class="table-searchbar">
                     <form action="#" method="POST">
                         <input type="text" placeholder="Search by" name=searchbar><span><select name="searchselect" id="searchselect">
                                     <option value="notice Id">Station ID</option>
@@ -37,8 +37,18 @@
                                     <option value="Date">Entered Time</option>
                         </select></span><span><input type="submit" value=" " class="search-btn"></span><span><i class="fa fa-search glyph"></i></span>
                     </form>
-                </div>
+                </div>-->
 
+
+                <div class="table-searchbar">
+                    <form action="<?php echo URLROOT?>/adminStations/stationSearchBy" method="POST">
+                        <input type="text" placeholder="Search by" name=searchbar><span><select name="searchselect" id="searchselect">
+                            <?php foreach ($data['fields'] as $field ):?>
+                                    <option value="<?php echo $field->columns?>"><?php echo $field->columns?></option>
+                            <?php endforeach;?>
+                        </select></span><span><input type="submit" value=" " class="search-btn"></span><span><i class="fa fa-search glyph"></i></span>
+                    </form>
+                </div>
 
 
                     <table class="blue">
@@ -54,24 +64,28 @@
                             </tr>
                         </thead>
 
-                        <?php foreach ($data as $row):?>
-	              	<tr>
-	            	    <td data-th="Station ID"><?php echo $row->stationID;?></td>
-	                    <td data-th="Station name"><?php echo $row->name;?></td>
-	                	<td data-th="Telephone Number"><?php echo $row->telephoneNo;?></td>
-	                    <td data-th="Type"><?php echo $row->type;?></td>
-	                    <td data-th="Entered Date"><?php echo $row->entered_date;?></td>
-	                    <td data-th="Entered Time"><?php echo $row->entered_time;?></td>
-	                    <td data-th="Manage">
-                            
+                        <?php foreach ($data["stations"] as $row):?>
+                    <tr>
+                        <td data-th="Station ID"><?php echo $row->stationID;?></td>
+                        <td data-th="Station name"><?php echo $row->name;?></td>
+                        <td data-th="Telephone Number"><?php echo $row->telephoneNo;?></td>
+                        <td data-th="Type"><?php echo $row->type;?></td>
+                        <td data-th="Entered Date"><?php echo $row->entered_date;?></td>
+                        <td data-th="Entered Time"><?php echo $row->entered_time;?></td>
+                        <td data-th="Manage">
                             <form action="<?php echo URLROOT;?>/adminStations/deleteStation/<?php echo $row->stationID;?>" method="POST">
+                            <!-- <input onclick="location.href='<?php echo URLROOT; ?>/adminStations/update_station/<?php echo $row->stationID;?>' " type="submit" class="blue-btn" value="Edit"> -->
                             <a href="<?php echo URLROOT;?>/adminStations/update_station/<?php echo $row->stationID;?>" class="blue-btn">Edit</a>
+
+                            <!--<a href="<?php echo URLROOT;?>/adminStations/update_station/<?php echo $row->stationID;?>" class="blue-btn">Edit</a>-->
 
                             <input type="submit" class="red-btn" value="Delete"></td>
 
-                        </td>
-	                </tr>
-	                
+                            <!--<form action="<?php //echo URLROOT . "/adminStations/delete/" . $station->stationID ?>" method="POST">
+                            <input type="submit" name="delete" value="Delete" class="red-btn">-->
+                            </form>
+                    </tr>
+                    
                    <?php endforeach;?>
 
 
