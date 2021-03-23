@@ -178,6 +178,7 @@
 				echo $journeyDate;
 			}
 
+			$passengerId=$_SESSION['passenger_id'];
 			$nic=$_SESSION['passenger_nic'];
 			$train=$this->passengerReservationModel->getTrainDetails($id); //To get details about the train
 			$src=$this->passengerReservationModel->getStopNo($id,$train->src_station);	//To get the stopNo of the source station
@@ -192,7 +193,8 @@
 				'dest'=>$train->dest_station,
 				'srcNo'=>$src->stopNo,
 				'destNo'=>$dest->stopNo,
-				'nic'=>$nic
+				'nic'=>$nic,
+				'passengerId'=>$passengerId
 			];
 
 			$resNo = $this->passengerReservationModel->addReservation($data);//To create a new reservation
@@ -485,7 +487,7 @@
 			$resEnd=date('Y-m-d H:i:s',strtotime('+30 minutes',strtotime($reservation->res_time)));
 			// var_dump($reservation);
 			// $summary=$this->passengerReservationModel->getSummary($resNo);
-			$account=$this->passengerReservationModel->getAccountDetails($reservation->nic);
+			$account=$this->passengerReservationModel->getAccountDetails($reservation->passengerId);
 			$train=$this->passengerReservationModel->getTrainDetails($reservation->trainId);
 			$startTime= new DateTime($train->starttime);
 			$endTime= new DateTime($train->endtime);
@@ -575,7 +577,7 @@
 			}
 			// $timenow = time(); //current time 
 			$reservation=$this->passengerReservationModel->getReservationDetails($resNo);
-			$account=$this->passengerReservationModel->getAccountDetails($reservation->nic);
+			$account=$this->passengerReservationModel->getAccountDetails($reservation->passengerId);
 			$train=$this->passengerReservationModel->getTrainDetails($reservation->trainId);
 			$seats=$this->passengerReservationModel->getBookedSeats($resNo);
 			$startTime= new DateTime($train->starttime);

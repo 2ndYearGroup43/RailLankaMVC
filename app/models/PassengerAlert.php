@@ -530,12 +530,12 @@
 		}
 
 
-		public function addSubscription($trainid, $nic){
+		public function addSubscription($trainid, $id){
 
-			$this->db->query('INSERT INTO subscriptions (nic,trainId) VALUES (:nic, :trainid)');
+			$this->db->query('INSERT INTO subscriptions (passengerId,trainId) VALUES (:id, :trainid)');
 
 			//bind values
-			$this->db->bind(':nic', $nic);
+			$this->db->bind(':id', $id);
 			$this->db->bind(':trainid', $trainid);
 
 			//Execute function

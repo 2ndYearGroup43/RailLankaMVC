@@ -311,7 +311,7 @@
 
 		public function displayTickets() {
 			
-			$id = $_SESSION['passenger_nic'];
+			$id = $_SESSION['passenger_id'];
 			$data=$this->passengerAccountModel->getTickets($id);
 			$this->view('passengers/accounts/view_tickets', $data); 
 		}
@@ -323,7 +323,7 @@
 			}
 			// $timenow = time(); //current time 
 			$reservation=$this->passengerAccountModel->getReservationDetails($resNo);
-			$account=$this->passengerAccountModel->getAccountDetails($reservation->nic);
+			$account=$this->passengerAccountModel->getAccountDetails($reservation->passengerId);
 			$train=$this->passengerAccountModel->getTrainDetails($reservation->trainId);
 			$seats=$this->passengerAccountModel->getBookedSeats($resNo);
 			$startTime= new DateTime($train->starttime);

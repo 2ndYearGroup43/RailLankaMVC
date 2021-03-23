@@ -75,7 +75,7 @@
 
 
         //find passenger NIC
-		public function findPassengerByNIC($nic) {
+		public function findPassengerByNIC($nic) { //NOT USED
 			//prepared statemnet
 			var_dump($nic);
 			$this->db->query('SELECT * FROM passenger WHERE nic = :nic'); //check all tables!!!!
@@ -96,7 +96,7 @@
 
         public function getTickets($id){
 
-            $this->db->query("SELECT r.*, s1.name AS srcName, s2.name AS destName FROM reservation r INNER JOIN station s1 ON s1.stationID=r.start_station INNER JOIN station s2 ON s2.stationID=r.dest_station WHERE r.nic=:id AND r.status='S'");
+            $this->db->query("SELECT r.*, s1.name AS srcName, s2.name AS destName FROM reservation r INNER JOIN station s1 ON s1.stationID=r.start_station INNER JOIN station s2 ON s2.stationID=r.dest_station WHERE r.passengerId=:id AND r.status='S'");
 
             //Email param will be binded with the email variable
             $this->db->bind(':id', $id);
@@ -122,12 +122,12 @@
 
 
         //Get the account details of the relevant customer - BOOKING REVIEW
-        public function getAccountDetails($nic){
+        public function getAccountDetails($passengerId){
 
-            $this->db->query('SELECT p.*, u.email FROM passenger p INNER JOIN users u ON p.userid=u.userid WHERE p.nic=:nic');
+            $this->db->query('SELECT p.*, u.email FROM passenger p INNER JOIN users u ON p.userid=u.userid WHERE p.passengerId=:passengerId');
 
             //bind values
-            $this->db->bind(":nic",$nic);
+            $this->db->bind(":passengerId",$passengerId);
             $row=$this->db->single();
 
             return $row; 
@@ -136,7 +136,7 @@
         //Function to get the seats of a relevant booking
         public function getBookedSeats($resNo){
 
-            $this->db->query("SELECT s.seatNo, s.compartmentNo, s.classtype, s.price FROM seet s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE s.reservationNo=:resNo AND s.status='booked'");
+            $this->db->query("SELECT s.seatNo, s.compartmentNo, s.classtype, s.price FROM seat s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE s.reservationNo=:resNo AND s.status='booked'");
             // $this->db->bind(':id',$id);
             // $this->db->bind(':nic',$nic);
             // $this->db->bind(':jdate',$date);
