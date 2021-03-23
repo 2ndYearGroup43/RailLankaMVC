@@ -42,9 +42,10 @@
                         <label for="type">Type</label>
                         <select name="type" id="type" required>
                                 <option value="">Select</option>
-                                <option >Express</option>
-                                <option >IntercityExpress</option>
-                                <option >HolidaySpecial</option>
+                                <option value="Express">Express</option>
+                                <option value="Intercity Express">Intercity Express</option>
+                                <option value="Holiday Special">Holiday Special</option>
+                                <option value="Night">Night</option>
                         </select>
                         <span class="invalidFeedback">
                             <?php echo $data['typeError'];?>
