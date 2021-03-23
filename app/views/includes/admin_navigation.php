@@ -190,7 +190,7 @@
                                                 </ul>
                                             </div>
                                         </li>
-                                        <li class="dropdown-link">
+                                        <!-- <li class="dropdown-link">
                                             <label for="btn-3" class="show2">Manage Reports +</label>
                                             <a href="#">Manage Reports<i class="fa fa-caret-down"></i></a>
                                             <input type="checkbox" id="btn-3">
@@ -208,7 +208,7 @@
                                                     <div class="arrow"></div>
                                                 </ul>
                                             </div>
-                                        </li>
+                                        </li> -->
                                         <div class="arrow"></div>
                                     </ul>
                                 </div>

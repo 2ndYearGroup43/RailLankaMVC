@@ -16,7 +16,7 @@ class Admin{
         $this->db->bind(':role', $data['role']);
 
         if($this->db->execute()){
-            $this->db->query('SELECT LAST_INSERT_ID() AS userid');
+            $this->db->query('SELECT LAST_INSERT_ID() AS userid ORDER BY userid ASC');
             $resultId=[];
             $resultId=$this->db->resultSet();
 
@@ -180,27 +180,6 @@ class Admin{
             return $row; 
         }
 
-        // public function updateAdmin($data)
-        // {
-        //     $this->db->query("UPDATE users SET email=:email WHERE userid=:userid");
-        //     $this->db->bind(":userid", $data['userid']);
-        //     $this->db->bind(":email", $data['email']);
-        //     if($this->db->execute()){
-        //         $this->db->query('UPDATE admin SET employeeId=:employeeId, firstname=:firstname, lastname=:lastname,
-        //         mobileno=:mobileno WHERE userid=:userid');
-        //         $this->db->bind(":userid", $data['userid']);
-        //         $this->db->bind(":employeeId", $data['employeeId']);
-        //         $this->db->bind(":firstname", $data['firstname']);
-        //         $this->db->bind(":lastname", $data['lastname']);
-        //         $this->db->bind(":mobileno", $data['mobileno']);  
-        //         if ($this->db->execute()) {
-        //             return true;
-        //         } else {
-        //             return false;
-        //         }
-        //         return false;              
-        //     }
-        // }
 
         public function updateAdmin($data)
         {
@@ -233,18 +212,7 @@ class Admin{
                 return false;   
             }
         }
-        // public function deleteUser($id)
-        // {
-        //     $this->db->query('DELETE FROM users WHERE userid=:userid');
-        //     $this->db->bind(":userid", $id);
-        //     if($this->db->execute()){
-        //         return true;
-        //     }else{
-        //         return false;   
-        //     }
-        // }
-              
-    
+
 
 
 
