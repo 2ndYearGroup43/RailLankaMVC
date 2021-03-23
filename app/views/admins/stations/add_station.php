@@ -22,9 +22,12 @@
 
             <div class="content-flexrow">
                 <div class="container">
+
                     <div class="text">Add New Station Details</div>
                     <form action="<?php echo URLROOT; ?>/adminStations/add_station" method="POST">
-                     <br><div class="form-row">
+                    <br>
+
+                        <div class="form-row">
                             <div class="input-data">
                                 <label for="stationID">Station Id</label>
                                 <input type="text" name="stationID" id="stationID" placeholder="Enter Station ID.." required >
@@ -57,7 +60,8 @@
                                 </span>
                             </div>
                         </div>
-                     <div class="form-row">
+
+                        <div class="form-row">
                             <div class="input-data">
                                 <label for="type">Station Type</label>
                                 <select name="type" id="type">
@@ -70,26 +74,7 @@
                                 </span>
                             </div>
                         </div>
-                        <!--<div class="form-row">
-                            <div class="input-data">
-                                <label for="entered_date">Entered Date</label>
-                                <input type="date" name="entered_date" id="entered_date" >
-
-                                <span class="invalidFeedback">
-                                    <?php ///echo $data['entered_dateError']; ?>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="input-data">
-                                <label for="entered_time">Entered Time</label>
-                                <input type="time" name="entered_time" id="entered_time" >
-
-                                <span class="invalidFeedback">
-                                    <?php ///echo $data['entered_timeError']; ?>
-                                </span>
-                            </div>
-                        </div>-->
+                        
                         <br><br>
 
                         <div class="form-row submit-btn">
@@ -103,13 +88,11 @@
                         </div>   
                             
                         </div>
+
                     </form>
-                </div>
+                    </div>
             </div>
         </div>
-
-
-
 
 
 

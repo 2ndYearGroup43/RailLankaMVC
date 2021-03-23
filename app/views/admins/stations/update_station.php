@@ -23,40 +23,48 @@
 
             <div class="content-flexrow">
                 <div class="container">
+
                     <div class="text">Update Station Details</div>
                     <form action="<?php echo URLROOT; ?>/AdminStations/update_station/<?php echo $data['station']->stationID;?>" method="POST">
+
                         <div class="form-row">
                             <div class="input-data">
                                 <label for="stationID">Station Id</label>
                                 <input type="text" name="stationID" id="stationID" value="<?php echo $data['station']->stationID;?>" required >
+
                                 <span class="invalidFeedback">
                                     <?php echo $data['stationIDError']; ?>
                                 </span>
                             </div>
-
                         </div>
+
                         <div class="form-row">
                             <div class="input-data ">
-                                 <label for="name">Station Name</label>
-                                 <input type="text" name="name" id="name" value="<?php echo $data['station']->name;?>" required >
+                                <label for="name">Station Name</label>
+                                <input type="text" name="name" id="name" value="<?php echo $data['station']->name;?>" required >
+
                                 <span class="invalidFeedback">
                                     <?php echo $data['nameError']; ?>
                                 </span>   
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="input-data ">
-                                 <label for="telephoneNo">Telephone Number</label>
-                                 <input type="text" name="telephoneNo" id="telephoneNo" value="<?php echo $data['station']->telephoneNo;?>" required > 
-                                 <span class="invalidFeedback">
+                                <label for="telephoneNo">Telephone Number</label>
+                                <input type="text" name="telephoneNo" id="telephoneNo" value="<?php echo $data['station']->telephoneNo;?>" required > 
+
+                                <span class="invalidFeedback">
                                     <?php echo $data['telephoneNoError']; ?>
                                 </span>
                             </div>
                         </div>
-                     <div class="form-row">
+
+                        <div class="form-row">
                             <div class="input-data">
                                 <label for="type">Station Type</label>
                                 <select name="type" id="type">
+
                                     <option value="Main" 
                                     <?php 
                                         if($data['station']->type=="Main")
@@ -71,6 +79,7 @@
                                             {echo "selected";}
                                     ?>
                                     >Normal</option>
+
                                 </select>
 
                                 <span class="invalidFeedback">
@@ -78,6 +87,7 @@
                                 </span>
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="input-data">
                                 <label for="entered_date">Entered Date</label>
@@ -88,6 +98,7 @@
                                 </span>
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="input-data">
                                 <label for="entered_time">Entered Time</label>
@@ -111,12 +122,10 @@
                             
                         </div>
                     </form>
-                </div>
+                    </div>
+
             </div>
         </div>
-
-
-
 
 
 
