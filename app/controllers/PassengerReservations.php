@@ -1,4 +1,8 @@
 <?php 
+
+	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\SMTP;
+	use PHPMailer\PHPMailer\Exception;
 	
 	class PassengerReservations extends Controller {
 
@@ -527,46 +531,25 @@
 
 				// echo $time_diff;
 			 //    echo "Noooooooooooooooooooooooooo";
-				$data = [
-						'resTime'=>$resTime,
-						'timeDiff'=>$time_diff,
-						'endTime'=>$timedate,
-						'resNo'=>$resNo
-					];
+				// $data = [
+				// 		'resTime'=>$resTime,
+				// 		'timeDiff'=>$time_diff,
+				// 		'endTime'=>$timedate,
+				// 		'resNo'=>$resNo
+				// 	];
 
-				$results=$this->passengerReservationModel->reservationTimeout($resNo, $timedate);
+				// $results=$this->passengerReservationModel->reservationTimeout($resNo, $timedate);
 
-				if($results){
+				//if($results){
 					 $this->view('passengers/reservations/timeout', $data);
-				}
+				//}
 			   
 
 			} else {
 
 				if($this->passengerReservationModel->confirmReservation($resNo,$timedate)){
 				
-					$reservation=$this->passengerReservationModel->getReservationDetails($resNo);
-					$account=$this->passengerReservationModel->getAccountDetails($reservation->nic);
-					$train=$this->passengerReservationModel->getTrainDetails($reservation->trainId);
-					$seats=$this->passengerReservationModel->getBookedSeats($resNo);
-					$startTime= new DateTime($train->starttime);
-					$endTime= new DateTime($train->endtime);
-					$duration=$startTime->diff($endTime);
-					$currTime=date('Y-m-d H:i:sa',$timenow);
-
-					$data = [
-						'train'=>$train,
-						'reservation'=>$reservation,
-						'account'=>$account,
-						'seats'=>$seats,
-						'startTime'=>$startTime,
-						'endTime'=>$endTime,
-						'duration'=>$duration,
-						'resNo'=>$resNo,
-						'endTime'=>$timedate
-					];
-
-					$this->view('passengers/reservations/booking_conf', $data);
+					header('location: ' . URLROOT . '/PassengerReservations/viewTicket?resNo='.$resNo);
 
 				} else{
 					$this->search();
@@ -584,18 +567,372 @@
 			 
 		}
 
+
+		public function viewTicket() {
+
+			if(isset($_GET['resNo'])){
+				$resNo = $_GET['resNo'];
+			}
+			// $timenow = time(); //current time 
+			$reservation=$this->passengerReservationModel->getReservationDetails($resNo);
+			$account=$this->passengerReservationModel->getAccountDetails($reservation->nic);
+			$train=$this->passengerReservationModel->getTrainDetails($reservation->trainId);
+			$seats=$this->passengerReservationModel->getBookedSeats($resNo);
+			$startTime= new DateTime($train->starttime);
+			$endTime= new DateTime($train->endtime);
+			$duration=$startTime->diff($endTime);
+					//$currTime=date('Y-m-d H:i:sa',$timenow);
+			$data = [
+				'train'=>$train,
+				'reservation'=>$reservation,
+				'account'=>$account,
+				'seats'=>$seats,
+				'startTime'=>$startTime,
+				'endTime'=>$endTime,
+				'duration'=>$duration,
+				'resNo'=>$resNo,
+				'endTime'=>$reservation->comp_time
+			];
+
+
+			$output = '
+				<link rel="stylesheet" type="text/css" href="'. URLROOT .'/public/css/passenger_main.css">
+				<script src="https://use.fontawesome.com/0d40a8591c.js"></script>
+				<div class="conf-ticket">
+					<div class="normal-header">
+						<img src="'. URLROOT .'/public/img/logob2.png">
+						<h1 class="title" id="title3">BOOKING CONFIRMATION</h1>
+					</div>
+					<br><br><br>
+					<div class="summary">
+						<p><b>Your Ticket ID: '.$data["resNo"].'</b></p>
+						<p><b>Booking Date: '.$data["endTime"].'</b></p>
+					</div>
+					<br>
+
+					<h4 style="text-decoration: underline">CUSTOMER DETAILS</h4>
+					<div class="summary">
+						<p><b>Customer Name: </b>'.$data["account"]->firstname.' '.$data["account"]->lastname.'</p>
+						<p><b>NIC: </b>'.$data["account"]->nic.'</p>
+						<p><b>Mobile Number: </b>'.$data["account"]->mobileno.'</p>
+					</div>
+					<br>
+
+					<h4 style="text-decoration: underline">YOUR JOURNEY</h4>
+					<div class="summary">
+						<h4><b>'.$data["reservation"]->srcName.' to '.$data["reservation"]->destName.'</h4>
+						<p>'.$data["train"]->type.' Train - <b>'.$data["train"]->name.'</b></p>
+						<p>Train ID: '.$data["train"]->trainId.'</p>
+						<p>Journey Date: '.$data["reservation"]->journeyDate.'</p>
+						<p>Departure Time: '.$data["train"]->starttime.'</p>
+						<p>Arrival Time: '.$data["train"]->endtime.'</p>
+						<p>Train to '.$data["train"]->destName.'</p>
+					</div>
+					<br>
+
+					<h4 style="text-decoration: underline">BOOKING AND PAYMENT SUMMARY</h4>
+					<br>
+						<table style="width:80%">
+							<thead>
+								<tr>
+									<td style="border-bottom:1px solid black">Comprtment</td>
+									<td style="border-bottom:1px solid black">Seat Number</td>
+									<td style="border-bottom:1px solid black">Type</td>
+									<td style="border-bottom:1px solid black">Price</td>
+								</tr>
+							</thead>
+							<tbody>';
+
+					foreach ($data['seats'] as $seat){
+					$output .='
+									<tr>
+										<td>'.$seat->compartmentNo.'</td>
+										<td>'.$seat->seatNo.'</td>
+										<td>'.$seat->classtype.' Seat</td>
+										<td>'.$seat->price.'</td>
+									</tr>
+								';
+					}
+					
+								
+					$output .='
+								<tr>
+									<td style="border-top:1px solid black">Seat Count</td>
+									<td style="border-top:1px solid black"></td>
+									<td style="border-top:1px solid black"></td>
+									<td style="border-top:1px solid black">'.$data['reservation']->itemCount.'</td>
+								</tr>
+								<tr class="grand-total">
+									<td>Total</td>
+									<td></td>
+									<td></td>
+									<td>'.$data['reservation']->total.'</td>
+								</tr>
+							</tbody>
+						</table>
+					<br>
+
+					<h4 style="text-decoration: underline">CANCELLATION POLICY</h4>
+					<div class="summary">
+						<p>Deposit is non-refundable and will be charged to your credit card.</p>
+						<p>A passenger is entitled to a refund on the ticket price if a train journey is marked as cancelled, regardless of the reason. A full refund can be obtained by producing the email confirmation/e-ticket at the counter.</p>
+					</div>
+		
+					<div class="summary">
+						<p><b>Please contact us for assistance: +940112-695-722 / raillanka@gmail.com</b></p>
+					</div>
+				</div>
+			';
+
+			//if(isset($_POST['mailTicket'])){
+
+				require APPROOT . '/libraries/pdf.php';
+				$file_name = md5(rand()) . '.pdf';
+				$html_code = $output;
+				$pdf = new Pdf();
+				$pdf->set_option('enable_remote', TRUE);
+				$pdf->load_html($html_code);
+				$pdf->render();
+				$file = $pdf->output();
+				file_put_contents($file_name, $file);
+
+				require APPROOT . '/libraries/PHPMailer/src/Exception.php';
+				require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
+				require APPROOT . '/libraries/PHPMailer/src/SMTP.php';
+
+				$emailTo = 'raillankaproject@gmail.com';
+					    	
+				// Instantiation and passing `true` enables exceptions
+				$mail = new PHPMailer(true);
+
+				try {
+				   	//Server settings   
+				   	$mail->isSMTP();                                            // Send using SMTP
+				   	$mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+				   	$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+				   	$mail->Username   = 'raillankaproject@gmail.com';                  // SMTP username
+					$mail->Password   = 'Raillanka@2';                               // SMTP password
+				  	$mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+				  	$mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+					//Recipients
+					$mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+					$mail->addAddress($emailTo);     // Add a recipient
+					// Name is optional
+					$mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');
+					$mail->WordWrap = 50;	    
+					// Content
+					$mail->isHTML(true);  
+					$mail->AddAttachment($file_name);
+					// Set email format to HTML
+					$mail->Subject = 'Booking Confirmation';
+					$mail->Body    = "<p>Dear User, </p><p>Please find the confirmation ticket in the attachment.</p><p>Thank you for booking with us!</p>";
+					$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+					if($mail->send()){
+						$this->view('passengers/reservations/booking_conf', $data);
+					}
+					//header('location: ' . URLROOT . '/passengerAccounts/displayAccount');
+
+					} catch (Exception $e) {
+					  	echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+					}
+						   
+					exit();
+
+			// $this->view('passengers/reservations/booking_conf', $data);
+		}
+
+
+		public function sendEmail(){
+
+
+			if(isset($_GET['resNo'])){
+				$resNo = $_GET['resNo'];
+			}
+			// $timenow = time(); //current time 
+			$reservation=$this->passengerReservationModel->getReservationDetails($resNo);
+			$account=$this->passengerReservationModel->getAccountDetails($reservation->nic);
+			$train=$this->passengerReservationModel->getTrainDetails($reservation->trainId);
+			$seats=$this->passengerReservationModel->getBookedSeats($resNo);
+			$startTime= new DateTime($train->starttime);
+			$endTime= new DateTime($train->endtime);
+			$duration=$startTime->diff($endTime);
+
+			$data = [
+				'train'=>$train,
+				'reservation'=>$reservation,
+				'account'=>$account,
+				'seats'=>$seats,
+				'startTime'=>$startTime,
+				'endTime'=>$endTime,
+				'duration'=>$duration,
+				'resNo'=>$resNo,
+				'endTime'=>$reservation->comp_time
+			];
+
+			// $output = '<link rel="stylesheet" type="text/css" href="passenger_main.css">';
+			// $output .= '<script src="https://use.fontawesome.com/0d40a8591c.js"></script>';
+			$output = '
+				<link rel="stylesheet" type="text/css" href="'. URLROOT .'/public/css/passenger_main.css">
+				<script src="https://use.fontawesome.com/0d40a8591c.js"></script>
+				<div class="conf-ticket">
+					<div class="normal-header">
+						<img src="'. URLROOT .'/public/img/logob2.png">
+						<h1 class="title" id="title3">BOOKING CONFIRMATION</h1>
+					</div>
+					<br><br><br>
+					<div class="summary">
+						<p><b>Your Ticket ID: '.$data["resNo"].'</b></p>
+						<p><b>Booking Date: '.$data["endTime"].'</b></p>
+					</div>
+					<br>
+
+					<h4 style="text-decoration: underline">CUSTOMER DETAILS</h4>
+					<div class="summary">
+						<p><b>Customer Name: </b>'.$data["account"]->firstname.' '.$data["account"]->lastname.'</p>
+						<p><b>NIC: </b>'.$data["account"]->nic.'</p>
+						<p><b>Mobile Number: </b>'.$data["account"]->mobileno.'</p>
+					</div>
+					<br>
+
+					<h4 style="text-decoration: underline">YOUR JOURNEY</h4>
+					<div class="summary">
+						<h4><b>'.$data["reservation"]->srcName.' to '.$data["reservation"]->destName.'</h4>
+						<p>'.$data["train"]->type.' Train - <b>'.$data["train"]->name.'</b></p>
+						<p>Train ID: '.$data["train"]->trainId.'</p>
+						<p>Journey Date: '.$data["reservation"]->journeyDate.'</p>
+						<p>Departure Time: '.$data["train"]->starttime.'</p>
+						<p>Arrival Time: '.$data["train"]->endtime.'</p>
+						<p>Train to '.$data["train"]->destName.'</p>
+					</div>
+					<br>
+
+					<h4 style="text-decoration: underline">BOOKING AND PAYMENT SUMMARY</h4>
+					<br>
+						<table style="width:80%">
+							<thead>
+								<tr>
+									<td style="border-bottom:1px solid black">Comprtment</td>
+									<td style="border-bottom:1px solid black">Seat Number</td>
+									<td style="border-bottom:1px solid black">Type</td>
+									<td style="border-bottom:1px solid black">Price</td>
+								</tr>
+							</thead>
+							<tbody>';
+
+					foreach ($data['seats'] as $seat){
+					$output .='
+									<tr>
+										<td>'.$seat->compartmentNo.'</td>
+										<td>'.$seat->seatNo.'</td>
+										<td>'.$seat->classtype.' Seat</td>
+										<td>'.$seat->price.'</td>
+									</tr>
+								';
+					}
+					
+								
+					$output .='
+								<tr>
+									<td style="border-top:1px solid black">Seat Count</td>
+									<td style="border-top:1px solid black"></td>
+									<td style="border-top:1px solid black"></td>
+									<td style="border-top:1px solid black">'.$data['reservation']->itemCount.'</td>
+								</tr>
+								<tr class="grand-total">
+									<td>Total</td>
+									<td></td>
+									<td></td>
+									<td>'.$data['reservation']->total.'</td>
+								</tr>
+							</tbody>
+						</table>
+					<br>
+
+					<h4 style="text-decoration: underline">CANCELLATION POLICY</h4>
+					<div class="summary">
+						<p>Deposit is non-refundable and will be charged to your credit card.</p>
+						<p>A passenger is entitled to a refund on the ticket price if a train journey is marked as cancelled, regardless of the reason. A full refund can be obtained by producing the email confirmation/e-ticket at the counter.</p>
+					</div>
+		
+					<div class="summary">
+						<p><b>Please contact us for assistance: +940112-695-722 / raillanka@gmail.com</b></p>
+					</div>
+				</div>
+			';
+
+			//if(isset($_POST['mailTicket'])){
+
+				require APPROOT . '/libraries/pdf.php';
+				$file_name = md5(rand()) . '.pdf';
+				$html_code = $output;
+				$pdf = new Pdf();
+				$pdf->set_option('enable_remote', TRUE);
+				$pdf->load_html($html_code);
+				$pdf->render();
+				$file = $pdf->output();
+				file_put_contents($file_name, $file);
+
+				require APPROOT . '/libraries/PHPMailer/src/Exception.php';
+				require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
+				require APPROOT . '/libraries/PHPMailer/src/SMTP.php';
+
+				$emailTo = 'raillankaproject@gmail.com';
+					    	
+				// Instantiation and passing `true` enables exceptions
+				$mail = new PHPMailer(true);
+
+				try {
+				   	//Server settings   
+				   	$mail->isSMTP();                                            // Send using SMTP
+				   	$mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+				   	$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+				   	$mail->Username   = 'raillankaproject@gmail.com';                  // SMTP username
+					$mail->Password   = 'Raillanka@2';                               // SMTP password
+				  	$mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+				  	$mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+					//Recipients
+					$mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+					$mail->addAddress($emailTo);     // Add a recipient
+					// Name is optional
+					$mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');
+					$mail->WordWrap = 50;	    
+					// Content
+					$mail->isHTML(true);  
+					$mail->AddAttachment($file_name);
+					// Set email format to HTML
+					$mail->Subject = 'Booking Confirmation';
+					$mail->Body    = "<p>Dear User, </p><p>Please find the confirmation ticket in the attachment.</p><p>Thank you for booking with us!</p>";
+					$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+					if($mail->send()){
+						header('location: ' . URLROOT . '/PassengerReservations/viewTicket?resNo='.$resNo);
+					}
+					//header('location: ' . URLROOT . '/passengerAccounts/displayAccount');
+
+					} catch (Exception $e) {
+					  	echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+					}
+						   
+					exit();
+		}
+
+
 		public function timeout(){
 
 			if(isset($_GET['resNo'])){
 				$resNo=$_GET['resNo'];
 			}
 
-			$result=$this->passengerReservationModel->cancelReservation($resNo);
-
+			//If there are selected or deselected seats 
+			if($this->passengerReservationModel->checkReservationSeats($resNo)){
+				$result=$this->passengerReservationModel->cancelReservation($resNo);
+			//User has not selected or deselected any seats 
+			}else {
+				$result=$this->passengerReservationModel->removeReservation($resNo);
+			}
+			
 			if($result){
 				$this->view('passengers/reservations/booking_failed');
 			}
-			
 		}
 
 
