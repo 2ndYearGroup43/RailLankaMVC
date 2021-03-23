@@ -3,6 +3,7 @@
 ?>
 <?php
     require APPROOT.'/views/includes/admin_navigation.php';
+    var_dump($data);
 ?>  
 
 <div class="body-section">
@@ -53,9 +54,9 @@
                         </span>
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row submit-btn">
                     <div class="input-data">
-                        <a href="#">Update Password</a>
+                        <input type="button" class="blue-btn" value="Reset Password" onclick="location.href='<?php echo URLROOT;?>/employees/resetEmployeePassword/<?php echo $data['userId'];?>'">
                     </div>
                 </div>
                 <div class="form-row submit-btn">
