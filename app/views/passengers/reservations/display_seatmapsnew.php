@@ -159,17 +159,17 @@
 								],
 								seats: {
 										f: {
-											price   : 2000,
+											price   : <?php echo $data['train']->fclassbase; ?>,
 											classes : 'first-class', 
 											category: 'First Class'
 										},
 										s: {
-											price   : 1000,
+											price   : <?php echo $data['train']->sclassbase; ?>,
 											classes : 'second-class', 
 											category: 'Second Class'
 										},
 										t: {
-											price   : 700,
+											price   : <?php echo $data['train']->tclassbase; ?>,
 											classes : 'third-class', 
 											category: 'Third Class'
 										}
@@ -565,26 +565,33 @@
 					<tbody>
 						<tr>
 							<td>
-								<p>Train ID: 1001</p>
+								<p>Train ID: <?php echo $data['train']->trainId; ?></p>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<p>Colombo - Badulla</p>
-								<p>Train to Badulla</p>
+								<p><?php echo $data['train']->srcName; ?> - <?php echo $data['train']->destName; ?></p>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<p><b>Denuwara Menike</b></p>
-								<p>Intercity Express Train</p>
+								<p><b><?php echo $data['train']->name; ?></b></p>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<p><i class="fa fa-calendar-o" aria-hidden="true"></i> 20th June 2020</p>
-								<p><i class="fa fa-clock-o" aria-hidden="true"></i> 6.30 AM -> 15.01 AM</p>
-								<p><i class="fa fa-clock-o" aria-hidden="true"></i> 8 hrs 43 mins</p>
+								<p><?php echo $data['train']->type; ?> Train</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p><i class="fa fa-calendar-o" aria-hidden="true"></i><?php echo $data['date']; ?></p>
+								<!-- <p><i class="fa fa-clock-o" aria-hidden="true"></i> 8 hrs 43 mins</p> -->
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $data['train']->starttime; ?> -> <?php echo $data['train']->endtime; ?></p>
 							</td>
 						</tr>
 					</tbody>
