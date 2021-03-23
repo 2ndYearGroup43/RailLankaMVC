@@ -54,7 +54,7 @@
 							<td data-label="Arrival Time"><?php echo $train->endtime; ?></td>
 							<td data-label="Type"><?php echo $train->type; ?></td>
 							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/createReservation?id=<?php echo $train->trainId;?>&date=<?php echo $data['dateFull'];?>'" type="submit" class="btn"><span>Reserve</span></button>
+								<button id="<?php echo $train->trainId;?>" data-target="alert-info-popup" type="button" class="btn alert-btn2"><span>Reserve</span></button>
 							</td>
 						</tr>
 						<?php endforeach; ?>
@@ -187,6 +187,53 @@
 		</div>
 	</div>
 	<!-- end of pop up -->
+
+	<!-- alert info pop up -->
+	<div class="flash-alert-box" id="alert-info-popup">
+		<div class="alert-box-content">
+			<div class="alert-icon">
+				<i class="fa fa-info" aria-hidden="true"></i>
+			</div>
+			<div class="alert-body">
+				<h3>Reserve Now?</h3>
+				<p>You have 30 minutes to complete your reservation.</p>
+				<button type="button" class="proceed-alert proceed-btn">Proceed</button>
+			</div>
+			<button type="button" class="close-alert">&times;</button>
+		</div>
+	</div>
+	<!-- end of alert info popup -->
+
+	<!-- js for flash message -->
+	<script>
+		const alertBtn2 = document.querySelectorAll(".alert-btn2");
+		alertBtn2.forEach(function(btn){
+			btn.addEventListener("click", function(){
+				const target = this.getAttribute("data-target");
+				const trainid = this.getAttribute("id");
+				const alertBox = document.getElementById(target)
+				alertBox.classList.add("alert-box-show");
+
+				const closeAlert = alertBox.querySelector(".close-alert");
+				closeAlert.addEventListener("click",function(){
+					alertBox.classList.remove("alert-box-show");
+				});
+
+				const proceedAlert = alertBox.querySelector(".proceed-alert");
+				proceedAlert.addEventListener("click",function(){
+					window.location.href="<?php echo URLROOT; ?>/passengerReservations/createReservation?id="+trainid+"&date=<?php echo $data['dateFull'];?>";
+				});
+
+				alertBox.addEventListener("click",function(event){
+					if(event.target === this){
+						alertBox.classList.remove("alert-box-show");
+					}
+				});
+			});
+		});
+
+	</script>
+	<!-- end of js for flash message -->
 
 
 	<!-- js for pop up -->

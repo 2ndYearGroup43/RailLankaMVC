@@ -546,6 +546,22 @@
 
 		}
 
+		//Function to remove a reservation when the user has not selected any seats
+		public function removeReservation($resNo){
+
+			$this->db->query("DELETE FROM reservation WHERE reservationNo=:resNo");
+
+			//bind values
+			$this->db->bind(':resNo', $resNo);
+
+			//Execute function
+			if ($this->db->execute()) {
+				return true;				
+			} else {
+				return false;
+			}
+		}
+
 		//Function to get all seats selected by the GIVEN USER in ANY COMPARTMENT in the GIVEN TRAIN, DATE -  For a given booking 
 		public function getSelectedSeats($resNo){
 
@@ -691,6 +707,18 @@
 		public function getBookedSeats($resNo){
 
 			$this->db->query("SELECT s.seatNo, s.compartmentNo, s.classtype, s.price FROM seet s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE s.reservationNo=:resNo AND s.status='booked'");
+			// $this->db->bind(':id',$id);
+			// $this->db->bind(':nic',$nic);
+			// $this->db->bind(':jdate',$date);
+			$this->db->bind(':resNo',$resNo);
+			$results = $this->db->resultSet();
+			return $results;
+		}
+
+		//After timeout - Function to check if the reservation has any selected or deselected seats
+		public function checkReservationSeats($resNo){
+
+			$this->db->query("SELECT s.seatId FROM seet s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE r.reservationNo=:resNo AND r.status='P'");
 			// $this->db->bind(':id',$id);
 			// $this->db->bind(':nic',$nic);
 			// $this->db->bind(':jdate',$date);

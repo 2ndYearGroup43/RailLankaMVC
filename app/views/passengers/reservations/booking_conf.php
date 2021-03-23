@@ -15,22 +15,20 @@
 		<div class="conf-ticket">
 			<div class="print-header">
 				<img src="<?php echo URLROOT ?>/public/img/logob2.png">
-				<p class="title" id="title3">BOOKING SUCCESSFUL!</p>	
+				<p class="title" id="title3">BOOKING CONFIRMATION</p>	
 			</div>
 			<div class="normal-header">
 				<img src="<?php echo URLROOT ?>/public/img/logob2.png">
-				<h1 class="title" id="title3">BOOKING SUCCESSFUL!</h1>
-				<div class="summary">
-					<center><p>Thank you for booking with us!</p></center>
-				</div>
+				<h1 class="title" id="title3">BOOKING CONFIRMATION</h1>
 			</div>
 			<div class="summary">
 				<p><b>Your Ticket ID: <?php echo $data['resNo']; ?></b></p>
 				<p><b>Booking Date: <?php echo $data['endTime']; ?></b></p>
+				<!-- <button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/sendEmail?resNo=<?php echo $data['resNo']; ?>'" class="mail-btn" type="submit"><i class="fa fa-envelope-o" aria-hidden="true"></i> Send Email</button> -->
 			</div>
 			<div id="policy" class="summary">
 				<p>We recommend that you print this page and bring it with you. You have been sent an email with a copy of the reservation details. You may also view your reservation details online at any time.</p>
-				<button onclick="printContent('e-ticket')" class="print"><i class="fa fa-print" aria-hidden="true"></i> Print This Page </button>
+				<button onclick="printContent('e-ticket')" class="print-btn"><i class="fa fa-print" aria-hidden="true"></i> Print This Page </button>
 			</div>
 	
 		
@@ -74,16 +72,6 @@
 						<p><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $data['duration']->format('%h hour(s) %i minute(s)'); ?></p>
 						<p>Train to <?php echo $data['train']->destName; ?></p>
 					</div>
-					<!-- <div class="journey-seats">
-						<p>Train ID: <?php echo $data['train']->trainId; ?></p>
-						<p>Seat Numbers:</p>
-
-							<ul>
-								<li>Compartment A :  21 , 22</li>
-								<li>Compartment C :  33 , 34</li>
-							</ul> 
-						
-					</div> -->
 				</div>
 			</div>
 	
@@ -132,7 +120,8 @@
 					<h3>CANCELLATION POLICY</h3>
 				</div>
 				<p>Deposit is non-refundable and will be charged to your credit card.</p>
-				<p>A passenger is entitled to a refund on the ticket price if a train journey is marked as cancelled, regardless of the reason. A full refund can be obtained by producing the email confirmation/e-ticket at the counter.</p>
+				<p>A passenger is entitled to a refund on the ticket price if a train journey is marked as cancelled, regardless of the reason.</p>
+				<p>A full refund can be obtained by producing the email confirmation/e-ticket at the counter.</p>
 			</div>
 			<br>
 
