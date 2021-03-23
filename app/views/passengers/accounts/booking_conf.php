@@ -162,15 +162,6 @@
 	</div>
 	<!-- end of further details -->
 
-	<div class="popup-box" id="booking-successful">
-		<i class="fa fa-check" aria-hidden="true" style="color:#279427; border-color:#279427"></i>
-		<h1>Booking Successful</h1>
-		<label style="color:#279427">Thank you for booking with us!</label>
-		<div class="btns">
-			<a href="#" class="btn1">Close</a>
-		</div>
-	</div>
-
 	<!-- js for printing e-ticket -->
 	<script>
 		function printContent(el){
@@ -182,34 +173,5 @@
 		}
 	</script>
 	<!-- end of js for printing e-ticket -->
-
-	<!-- js for pop up alert  -->
-	<script>
-		$(document).ready(function(){
-			setTimeout(function(){
-      			$('.popup-box').css({
-					"opacity":"1",
-					"pointer-events":"auto"
-				});
-   			},500);
-			$('.btn1').click(function(){
-				$('.popup-box').css({
-					"opacity":"0",
-					"pointer-events":"none"
-					// "left":"event.pageX"
-					// "top":"event.pageY"
-				});
-			});
-			$('.btn2').click(function(){
-				$('.popup-box').css({
-					"opacity":"0",
-					"pointer-events":"none"
-				});
-				window.location.href='<?php echo URLROOT; ?>/pages/index';
-
-			});
-		});
-	</script>
-	<!-- end of js for pop up alert  -->
 	
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

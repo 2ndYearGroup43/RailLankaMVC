@@ -71,8 +71,8 @@
                                             <div class="dropdown second">
                                                 <ul>
                                                     <!-- <li class="dropdown-link">
-                                                        <a href="<?php echo URLROOT; ?>/admins/viewAdmins">Admins</a> -->
-                                                    </li>
+                                                        <a href="<?php echo URLROOT; ?>/admins/viewAdmins">Admins</a> 
+                                                    </li> -->
                                                     <li class="dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/resofficers/viewResofficers">Res. officers</a>
                                                     </li>
