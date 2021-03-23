@@ -44,24 +44,6 @@ class AdminStation {
     }
 
 
-
-/*
-public function displaystations()
-        {
-            $this->db->query('SELECT * FROM station WHERE stationID = :stationID');
-            $results=$this->db->resultSet();
-            return $results;
-        }
-
-        public function getstationFields()
-        {
-            $this->db->query("SELECT * FROM station WHERE stationID = :stationIDs')");
-            $results=$this->db->resultSet();
-            return $results;
-        }
-*/
-
-
     public function updateStation($data) {
         $this->db->query('UPDATE station SET stationID = :stationID, name = :name, telephoneNo = :telephoneNo, type = :type, entered_date = :entered_date, entered_time = :entered_time  WHERE stationID = :stationID');
 
@@ -101,12 +83,14 @@ public function displaystations()
         return $results;
     }
 
+
     public function getStationFields(){
         $this->db->query("SELECT DISTINCT column_name AS columns FROM INFORMATION_SCHEMA.columns WHERE TABLE_NAME IN('station') AND
          column_name IN('stationID','type','name','telephoneNo','entered_date','entered_time')");
         $results=$this->db->resultSet();
         return $results;
     }
+
 
     public function searchStations($searchterm, $searchfield)
         {
@@ -127,13 +111,11 @@ public function displaystations()
                         $this->db->query('SELECT * FROM station WHERE type = :searchTerm');
                         break;
                     case 'entered_date':
-                        $this->db->query('SELECT type FROM station WHERE entered_date = :searchTerm');
+                        $this->db->query('SELECT * FROM station WHERE entered_date = :searchTerm');
                         break;
                     case 'entered_time':
-                        $this->db->query('SELECT type FROM station WHERE entered_time = :searchTerm');
-                        break;
-                    
-                    
+                        $this->db->query('SELECT * FROM station WHERE entered_time = :searchTerm');
+                        break;        
                     
                 }
             }
@@ -143,5 +125,7 @@ public function displaystations()
             return $results;
             
         }
+
+
 
 }
