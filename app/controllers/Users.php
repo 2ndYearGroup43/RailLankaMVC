@@ -144,7 +144,7 @@
 
 			$this->view('users/register', $data);
 		}
-	
+
 
 		public function login() {
 			$data = [
@@ -204,17 +204,18 @@
 
 			$this->view('users/login', $data);
 		}
+		
 
 		public function createUserSession($user) {
 			$_SESSION['userid'] = $user->userid;
 			$_SESSION['email'] = $user->email;
 			$_SESSION['role'] = $user->role;
 			$_SESSION['passenger_nic'] = '';
+			$_SESSION['passenger_id'] = '';
 			$_SESSION['admin_id'] = '';
 			$_SESSION['moderator_id'] = '';
 			$_SESSION['driver_id'] = '';
 			$_SESSION['ro_id'] = '';
-			$_SESSION['superadmin_id'] = '';
 
 
 			
@@ -224,6 +225,7 @@
 				{
 					$passenger=$this->userModel->getPassengerById($user->userid);
 					$_SESSION['passenger_nic'] = $passenger->nic;
+					$_SESSION['passenger_id'] = $passenger->passengerId;
 				}
 
 				if($user->role==2)
@@ -249,11 +251,6 @@
 					$RO=$this->userModel->getROById($user->userid);
 					$_SESSION['ro_id'] = $RO->officerId;
 				}
-				if($user->role==6)
-                {
-                    $RO=$this->userModel->getSuperAdminById($user->userid);
-                    $_SESSION['superadmin_id'] = $RO->super_adminId;
-                }
 			}
 
 			redirect($_SESSION['role']);	
@@ -268,9 +265,9 @@
 			unset($_SESSION['moderator_id']);
 			unset($_SESSION['driver_id']);
 			unset($_SESSION['ro_id']);
-			unset($_SESSION['superadmin_id']);
 			header('location:' . URLROOT . '/pages/index');
 		}
+
 
 
 		public function requestReset() {

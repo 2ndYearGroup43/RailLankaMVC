@@ -427,7 +427,7 @@
 
 		public function addReservation($data){
 
-			$this->db->query('INSERT INTO reservation (trainId,journeyDate,start_station,start_stopNo,dest_station,dest_stopNo,nic) VALUES (:trainid, :jdate, :src, :srcNo, :dest, :destNo, :nic)');
+			$this->db->query('INSERT INTO reservation (trainId,journeyDate,start_station,start_stopNo,dest_station,dest_stopNo,passengerId) VALUES (:trainid, :jdate, :src, :srcNo, :dest, :destNo, :passengerId)');
 
 			//bind values
 			$this->db->bind(':trainid', $data['trainId']);
@@ -436,7 +436,7 @@
 			$this->db->bind(':srcNo', $data['srcNo']);
 			$this->db->bind(':dest', $data['dest']);
 			$this->db->bind(':destNo', $data['destNo']);
-			$this->db->bind(':nic', $data['nic']);			
+			$this->db->bind(':passengerId', $data['passengerId']);			
 
 			//Execute function
 			if ($this->db->execute()) {
@@ -451,7 +451,7 @@
 
 		public function checkSeat($date, $trainId, $compNo, $seatNo){
 
-			$this->db->query('SELECT r.reservationNo, s.seatId, s.status, r.res_time, TIMESTAMPDIFF(SECOND,r.res_time, NOW()) AS dif FROM seet s INNER JOIN reservation r ON r.reservationNo=s.reservationNo WHERE s.trainid=:trainId AND s.compartmentNo=:compNo AND s.seatNo=:seatNo AND r.journeyDate=:journeyDate');
+			$this->db->query('SELECT r.reservationNo, s.seatId, s.status, r.res_time, TIMESTAMPDIFF(SECOND,r.res_time, NOW()) AS dif FROM seat s INNER JOIN reservation r ON r.reservationNo=s.reservationNo WHERE s.trainid=:trainId AND s.compartmentNo=:compNo AND s.seatNo=:seatNo AND r.journeyDate=:journeyDate');
 			$this->db->bind(':trainId',$trainId);
 			$this->db->bind(':compNo',$compNo);
 			$this->db->bind(':seatNo',$seatNo);
@@ -465,7 +465,7 @@
 		//Function to add a selected seat 
 		public function addSeat($data){
 
-			$this->db->query('INSERT INTO seet (reservationNo,trainId,compartmentNo,seatNo,seatId,classtype,status,price) VALUES (:resNo, :trainid, :compNo, :label, :id, :class, :status, :price)');
+			$this->db->query('INSERT INTO seat (reservationNo,trainId,compartmentNo,seatNo,seatId,classtype,status,price) VALUES (:resNo, :trainid, :compNo, :label, :id, :class, :status, :price)');
 
 			//bind values
 			$this->db->bind(':resNo', $data['resno']);
@@ -487,7 +487,7 @@
 
 		public function updateSeat($data, $prevres){
 
-			$this->db->query('UPDATE seet SET status=:status, reservationNo=:resno WHERE reservationNo=:prevres AND trainId=:trainid AND compartmentNo=:compNo AND seatNo=:label');
+			$this->db->query('UPDATE seat SET status=:status, reservationNo=:resno WHERE reservationNo=:prevres AND trainId=:trainid AND compartmentNo=:compNo AND seatNo=:label');
 
 			//bind values
 			$this->db->bind(':prevres', $prevres);
@@ -510,7 +510,7 @@
 		public function removeSeat($data){
 
 			//$this->db->query('DELETE FROM seat WHERE trainId=:trainid AND compartmentNo=:compNo AND seatNo=:label');
-			$this->db->query("UPDATE seet SET status='deselected' WHERE reservationNo=:resNo AND trainId=:trainid AND compartmentNo=:compNo AND seatNo=:label");
+			$this->db->query("UPDATE seat SET status='deselected' WHERE reservationNo=:resNo AND trainId=:trainid AND compartmentNo=:compNo AND seatNo=:label");
 
 			//bind values
 			$this->db->bind(':trainid', $data['trainid']);
@@ -531,7 +531,7 @@
 		//Function to deselect the seats of a reservation 
 		public function cancelReservation($resNo){
 
-			$this->db->query("UPDATE seet SET status='deselected' WHERE reservationNo=:resNo");
+			$this->db->query("UPDATE seat SET status='deselected' WHERE reservationNo=:resNo");
 			//$this->db->query("DELETE FROM reservation WHERE reservationNo=:resNo");
 
 			//bind values
@@ -565,7 +565,7 @@
 		//Function to get all seats selected by the GIVEN USER in ANY COMPARTMENT in the GIVEN TRAIN, DATE -  For a given booking 
 		public function getSelectedSeats($resNo){
 
-			$this->db->query("SELECT s.seatNo, s.seatId, s.compartmentNo, s.classtype, s.price FROM seet s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE s.reservationNo=:resNo AND s.status='selected'");
+			$this->db->query("SELECT s.seatNo, s.seatId, s.compartmentNo, s.classtype, s.price FROM seat s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE s.reservationNo=:resNo AND s.status='selected'");
 			// $this->db->bind(':id',$id);
 			// $this->db->bind(':nic',$nic);
 			// $this->db->bind(':jdate',$date);
@@ -577,7 +577,7 @@
 		//Function to get all seats booked or selected by(other passengers-different order number) in the GIVEN COMPARTMENT, TRAIN, DATE
 		public function getUnavailable($id, $compNo, $date, $resNo, $currTime){
 
-			$this->db->query("SELECT s.seatId FROM seet s INNER JOIN reservation r ON r.reservationNo=s.reservationNo WHERE (s.trainId=:id AND s.compartmentNo=:compNo AND r.journeyDate=:jdate AND s.status='booked') OR (s.trainId=:id AND s.compartmentNo=:compNo AND r.journeyDate=:jdate AND s.status='selected' AND r.reservationNo!=:resNo AND TIMESTAMPDIFF(SECOND,r.res_time,:currTime) <= 1800)");
+			$this->db->query("SELECT s.seatId FROM seat s INNER JOIN reservation r ON r.reservationNo=s.reservationNo WHERE (s.trainId=:id AND s.compartmentNo=:compNo AND r.journeyDate=:jdate AND s.status='booked') OR (s.trainId=:id AND s.compartmentNo=:compNo AND r.journeyDate=:jdate AND s.status='selected' AND r.reservationNo!=:resNo AND TIMESTAMPDIFF(SECOND,r.res_time,:currTime) <= 1800)");
 			$this->db->bind(':id',$id);
 			$this->db->bind(':compNo',$compNo);
 			$this->db->bind(':jdate',$date);
@@ -591,7 +591,7 @@
 		//Function to get all seats deselected by other passengers in the GIVEN COMPARTMENT, TRAIN AND DATE
 		public function getDeselected($id, $compNo, $date, $resNo, $currTime){
 
-			$this->db->query("SELECT s.seatId FROM seet s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE (s.trainId=:id AND s.compartmentNo=:compNo AND r.journeyDate=:jdate AND s.status='deselected' AND r.reservationNo!=:resNo) OR (s.trainId=:id AND s.compartmentNo=:compNo AND r.journeyDate=:jdate AND s.status='selected' AND r.reservationNo!=:resNo AND TIMESTAMPDIFF(SECOND,r.res_time,:currTime) > 1800)");
+			$this->db->query("SELECT s.seatId FROM seat s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE (s.trainId=:id AND s.compartmentNo=:compNo AND r.journeyDate=:jdate AND s.status='deselected' AND r.reservationNo!=:resNo) OR (s.trainId=:id AND s.compartmentNo=:compNo AND r.journeyDate=:jdate AND s.status='selected' AND r.reservationNo!=:resNo AND TIMESTAMPDIFF(SECOND,r.res_time,:currTime) > 1800)");
 			$this->db->bind(':id',$id);
 			$this->db->bind(':compNo',$compNo);
 			$this->db->bind(':jdate',$date);
@@ -605,7 +605,7 @@
 
 		//Function to get the total no of items and total price of the reservation to update the database reservation table 
 		public function getSummary($resNo){
-			$this->db->query("SELECT COUNT(s.seatNo) AS count, SUM(s.price) AS total FROM seet s WHERE s.reservationNo=:resNo AND status='selected'");
+			$this->db->query("SELECT COUNT(s.seatNo) AS count, SUM(s.price) AS total FROM seat s WHERE s.reservationNo=:resNo AND status='selected'");
 
 			//bind values
 			$this->db->bind(':resNo',$resNo);
@@ -649,12 +649,12 @@
 
 
 		//Get the account details of the relevant customer - BOOKING REVIEW
-		public function getAccountDetails($nic){
+		public function getAccountDetails($passengerId){
 
-			$this->db->query('SELECT p.*, u.email FROM passenger p INNER JOIN users u ON p.userid=u.userid WHERE p.nic=:nic');
+			$this->db->query('SELECT p.*, u.email FROM passenger p INNER JOIN users u ON p.userid=u.userid WHERE p.passengerId=:passengerId');
 
 			//bind values
-            $this->db->bind(":nic",$nic);
+            $this->db->bind(":passengerId",$passengerId);
             $row=$this->db->single();
 
             return $row; 
@@ -678,7 +678,7 @@
 		//Function to change the status of the seats as booked upon payment confirmation
 		public function confirmReservation($resNo, $timenow){
 
-			$this->db->query("UPDATE seet SET status='booked' WHERE reservationNo=:resNo AND status='selected'");
+			$this->db->query("UPDATE seat SET status='booked' WHERE reservationNo=:resNo AND status='selected'");
 
 			//bind values
 			// $this->db->bind(':trainid', $data['trainid']);
@@ -706,7 +706,7 @@
 		//Function to get the seats of a relevant booking
 		public function getBookedSeats($resNo){
 
-			$this->db->query("SELECT s.seatNo, s.compartmentNo, s.classtype, s.price FROM seet s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE s.reservationNo=:resNo AND s.status='booked'");
+			$this->db->query("SELECT s.seatNo, s.compartmentNo, s.classtype, s.price FROM seat s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE s.reservationNo=:resNo AND s.status='booked'");
 			// $this->db->bind(':id',$id);
 			// $this->db->bind(':nic',$nic);
 			// $this->db->bind(':jdate',$date);
@@ -718,7 +718,7 @@
 		//After timeout - Function to check if the reservation has any selected or deselected seats
 		public function checkReservationSeats($resNo){
 
-			$this->db->query("SELECT s.seatId FROM seet s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE r.reservationNo=:resNo AND r.status='P'");
+			$this->db->query("SELECT s.seatId FROM seat s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE r.reservationNo=:resNo AND r.status='P'");
 			// $this->db->bind(':id',$id);
 			// $this->db->bind(':nic',$nic);
 			// $this->db->bind(':jdate',$date);

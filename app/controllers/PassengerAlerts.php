@@ -347,13 +347,13 @@
 		public function subscribe(){
 
 			isPassengerLoggedIn();
-			$nic = $_SESSION['passenger_nic'];
+			$id = $_SESSION['passenger_id'];
 
 			if(isset($_POST['trainid'])){
 				$trainid = trim($_POST['trainid']);
 			}
 
-			$result=$this->passengerAlertModel->addSubscription($trainid, $nic);
+			$result=$this->passengerAlertModel->addSubscription($trainid, $id);
 
 			// echo $trainid;
 			// echo $nic;
