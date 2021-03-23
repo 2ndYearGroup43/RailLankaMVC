@@ -500,7 +500,7 @@
 	</div>
 	<!-- end of alert warning popup -->
 
-		<!-- alert info pop up -->
+	<!-- alert info pop up -->
 	<div class="flash-alert-box" id="alert-info-popup">
 		<div class="alert-box-content">
 			<div class="alert-icon">
