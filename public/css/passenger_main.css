@@ -1011,7 +1011,7 @@ header{
 
 .slideshow{
 	width: 100%;
-	height: 80vh;
+	height: 85vh;
 	position: relative;
 	overflow: hidden;
 }
@@ -1657,6 +1657,11 @@ form .form-row .textarea{
     text-align: center;
     margin-bottom: 5px;
 }
+
+.modal-content .content-table tbody tr td {
+    padding: 10px;
+}
+
 /*.modal-content .content-table tbody tr{
     border-bottom:none;
 }
@@ -2137,9 +2142,10 @@ section .events h1 {
 
 .conf-ticket .summary{
    /* background: white;*/
-    height: 100%;
+    /*height: 100%;*/
     padding: 10px;
     font-size: 15px;
+    /*position: relative;*/
 }
 
 .conf-ticket .options {
@@ -2275,15 +2281,27 @@ section .events h1 {
     padding-top: 20px;
 }
 
-.print{
+.print-btn{
     position: absolute;
-    top: 40%;
+    top: 20%;
     right: 5%;
     font-size: 16px;
     background-color: black;
     color: white;
     height: 40px;
-    width: 200px;
+    width: 170px;
+    cursor: pointer;
+}
+
+.mail-btn{
+    position: absolute;
+    top: 20%;
+    right: 5%;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+    height: 40px;
+    width: 170px;
     cursor: pointer;
 }
 
@@ -2324,7 +2342,7 @@ section .events h1 {
 
 .summary{
         background: white;
-        height: 100%;
+        /*height: 100%;*/
         padding: 10px;
     }
 
@@ -2437,7 +2455,7 @@ section .events h1 {
 
 @media print {
 
-    button, br, .content-row, #policy{
+    button, br, .content-row, #policy, .mail-btn{
         display:none;
     }
 
