@@ -33,7 +33,7 @@
                                 </datalist>
                                 <span class="invalidFeedback">
                                 <?php echo $data['driverIdError'];?>
-                            </span>
+                                </span>
                             </div>
                         </div>
                         <div class="form-row" style="padding-bottom: 30px;">
@@ -47,6 +47,9 @@
                             <div class="input-data">
                                 <label for="date">Date</label>
                                 <input type="date" value="<?php echo date("Y-m-d");?>" name="date" id="date" required >
+                                <span class="invalidFeedback">
+                                <?php echo $data['dateError'];?>
+                                </span>
                             </div>
                         </div>
                         <div class="form-row submit-btn">
