@@ -77,15 +77,11 @@ class AdminNotices extends Controller {
 
      }
 
-     public function updateNotice($noticeId) {
+     public function updateNotice($noticeId) { //change kara
 
        $notice = $this->adminnoticeModel->findNoticeById($noticeId);
-       /*if(!isLoggedIn()) {
-            header("Location: " . URLROOT . "/stations");
-        } elseif($station->stationID != $_SESSION['stationID']){
-            header("Location: " . URLROOT . "/stations");
-        }*/
-        $data = [
+
+        $data = [  //fields wenas kara
             'notice' => $notice,
             'description' => '',
             'type' => '',
@@ -98,8 +94,7 @@ class AdminNotices extends Controller {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $data = [
-
-                    'noticeId'=>$noticeId,
+                    'noticeId'=>$noticeId, //fields wenas kara
                     'notice' => $notice,
                     'adminId'=>$_SESSION['admin_id'],
                     'description'=>trim($_POST['description']),
@@ -110,6 +105,7 @@ class AdminNotices extends Controller {
 
 
 
+            
             if(empty($data['description'])) {
                 $data['descriptionError'] = 'The description of a station cannot be empty';
             }
@@ -121,12 +117,11 @@ class AdminNotices extends Controller {
 
 
             if($data['description'] == $this->adminnoticeModel->findNoticeById($noticeId)->description) {
-                $data['descriptionError'] == 'At least change the type!';
+                $data['descriptionError'] = 'At least change one field!';
             }
             if($data['type'] == $this->adminnoticeModel->findNoticeById($noticeId)->type) {
-                $data['typeError'] == 'At least change the type!';
+                $data['typeError'] = 'At least change one field!';
             }
-
 
             if (empty($data['descriptionError']) && empty($data['typeError'])) {
                 if ($this->adminnoticeModel->updateNotice($data)) {

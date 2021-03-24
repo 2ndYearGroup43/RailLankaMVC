@@ -15,7 +15,7 @@ class AdminNotice {
         return $results;
     }
 
-    public function findNoticeById($noticeId) {
+    public function findNoticeById($noticeId) {  //methana change kara
        
         $this->db->query('SELECT * FROM notice WHERE noticeId = :noticeId');
 
