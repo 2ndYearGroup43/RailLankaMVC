@@ -1,4 +1,8 @@
 <?php
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
     class ModeratorAlerts extends Controller{
         private $limit;
         public function __construct()
@@ -10,16 +14,7 @@
 
         public function index()
         {
-           
-            $alerts=$this->alertModel->displayCancellations();
-            $fields=$this->alertModel->getCancellationFields();
-            $data=[
-                'alerts'=>$alerts,
-                'fields'=>$fields
-            ];
-            
-
-            $this->view('moderators/alerts/managecancellations', $data);
+            $this->alertsDash();
         }
 
         public function createCancellationAlerts()
@@ -79,6 +74,15 @@
                     $data['cancelDateError']='The Cancellation date should not be empty';
                 }elseif ($cdate<$now){
                     $data['cancelDateError']='Cancellation date is not valid maybe in the past';
+                }else{
+                    if(empty($data['trainIdError'])){
+                        $day=date('l', strtotime($data['cancelDate']));
+                        $day=strtolower($day);
+                        $availableDays=$this->alertModel->getDays($data['trainId']);
+                        if($availableDays->$day=="No"){
+                            $data['cancelDateError']='The assigned train is not run on '.$day.'s.';
+                        }
+                    }
                 }
 
                 
@@ -89,6 +93,12 @@
                 if(empty($data['trainIdError'])&& empty($data['cancelCauseError']) && empty($data['issueTypeError'])
                 && empty($data['cancelDateError'])){
                     if($this->alertModel->addCancellationAlert($data)){
+                        $train=$this->alertModel->getTrainDetails($data['trainId']);
+                        $subscriberList=$this->alertModel->getSubscriptionList($data['trainId']);
+                        if(sizeof($subscriberList)>0){
+                            $message=$this->generateCancellationEmail($data, $train);
+                            $this->sendAlertEmails($data, $subscriberList, $message);
+                        }
                         header("Location: ".URLROOT."/moderatoralerts/viewcancelledalerts");
                     }else{
                         die("Something went wrong please try again");
@@ -255,9 +265,19 @@
                     $data['cancelDateError']='The Cancellation date should not be empty';
                 }elseif ($cdate<$now){
                     $data['cancelDateError']='Cancellation date is not valid maybe in the past';
+                }else{
+                    if(empty($data['trainIdError'])){
+                        $day=date('l', strtotime($data['cancelDate']));
+                        $day=strtolower($day);
+                        $availableDays=$this->alertModel->getDays($data['trainId']);
+                        if($availableDays->$day=="No"){
+                            $data['cancelDateError']='The assigned train is not run on '.$day.'s.';
+                        }
+                    }
                 }
 
-                
+
+
                 if(empty($data['issueType'])){
                     $data['issueTypeError']='The Issue type should not be empty';    
                 }
@@ -277,6 +297,12 @@
                 if(empty($data['trainIdError'])&& empty($data['cancelCauseError']) && empty($data['issueTypeError'])
                 && empty($data['cancelDateError'])){
                     if($this->alertModel->updateCancellationAlert($data)){
+                        $train=$this->alertModel->getTrainDetails($data['trainId']);
+                        $subscriberList=$this->alertModel->getSubscriptionList($data['trainId']);
+                        if(sizeof($subscriberList)>0){
+                            $message=$this->generateCancellationEmail($data, $train);
+                            $this->sendAlertEmails($data, $subscriberList, $message);
+                        }
                         header("Location: ".URLROOT."/moderatoralerts/viewcancelledalerts");
                     }else{
                         die("Something went wrong please try again");
@@ -350,7 +376,17 @@
                     $data['delayDateError']='The Delay Date should not be empty';
                 }elseif ($ddate<$now){
                     $data['delayDateError']='The entered date might be in the past';
+                }else{
+                    if(empty($data['trainIdError'])){
+                        $day=date('l', strtotime($data['delayDate']));
+                        $day=strtolower($day);
+                        $availableDays=$this->alertModel->getDays($data['trainId']);
+                        if($availableDays->$day=="No"){
+                            $data['delayDateError']='The assigned train is not run on '.$day.'s.';
+                        }
+                    }
                 }
+
                 if(empty($data['delayTime'])){
                     $data['delayTimeError']='The Delay Time should not be empty';
                 }
@@ -366,6 +402,12 @@
                 if(empty($data['trainIdError']) && empty($data['delayTimeError']) && empty($data['delayCauseError'])
                 &&  empty($data['issueTypeError']) && empty($data['delayDateError'])){
                     if($this->alertModel->addDelayAlert($data)){
+                        $train=$this->alertModel->getTrainDetails($data['trainId']);
+                        $subscriberList=$this->alertModel->getSubscriptionList($data['trainId']);
+                        if (sizeof($subscriberList)>0){
+                            $message=$this->generateDelayEmail($data, $train);
+                            $this->sendAlertEmails($data, $subscriberList, $message);
+                        }
                         header("Location: ".URLROOT."/moderatoralerts/viewDelayedAlerts");
                     }else{
                         die("Something went wrong please try again");
@@ -444,6 +486,15 @@
                     $data['delayDateError']='The Delay Date should not be empty';
                 }elseif ($ddate<$now){
                     $data['delayDateError']='The entered date might be in the past';
+                }else{
+                    if(empty($data['trainIdError'])){
+                        $day=date('l', strtotime($data['delayDate']));
+                        $day=strtolower($day);
+                        $availableDays=$this->alertModel->getDays($data['trainId']);
+                        if($availableDays->$day=="No"){
+                            $data['delayDateError']='The assigned train is not run on '.$day.'s.';
+                        }
+                    }
                 }
 
                 if(empty($data['delayTime'])){
@@ -474,6 +525,12 @@
                 if(empty($data['trainIdError']) && empty($data['delayTimeError']) && empty($data['delayCauseError'])
                 && empty($data['issueTypeError']) && empty($data['delayDateError'])){
                     if($this->alertModel->updateDelayAlert($data)){
+                        $train=$this->alertModel->getTrainDetails($data['trainId']);
+                        $subscriberList=$this->alertModel->getSubscriptionList($data['trainId']);
+                        if (sizeof($subscriberList)>0){
+                            $message=$this->generateDelayEmail($data, $train);
+                            $this->sendAlertEmails($data, $subscriberList, $message);
+                        }
                         header("Location: ".URLROOT."/moderatoralerts/viewDelayedAlerts");
                     }else{
                         die("Something went wrong please try again");
@@ -641,6 +698,15 @@
                 $now=$now->format("Y-m-d");
                 if(empty($data['oldDate'])){
                     $data['oldDateError']='The old date should not be empty.';
+                }else{
+                    if(empty($data['trainIdError'])){
+                        $day=date('l', strtotime($data['oldDate']));
+                        $day=strtolower($day);
+                        $availableDays=$this->alertModel->getDays($data['trainId']);
+                        if($availableDays->$day=="No"){
+                            $data['oldDateError']='The assigned train is not run on '.$day.'s.';
+                        }
+                    }
                 }
 
                 if(empty($data['newDate'])){
@@ -672,6 +738,12 @@
                 if(empty($data['trainIdError']) && empty($data['newDateError']) && empty($data['newTimeError']) && empty($data['reschedulementCauseError'])
                 && empty($data['issueTypeError']) && empty($data['oldDateError'])){
                     if($this->alertModel->addRescheduledAlert($data)){
+                        $train=$this->alertModel->getTrainDetails($data['trainId']);
+                        $subscriberList=$this->alertModel->getSubscriptionList($data['trainId']);
+                        if(sizeof($subscriberList)>0){
+                            $message=$this->generateRescheduledEmail($data, $train);
+                            $this->sendAlertEmails($data, $subscriberList, $message);
+                        }
                         header("Location: ".URLROOT."/moderatoralerts/viewRescheduledAlerts");
                     }else{
                         die("Something went wrong please try again");
@@ -748,8 +820,15 @@
                 $now=new DateTime();
                 if(empty($data['oldDate'])){
                     $data['oldDateError']='The old date should not be empty.';
-                }elseif ($rdate<$now){
-                    $data['oldDateError']='The date entered should not be in the past.';
+                }else{
+                    if(empty($data['trainIdError'])){
+                        $day=date('l', strtotime($data['oldDate']));
+                        $day=strtolower($day);
+                        $availableDays=$this->alertModel->getDays($data['trainId']);
+                        if($availableDays->$day=="No"){
+                            $data['oldDateError']='The assigned train is not run on '.$day.'s.';
+                        }
+                    }
                 }
 
 
@@ -780,7 +859,7 @@
                      && $data['reschedulementCause']==$this->alertModel->findReschedulementById($id)->reschedulement_cause
                      && $data['newDate']==$this->alertModel->findReschedulementById($id)->newdate
                      && $data['newTime']==$this->alertModel->findReschedulementById($id)->newtime
-                     && $data['newTime']==$this->alertModel->findReschedulementById($id)->issueType
+                     && $data['newTime']==$this->alertModel->findReschedulementById($id)->issuetype
                      && $data['oldDate']==$this->alertModel->findReschedulementById($id)->olddate){
                     $data['trainIdError']='No change done to any field.';
                     $data['oldDateError']='No change done to any field.';
@@ -794,6 +873,12 @@
                 if(empty($data['trainIdError']) && empty($data['newDateError']) && empty($data['newTimeError']) && empty($data['reschedulementCauseError'])
                 && empty($data['issueTypeError']) && empty($data['oldDateError'])){
                     if($this->alertModel->updateRescheduledAlert($data)){
+                        $train=$this->alertModel->getTrainDetails($data['trainId']);
+                        $subscriberList=$this->alertModel->getSubscriptionList($data['trainId']);
+                        if(sizeof($subscriberList)>0){
+                            $message=$this->generateRescheduledEmail($data, $train);
+                            $this->sendAlertEmails($data, $subscriberList, $message);
+                        }
                         header("Location: ".URLROOT."/moderatoralerts/viewRescheduledAlerts");
                     }else{
                         die("Something went wrong please try again");
@@ -954,10 +1039,7 @@
             $this->view('moderators/alerts/alertsdash', $data);
         }
 
-        public function revenue()
-        {
-            $this->view('moderators/revenuedash');
-        }
+
 
         public function deleteAlert($id,$type)
         {
@@ -984,9 +1066,107 @@
             }
 
         }
+        
+        
+        //emails
+
+        private function generateCancellationEmail($data, $train){
+            $subject='Cancellation alert for '.$train->name.'.';
+            $message="<h1>Cancellation Alert for Train ".$train->name."</h1><p>Dear Passenger,</p></p> <p>Please be notified that the ".$train->name." with the id ".$train->trainId." has been cancelled on ".$data['cancelDate']."
+            due to ".$data['issueType']." reasons. Please consider that tickets reserved for this particular train is eligible for refunding. And can be refunded at the reservation office in Colombo Fort.</p>
+             <p>We apologise for any inconvenience caused due to the delay.</p>
+             <p>Thank you,<br>Control Room<br>Sri Lanka Railway Department</p>";
+
+            $messageDetails=[
+                'subject'=>$subject,
+                'message'=>$message
+            ];
+
+            return $messageDetails;
+
+        }
+
+        private function generateDelayEmail($data, $train){
+            $subject='Delay alert for '.$train->name.'.';
+            $message="<h1>Delay Alert for Train ".$train->name."</h1><p>Dear Passenger,</p></p> <p>Please be notified that the ".$train->name." with the id ".$train->trainId."
+             will be running approximately ".$data['delayTime']." minutes late on ".$data['delayDate']." due to ".$data['issueType']." reasons.</p>
+             <p>We apologise for any inconvenience caused due to the cancellation.</p>
+             <p>Thank you,<br>Control Room<br>Sri Lanka Railway Department</p>";
+
+            $messageDetails=[
+              'subject'=>$subject,
+              'message'=>$message
+            ];
+
+            return $messageDetails;
+
+        }
+
+        private function generateRescheduledEmail($data, $train){
+            $subject='Reschedulement alert for '.$train->name.'.';
+            $message="<h1>Reschedulement Alert for Train ".$train->name."</h1><p>Dear Passenger,</p></p> <p>Please be notified that the ".$train->name." with the id ".$train->trainid." 
+            that was supposed to run on ".$data['oldDate']." at ".$train->starttime." from ".$train->src_name." to ".$train->dest_name." has been rescheduled on ".$data['newDate']." at ".$data['newTime']."  due to ".$data['issueType']." reasons. Stay tuned for further updates.</p>
+             <p>We apologise for any inconvenience caused due to the reschedulement.  <br>
+             Please consider that incase of a new reschedulement date the purchased tickets will be eligible for refunding or negotiation at the Colombo Fort Reservation Office. </p>
+             <p>Thank you,<br>Control Room<br>Sri Lanka Railway Department</p>";
+
+            $messageDetails=[
+                'subject'=>$subject,
+                'message'=>$message
+            ];
+
+            return $messageDetails;
+
+        }
+
+        private function sendAlertEmails($data, $emailList, $mailBody){
+            require APPROOT . '/libraries/PHPMailer/src/Exception.php';
+            require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
+            require APPROOT . '/libraries/PHPMailer/src/SMTP.php';
+
+            $mail=new PHPMailer(true);
+
+            try{
+                $mail->isSMTP();                                            // Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
+                $mail->Password   = 'Raillanka@2';                               // SMTP password
+                $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+                //From mail
+                $mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+
+                //looping through mail list
+
+                foreach ($emailList as $user){
+                    if(empty($user->firstname)||empty($user->lastname)){
+                        $name=$user->email;
+                    }else{
+                        $name=''.$user->firstname.' '.$user->lastname.'';
+                    }
+                    $mail->addBCC($user->email, $name);
+                }
 
 
-    
+                $mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');
+
+                $mail->isHTML(true);
+                $mail->Subject=$mailBody['subject'];
+                $mail->Body=$mailBody['message'];
+
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                $mail->send();
+                // $msg = 'Reset password link has been sent to your email';
+
+
+            }catch (Exception $e){
+                echo "Alert couldn't be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+
+        }
+
     
     
     }

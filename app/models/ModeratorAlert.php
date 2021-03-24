@@ -753,6 +753,35 @@
 
         }
 
+        public function getDays($trainId){
+            $this->db->query('SELECT * FROM availabledays WHERE trainid=:trainId');
+            $this->db->bind(':trainId', $trainId);
+            $row=$this->db->single();
+            return $row;
+        }
+
+
+        //subscriptions
+
+        public function  getSubscriptionList($trainId){
+            $this->db->query('SELECT u.email, p.*, s.trainId FROM users u 
+    INNER JOIN passenger p ON u.userId=p.userid 
+    INNER JOIN subscriptions s
+    ON s.passengerId=p.passengerId WHERE s.trainId=:trainId');
+            $this->db->bind(':trainId', $trainId);
+            $results=$this->db->resultSet();
+            return $results;
+        }
+
+        public  function getTrainDetails($trainId){
+            $this->db->query('SELECT t.*, src.name AS src_name, dest.name AS dest_name FROM train t 
+    INNER JOIN station src ON src.stationID=t.src_station
+    INNER JOIN station dest ON dest.stationID=t.dest_station WHERE t.trainId=:trainId');
+            $this->db->bind(':trainId', $trainId);
+            $train=$this->db->single();
+            return $train;
+        }
+
 
         
     }
