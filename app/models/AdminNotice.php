@@ -6,13 +6,7 @@ class AdminNotice {
         $this->db = new Database;
     }
 
-    /*public function findAllNotices() {
-        $this->db->query('SELECT * FROM notice ');
-
-        $results = $this->db->resultSet();
-
-        return $results;
-    }*/
+    
     public function findAllNotices() {
         $this->db->query('SELECT a.*, n.adminId FROM notice a INNER JOIN admin n ON a.adminId=n.adminId');
 
@@ -23,23 +17,15 @@ class AdminNotice {
 
     public function findNoticeById($noticeId) {
        
-        $this->db->query('SELECT COUNT(*) AS count FROM notice WHERE noticeId = :noticeId');
+        $this->db->query('SELECT * FROM notice WHERE noticeId = :noticeId');
 
         //Email param will be binded by the email variable
 
         $this->db->bind(':noticeId', $noticeId);
-        $results=array();
-        $results=$this->db->resultSet();
-        $count=$results[0]->count;
+        $result=$this->db->single();
 
         //check if the email is already registsered;
-        if($count>0){
-            return true;
-        }else{
-            return false;
-        }
-     
-
+        return $result;
 
     }
 
@@ -77,13 +63,10 @@ class AdminNotice {
     }
 
     public function updateNotice($data) {
-        $this->db->query('UPDATE notice SET description = :description, entered_date = :entered_date,entered_time = :entered_time, adminId = :adminId, type = :type WHERE noticeId = :noticeId');
+        $this->db->query('UPDATE notice SET description = :description, type = :type WHERE noticeId = :noticeId');
 
         $this->db->bind(':noticeId', $data['noticeId']);
         $this->db->bind(':description', $data['description']);
-        $this->db->bind(':entered_date', $data['entered_date']);
-        $this->db->bind(':entered_time', $data['entered_time']);
-        $this->db->bind(':adminId', $data['adminId']);
         $this->db->bind(':type', $data['type']);
 
         if ($this->db->execute()) {

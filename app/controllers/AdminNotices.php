@@ -88,17 +88,12 @@ class AdminNotices extends Controller {
         $data = [
             'notice' => $notice,
             'description' => '',
-            'entered_date' => '',
-            'entered_time' => '',
             'type' => '',
-            'adminId' => '',
             'descriptionError' => '',
-            'entered_dateError' => '',
-            'entered_timeError' => '',
-            'typeError' => '',
-            'adminIdError' => ''
-        ];
+            'typeError' => ''
 
+            ];
+//var_dump($data);
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -108,14 +103,10 @@ class AdminNotices extends Controller {
                     'notice' => $notice,
                     'adminId'=>$_SESSION['admin_id'],
                     'description'=>trim($_POST['description']),
-                    'entered_date'=>date("Y-m-d"),
-                    'entered_time'=>date("H:i:s"),
                     'type'=>trim($_POST['type']),
-                    'adminId'=>trim($_POST['admin_id']),
                     'descriptionError' => '',
-                    'entered_dateError' => '',
-                    'entered_timeError' => '',
-                    'typeError' => '',            ];
+                    'typeError' => ''
+            ];
 
 
 
@@ -123,17 +114,11 @@ class AdminNotices extends Controller {
                 $data['descriptionError'] = 'The description of a station cannot be empty';
             }
 
+
             if(empty($data['type'])) {
                 $data['typeError'] = 'The type of a station cannot be empty';
             }
 
-            if(empty($data['entered_date'])) {
-                $data['entered_dateError'] = 'The entered_date of a station cannot be empty';
-            }
-
-            if(empty($data['entered_time'])) {
-                $data['entered_timeError'] = 'The entered_time of a station cannot be empty';
-            }
 
             if($data['description'] == $this->adminnoticeModel->findNoticeById($noticeId)->description) {
                 $data['descriptionError'] == 'At least change the type!';
@@ -142,15 +127,8 @@ class AdminNotices extends Controller {
                 $data['typeError'] == 'At least change the type!';
             }
 
-            if($data['entered_date'] == $this->adminnoticeModel->findNoticeById($noticeId)->entered_date) {
-                $data['entered_dateError'] == 'At least change the entered_date!';
-            }
 
-            if($data['entered_time'] == $this->adminnoticeModel->findNoticeById($noticeId)->entered_time) {
-                $data['entered_timeError'] == 'At least change the entered_time!';
-            }
-
-            if (empty($data['descriptionError']) && empty($data['typeError']) && empty($data['entered_dateError']) && empty($data['entered_timeError'])) {
+            if (empty($data['descriptionError']) && empty($data['typeError'])) {
                 if ($this->adminnoticeModel->updateNotice($data)) {
                     header("Location: " . URLROOT . "/adminNotices");
                 } else {
