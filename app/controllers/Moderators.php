@@ -231,8 +231,6 @@
 
         public function updateModerator($userId)
         {
-            echo "here";
-
             $moderator=$this->moderatorModel->findModeratorById($userId);
             $data=[
                 'userId'=>$userId,

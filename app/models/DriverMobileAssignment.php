@@ -27,7 +27,7 @@ class DriverMobileAssignment
         INNER JOIN train t ON j.trainId=t.trainId
         INNER JOIN station src ON t.src_station=src.stationID
         INNER JOIN station dest ON dest.stationID=t.dest_station
-        WHERE j.journey_status="Ended" AND da.driverId=:driverId');
+        WHERE j.journey_status="Ended" AND da.driverId=:driverId ORDER BY j.ended_date DESC, j.ended_time DESC');
         $this->db->bind(":driverId", $driverId);
         $results=$this->db->resultSet();
         return $results;
