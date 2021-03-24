@@ -164,7 +164,7 @@
                                             <a href="<?php echo URLROOT; ?>/admindashboards/index">Revenue Dashboard</a>
                                         </li>
                                         <li class="dropdown-link">
-                                            <a href="<?php echo URLROOT; ?>/admindashboards/dashboards">Alert Dashboard</a>
+                                            <a href="<?php echo URLROOT; ?>/admindashboards/alertsDash">Alert Dashboard</a>
                                         </li>
                                                     <div class="arrow"></div>
                                                 </ul>
