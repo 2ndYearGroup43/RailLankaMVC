@@ -129,33 +129,6 @@
                                 <?php endforeach;?>
                             </table>  
 
-                            <br>
-                            <div class="pagination">
-                                <ul>
-                                    <li><a href="#" class="prev">Prev</a></li>
-                                    <li class="pageNumber active"><a href="<?php echo URLROOT; ?>/moderatorTrackings/displayTrackList">1</a></li>
-                                    <li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatorTrackings/displayTrackList">2</a></li>
-                                    <li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatorTrackings/displayTrackList">3</a></li>
-                                    <li><a href="<?php echo URLROOT; ?>/moderatorTrackings/displayTrackList" class="next">Next</a></li>
-                                </ul>
-                            </div>
-                            <br>	
-
-                            <!-- pagination -->
-                            <script>
-                                $(document).ready(function(){
-                                    $('.next').click(function(){
-                                        $('.pagination').find('.pageNumber.active').next().addClass('active');
-                                        $('.pagination').find('.pageNumber.active').prev().removeClass('active');
-                                    });
-                                    $('.prev').click(function(){
-                                        $('.pagination').find('.pageNumber.active').prev().addClass('active');
-                                        $('.pagination').find('.pageNumber.active').next().removeClass('active');
-                                    });
-                                });
-                            </script>
-                        <!-- end of js for pagination -->
-
 
                         </div>      
                     </div>

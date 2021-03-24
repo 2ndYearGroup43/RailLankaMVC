@@ -125,37 +125,10 @@
                             <td data-th="View Now"><a class="blue-btn" href="<?php echo URLROOT;?>/moderatorschedules/viewschedule/<?php echo $train->trainId;?>">View Details</a></td>
                         </tr>
                         <?php endforeach;?>
-                    </table>  
-
-                    <br>
-                    <div class="pagination">
-                        <ul>
-                            <li><a href="#" class="prev">Prev</a></li>
-                            <li class="pageNumber active"><a href="<?php echo URLROOT; ?>/moderatorSchedules/displayschedulelist">1</a></li>
-                            <li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatorSchedules/displayschedulelist">2</a></li>
-                            <li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatorSchedules/displayschedulelist">3</a></li>
-                            <li><a href="<?php echo URLROOT; ?>/moderatorSchedules/displayschedulelist" class="next">Next</a></li>
-                        </ul>
-                    </div>
-                    <br>	
+                    </table>
 
                 </div>      
             </div>
-
-            <!-- pagination -->
-            <script>
-                    $(document).ready(function(){
-                        $('.next').click(function(){
-                            $('.pagination').find('.pageNumber.active').next().addClass('active');
-                            $('.pagination').find('.pageNumber.active').prev().removeClass('active');
-                        });
-                        $('.prev').click(function(){
-                            $('.pagination').find('.pageNumber.active').prev().addClass('active');
-                            $('.pagination').find('.pageNumber.active').next().removeClass('active');
-                        });
-                    });
-                </script>
-            <!-- end of js for pagination -->
 
         </div>
     </div>
