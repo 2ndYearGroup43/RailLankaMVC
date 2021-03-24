@@ -70,10 +70,6 @@ class AdminStations extends Controller {
                 $data['nameError'] = 'The name of a station cannot be empty';
             }
 
-            /*if(empty($data['telephoneNo'])) {
-                $data['telephoneNoError'] = 'The telephoneNo of a station cannot be empty';
-            }*/
-
             if(empty($data['telephoneNo'])){
                     $data['telephoneNoError']='Please Enter the Telephone No.';
                 }elseif(!preg_match($telephoneValidation, $data['telephoneNo'])){
@@ -115,15 +111,11 @@ class AdminStations extends Controller {
                 'name'=>'',
                 'telephoneNo'=>'',
                 'type'=>'',
-                'entered_date'=>'',
-                'entered_time'=>'',
                 'stationIDError'=>'',
                 'nameError'=>'',
                 'telephoneNoError'=>'',
-                'typeError'=>'',
-                'entered_dateError'=>'',
-                'entered_timeError'=>''
-        ];
+                'typeError'=>''
+            ];
 
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -135,18 +127,13 @@ class AdminStations extends Controller {
                     'name'=>trim($_POST['name']),
                     'telephoneNo'=>trim($_POST['telephoneNo']),
                     'type'=>trim($_POST['type']),
-                    'entered_date'=>date("Y-m-d"),
-                    'entered_time'=>date("H:i:s"),
                     //'adminID'=>$_SESSION['adminID'],
                     'stationIDError'=>'',
                     'nameError'=>'',
                     'telephoneNoError'=>'',
-                    'typeError'=>'',
-                    'entered_dateError'=>'',
-                    'entered_timeError'=>''
+                    'typeError'=>''
             ];
 
-           // echo $data['adminId'];
 
             $telephoneValidation="/^[0-9]{10}+$/";
 
@@ -170,15 +157,6 @@ class AdminStations extends Controller {
                 $data['typeError'] = 'The type of a station cannot be empty';
             }
 
-            if(empty($data['entered_date'])) {
-                $data['entered_dateError'] = 'The entered_date of a station cannot be empty';
-            }
-
-            if(empty($data['entered_time'])) {
-                $data['entered_timeError'] = 'The entered_time of a station cannot be empty';
-            }
-
-
             if($data['stationID'] == $this->adminstationModel->findStationById($stationID)->stationID) {
                 $data['stationIDError'] == 'At least change the stationID!';
             }
@@ -195,16 +173,7 @@ class AdminStations extends Controller {
                 $data['typeError'] == 'At least change the type!';
             }
 
-            if($data['entered_date'] == $this->adminstationModel->findStationById($stationID)->entered_date) {
-                $data['entered_dateError'] == 'At least change the entered_date!';
-            }
-
-            if($data['entered_time'] == $this->adminstationModel->findStationById($stationID)->entered_time) {
-                $data['entered_timeError'] == 'At least change the entered_time!';
-            }
-
-
-            if (empty($data['stationIDError']) && empty($data['nameError']) && empty($data['telephoneNoError']) && empty($data['typeError']) && empty($data['entered_dateError']) && empty($data['entered_timeError'])) {
+            if (empty($data['stationIDError']) && empty($data['nameError']) && empty($data['telephoneNoError']) && empty($data['typeError'])) {
                 if ($this->adminstationModel->updateStation($data)) {
                     header("Location: " . URLROOT . "/adminStations");
                 } else {

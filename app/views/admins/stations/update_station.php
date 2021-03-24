@@ -88,28 +88,6 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="input-data">
-                                <label for="entered_date">Entered Date</label>
-                                <input type="date" name="entered_date" id="entered_date" value="<?php echo $data['station']->entered_date;?>" required >
-
-                                <span class="invalidFeedback">
-                                    <?php echo $data['entered_dateError']; ?>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="input-data">
-                                <label for="entered_time">Entered Time</label>
-                                <input type="time" name="entered_time" id="entered_time" value="<?php echo $data['station']->entered_time;?>" required >
-
-                                <span class="invalidFeedback">
-                                    <?php echo $data['entered_timeError']; ?>
-                                </span>
-                            </div>
-                        </div>
-
                         <div class="form-row submit-btn">
                             <div class="input-data">
                                 <input type="submit" class="blue-btn" value="Save">
@@ -119,6 +97,7 @@
                                 <input onclick="history.go(-1);" type="button" class="red-btn" value="Back">
                             </div>
                         </div>   
+                        
                             
                         </div>
                     </form>

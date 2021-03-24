@@ -1,11 +1,10 @@
 <?php
    require APPROOT . '/views/includes/admin_head.php';
 ?>
-
-
-    <?php
-       require APPROOT . '/views/includes/admin_navigation.php';
-    ?>
+<?php
+   require APPROOT . '/views/includes/admin_navigation.php';
+//   var_dump($data);
+?>
 
 <div class="body-section">
 
@@ -23,18 +22,9 @@
             <div class="content-flexrow">
                 <div class="container">
                     <div class="text">Update Notice Details</div>
+                    
                     <form action="<?php echo URLROOT; ?>/adminNotices/updateNotice/<?php echo $data['notice']->noticeId;?>" method="POST">
 
-                        <div class="form-row">
-                            <div class="input-data">
-                                <label for="noticeId">Notice Id</label>
-                                <input type="text" name="noticeId" id="noticeId"  value="<?php echo $data['notice']->noticeId;?>" required >
-
-                                <span class="invalidFeedback">
-                                    <?php echo $data['noticeIdError']; ?>
-                                </span>
-                            </div>
-                        </div>
 
                         <div class="form-row">
                             <div class="input-data">
@@ -63,43 +53,11 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="input-data">
-                                <label for="entered_date">Entered Date</label>
-                                <input type="date" id="entered_date" value="<?php echo $data['notice']->entered_date;?>" required >
-
-                                <span class="invalidFeedback">
-                                    <?php echo $data['entered_dateError']; ?>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="input-data">
-                                <label for="entered_time">Entered Time</label>
-                                <input type="time" id="entered_time" value="<?php echo $data['notice']->entered_time;?>" required >
-
-                                <span class="invalidFeedback">
-                                    <?php echo $data['entered_timeError']; ?>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="input-data">
-                                <label for="adminId">Admin Id</label>
-                                <input type="text" name="adminId" id="adminId" value="<?php echo $data['notice']->adminId;?>" required >
-
-                                <span class="invalidFeedback">
-                                    <?php echo $data['adminIdError']; ?>
-                                </span>
-                            </div>
-                        </div>
 
                         <div class="form-row">
                             <div class="input-data textarea">
                                  <label for="description">Description</label>
-                                 <textarea name="description" id="description" cols="30" rows="10"  required></textarea>
+                                 <textarea name="description" id="description" cols="30" rows="10"  required><?php echo $data['notice']->description;?></textarea>
 
                                  <span class="invalidFeedback">
                                     <?php echo $data['descriptionError']; ?>
@@ -115,7 +73,7 @@
                             </div>    
                             
                             <div class="input-data">
-                                <input onclick="history.go(-1);" type="submit" class="red-btn" value="Back">
+                                <input onclick="history.go(-1);" type="button" class="red-btn" value="Back">
                             </div>
                         </div>  
 
