@@ -67,11 +67,21 @@
             }   
         }
 
-        public function displayJourneyAssignments()
+        public function displayJourneyAssignments($start, $limit)
         {
-            $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId');
+            $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+            $this->db->bind(':start', $start);
+            $this->db->bind(':limit', $limit);
             $results=$this->db->resultSet();
             return $results;
+        }
+
+        public function countJourneyAssignments()
+        {
+            $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId');
+            $result=$this->db->single();
+            return $result->count;
         }
 
         public function getTrains()
@@ -148,6 +158,317 @@
             }
             
         }
+
+        public function getJourneyFields(){
+            $this->db->query("SELECT DISTINCT column_name AS columns FROM INFORMATION_SCHEMA.columns WHERE TABLE_NAME IN('driver_assignment', 'journey')");
+            $results=$this->db->resultSet();
+            return $results;
+        }
+
+        public function searchJourneys($searchterm, $searchby, $start, $limit){
+            if($searchterm==''){
+                $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                $this->db->bind(':start', $start);
+                $this->db->bind(':limit', $limit);
+                $results=$this->db->resultSet();
+                return $results;
+            }else{
+                switch ($searchby){
+                    case 'driverId':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE d.driverId=:searchTerm ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                        break;
+                    case 'journeyId':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE d.journeyId=:searchTerm ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                        break;
+                    case 'moderatorId':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE d.moderatorId=:searchTerm ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                        break;
+                    case 'assignment_date':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE d.assignment_date=:searchTerm ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                        break;
+                    case 'assignment_time':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE d.assignment_time=:searchTerm ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                        break;
+                    case 'date':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.date=:searchTerm ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                        break;
+                    case 'journey_status':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.journey_status=:searchTerm ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                        break;
+                    case 'trainId':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.trainId=:searchTerm ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                        break;
+                    case 'started_date':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.started_date=:searchTerm ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                        break;
+                    case 'started_time':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.started_time=:searchTerm ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                        break;
+                    case 'ended_date':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.ended_date=:searchTerm ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                        break;
+                    case 'ended_time':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.ended_time=:searchTerm ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+                        break;
+                }
+            }
+            $this->db->bind(':searchTerm', $searchterm);
+            $this->db->bind(':start', $start);
+            $this->db->bind(':limit', $limit);
+            $results=$this->db->resultSet();
+            return $results;
+        }
+
+        public function countSearchJourneys($searchterm, $searchby){
+            if($searchterm==''){
+                $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId');
+            }else{
+                switch ($searchby){
+                    case 'driverId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE d.driverId=:searchTerm');
+                        break;
+                    case 'journeyId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE d.journeyId=:searchTerm');
+                        break;
+                    case 'moderatorId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE d.moderatorId=:searchTerm');
+                        break;
+                    case 'assignment_date':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE d.assignment_date=:searchTerm');
+                        break;
+                    case 'assignment_time':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE d.assignment_time=:searchTerm');
+                        break;
+                    case 'date':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.date=:searchTerm');
+                        break;
+                    case 'journey_status':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.journey_status=:searchTerm');
+                        break;
+                    case 'trainId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.trainId=:searchTerm');
+                        break;
+                    case 'started_date':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.started_date=:searchTerm');
+                        break;
+                    case 'started_time':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.started_time=:searchTerm');
+                        break;
+                    case 'ended_date':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.ended_date=:searchTerm');
+                        break;
+                    case 'ended_time':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.ended_time=:searchTerm');
+                        break;
+                }
+            }
+            $this->db->bind(':searchTerm', $searchterm);
+            $result=$this->db->single();
+            return $result->count;
+
+        }
+
+        public function displayFilteredJourneyAssignments($jStatus, $start, $limit)
+        {
+            $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time FROM journey j INNER JOIN 
+    driver_assignment d ON j.journeyId=d.journeyId WHERE j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit');
+            $this->db->bind(':jstatus', $jStatus);
+            $this->db->bind(':start', $start);
+            $this->db->bind(':limit', $limit);
+            $results=$this->db->resultSet();
+            return $results;
+        }
+
+        public function countFilteredJourneyAssignments($jStatus)
+        {
+            $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.journey_status=:jstatus ORDER BY d.assignment_date DESC ');
+            $this->db->bind(':jstatus', $jStatus);
+            $result=$this->db->single();
+            return $result->count;
+        }
+
+
+
+
+        public function searchFilteredJourneys($searchterm, $searchby, $jstatus, $start, $limit){
+            if($searchterm==''){
+                $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time FROM journey j INNER JOIN
+    driver_assignment d ON j.journeyId=d.journeyId WHERE j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                $this->db->bind(':jstatus', $jstatus);
+                $this->db->bind(':start', $start);
+                $this->db->bind(':limit', $limit);
+                $results=$this->db->resultSet();
+                return $results;
+            }else{
+                switch ($searchby){
+                    case 'driverId':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE d.driverId=:searchTerm AND j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                        break;
+                    case 'journeyId':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE d.journeyId=:searchTerm AND j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                        break;
+                    case 'moderatorId':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE d.moderatorId=:searchTerm AND j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                        break;
+                    case 'assignment_date':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE d.assignment_date=:searchTerm AND j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                        break;
+                    case 'assignment_time':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE d.assignment_time=:searchTerm AND j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                        break;
+                    case 'date':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.date=:searchTerm AND j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                        break;
+                    case 'journey_status':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.journey_status=:searchTerm AND j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                        break;
+                    case 'trainId':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.trainId=:searchTerm AND j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                        break;
+                    case 'started_date':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.started_date=:searchTerm AND j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                        break;
+                    case 'started_time':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.started_time=:searchTerm AND j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                        break;
+                    case 'ended_date':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.ended_date=:searchTerm AND j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                        break;
+                    case 'ended_time':
+                        $this->db->query('SELECT d.*,j.trainId, j.journey_status, j.date, j.started_date, j.started_time, j.ended_date, j.ended_time
+                    FROM journey j INNER JOIN driver_assignment d ON j.journeyId=d.journeyId WHERE j.ended_time=:searchTerm AND j.journey_status=:jstatus ORDER BY d.assignment_date DESC LIMIT :start, :limit ');
+                        break;
+                }
+            }
+            $this->db->bind(':searchTerm', $searchterm);
+            $this->db->bind(':jstatus', $jstatus);
+            $this->db->bind(':start', $start);
+            $this->db->bind(':limit', $limit);
+            $results=$this->db->resultSet();
+            return $results;
+        }
+
+        public function countSearchFilteredJourneys($searchterm, $searchby, $jstatus){
+            if($searchterm==''){
+                $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN
+    driver_assignment d ON j.journeyId=d.journeyId WHERE j.journey_status=:jstatus ');
+                $this->db->bind(':jstatus', $jstatus);
+                $result=$this->db->single();
+                return $result->count;
+            }else{
+                switch ($searchby){
+                    case 'driverId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE d.driverId=:searchTerm AND j.journey_status=:jstatus ');
+                        break;
+                    case 'journeyId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE d.journeyId=:searchTerm AND j.journey_status=:jstatus ');
+                        break;
+                    case 'moderatorId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE d.moderatorId=:searchTerm AND j.journey_status=:jstatus ');
+                        break;
+                    case 'assignment_date':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE d.assignment_date=:searchTerm AND j.journey_status=:jstatus ');
+                        break;
+                    case 'assignment_time':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE d.assignment_time=:searchTerm AND j.journey_status=:jstatus ');
+                        break;
+                    case 'date':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.date=:searchTerm AND j.journey_status=:jstatus ');
+                        break;
+                    case 'journey_status':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.journey_status=:searchTerm AND j.journey_status=:jstatus ');
+                        break;
+                    case 'trainId':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.trainId=:searchTerm AND j.journey_status=:jstatus ');
+                        break;
+                    case 'started_date':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.started_date=:searchTerm AND j.journey_status=:jstatus ');
+                        break;
+                    case 'started_time':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.started_time=:searchTerm AND j.journey_status=:jstatus ');
+                        break;
+                    case 'ended_date':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.ended_date=:searchTerm AND j.journey_status=:jstatus ');
+                        break;
+                    case 'ended_time':
+                        $this->db->query('SELECT COUNT(*) AS count FROM journey j INNER JOIN 
+            driver_assignment d ON j.journeyId=d.journeyId WHERE j.ended_time=:searchTerm AND j.journey_status=:jstatus ');
+                        break;
+                }
+            }
+            $this->db->bind(':searchTerm', $searchterm);
+            $this->db->bind(':jstatus', $jstatus);
+            $result=$this->db->single();
+            return $result->count;
+        }
+
+
+        public function deleteJourney($id){
+            $this->db->query('DELETE FROM journey WHERE journeyId=:journeyId');
+            $this->db->bind(':journeyId', $id);
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+
+        public function getDays($trainId){
+            $this->db->query('SELECT * FROM availabledays WHERE trainid=:trainId');
+            $this->db->bind(':trainId', $trainId);
+            $row=$this->db->single();
+            return $row;
+        }
+
+
 
     }
 

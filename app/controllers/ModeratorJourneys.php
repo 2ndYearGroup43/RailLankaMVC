@@ -1,17 +1,37 @@
 <?php
     class ModeratorJourneys extends Controller{
-
+        private $limit;
         public function __construct()
         {
             isModeratorLoggedIn();
+            $this->limit=5;
             $this->journeyModel=$this->model('ModeratorJourney');
         }
 
         public function index()
         {
-            
+            $limit=$this->limit;
+            $totalJourneys=$this->journeyModel->countJourneyAssignments();
+            $fields=$this->journeyModel->getJourneyFields();
 
-            $data=$this->journeyModel->displayJourneyAssignments();
+            if(isset($_GET['page'])){
+                $page=$_GET['page'];
+            }else{
+                $page=1;
+            }
+            $start=($page-1)*$limit;
+
+            $journeys=$this->journeyModel->displayJourneyAssignments($start, $limit);
+
+            $data=[
+                'journeys'=>$journeys,
+                'fields'=>$fields,
+                'limit'=>$limit,
+                'totalJourneys'=>$totalJourneys,
+                'totalPages'=>ceil($totalJourneys/$limit),
+                'start'=>$start,
+                'page'=>$page
+            ];
                        
             $this->view('moderators/journeys/journeymanagement', $data);
         }
@@ -86,7 +106,17 @@
                 //check if the date field is empty
                 if(empty($data['date'])){
                     $data['dateError']='The date should not be empty';    
+                }else{
+                    if(empty($data['trainIdError'])){
+                        $day=date('l', strtotime($data['date']));
+                        $day=strtolower($day);
+                        $availableDays=$this->journeyModel->getDays($data['trainId']);
+                        if($availableDays->$day=="No"){
+                            $data['dateError']='The assigned train is not run on '.$day.'s.';
+                        }
+                    }
                 }
+
 
 
                 if(empty($data['trainIdError']) && empty($data['driverIdError']) && empty($data['jstatusError']) && empty($data['dateError'])){
@@ -176,6 +206,15 @@
                 //check if the date field is empty
                 if(empty($data['date'])){
                     $data['dateError']='The date should not be empty';    
+                }else{
+                    if(empty($data['trainIdError'])){
+                        $day=date('l', strtotime($data['date']));
+                        $day=strtolower($day);
+                        $availableDays=$this->journeyModel->getDays($data['trainId']);
+                        if($availableDays->$day=="No"){
+                            $data['dateError']='The assigned train is not run on '.$day.'s.';
+                        }
+                    }
                 }
 
 
@@ -203,6 +242,215 @@
 
             $this->view('moderators/journeys/updatejourneyassignment',$data);
 
+        }
+
+        public function journeysSearchBy(){
+            $data=[
+                'journeys'=>'',
+                'fields'=>'',
+                'searchBar'=>'',
+                'searchSelect'=>'',
+                'limit'=>'',
+                'totalJourneys'=>'',
+                'totalPages'=>'',
+                'start'=>'',
+                'page'=>''
+            ];
+
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                    $searchBar=trim($_POST['searchbar']);
+                    $searchSelect=trim($_POST['searchselect']);
+
+            }else{
+                if (isset($_GET['searchbar'])){
+                    $searchBar=$_GET['searchbar'];
+                    $searchSelect=$_GET['searchselect'];
+                }else{
+                    $searchBar='';
+                    $searchSelect='';
+                }
+            }
+            $limit=$this->limit;
+            if (isset($_GET['page'])){
+                $page=$_GET['page'];
+            }else{
+                $page=1;
+            }
+
+            $start=($page-1)*$limit;
+            $totalJourneys=$this->journeyModel->countSearchJourneys($searchBar, $searchSelect);
+            $journeys=$this->journeyModel->searchJourneys($searchBar, $searchSelect, $start, $limit);
+            $fields=$this->journeyModel->getJourneyFields();
+
+            $data=[
+                'journeys'=>$journeys,
+                'fields'=>$fields,
+                'searchBar'=>$searchBar,
+                'searchSelect'=>$searchSelect,
+                'limit'=>$limit,
+                'totalJourneys'=>$totalJourneys,
+                'totalPages'=>ceil($totalJourneys/$limit),
+                'start'=>$start,
+                'page'=>$page
+            ];
+
+            $this->view('moderators/journeys/journeymanagement', $data);
+
+        }
+
+        public function viewJourneys($statusFlag){
+            switch ($statusFlag){
+                case 'live':
+                    $jStatus='Live';
+                    break;
+                case 'offline':
+                    $jStatus='Off-Line';
+                    break;
+                case 'ended':
+                    $jStatus='Ended';
+                    break;
+            }
+
+            $limit=$this->limit;
+            $totalJourneys=$this->journeyModel->countFilteredJourneyAssignments($jStatus);
+            $fields=$this->journeyModel->getJourneyFields();
+
+
+            if(isset($_GET['page'])){
+                $page=$_GET['page'];
+            }else{
+                $page=1;
+            }
+
+            $start=($page-1)*$limit;
+
+
+            $journeys=$this->journeyModel->displayFilteredJourneyAssignments($jStatus, $start, $limit);
+
+            $c=0;
+            foreach ($fields as $field){
+                if($field=='journey_status'){
+                    array_splice($fields, $c, $c);
+                }
+                $c++;
+            }
+            $data=[
+                'journeys'=>$journeys,
+                'fields'=>$fields,
+                'jstatus'=>$statusFlag,
+                'limit'=>$limit,
+                'totalJourneys'=>$totalJourneys,
+                'totalPages'=>ceil($totalJourneys/$limit),
+                'start'=>$start,
+                'page'=>$page
+            ];
+
+
+
+            $this->view('moderators/journeys/filteredjourneymanagement', $data);
+        }
+
+        public function journeysFilteredSearchBy($statusFlag){
+            $data=[
+                'journeys'=>'',
+                'fields'=>'',
+                'searchBar'=>'',
+                'searchSelect'=>'',
+                'jstatus'=>'',
+                'limit'=>'',
+                'totalJourneys'=>'',
+                'totalPages'=>'',
+                'start'=>'',
+                'page'=>''
+            ];
+
+
+            switch ($statusFlag){
+                case 'live':
+                    $jStatus='Live';
+                    break;
+                case 'offline':
+                    $jStatus='Off-Line';
+                    break;
+                case 'ended':
+                    $jStatus='Ended';
+                    break;
+            }
+
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                $searchBar=trim($_POST['searchbar']);
+                $searchSelect=trim($_POST['searchselect']);
+
+            }else{
+                if(isset($_GET['searchbar'])){
+                    $searchBar=$_GET['searchbar'];
+                    $searchSelect=$_GET['searchselect'];
+                }else{
+                    $searchBar='';
+                    $searchSelect='';
+                }
+            }
+
+            if(isset($_GET['page'])){
+                $page=$_GET['page'];
+            }else{
+                $page=1;
+            }
+
+            $limit=$this->limit;
+            $start=($page-1)*$limit;
+
+            $totalJourneys=$this->journeyModel->countSearchFilteredJourneys($searchBar, $searchSelect, $jStatus);
+            $journeys=$this->journeyModel->searchFilteredJourneys($searchBar, $searchSelect, $jStatus, $start, $limit);
+            $fields=$this->journeyModel->getJourneyFields();
+
+            $data=[
+                'journeys'=>$journeys,
+                'fields'=>$fields,
+                'searchBar'=>$searchBar,
+                'searchSelect'=>$searchSelect,
+                'jstatus'=>$statusFlag,
+                'limit'=>$limit,
+                'totalJourneys'=>$totalJourneys,
+                'totalPages'=>ceil($totalJourneys/$limit),
+                'start'=>$start,
+                'page'=>$page
+            ];
+
+
+
+            $this->view('moderators/journeys/filteredjourneymanagement', $data);
+
+        }
+
+        public function deleteJourney($flag=0){
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $journeyId=$_POST['journeyIdDel'];
+                if($this->journeyModel->deleteJourney($journeyId)){
+                    switch($flag){
+                        case 'live':
+                            header("Location: ".URLROOT."/moderatorJourneys/viewJourneys/live");
+                            break;
+                        case 'offline':
+                            header("Location: ".URLROOT."/moderatorJourneys/viewJourneys/offline");
+                            break;
+                        case 'ended':
+                            header("Location: ".URLROOT."/moderatorJourneys/viewJourneys/ended");
+                            break;
+                        case all:
+                            header("Location: ".URLROOT."/moderatorJourneys/index");
+                            break;
+
+                    }
+                }else{
+                    die("Something went wrong");
+                }
+            }
         }
 
 
