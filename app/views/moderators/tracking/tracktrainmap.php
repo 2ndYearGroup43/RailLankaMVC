@@ -5,6 +5,7 @@
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
    // var_dump($data);
+
 ?>
     <script>
         const markerIconBase='http://maps.google.com/mapfiles/kml/paddle/';
@@ -145,10 +146,10 @@
                                        marker.setIcon(icons['live']['iconPath']);
                                    }
                                }else{
-                                   var status=document.getElementById("LocStatus");
-                                   status.innerText="Journey Ended";
-                                   status.style.color="#850423";
-                                   marker.setIcon(icons['ended']['iconPath']);
+                                    var status=document.getElementById("LocStatus");
+                                    status.innerText="Journey Ended";
+                                    status.style.color="#850423";
+                                    marker.setIcon(icons['ended']['iconPath']);
                                     var notice=document.getElementById("redNotice");
                                     notice.innerHTML="Train seemed to have reached it's destination.";
                                }
