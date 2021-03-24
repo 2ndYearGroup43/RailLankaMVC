@@ -316,7 +316,7 @@ SELECT t1.*, ss.name AS src_name FROM
     }
 
     public function getSchedule($trainId){
-        $this->db->query('SELECT t1.*,s.name FROM (SELECT rs.* FROM (SELECT * FROM route WHERE trainId=:trainId) rt INNER JOIN route_station rs ON rs.routeId=rt.routeId) t1 INNER JOIN station s on s.stationId=t1.stationId');
+        $this->db->query('SELECT t1.*,s.name FROM (SELECT rs.* FROM (SELECT * FROM route WHERE trainId=:trainId) rt INNER JOIN route_station rs ON rs.routeId=rt.routeId) t1 INNER JOIN station s on s.stationId=t1.stationId ORDER BY t1.stopNo');
         $this->db->bind(':trainId', $trainId);
         $results=$this->db->resultSet();
         return $results;

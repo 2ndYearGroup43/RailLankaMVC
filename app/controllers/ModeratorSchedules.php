@@ -8,11 +8,7 @@
 
         public function index()
         {
-            $stations=$this->scheduleModel->getStations();
-            $data=[
-                'stations'=>$stations
-            ];
-            $this->view('moderators/schedule/searchTrains',$data);
+           $this->searchTrains('search');
         }
 
         public function searchTrains($flag)
@@ -152,9 +148,9 @@
                     "sclass"=>'',
                     "tclass"=>''
                 ];
-                $fb=$rate->fclassbase;
-                $sb=$rate->sclassbase;
-                $tb=$rate->tclassbase;
+                $fb=$rate->fclassnormalbase;
+                $sb=$rate->sclassnormalbase;
+                $tb=$rate->tclassnormalbase;
                 $dis=$rate->distance;
                 $rdis=$route->distance;
                 $r=$rate->rate;

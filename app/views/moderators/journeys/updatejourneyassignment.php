@@ -54,6 +54,9 @@
                             <div class="input-data">
                                 <label for="date">Date</label>
                                 <input type="date" value="<?php echo $data['journey']->date;?>"  name="date" id="date" required >
+                                <span class="invalidFeedback">
+                                <?php echo $data['dateError'];?>
+                                </span>
                             </div>
                         </div>
                         <div class="form-row submit-btn">
