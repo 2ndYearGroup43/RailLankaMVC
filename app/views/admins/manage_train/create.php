@@ -3,6 +3,7 @@
 ?>
 <?php
     require APPROOT.'/views/includes/admin_navigation.php';
+    var_dump($data['reservable_status']);
 ?>  
     <div class="body-section">
         <div class="content-flexrow">
@@ -29,9 +30,9 @@
                     <div class="input-data">
                         <label for="reservable_status">Reservable Status</label>
                         <select name="reservable_status" id="reservable_status" required>
-                                <option value="">Select</option>
-                                <option value="1">Yes</option>
+<!--                                <option value="">Select</option>-->
                                 <option value="0">No</option>
+                                <option value="1">Yes</option>
                         </select>
                         <span class="invalidFeedback">
                             <?php echo $data['reservable_statusError'];?>
@@ -41,9 +42,10 @@
                         <label for="type">Type</label>
                         <select name="type" id="type" required>
                                 <option value="">Select</option>
-                                <option >Express</option>
-                                <option >IntercityExpress</option>
-                                <option >HolidaySpecial</option>
+                                <option value="Express">Express</option>
+                                <option value="Intercity Express">Intercity Express</option>
+                                <option value="Holiday Special">Holiday Special</option>
+                                <option value="Night">Night</option>
                         </select>
                         <span class="invalidFeedback">
                             <?php echo $data['typeError'];?>
@@ -53,12 +55,18 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="src_station">Source Station</label>
-                        <select name="src_station" id="src_station" required>
-                                <option value="">Select</option>
-                                <?php foreach ($data['stationids'] as $stationid ):?>
+                        <input list="srcstations" name="src_station" id="src_station" required >
+                        <datalist id="srcstations">
+                            <?php foreach ($data['stationids'] as $stationid ):?>
                                 <option value="<?php echo $stationid->stationID?>"><?php echo $stationid->stationID?> : <?php echo $stationid->name?></option>
                             <?php endforeach;?>
-                        </select>
+                        </datalist>
+<!--                        <select name="src_station" id="src_station" required>-->
+<!--                                <option value="">Select</option>-->
+<!--                                --><?php //foreach ($data['stationids'] as $stationid ):?>
+<!--                               -->
+<!--                            --><?php //endforeach;?>
+<!--                        </select>-->
                         <span class="invalidFeedback">
                             <?php echo $data['src_stationError'];?>
                         </span>
@@ -71,12 +79,18 @@
                 <div class="form-row">
                     <div class="input-data">
                         <label for="dest_station">Destination</label>
-                        <select name="dest_station" id="dest_station" required>
-                                <option value="">Select</option>
-                                <?php foreach ($data['stationids'] as $stationid ):?>
+                        <input list="deststations" name="dest_station" id="dest_station" required >
+                        <datalist id="deststations">
+                            <?php foreach ($data['stationids'] as $stationid ):?>
                                 <option value="<?php echo $stationid->stationID?>"><?php echo $stationid->stationID?> : <?php echo $stationid->name?></option>
                             <?php endforeach;?>
-                        </select>
+                        </datalist>
+<!--                        <select name="dest_station" id="dest_station" required>-->
+<!--                                <option value="">Select</option>-->
+<!--                                --><?php //foreach ($data['stationids'] as $stationid ):?>
+<!--                                <option value="--><?php //echo $stationid->stationID?><!--">--><?php //echo $stationid->stationID?><!-- : --><?php //echo $stationid->name?><!--</option>-->
+<!--                            --><?php //endforeach;?>
+<!--                        </select>-->
                         <span class="invalidFeedback">
                             <?php echo $data['dest_stationError'];?>
                         </span>                      

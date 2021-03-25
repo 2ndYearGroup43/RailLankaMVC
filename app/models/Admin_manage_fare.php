@@ -7,9 +7,12 @@ class Admin_manage_fare {
 	}
 
 	public function create_fare($data){
-		$this->db->query('INSERT INTO fare (rateID, fclassbase, sclassbase, tclassbase, distance, rate ) VALUES (:rateID, :fclassbase, :sclassbase, :tclassbase, :distance, :rate)');
+		$this->db->query('INSERT INTO fare (fclassnormalbase, sclassnormalbase, tclassnormalbase, fclassbase, sclassbase, tclassbase, distance, rate )
+ VALUES (:fclassnormalbase, :sclassnormalbase, :tclassnormalbase, :fclassbase, :sclassbase, :tclassbase, :distance, :rate)');
 
-		$this->db->bind(':rateID', $data['rateID']);
+        $this->db->bind(':fclassnormalbase', $data['fclassnormalbase']);
+        $this->db->bind(':sclassnormalbase', $data['sclassnormalbase']);
+        $this->db->bind(':tclassnormalbase', $data['tclassnormalbase']);
 		$this->db->bind(':fclassbase', $data['fclassbase']);		
 		$this->db->bind(':sclassbase', $data['sclassbase']);
 		$this->db->bind(':tclassbase', $data['tclassbase']);
@@ -60,13 +63,18 @@ class Admin_manage_fare {
 	}
 
 	public function edit($data){
-		$this->db->query('UPDATE fare SET rateID=:rateID, fclassbase=:fclassbase, sclassbase=:sclassbase, tclassbase=:tclassbase, distance=:distance, rate=:rate WHERE rateID=:rateID');
+		$this->db->query('UPDATE fare SET fclassbase=:fclassbase, sclassbase=:sclassbase, tclassbase=:tclassbase,
+                fclassnormalbase=:fclassnormalbase, sclassnormalbase=:sclassnormalbase, tclassnormalbase=:tclassnormalbase, 
+                distance=:distance, rate=:rate WHERE rateID=:rateID');
 
 		$this->db->bind(':rateID', $data['rateID']);
-		$this->db->bind(':fclassbase', $data['fclassbase']);		
+		$this->db->bind(':fclassbase', $data['fclassbase']);
 		$this->db->bind(':sclassbase', $data['sclassbase']);
 		$this->db->bind(':tclassbase', $data['tclassbase']);
-		$this->db->bind(':distance', $data['distance']);
+        $this->db->bind(':fclassnormalbase', $data['fclassnormalbase']);
+        $this->db->bind(':sclassnormalbase', $data['sclassnormalbase']);
+        $this->db->bind(':tclassnormalbase', $data['tclassnormalbase']);
+        $this->db->bind(':distance', $data['distance']);
 		$this->db->bind(':rate', $data['rate']);
 
 

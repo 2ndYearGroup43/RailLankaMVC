@@ -464,6 +464,7 @@ class Admin_manage_schedules extends Controller{
 			];
             $idValidation="/^[a-zA-Z0-9]*$/";
             $numberValidation="/^[0-9]*$/";
+            $distanceValidation="/^[0-9]+[.]*[0-9]{0,2}/";
 
                 if(empty($data['routeId'])){
                 $data['routeIdError']='Please Enter the Route ID.';
@@ -492,9 +493,9 @@ class Admin_manage_schedules extends Controller{
                 }elseif(!preg_match($numberValidation, $data['stopNo'])){
                     $data['stopNoError']="Stop Number can only contain numbers.";
                 }
-                if(empty($data['distance'])){
+                if(($data['distance'])==''){
                     $data['distanceError']='Please Enter the Last Name.';
-                }elseif(!preg_match($numberValidation, $data['distance'])){
+                }elseif(!preg_match($distanceValidation, $data['distance'])){
                     $data['distanceError']="Distance can only contain numbers.";
                 }
 

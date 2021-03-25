@@ -3,7 +3,10 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
+//    var_dump($data);
 ?>
+
+<script src="<?php echo URLROOT;?>/javascript/alertValidations/cancelValidation.js"></script>
 <div class="marquee-area info-tag">
 	<marquee>
 		<i class="fa fa-exclamation-triangle" aria-hidden="true" size="3x"></i> Coronavirus(COVID-19) - For the latest updates and travel information, please visit our Coronavirus Information Center
@@ -30,9 +33,15 @@
                     </div>
                     <div class="form-row">
                         <div class="input-data">
+                            <label for="cancelDate">Cancellation Date</label>
+                            <input type="date" name="cancelDate" id="cancelDate" value="<?php echo $data['alert']->cancellation_date;?>" required>
+                            <span class="invalidFeedback"><?php echo $data['cancelDateError'];?></span>
+                        </div>
+                        <div class="input-data">
                             <label for="issueType">Train Id</label>
                             <select name="issueType" id="issueType">
-                                <option value="Unspecified" selected>Unspecified</option>
+                                <option value="<?php echo $data['alert']->issuetype;?>"><?php echo $data['alert']->issuetype;?></option>
+                                <option value="Unspecified">Unspecified</option>
                                 <option value="Environmental" >Environmental</option>
                                 <option value="Technical" >Technical</option>
                                 <option value="Rail Road" >Rail Road</option>

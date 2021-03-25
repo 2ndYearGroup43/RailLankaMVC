@@ -11,7 +11,7 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($_SESSION); ?>  -->
+<?php var_dump($_SESSION); ?> 
 
 <!-- cancelled train results -->
 	<div class="body-section">
@@ -29,50 +29,23 @@
 						<tr>
 							<th>AlertID</th>
 							<th>TrainID</th>
-							<th>Date</th>
+							<th>Entered Date</th>
+							<th>Entered Time</th>
 							<th>Cancellation Cause</th>
 						</tr>
 					</thead>
 					<tbody>
+					<?php foreach ($data['alerts'] as $row):?>
 						<tr>
-							<td data-label="Alert ID">001</td>
-							<td data-label="Train ID">0019</td>
-							<td data-label="Date">26/11/202</td>
-							<td data-label="Cause">
-								Cancelled due to COVID_19
+							<td data-label="Alert ID"><?php echo $row->alertId ?></td>
+							<td data-label="Train ID"><?php echo $row->trainId ?></td>
+							<td data-label="Entered Date"><?php echo $row->date ?></td>
+							<td data-label="Entered Time"><?php echo $row->time ?></td>
+							<td data-label="Cause"><?php echo 
+								$row->cancellation_cause ?>
 							</td>
 						</tr>
-						<tr>
-							<td data-label="Alert ID">002</td>
-							<td data-label="Train ID">0013</td>
-							<td data-label="Date">24/11/202</td>
-							<td data-label="Cause">
-								Cancelled due to COVID_19
-							</td>
-						</tr>
-						<tr>
-							<td data-label="Alert ID">003</td>
-							<td data-label="Train ID">0081</td>
-							<td data-label="Date">20/11/202</td>
-							<td data-label="Cause">
-								Cancelled due to COVID_19
-							</td>
-						</tr>
-						<tr>
-							<td data-label="Alert ID">004</td>
-							<td data-label="Train ID">0019</td>
-							<td data-label="Date">13/11/202</td>
-							<td data-label="Cause">
-								Cancelled due to COVID_19
-							</td>
-						</tr>
-						<!-- <tr>
-							<td>005</td>
-							<td>0051</td>
-							<td>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
-							</td>
-						</tr> -->
+					<?php endforeach;?>
 					</tbody>
 				</table>
 			<!-- </div> -->

@@ -4,32 +4,34 @@
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
 ?>
-     <script src="<?php echo URLROOT;?>/javascript/alertDashboardChart.js"></script>
+    <script src="<?php echo URLROOT;?>/javascript/alertDashboardChart.js"></script>
+    <script src="<?php echo URLROOT;?>/javascript/alertDashValidation.js"></script>
+
 <div class="marquee-area info-tag">
 	<marquee>
 		<i class="fa fa-exclamation-triangle" aria-hidden="true" size="3x"></i> Coronavirus(COVID-19) - For the latest updates and travel information, please visit our Coronavirus Information Center
 	</marquee>
 </div>
-    <div class="body-section">
+    <div class="body-section" onload="initiateCharts(<?php echo json_encode($data);?>)">
             <div class="content-flexrow dash">
                 <div class="controls-container">
                     <div class="text">
-                        <h1>Alerts Summary <br> <small>Date: </small></h1><h2>2020-10-10</h2>
+                        <h1>Alerts Summary <br> <small>Date: </small></h1><h2><?php echo $data['searchDate'];?></h2>
                     </div>
-                    <form action="#">
+                    <form action="<?php echo URLROOT;?>/moderatorAlerts/alertsDateDash" method="post">
                         <div class="form-row">
                             <div class="input-data">
-                                <input type="date" name="searchbar">
-                            </div>            
+                                <input type="date" name="searchDate" id="searchDate" max="">
+                            </div>
                         </div>
                         <div class="form-row">
                             <div class="input-data">
-                                <input type="button" onclick="location.href='<?php echo URLROOT;?>/moderatorAlerts/alertsrandomdash'" value="Search" class="search-btn" style="line-height: 0rem; color: white;">
+                                <input type="submit" value="Search" class="search-btn" style="line-height: 0rem; color: white;">
                             </div>
                             <div class="input-data">
-                                <input type="button" onclick="chartAlertType.print()" value="Print" class="search-btn" style="line-height: 0rem; color: white; margin-top: 10px;">
-                            </div>     
-                        </div>    
+                                <input type="button" onclick="printCharts()" value="Print" class="search-btn" style="line-height: 0rem; color: white; margin-top: 10px;">
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="card-container">
@@ -69,7 +71,7 @@
                             <a href="<?php echo URLROOT;?>/moderatoralerts/viewReschedulededAlerts">Manage</a>
                         </div>
                     </div>
-                </div>    
+                </div>
             </div>
 
             <div class="content-flexrow dash" id="alertChartDiv">
@@ -84,14 +86,20 @@
 
         <script>
             function printAlertDash(el) {
-                       
+
                        var restorePage= document.body.innerHTML;
                        var schedule= document.getElementById(el).innerHTML;
                        document.body.innerHTML=schedule;
                        window.print();
                        document.body.innerHTML=restorePage;
                    }
+
+
+
+
+        initiateCharts(<?php echo json_encode($data);?>);
         </script>
+
 
 
 <?php

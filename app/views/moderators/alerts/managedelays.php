@@ -19,7 +19,9 @@
                         <input type="text" placeholder="Search by" name=searchbar><span><select name="searchselect" id="searchselect">
                             <?php foreach ($data['fields'] as $field ):?>
                                 <?php if($field->columns!='delay_cause'):?>
-                                    <option value="<?php echo $field->columns?>"><?php echo $field->columns?></option>
+                                    <?php if($field->columns!='type'):?>
+                                        <option value="<?php echo $field->columns?>"><?php echo $field->columns?></option>
+                                    <?php endif;?>
                                 <?php endif;?>
                             <?php endforeach;?>
                         </select></span><span><input type="submit" value=" " class="search-btn"></span><span><i class="fa fa-search glyph"></i></span>
@@ -47,6 +49,8 @@
                             <td id="issueType">Not available</td>
                         </tr>
                         <tr id="delayTime">
+                            <td>Delay Date: </td>
+                            <td id="delayDate">Not available</td>
                             <td>Delay Time: </td>
                             <td id="delayTime">Not available</td>
                         </tr>
@@ -55,7 +59,7 @@
                             <td rowspan="2" id="delayCause" style="font-size: 25px;">Not available </td>
                             <td rowspan="2" colspan="2"></td>
                         </tr>
-                        <button style="position: relative; padding: 10px 15px;" class="back-btn"><i class="fa fa-times" onclick="closeDelayAlert()"></i></button>
+                        <button style="position: relative; padding: 10px 15px;" class="back-btn" onclick="closeDelayAlert()"><i class="fa fa-times"></i></button>
                     </table>
                 </div>
                 <table class="blue">
@@ -63,9 +67,9 @@
                         <tr>
                             <th>Alert ID</th>
                             <th>Train ID</th>
+                            <th>Delay Date</th>
                             <th>Delay Time</th>
                             <th>Entered Date</th>
-                            <th>Entered Time</th>
                             <th>Issue Type</th>
                             <th>Moderator ID</th>
                             <th>Manage</th>    
@@ -80,9 +84,9 @@
                         <tr>
                             <td data-th="Alert ID"><?php echo $row->alertId;?></td>
                             <td data-th="Train ID"><?php echo $row->trainId;?></td>
+                            <td data-th="Delay Date"><?php echo $row->delaydate;?></td>
                             <td data-th="Delay Time"><?php echo $row->delaytime;?></td>
                             <td data-th="Entered Date"><?php echo $row->date;?></td>
-                            <td data-th="Entered Time"><?php echo $row->time;?></td>
                             <td data-th="Issue Type"><?php echo $row->issuetype;?></td>
                             <td data-th="Moderater ID"><?php echo $row->moderatorId;?></td>    
                             <script> 
@@ -107,11 +111,62 @@
                 <br>
 				<div class="pagination">
 					<ul>
-						<li><a href="#" class="prev">Prev</a></li>
-						<li class="pageNumber active"><a href="<?php echo URLROOT; ?>/moderatoralerts/viewDelayedAlerts">1</a></li>
-						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatoralerts/viewDelayedAlerts">2</a></li>
-						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatoralerts/viewDelayedAlerts">3</a></li>
-						<li><a href="<?php echo URLROOT; ?>/moderatoralerts/viewDelayedAlerts" class="next">Next</a></li>
+                        <?php if(!isset($data['searchBar'])):?>
+                            <li>
+                                <?php if($data['start']==0):?>
+                                    <a href="<?php echo URLROOT;?>/moderatorAlerts/viewDelayedAlerts?page=1" class="prev">Prev</a>
+                                <?php else:?>
+                                    <a href="<?php echo URLROOT;?>/moderatorAlerts/viewDelayedAlerts?page=<?php echo $data['page']-1;?>" class="prev">Prev</a>
+                                <?php endif;?>
+                            </li>
+
+                            <?php for($page=1; $page<=$data['totalPages'];$page++){
+                                if ($data['page']==$page){
+                                    echo '<li class="pageNumber active"><a href="'.URLROOT.'/moderatorAlerts/viewDelayedAlerts?page='.$page.'">'.$page.'</a></li>';
+                                }else{
+                                    echo '<li class="pageNumber"><a href="'.URLROOT.'/moderatorAlerts/viewDelayedAlerts?page='.$page.'">'.$page.'</a></li>';
+                                }
+                            }
+                            ?>
+                            <li>
+                                <?php if($data['page']==$data['totalPages']):?>
+                                    <a href="#" class="next">Next</a>
+                                <?php else:?>
+                                    <a href="<?php echo URLROOT;?>/moderatorAlerts/viewDelayedAlerts?page=<?php echo $data['page']+1;?>" class="next">Next</a>
+                                <?php endif;?>
+                            </li>
+                        <?php else:?>
+                            <?php $searchBar=$data['searchBar']; $searchSelect=$data['searchSelect']; ?>
+                            <li>
+                                <?php if($data['start']==0):?>
+                                    <a href="<?php echo URLROOT;?>/moderatorAlerts/delaysSearchBy?page=1&amp;searchbar=<?php echo $searchBar;?>&amp;searchselect=<?php echo $searchSelect;?>" class="prev">Prev</a>
+                                <?php else:?>
+                                    <a href="<?php echo URLROOT;?>/moderatorAlerts/delaysSearchBy?page=<?php echo $data['page']-1;?>&amp;searchbar=<?php echo $searchBar;?>&amp;searchselect=<?php echo $searchSelect;?>" class="prev">Prev</a>
+                                <?php endif;?>
+                            </li>
+
+                            <?php for($page=1; $page<=$data['totalPages'];$page++){
+                                if ($data['page']==$page){
+                                    echo '<li class="pageNumber active"><a href="'.URLROOT.'/moderatorAlerts/delaysSearchBy?page='.$page.'&amp;searchbar=' . $searchBar . '&amp;searchselect=' . $searchSelect . '">' . $page . '</a></li>';
+                                }else{
+                                    echo '<li class="pageNumber"><a href="'.URLROOT.'/moderatorAlerts/delaysSearchBy?page='.$page.'&amp;searchbar=' . $searchBar . '&amp;searchselect=' . $searchSelect . '">' . $page . '</a></li>';
+                                }
+                            }
+                            ?>
+                            <li>
+                                <?php if($data['page']==$data['totalPages']):?>
+                                    <a href="#" class="next">Next</a>
+                                <?php else:?>
+                                    <a href="<?php echo URLROOT;?>/moderatorAlerts/delaysSearchBy?page=<?php echo $data['page']+1;?>&amp;searchbar=<?php echo $searchBar;?>&amp;searchselect=<?php echo $searchSelect;?>" class="next">Next</a>
+                                <?php endif;?>
+                            </li>
+                        <?php endif;?>
+
+<!--						<li><a href="#" class="prev">Prev</a></li>-->
+<!--						<li class="pageNumber active"><a href="--><?php //echo URLROOT; ?><!--/moderatoralerts/viewDelayedAlerts">1</a></li>-->
+<!--						<li class="pageNumber"><a href="--><?php //echo URLROOT; ?><!--/moderatoralerts/viewDelayedAlerts">2</a></li>-->
+<!--						<li class="pageNumber"><a href="--><?php //echo URLROOT; ?><!--/moderatoralerts/viewDelayedAlerts">3</a></li>-->
+<!--						<li><a href="--><?php //echo URLROOT; ?><!--/moderatoralerts/viewDelayedAlerts" class="next">Next</a></li>-->
 					</ul>
 				</div>
 				<br>	
@@ -125,6 +180,7 @@
                         table.rows.namedItem("date_time").cells.namedItem("enteredTime").innerHTML=alerts[x].time;
                         table.rows.namedItem("moderatorId").cells.namedItem("moderatorId").innerHTML=alerts[x].moderatorId;
                         table.rows.namedItem("moderatorId").cells.namedItem("issueType").innerHTML=alerts[x].issuetype;
+                        table.rows.namedItem("delayTime").cells.namedItem("delayDate").innerHTML=alerts[x].delaydate;
                         table.rows.namedItem("delayTime").cells.namedItem("delayTime").innerHTML=alerts[x].delaytime;
                         table.rows.namedItem("delayCause").cells.namedItem("delayCause").innerHTML=alerts[x].delay_cause;
                         document.getElementById("popup-alert").style.display = "block";

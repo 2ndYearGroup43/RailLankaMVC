@@ -15,16 +15,21 @@ class Admin_manage_fares extends Controller{
 
 	public function create(){
 		$data = [
-			'rateID'=>'',
 			'fclassbase'=>'',
 			'sclassbase'=>'',
 			'tclassbase'=>'',
-			'distance'=>'',
+            'fclassnormalbase'=>'',
+            'sclassnormalbase'=>'',
+            'tclassnormalbase'=>'',
+            'distance'=>'',
 			'rate'=>'',
 			'rateIDError'=>'',
             'fclassbaseError'=>'',
             'sclassbaseError'=>'',
             'tclassbaseError'=>'',
+            'fclassnormalbaseError'=>'',
+            'sclassnormalbaseError'=>'',
+            'tclassnormalbaseError'=>'',
             'distanceError'=>'',
             'rateError'=>''
 		];
@@ -32,32 +37,27 @@ class Admin_manage_fares extends Controller{
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 			$data=[
-			'rateID'=>trim($_POST['rateID']),	
-			'fclassbase'=>trim($_POST['fclassbase']),			
+			'fclassbase'=>trim($_POST['fclassbase']),
 			'sclassbase'=>trim($_POST['sclassbase']),
 			'tclassbase'=>trim($_POST['tclassbase']),
+            'fclassnormalbase'=>trim($_POST['fclassnormalbase']),
+            'sclassnormalbase'=>trim($_POST['sclassnormalbase']),
+            'tclassnormalbase'=>trim($_POST['tclassnormalbase']),
 			'distance'=>trim($_POST['distance']),
 			'rate'=>trim($_POST['rate']),
 			'rateIDError'=>'',
             'fclassbaseError'=>'',
             'sclassbaseError'=>'',
             'tclassbaseError'=>'',
+            'fclassnormalbaseError'=>'',
+            'sclassnormalbaseError'=>'',
+            'tclassnormalbaseError'=>'',
             'distanceError'=>'',
             'rateError'=>''
 			];
             $idValidation="/^[a-zA-Z0-9]*$/";
             $numberValidation="/^[a-zA-Z0-9]*$/";
 
-                if(empty($data['rateID'])){
-                $data['rateIDError']='Please Enter the Rate ID.';
-                }elseif(!preg_match($idValidation, $data['rateID'])){
-                    $data['rateIDError']="Rate ID can only contain letters and numbers.";
-                }else{
-                    //if moderatorID exists
-                    if($this->adminModel->findRateByRateID($data['rateID'])){
-                        $data['officerIDError']='This ID is already registered as in the system.'; 
-                    }
-                }
 
                 if(empty($data['fclassbase'])){
                     $data['fclassbaseError']='Please Enter the First Class.';
@@ -75,6 +75,23 @@ class Admin_manage_fares extends Controller{
                     $data['tclassbaseError']="Third Class can only contain letters.";
                 }
 
+                if(empty($data['fclassnormalbase'])){
+                    $data['fclassnormalbaseError']='Please Enter the First Class.';
+                }elseif(!preg_match($numberValidation, $data['fclassnormalbase'])){
+                    $data['fclassnormalbaseError']="First Class can only contain letters.";
+                }
+                if(empty($data['sclassnormalbase'])){
+                    $data['sclassnormalbaseError']='Please Enter the Second Class.';
+                }elseif(!preg_match($numberValidation, $data['sclassnormalbase'])){
+                    $data['sclassnormalbaseError']="Second Class can only contain letters.";
+                }
+                if(empty($data['tclassnormalbase'])){
+                    $data['tclassnormalbaseError']='Please Enter the Third Class.';
+                }elseif(!preg_match($numberValidation, $data['tclassnormalbase'])){
+                    $data['tclassnormalbaseError']="Third Class can only contain letters.";
+                }
+
+
                 if(empty($data['distance'])){
                     $data['distanceError']='Please Enter the Distance.';
                 }elseif(!preg_match($numberValidation, $data['distance'])){
@@ -88,9 +105,10 @@ class Admin_manage_fares extends Controller{
 
 
 
-                if(empty($data['rateIDError']) && empty($data['fclassbaseError']) &&
+                if(empty($data['fclassbaseError']) &&
                 empty($data['sclassbaseError']) && empty($data['tclassbaseError']) && 
-                empty($data['distanceError']) && empty($data['rateError']) ){
+                empty($data['distanceError']) && empty($data['rateError']) && empty($data['fclassnormalbaseError']) &&
+                empty($data['sclassnormalbaseError']) && empty($data['tclassnormalbaseError']) ){
                         
 			if ($this->adminModel->create_fare($data)) {
 				header("Location: " . URLROOT . "/Admin_manage_fares");
@@ -114,12 +132,18 @@ class Admin_manage_fares extends Controller{
             'fclassbase'=>'',
             'sclassbase'=>'',
             'tclassbase'=>'',
+            'fclassnormalbase'=>'',
+            'sclassnormalbase'=>'',
+            'tclassnormalbase'=>'',
             'distance'=>'',
             'rate'=>'',
             'rateIDError'=>'',
             'fclassbaseError'=>'',
             'sclassbaseError'=>'',
             'tclassbaseError'=>'',
+            'fclassnormalbaseError'=>'',
+            'sclassnormalbaseError'=>'',
+            'tclassnormalbaseError'=>'',
             'distanceError'=>'',
             'rateError'=>''
 		];
@@ -132,95 +156,90 @@ class Admin_manage_fares extends Controller{
 			'fclassbase'=>trim($_POST['fclassbase']),            
             'sclassbase'=>trim($_POST['sclassbase']),
             'tclassbase'=>trim($_POST['tclassbase']),
+            'fclassnormalbase'=>trim($_POST['fclassnormalbase']),
+            'sclassnormalbase'=>trim($_POST['sclassnormalbase']),
+            'tclassnormalbase'=>trim($_POST['tclassnormalbase']),
             'distance'=>trim($_POST['distance']),
             'rate'=>trim($_POST['rate']),
             'rateIDError'=>'',
             'fclassbaseError'=>'',
             'sclassbaseError'=>'',
             'tclassbaseError'=>'',
+            'fclassnormalbaseError'=>'',
+            'sclassnormalbaseError'=>'',
+            'tclassnormalbaseError'=>'',
             'distanceError'=>'',
             'rateError'=>''
 			];
             $idValidation="/^[a-zA-Z0-9]*$/";
             $numberValidation="/^[0-9]*$/";
+            $decimalNumberValidation="/^[0-9]*[.][0-9]{0,4}$/";
 
                 if(empty($data['rateID'])){
                 $data['rateIDError']='Please Enter the Rate ID.';
                 }elseif(!preg_match($idValidation, $data['rateID'])){
                     $data['rateIDError']="Rate ID can only contain letters and numbers.";
-                }else{
-                    //if moderatorID exists
-                    if($this->adminModel->findRateByRateID($data['rateID'])){
-                        $data['officerIDError']='This ID is already registered as in the system.'; 
-                    }
                 }
 
                 if(empty($data['fclassbase'])){
                     $data['fclassbaseError']='Please Enter the First Class.';
-                }elseif(!preg_match($numberValidation, $data['fclassbase'])){
+                }elseif(!preg_match($decimalNumberValidation, $data['fclassbase'])){
                     $data['fclassbaseError']="First Class can only contain letters.";
-                }else{
-                    //if moderatorID exists
-                    if($this->adminModel->findRateByRateID($data['fclassbase'])){
-                        $data['fclassbaseError']='First Class is already registered as in the system.'; 
-                    }
                 }
 
                 if(empty($data['sclassbase'])){
                     $data['sclassbaseError']='Please Enter the Second Class.';
-                }elseif(!preg_match($numberValidation, $data['sclassbase'])){
+                }elseif(!preg_match($decimalNumberValidation, $data['sclassbase'])){
                     $data['sclassbaseError']="Second Class can only contain letters.";
-                }else{
-                    //if moderatorID exists
-                    if($this->adminModel->findRateByRateID($data['sclassbase'])){
-                        $data['sclassbaseError']='Second Class is already registered as in the system.'; 
-                    }
                 }
 
                 if(empty($data['tclassbase'])){
                     $data['tclassbaseError']='Please Enter the Third Class.';
-                }elseif(!preg_match($numberValidation, $data['tclassbase'])){
+                }elseif(!preg_match($decimalNumberValidation, $data['tclassbase'])){
                     $data['tclassbaseError']="Third Class can only contain letters.";
-                }else{
-                    //if moderatorID exists
-                    if($this->adminModel->findRateByRateID($data['tclassbase'])){
-                        $data['tclassbaseError']='Third Class is already registered as in the system.'; 
-                    }
                 }
+
+                if(empty($data['fclassnormalbase'])){
+                    $data['fclassnormalbaseError']='Please Enter the First Class.';
+                }elseif(!preg_match($decimalNumberValidation, $data['fclassnormalbase'])){
+                    $data['fclassnormalbaseError']="First Class can only contain letters.";
+                }
+                if(empty($data['sclassnormalbase'])){
+                    $data['sclassnormalbaseError']='Please Enter the Second Class.';
+                }elseif(!preg_match($decimalNumberValidation, $data['sclassnormalbase'])){
+                    $data['sclassnormalbaseError']="Second Class can only contain letters.";
+                }
+                if(empty($data['tclassnormalbase'])){
+                    $data['tclassnormalbaseError']='Please Enter the Third Class.';
+                }elseif(!preg_match($decimalNumberValidation, $data['tclassnormalbase'])){
+                    $data['tclassnormalbaseError']="Third Class can only contain letters.";
+                }
+
 
                 if(empty($data['distance'])){
                     $data['distanceError']='Please Enter the Distance.';
-                }elseif(!preg_match($numberValidation, $data['distance'])){
+                }elseif(!preg_match($decimalNumberValidation, $data['distance'])){
                     $data['distanceError']="Distance can only contain numbers";
-                }else{
-                    //if moderatorID exists
-                    if($this->adminModel->findRateByRateID($data['distance'])){
-                        $data['distanceError']='Distance is already registered as in the system.'; 
-                    }
                 }
 
                 if(empty($data['rate'])){
                     $data['rateError']='Please Enter the Rate.';
                 }elseif(!preg_match($numberValidation, $data['rate'])){
                     $data['rateError']="Rate can only contain numbers";
-                }else{
-                    //if moderatorID exists
-                    if($this->adminModel->findRateByRateID($data['rate'])){
-                        $data['rateError']='Rate is already registered as in the system.'; 
-                    }
                 }
 
                 if(empty($data['rateIDError']) && empty($data['fclassbaseError']) &&
-                empty($data['sclassbaseError']) && empty($data['tclassbaseError']) && 
-                empty($data['distanceError']) && empty($data['rateError']) ){
+                empty($data['sclassbaseError']) && empty($data['tclassbaseError']) &&
+                empty($data['distanceError']) && empty($data['rateError']) && empty($data['fclassnormalbaseError']) &&
+                    empty($data['sclassnormalbaseError']) && empty($data['tclassnormalbaseError'])){
 
-			if ($this->adminModel->edit($data)) {
-				header("Location: " . URLROOT . "/Admin_manage_fares");
-			}else{
-				die("Something Going Wrong");
-			}           
+                    if ($this->adminModel->edit($data)) {
+                        header("Location: " . URLROOT . "/Admin_manage_fares");
+                    }else{
+                        die("Something Going Wrong");
+                    }
+		        }
 		}
-	}
 		$this->view('admins/manage_fare/edit', $data);
 	}
 

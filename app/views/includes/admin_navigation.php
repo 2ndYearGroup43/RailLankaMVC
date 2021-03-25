@@ -70,9 +70,9 @@
                                             <input type="checkbox" id="btn-3">
                                             <div class="dropdown second">
                                                 <ul>
-                                                    <li class="dropdown-link">
-                                                        <a href="<?php echo URLROOT; ?>/admins/viewAdmins">Admins</a>
-                                                    </li>
+                                                    <!-- <li class="dropdown-link">
+                                                        <a href="<?php echo URLROOT; ?>/admins/viewAdmins">Admins</a> 
+                                                    </li> -->
                                                     <li class="dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/resofficers/viewResofficers">Res. officers</a>
                                                     </li>
@@ -164,7 +164,7 @@
                                             <a href="<?php echo URLROOT; ?>/admindashboards/index">Revenue Dashboard</a>
                                         </li>
                                         <li class="dropdown-link">
-                                            <a href="<?php echo URLROOT; ?>/admindashboards/dashboards">Alert Dashboard</a>
+                                            <a href="<?php echo URLROOT; ?>/admindashboards/alertsDash">Alert Dashboard</a>
                                         </li>
                                                     <div class="arrow"></div>
                                                 </ul>
@@ -190,7 +190,7 @@
                                                 </ul>
                                             </div>
                                         </li>
-                                        <li class="dropdown-link">
+                                        <!-- <li class="dropdown-link">
                                             <label for="btn-3" class="show2">Manage Reports +</label>
                                             <a href="#">Manage Reports<i class="fa fa-caret-down"></i></a>
                                             <input type="checkbox" id="btn-3">
@@ -208,7 +208,7 @@
                                                     <div class="arrow"></div>
                                                 </ul>
                                             </div>
-                                        </li>
+                                        </li> -->
                                         <div class="arrow"></div>
                                     </ul>
                                 </div>

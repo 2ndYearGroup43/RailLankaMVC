@@ -5,7 +5,7 @@
     use PHPMailer\PHPMailer\Exception;
     class Moderators extends Controller{
 
-       
+        private $moderatorModel;
 
         public function __construct()
         {
@@ -146,7 +146,7 @@
                 // }
 
                 // if(empty($data['confirmPassword'])){
-                //     $data['confirmPasswordError']='Please Enter the passsword.';
+                //     $data['confirmPasswordError']='Please Enter the password.';
                 // }else{
                 //     if($data['password']!=$data['confirmPassword']){
                 //         $data['confirmPasswordError']='Passwords do not match.';
@@ -231,8 +231,6 @@
 
         public function updateModerator($userId)
         {
-            echo "here";
-
             $moderator=$this->moderatorModel->findModeratorById($userId);
             $data=[
                 'userId'=>$userId,

@@ -4,6 +4,8 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
+//    var_dump($data['routes']);
+
 ?>
 
 <div class="body-section">
@@ -12,30 +14,30 @@
                 <div class="container-row">
                     <img src="<?php echo URLROOT?>/public/img/logoschedule.jpg" alt="schedule-logo">
                 </div>
-                <h3 style="text-align: center;">Schedule for <small>Train Id: xxxx</small></h3>
+                <h3 style="text-align: center;">Schedule for <small>Train Id: <?php echo $data['trainId'];?></small></h3>
                 <table class="data-display">
                     <caption>Train Details</caption>
                     <tr>
                         <td>Train Id: </td>
-                        <td>101COLKAN0930</td>
+                        <td><?php echo $data['trainId'];?></td>
                         <td colspan="2"></td>
                     </tr>
                     <tr>
                         <td>Train Name: </td>
-                        <td>Udarata Menike</td>
+                        <td><?php echo $data['train']->name;?></td>
                         <td colspan="2"></td>
                     </tr>
                     <tr>
                         <td >Source Station: </td>
-                        <td>Colombo Fort</td>
+                        <td><?php echo $data['train']->src_name;?></td>
                         <td >Arrival time: </td>
-                        <td>09:30</td>
+                        <td><?php echo $data['train']->starttime;?></td>
                     </tr>
                     <tr>
                         <td >Destination Station: </td>
-                        <td>Kandy</td>
+                        <td><?php echo $data['train']->dest_name;?></td>
                         <td >Arrival time: </td>
-                        <td>14:30</td>
+                        <td><?php echo $data['train']->endtime;?></td>
                     </tr>
                     <tr>
                         <td >Available Classes</td>
@@ -59,86 +61,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php $it=0;?>
+                    <?php foreach ($data['routes'] as $route):?>
                         <tr>
-                            <td data-th="Stop Number">0</td>
-                            <td data-th="Station">Colombo Fort</td>
-                            <td data-th="Arrival Time">08:30</td>
-                            <td data-th="Departure Time">08:35</td>
-                            <td data-th="Distance">0km</td>
-                            <td data-th="1st Class Price">Rs. 20</td>
-                            <td data-th="2nd Class Price">Rs. 15</td>
-                            <td data-th="3rd Class Price">Rs. 10</td>
+                            <td data-th="Stop Number"><?php echo $route->stopNo;?></td>
+                            <td data-th="Station"><?php echo $route->name;?></td>
+                            <td data-th="Arrival Time"><?php echo $route->arrivaltime;?></td>
+                            <td data-th="Departure Time"><?php echo $route->departuretime;?></td>
+                            <td data-th="Distance"><?php echo $route->distance;?></td>
+                            <td data-th="1st Class Price"><?php echo 'Rs. '.$data['prices'][$it]["fclass"];?></td>
+                            <td data-th="2nd Class Price"><?php echo 'Rs. '.$data['prices'][$it]["sclass"];?></td>
+                            <td data-th="3rd Class Price"><?php echo 'Rs. '.$data['prices'][$it]["tclass"];?></td>
+                            <?php $it++?>
                         </tr>
-                        <tr>
-                            <td data-th="Stop Number">1</td>
-                            <td data-th="Station">Maradana</td>
-                            <td data-th="Arrival Time">08:40</td>
-                            <td data-th="Departure Time">08:45</td>
-                            <td data-th="Distance">2km</td>
-                            <td data-th="1st Class Price">Rs. 20</td>
-                            <td data-th="2nd Class Price">Rs. 15</td>
-                            <td data-th="3rd Class Price">Rs. 10</td>
-                        </tr>
-                        <tr>
-                            <td data-th="Stop Number">4</td>
-                            <td data-th="Station">Kelaniya</td>
-                            <td data-th="Arrival Time">09:20</td>
-                            <td data-th="Departure Time">09:25</td>
-                            <td data-th="Distance">22km</td>
-                            <td data-th="1st Class Price">Rs. 30</td>
-                            <td data-th="2nd Class Price">Rs. 25</td>
-                            <td data-th="3rd Class Price">Rs. 15</td>
-                        </tr>
-                        <tr>
-                            <td data-th="Stop Number">8</td>
-                            <td data-th="Station">Ragama</td>
-                            <td data-th="Arrival Time">10:10</td>
-                            <td data-th="Departure Time">10:15</td>
-                            <td data-th="Distance">31km</td>
-                            <td data-th="1st Class Price">Rs. 45</td>
-                            <td data-th="2nd Class Price">Rs. 30</td>
-                            <td data-th="3rd Class Price">Rs. 20</td>
-                        </tr>
-                        <tr>
-                            <td data-th="Stop Number">34</td>
-                            <td data-th="Station">Polgahawela</td>
-                            <td data-th="Arrival Time">11:40</td>
-                            <td data-th="Departure Time">11:45</td>
-                            <td data-th="Distance">52km</td>
-                            <td data-th="1st Class Price">Rs. 110</td>
-                            <td data-th="2nd Class Price">Rs. 60</td>
-                            <td data-th="3rd Class Price">Rs. 40</td>
-                        </tr>
-                        <tr>
-                            <td data-th="Stop Number">38</td>
-                            <td data-th="Station">Rabukkana</td>
-                            <td data-th="Arrival Time">12:20</td>
-                            <td data-th="Departure Time">12:25</td>
-                            <td data-th="Distance">65km</td>
-                            <td data-th="1st Class Price">Rs. 120</td>
-                            <td data-th="2nd Class Price">Rs. 70</td>
-                            <td data-th="3rd Class Price">Rs. 50</td>
-                        </tr>
-                        <tr>
-                            <td data-th="Stop Number">42</td>
-                            <td data-th="Station">Peradenyiya-Jun</td>
-                            <td data-th="Arrival Time">13:15</td>
-                            <td data-th="Departure Time">13:20</td>
-                            <td data-th="Distance">81km</td>
-                            <td data-th="1st Class Price">Rs. 180</td>
-                            <td data-th="2nd Class Price">Rs. 100</td>
-                            <td data-th="3rd Class Price">Rs. 80</td>
-                        </tr>
-                        <tr>
-                            <td data-th="Stop Number">48</td>
-                            <td data-th="Station">Kandy</td>
-                            <td data-th="Arrival Time">14:30</td>
-                            <td data-th="Departure Time">-</td>
-                            <td data-th="Distance">92km</td>
-                            <td data-th="1st Class Price">Rs. 240</td>
-                            <td data-th="2nd Class Price">Rs. 150</td>
-                            <td data-th="3rd Class Price">Rs. 90</td>
-                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
 
@@ -147,24 +83,24 @@
                     <table class="blue" style="margin-top: 0px;">
                         <thead>
                             <tr>
+                                <th>Sunday</th>
                                 <th>Monday</th>
                                 <th>Tuesday</th>
                                 <th>Wednesday</th>
                                 <th>Thursday</th>
                                 <th>Friday</th>
                                 <th>Saturday</th>
-                                <th>Sunday</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td data-th="Monday"><span class="fa fa-check"></span></td>
-                                <td data-th="Tuesday"><span class="fa fa-check"></span></td>
-                                <td data-th="Wednesday"><span class="fa fa-check"></span></td>
-                                <td data-th="Thursday"><span class="fa fa-check"></span></td>
-                                <td data-th="Friday"><span class="fa fa-check"></span></td>
-                                <td data-th="Saturday"><span class="fa fa-times"></span></td>
-                                <td data-th="Sunday"><span class="fa fa-times"></span></td>
+                                <td data-th="Sunday"><span class="<?php $day = ($data['days']->sunday=="Yes") ? "check" : "times" ; echo "fa fa-$day";?>"></span></td>
+                                <td data-th="Monday"><span class="<?php $day = ($data['days']->monday=='Yes') ? "check" : "times" ; echo "fa fa-$day";?>"></span></td>
+                                <td data-th="Tuesday"><span class="<?php $day = ($data['days']->tuesday=="Yes") ? "check" : "times" ; echo "fa fa-$day";?>"></span></td>
+                                <td data-th="Wednesday"><span class="<?php $day = ($data['days']->wednesday=="Yes") ? "check" : "times" ; echo "fa fa-$day";?>"></span></td>
+                                <td data-th="Thursday"><span class="<?php $day = ($data['days']->thursday=="Yes") ? "check" : "times" ; echo "fa fa-$day";?>"></span></td>
+                                <td data-th="Friday"><span class="<?php $day = ($data['days']->friday=="Yes") ? "check" : "times" ; echo "fa fa-$day";?>"></span></td>
+                                <td data-th="Saturday"><span class="<?php $day = ($data['days']->saturday=='Yes') ? "check" : "times" ; echo "fa fa-$day";?>"></span></td>
                             </tr>
                         </tbody>
                     </table>

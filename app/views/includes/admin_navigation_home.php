@@ -4,7 +4,7 @@
             <div class="nav-container">
                 <input type="checkbox" name="" id="check">
                 <div class="logo-container">
-                    <a href="index.html">
+                    <a href="<?php echo URLROOT; ?>/admins/index">
                         <img src="<?php echo URLROOT;?>/public/img/logo.jpg" height="80px">
                         <!--<img src="img/logo.jpg" alt="logo" height="80px">-->
                     </a>
@@ -161,7 +161,7 @@
                                                         <a href="<?php echo URLROOT; ?>/admindashboards/index">Revenue Dashboard</a>
                                                     </li>
                                                     <li class="nav-dropdown-link">
-                                                            <a href="<?php echo URLROOT; ?>/admindashboards/dashboards">Alert Dashboard</a>
+                                                            <a href="<?php echo URLROOT; ?>/admindashboards/alertsDash">Alert Dashboard</a>
                                                     </li>
                                                     <div class="arrow"></div>
                                                 </ul>

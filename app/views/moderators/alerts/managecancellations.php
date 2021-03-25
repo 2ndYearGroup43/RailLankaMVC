@@ -20,7 +20,9 @@
                         <input type="text" placeholder="Search by" name=searchbar><span><select name="searchselect" id="searchselect">
                             <?php foreach ($data['fields'] as $field ):?>
                                 <?php if($field->columns!='cancellation_cause'):?>
-                                    <option value="<?php echo $field->columns?>"><?php echo $field->columns?></option>
+                                    <?php if($field->columns!='type'):?>
+                                        <option value="<?php echo $field->columns?>"><?php echo $field->columns?></option>
+                                    <?php endif;?>
                                 <?php endif;?>
                             <?php endforeach;?>
                         </select></span><span><input type="submit" value=" " class="search-btn"></span><span><i class="fa fa-search glyph"></i></span>
@@ -47,12 +49,17 @@
                             <td>Issue Type: </td>
                             <td id="issueType">Not available</td>
                         </tr>
+                        <tr id="cancellationDate" style="font-size: 20px;">
+                            <td >Cancellation Date: </td>
+                            <td id="cancellationDate">Not available </td>
+                            <td colspan="2"></td>
+                        </tr>
                         <tr id="cancellationCause" style="font-size: 25px;">
                             <td rowspan="2">Cause: </td>
                             <td rowspan="2" id="cancellationCause">Not available </td>
                             <td rowspan="2" colspan="2"></td>
                         </tr>
-                        <button style="position: relative; padding: 10px 15px;" class="back-btn"><i class="fa fa-times" onclick="closeCancelAlert()"></i></button>
+                        <button style="position: relative; padding: 10px 15px;" class="back-btn"  onclick="closeCancelAlert()"><i class="fa fa-times"></i></button>
                     </table>
                 </div>
                 <table class="blue">
@@ -60,6 +67,7 @@
                         <tr>
                             <th>Alert ID</th>
                             <th>Train ID</th>
+                            <th>Cancellation Date</th>
                             <th>Entered Date</th>
                             <th>Entered Time</th>
                             <th>Issue Type</th>
@@ -77,13 +85,13 @@
     
                             <td data-th="Alert ID"><?php echo $row->alertId;?></td>
                             <td data-th="Train ID"><?php echo $row->trainId;?></td>
+                            <td data-th="Cancellation Date"><?php echo $row->cancellation_date;?></td>
                             <td data-th="Entered Date"><?php echo $row->date;?></td>
                             <td data-th="Entered Time"><?php echo $row->time;?></td>
                             <td data-th="Issue Type"><?php echo $row->issuetype;?></td>
                             <td data-th="Moderater ID"><?php echo $row->moderatorId;?></td>    
                             <script> 
                                 alerts[c]=<?php echo json_encode($row, JSON_PRETTY_PRINT)?>;
-
                             </script>
                             <td data-th="Manage">
                                 <form action="<?php echo URLROOT;?>/moderatoralerts/deleteAlert/<?php echo $row->alertId;?>/c" method="POST">
@@ -103,11 +111,61 @@
                 <br>
 				<div class="pagination">
 					<ul>
-						<li><a href="#" class="prev">Prev</a></li>
-						<li class="pageNumber active"><a href="<?php echo URLROOT; ?>/moderatoralerts/viewCancelledAlerts">1</a></li>
-						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatoralerts/viewCancelledAlerts">2</a></li>
-						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatoralerts/viewCancelledAlerts">3</a></li>
-						<li><a href="<?php echo URLROOT; ?>/moderatoralerts/viewCancelledAlerts" class="next">Next</a></li>
+                        <?php if(!isset($data['searchBar'])):?>
+                            <li>
+                                <?php if($data['start']==0):?>
+                                    <a href="<?php echo URLROOT;?>/moderatorAlerts/viewCancelledAlerts?page=1" class="prev">Prev</a>
+                                <?php else:?>
+                                    <a href="<?php echo URLROOT;?>/moderatorAlerts/viewCancelledAlerts?page=<?php echo $data['page']-1;?>" class="prev">Prev</a>
+                                <?php endif;?>
+                            </li>
+
+                            <?php for($page=1; $page<=$data['totalPages'];$page++){
+                                if ($data['page']==$page){
+                                    echo '<li class="pageNumber active"><a href="'.URLROOT.'/moderatorAlerts/viewCancelledAlerts?page='.$page.'">'.$page.'</a></li>';
+                                }else{
+                                    echo '<li class="pageNumber"><a href="'.URLROOT.'/moderatorAlerts/viewCancelledAlerts?page='.$page.'">'.$page.'</a></li>';
+                                }
+                            }
+                            ?>
+                            <li>
+                                <?php if($data['page']==$data['totalPages']):?>
+                                    <a href="#" class="next">Next</a>
+                                <?php else:?>
+                                    <a href="<?php echo URLROOT;?>/moderatorAlerts/viewCancelledAlerts?page=<?php echo $data['page']+1;?>" class="next">Next</a>
+                                <?php endif;?>
+                            </li>
+                        <?php else:?>
+                            <?php $searchBar=$data['searchBar']; $searchSelect=$data['searchSelect']; ?>
+                            <li>
+                                <?php if($data['start']==0):?>
+                                    <a href="<?php echo URLROOT;?>/moderatorAlerts/cancellationsSearchBy?page=1&amp;searchbar=<?php echo $searchBar;?>&amp;searchselect=<?php echo $searchSelect;?>" class="prev">Prev</a>
+                                <?php else:?>
+                                    <a href="<?php echo URLROOT;?>/moderatorAlerts/cancellationsSearchBy?page=<?php echo $data['page']-1;?>&amp;searchbar=<?php echo $searchBar;?>&amp;searchselect=<?php echo $searchSelect;?>" class="prev">Prev</a>
+                                <?php endif;?>
+                            </li>
+
+                            <?php for($page=1; $page<=$data['totalPages'];$page++){
+                                if ($data['page']==$page){
+                                    echo '<li class="pageNumber active"><a href="'.URLROOT.'/moderatorAlerts/cancellationsSearchBy?page='.$page.'&amp;searchbar=' . $searchBar . '&amp;searchselect=' . $searchSelect . '">' . $page . '</a></li>';
+                                }else{
+                                    echo '<li class="pageNumber"><a href="'.URLROOT.'/moderatorAlerts/cancellationsSearchBy?page='.$page.'&amp;searchbar=' . $searchBar . '&amp;searchselect=' . $searchSelect . '">' . $page . '</a></li>';
+                                }
+                            }
+                            ?>
+                            <li>
+                                <?php if($data['page']==$data['totalPages']):?>
+                                    <a href="#" class="next">Next</a>
+                                <?php else:?>
+                                    <a href="<?php echo URLROOT;?>/moderatorAlerts/cancellationsSearchBy?page=<?php echo $data['page']+1;?>&amp;searchbar=<?php echo $searchBar;?>&amp;searchselect=<?php echo $searchSelect;?>" class="next">Next</a>
+                                <?php endif;?>
+                            </li>
+                        <?php endif;?>
+<!---->
+<!--						<li class="pageNumber active"><a href="--><?php //echo URLROOT; ?><!--/moderatoralerts/viewCancelledAlerts">1</a></li>-->
+<!--						<li class="pageNumber"><a href="--><?php //echo URLROOT; ?><!--/moderatoralerts/viewCancelledAlerts">2</a></li>-->
+<!--						<li class="pageNumber"><a href="--><?php //echo URLROOT; ?><!--/moderatoralerts/viewCancelledAlerts">3</a></li>-->
+<!--						<li><a href="--><?php //echo URLROOT; ?><!--/moderatoralerts/viewCancelledAlerts" class="next">Next</a></li>-->
 					</ul>
 				</div>
 				<br>			
@@ -122,6 +180,7 @@
                         table.rows.namedItem("moderatorId").cells.namedItem("moderatorId").innerHTML=alerts[x].moderatorId;
                         table.rows.namedItem("moderatorId").cells.namedItem("issueType").innerHTML=alerts[x].issuetype;
                         table.rows.namedItem("cancellationCause").cells.namedItem("cancellationCause").innerHTML=alerts[x].cancellation_cause;
+                        table.rows.namedItem("cancellationDate").cells.namedItem("cancellationDate").innerHTML=alerts[x].cancellation_date;
                         document.getElementById("popup-alert").style.display = "block";
                     }
     

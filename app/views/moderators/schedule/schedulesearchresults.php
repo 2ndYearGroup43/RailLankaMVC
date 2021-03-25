@@ -4,57 +4,74 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
+//    var_dump($data);
+//    var_dump($data['trains']);
 ?>
     <div class="body-section">
         <div class="content-row">
             <button type="submit" class="submit-btn search" onclick="openForm()">Search</button>    
             <div class="container-searchbox-popup" id="popupsearch">
-                <form action="#">
-                    <div class="form-row logoimg">    
+                <form action="<?php echo URLROOT;?>/moderatorschedules/searchTrains/results" method="post">
+                    <button type="button" style="position: relative; padding: 10px 15px;" class="back-btn" onclick="closeForm()"><i class="fa fa-times"></i></button>
+                    <div class="form-row logoimg">
                             <div class="searchlogo">
                                 <img src="<?php echo URLROOT;?>/public/img/logoschedule.jpg" alt="raillankatracktrains">
                             </div>
-                        </div>    
+                        </div>
                     <div class="form-row">
                         <div class="input-data">
                             <label for="src">Source Station</label>
-                            <select name="src" id="src">
-                                <option value="Fort">Fort</option>
-                                <option value="Kandy">Kandy</option>
-                                <option value="Galle">Galle</option>
-                                <option value="Baadulla">Baadulla</option>
-                            </select>
+                            <input list="srcStations" name="src" id="src">
+                            <datalist id="srcStations">
+                                <?php foreach ( $data['stations'] as $station ):?>
+                                    <?php var_dump($data['stations']);?>
+                                    <option value="<?php echo $station->stationID;?>"><?php echo $station->stationID.' '.$station->name?></option>
+                                <?php endforeach;?>
+                            </datalist>
+                            <span class="invalidFeedback">
+                                    <?php echo $data['srcError'];?>
+                                </span>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="input-data">
                             <label for="dest">Destination Station</label>
-                            <select name="dest" id="dest">
-                                <option value="Fort">Fort</option>
-                                <option value="Kandy">Kandy</option>
-                                <option value="Galle">Galle</option>
-                                <option value="Baadulla">Baadulla</option>
-                            </select>
+                            <input list="destStations" name="dest" id="dest">
+                            <datalist id="destStations">
+                                <?php foreach ($data['stations'] as $station ):?>
+                                    <option value="<?php echo $station->stationID;?>"><?php echo $station->stationID.' '.$station->name;?></option>
+                                <?php endforeach;?>
+                            </datalist>
+                            <span class="invalidFeedback">
+                                    <?php echo $data['destError'];?>
+                                </span>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="input-data">
                             <label for="date">Date</label>
-                            <input type="date" id="date" >
+                            <input type="date" id="date" name="date" >
+                            <span class="invalidFeedback">
+                                    <?php echo $data['dateError'];?>
+                                </span>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="input-data">
-                            <label for="time">Time</label>
-                            <input type="time" id="time" >
+                            <label for="time">Departure Time</label>
+                            <input type="time" id="time" name="time" >
+                            <span class="invalidFeedback">
+                                    <?php echo $data['timeError'];?>
+                                </span>
                         </div>
                     </div>
                     <div class="form-row submit-btn">
                         <div class="input-data" style="margin-left: auto;" >
                             <input type="submit" class="blue-btn"  value="Search">
+                            <input type="hidden" name="searchResults" id="searchResults" value='<?php echo json_encode($data['trains']);?>')>
                         </div>    
                         <div class="input-data" style="margin-right: auto;">
-                            <input type="button" class="red-btn" value="Close" onclick="closeForm()">
+                            <input type="reset" class="blue-btn" value="Reset">
                         </div>
                     </div>
                 </form>
@@ -96,57 +113,22 @@
                                 <th>Schedule</th>    
                             </tr>
                         </thead>
+                        <?php foreach ($data['trains'] as $train):?>
                         <tr>
-                            <td data-th="Train-ID">101COLKAN0530</td>
-                            <td data-th="Start Station">Colombo Fort</td>
-                            <td data-th="Arrival Time">05:30</td>
-                            <td data-th="End Station">Kandy</td>
-                            <td data-th="End Time">14:30</td>
-                            <td data-th="Name">Udarata Menike</td>
-                            <td data-th="Type">Express</td>
-                            <td data-th="View Now"><a class="blue-btn" href="<?php echo URLROOT;?>/moderatorschedules/viewschedule">View Details</a></td>  
+                            <td data-th="Train-ID"><?php echo $train->trainId;?></td>
+                            <td data-th="Start Station"><?php echo $train->src_name;?></td>
+                            <td data-th="Arrival Time"><?php echo $train->starttime;?></td>
+                            <td data-th="End Station"><?php echo $train->dest_name;?></td>
+                            <td data-th="End Time"><?php echo $train->endtime;?></td>
+                            <td data-th="Name"><?php echo $train->name;?></td>
+                            <td data-th="Type"><?php echo $train->type;?></td>
+                            <td data-th="View Now"><a class="blue-btn" href="<?php echo URLROOT;?>/moderatorschedules/viewschedule/<?php echo $train->trainId;?>">View Details</a></td>
                         </tr>
-                        <tr>
-                            <td data-th="Train-ID"> 101COLBAD0930</td>
-                            <td data-th="Start Station">Colombo Fort</td>
-                            <td data-th="Arrival Time">09:30</td>
-                            <td data-th="End Station">Badulla</td>
-                            <td data-th="End Time">18:30</td>
-                            <td data-th="Name">Badulu Kumari</td>
-                            <td data-th="Type">Express</td>
-                            <td data-th="View Now"><a class="blue-btn" href="<?php echo URLROOT;?>/moderatorschedules/viewschedule">View Details</a></td>  
-                        </tr>
-                    </table>  
-
-                    <br>
-                    <div class="pagination">
-                        <ul>
-                            <li><a href="#" class="prev">Prev</a></li>
-                            <li class="pageNumber active"><a href="<?php echo URLROOT; ?>/moderatorSchedules/displayschedulelist">1</a></li>
-                            <li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatorSchedules/displayschedulelist">2</a></li>
-                            <li class="pageNumber"><a href="<?php echo URLROOT; ?>/moderatorSchedules/displayschedulelist">3</a></li>
-                            <li><a href="<?php echo URLROOT; ?>/moderatorSchedules/displayschedulelist" class="next">Next</a></li>
-                        </ul>
-                    </div>
-                    <br>	
+                        <?php endforeach;?>
+                    </table>
 
                 </div>      
             </div>
-
-            <!-- pagination -->
-            <script>
-                    $(document).ready(function(){
-                        $('.next').click(function(){
-                            $('.pagination').find('.pageNumber.active').next().addClass('active');
-                            $('.pagination').find('.pageNumber.active').prev().removeClass('active');
-                        });
-                        $('.prev').click(function(){
-                            $('.pagination').find('.pageNumber.active').prev().addClass('active');
-                            $('.pagination').find('.pageNumber.active').next().removeClass('active');
-                        });
-                    });
-                </script>
-            <!-- end of js for pagination -->
 
         </div>
     </div>

@@ -4,6 +4,8 @@
     use PHPMailer\PHPMailer\Exception;
 
 class DriverMobiles extends Controller{
+
+    private $driverModel;
     public function __construct()
     {
         $this->driverModel=$this->model('DriverMobile');
@@ -46,6 +48,23 @@ class DriverMobiles extends Controller{
                 $response['message']="Email is not registered";
             }
 
+        }
+
+        echo json_encode($response);
+
+    }
+
+    public function getStations(){
+        $response = array();
+
+        $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $driverId=$_POST['driverId'];
+        $stations=$this->driverModel->getMainStations();
+        if ($stations){
+            $response['result']=true;
+            $response['stations']=$stations;
+        }else{
+            $response['result']=false;
         }
 
         echo json_encode($response);
@@ -129,6 +148,10 @@ class DriverMobiles extends Controller{
     
         exit();
     }
+
+
+
+
 
 
 

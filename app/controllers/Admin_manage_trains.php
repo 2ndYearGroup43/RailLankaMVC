@@ -79,18 +79,23 @@ class Admin_manage_trains extends Controller{
 
                 if(empty($data['src_station'])){
                 $data['src_stationError']='Please Enter the Train ID.';
+                }elseif (!$this->adminModel->findStationById($data['src_station'])) {
+                    $data['src_stationError']='Source station doesnt exist.';
                 }else{
-
                     if(($data['src_station']) == ($data['dest_station'])){
-                        $data['src_stationError']='Source and Destination Stations Cannot be Same.'; 
+                        $data['dest_stationError']='Source and Destination Stations Cannot be Same.';
+                        $data['src_stationError']='Source and Destination Stations Cannot be Same.';
                     }
                 }
 
                 if(empty($data['dest_station'])){
                 $data['dest_stationError']='Please Enter the Train ID.';
+                }elseif (!$this->adminModel->findStationById($data['dest_station'])) {
+                    $data['dest_stationError']='Source station doesnt exist.';
                 }else{
 
                     if(($data['dest_station']) == ($data['src_station'])){
+                        $data['src_stationError']='Source and Destination Stations Cannot be Same.';
                         $data['dest_stationError']='Source and Destination Stations Cannot be Same.'; 
                     }
                 }
@@ -100,7 +105,7 @@ class Admin_manage_trains extends Controller{
                 }elseif(!preg_match($nameValidation, $data['name'])){
                     $data['nameError']="Train Name can only contain letters and numbers.";
                 }
-                if(empty($data['reservable_status'])){
+                if($data['reservable_status']==""){
                     $data['reservable_statusError']='Please Enter the Reservable Status.';
                 }
                 if(empty($data['type'])){
@@ -212,9 +217,7 @@ class Admin_manage_trains extends Controller{
 
 
 			if ($this->adminModel->edit($data)) {
-				if(($data['reservable_status'])=='Yes'){
 					header("Location: " . URLROOT . "/Admin_manage_trains");
-				}
 			}else{
 				die("Something Going Wrong");
 			}           

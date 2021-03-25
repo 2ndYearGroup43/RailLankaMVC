@@ -3,7 +3,10 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
+//   var_dump($data);
 ?>
+
+<script src="<?php echo URLROOT;?>/javascript/alertValidations/reschedulementValidation.js"></script>
     <div class="marquee-area info-tag">
         <marquee>
             <i class="fa fa-exclamation-triangle" aria-hidden="true" size="3x"></i> Coronavirus(COVID-19) - For the latest updates and travel information, please visit our Coronavirus Information Center
@@ -30,6 +33,29 @@
                     </div>
                     <div class="form-row">
                         <div class="input-data">
+                            <label for="olddate">Old Date</label>
+                            <input type="date" name="olddate" value="<?php echo $data['alert']->olddate;?>" id="olddate" required >
+                            <span class="invalidFeedback">
+                                <?php echo $data['oldDateError']?>
+                            </span>
+                        </div>
+                        <div class="input-data">
+                            <label for="issueType">Issue Type</label>
+                            <select name="issueType" id="issueType">
+                                <option value="<?php echo $data['alert']->issuetype;?>"><?php echo $data['alert']->issuetype;?></option>
+                                <option value="Unspecified">Unspecified</option>
+                                <option value="Environmental" >Environmental</option>
+                                <option value="Technical" >Technical</option>
+                                <option value="Rail Road" >Rail Road</option>
+                                <option value="Other" >Other</option>
+                            </select>
+                            <span class="invalidFeedback">
+                                <?php echo $data['issueTypeError'];?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-data">
                             <label for="newdate">New Date</label>
                             <input type="date" name="newdate" id="newdate"  value="<?php echo $data['alert']->newdate;?>" required >
                             <span class="invalidFeedback">
@@ -45,26 +71,9 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="input-data">
-                            <label for="issueType">Train Id</label>
-                            <select name="issueType" id="issueType">
-                                <option value="Unspecified" selected>Unspecified</option>
-                                <option value="Environmental" >Environmental</option>
-                                <option value="Technical" >Technical</option>
-                                <option value="Rail Road" >Rail Road</option>
-                                <option value="Other" >Other</option>
-                            </select>
-                            <span class="invalidFeedback">
-                                <?php echo $data['issueTypeError'];?>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-row">
                         <div class="input-data textarea">
                                 <label for="reschedulementcause">Reschedulement-Cause</label>
-                                <textarea name="reschedulementcause" id="reschedulementcause" cols="30" rows="10" required>
-                                    <?php echo $data['alert']->reschedulement_cause?>
-                                </textarea>
+                                <textarea name="reschedulementcause" id="reschedulementcause" cols="30" rows="10" required> <?php echo trim($data['alert']->reschedulement_cause);?> </textarea>
                                 <span class="invalidFeedback">
                                 <?php echo $data['reschedulementCauseError']?>
                                 </span>
