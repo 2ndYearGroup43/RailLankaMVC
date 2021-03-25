@@ -22,6 +22,7 @@
 				'role' => '',
 				'reg_date' => '',
 				'reg_time' => '',
+				'code'=> '',
 				'nicError' => '',
 				'passportError' => '',
 				'usernameError' => '',
@@ -44,6 +45,7 @@
 					'role' => 1,
 					'reg_date'=>date("Y-m-d"),
                     'reg_time'=>date("H:i:sa"),
+                    'code'=>uniqid(true),
                     'nicError' => '',
                     'passportError' => '',
 					'usernameError' => '',
@@ -132,9 +134,56 @@
 
 					//Register user from model function
 					if($this->userModel->register($data)) {
+						//send verification email 
+						require APPROOT . '/libraries/PHPMailer/src/Exception.php';
+						require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
+						require APPROOT . '/libraries/PHPMailer/src/SMTP.php';
 
+						$mail = new PHPMailer(true);
+
+					    try {
+					        //Server settings   
+					        $mail->isSMTP();                                            // Send using SMTP
+					        $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+					        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+					        $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
+					        $mail->Password   = 'Raillanka@2';                               // SMTP password
+					        $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+					        $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+					        //Recipients
+					        $mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+					        $mail->addAddress($data['email']);     // Add a recipient
+					                   // Name is optional
+					        $mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');
+					    
+					        // Content
+					        $mail->isHTML(true); 
+					        $code = $data['code'];
+					        $url = URLROOT . "/users/verifyEmail?code=$code";   //  
+
+					        // Set email format to HTML
+					        $mail->Subject = 'Verify your email address';
+					        $mail->Body    = "<h1>Thank you for signing up with RailLanka!</h1><p>To finish setting up your RailLanka Account, we just need to make sure this email address is yours.</p><p>Clink on <a href='$url'>this link</a> to verify your email.</p><br><p>Thanks,</p><p>RailLanka Team</p>";
+					        //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+					        $mail->send();
+					        // $msg = 'Reset password link has been sent to your email';
+					        header('location: ' . URLROOT . '/users/verifyRequest');
+					        
+
+					    } catch (Exception $e) {
+					    	//echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+					    	if($this->userModel->removeUser($email)){
+					    		$data['emailError'] = 'Please enter a valid email address'; //??
+					    		$this->view('users/register', $data);
+					    	}
+
+					    }
+					   
+					    exit();
 						//redirect to the login page
-						header('location: ' . URLROOT . '/users/login');
+						//header('location: ' . URLROOT . '/users/login');
 					} else {
 						die('Something went wrong.');
 					}
@@ -143,6 +192,51 @@
 			}
 
 			$this->view('users/register', $data);
+		}
+
+
+		public function verifyRequest(){
+			$this->view('users/validate_email');
+		}
+
+
+		public function verifyEmail(){
+
+			$data = [
+
+				'code' => '',
+				'password'=> '',
+				'email' => '',
+				'confirmPassword' => '',
+				'passwordError' => '',
+				'confirmPasswordError' => ''
+			];
+
+			if(!isset($_GET["code"])) {
+				exit("Can't find page");
+			}
+
+			$code = $_GET["code"];
+
+			// $getEmailQuery = mysqli_query($conn, "SELECT email FROM resetpasswords WHERE code='$code'" );
+			$result = (array)$this->userModel->findUserIdByCode($code);
+			// var_dump($result);
+			
+			if (empty($result)) {
+				exit("Can't find page");
+			}else{
+				
+				if($this->userModel->verifyEmail($result['userId'])){
+					
+					if($this->userModel->deleteVerifyCode($code)){
+						header('location: ' . URLROOT . '/users/login');
+					}
+					
+				}else{
+					exit("Something went wrong");
+				}
+			}
+
 		}
 
 
@@ -183,9 +277,13 @@
 					$loggedInUser = $this->userModel->login($data['email'], $data['password']);
 
 					if ($loggedInUser){
-						$this->createUserSession($loggedInUser);
+						if($loggedInUser->role==1 && $loggedInUser->isVerified==0){
+							$data['emailError'] = 'Please verify your email address.';
+						}else{
+							$this->createUserSession($loggedInUser);
+						}
 					} else {
-						$data['passwordError'] = 'Password or username is incorrect. Please try again';
+						$data['passwordError'] = 'Password or email is incorrect. Please try again';
 
 						$this->view('users/login', $data);
 
