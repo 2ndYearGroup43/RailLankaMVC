@@ -69,7 +69,7 @@ class Admin_manage_trains extends Controller{
                 if(empty($data['trainId'])){
                 $data['trainIdError']='Please Enter the Train ID.';
                 }elseif(!preg_match($idValidation, $data['trainId'])){
-                    $data['trainIdError']="Officer ID can only contain letters and numbers.";
+                    $data['trainIdError']="Train ID can only contain letters and numbers.";
                 }else{
 
                     if($this->adminModel->findTrainByTrainId($data['trainId'])){
@@ -209,8 +209,6 @@ class Admin_manage_trains extends Controller{
                 }
                 if(empty($data['type'])){
                     $data['typeError']='Please Enter the Last Name.';
-                }elseif(!preg_match($nameValidation, $data['type'])){
-                    $data['typeError']="Type can only contain letters.";
                 }
 
                 if(empty($data['nameError']) && empty($data['reservable_statusError']) && empty($data['typeError']) ){
