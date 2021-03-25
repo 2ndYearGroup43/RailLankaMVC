@@ -2,7 +2,7 @@
 class Employee{ 
     private $db;
 
-    public function __contruct()
+    public function __construct()
     {
         $this->db=new Database;
     }
@@ -32,6 +32,17 @@ class Employee{
 				return false;
 			}
 		}
+
+		public function updateEmployeePassword($userId, $password){
+            $this->db->query('UPDATE users SET password=:password WHERE  userid=:userId');
+            $this->db->bind(':password', $password);
+            $this->db->bind(':userId', $userId);
+            if ($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }
 
 
 

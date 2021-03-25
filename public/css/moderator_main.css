@@ -1944,6 +1944,13 @@ span.fa.fa-check{
     font-size: 16px;
 }
 
+.redNotice{
+    color: #b90834;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 @media screen and (max-width: 410px){
 
     .pagination ul li:first-child{

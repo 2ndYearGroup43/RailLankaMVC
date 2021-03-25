@@ -3,7 +3,9 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
+//    var_dump($data);
 ?>
+<script src="<?php echo URLROOT;?>/javascript/alertValidations/delayValidation.js"></script>
     <div class="marquee-area info-tag">
         <marquee>
             <i class="fa fa-exclamation-triangle" aria-hidden="true" size="3x"></i> Coronavirus(COVID-19) - For the latest updates and travel information, please visit our Coronavirus Information Center
@@ -29,7 +31,7 @@
                         </div>
                         <div class="input-data">
                             <label for="delaytime">Estimated Delay Time</label>
-                            <input type="time" name="delaytime" id="delaytime" value="<?php echo $data['alert']->delaytime; ?>" required >
+                            <input type="number" name="delaytime" id="delaytime" step="5" value="<?php echo  $data['alert']->delaytime;?>" placeholder="Estimated Delay in Minutes" required >
                             <span class="invalidFeedback">
                                     <?php echo $data['delayTimeError'];?>
                             </span> 
@@ -37,9 +39,17 @@
                     </div>
                     <div class="form-row">
                         <div class="input-data">
+                            <label for="delayDate">Delay Date</label>
+                            <input type="date" name="delaydate" id="delaydate" value="<?php echo $data['alert']->delaydate;?>" required>
+                            <span class="invalidFeedback">
+                                <?php echo $data['delayDateError'];?>
+                            </span>
+                        </div>
+                        <div class="input-data">
                             <label for="issueType">Train Id</label>
                             <select name="issueType" id="issueType">
-                                <option value="Unspecified" selected>Unspecified</option>
+                                <option value="<?php echo $data['alert']->issuetype;?>"><?php echo $data['alert']->issuetype;?></option>
+                                <option value="Unspecified">Unspecified</option>
                                 <option value="Environmental" >Environmental</option>
                                 <option value="Technical" >Technical</option>
                                 <option value="Rail Road" >Rail Road</option>
@@ -59,9 +69,7 @@
                     <div class="form-row">
                         <div class="input-data textarea">
                                 <label for="delaycause">Delay-Cause</label>
-                                <textarea name="delaycause" id="delaycause" cols="30" rows="10" required>
-                                    <?php echo $data['alert']->delay_cause; ?>
-                                </textarea>
+                                <textarea name="delaycause" id="delaycause" cols="30" rows="10" required><?php echo trim($data['alert']->delay_cause);?></textarea>
                                 <span class="invalidFeedback">
                                     <?php echo $data['delayCauseError'];?>
                             </span> 

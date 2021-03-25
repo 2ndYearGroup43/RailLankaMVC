@@ -177,22 +177,34 @@ class Admin_manage_fares extends Controller{
 
                 if(empty($data['rateID'])){
                 $data['rateIDError']='Please Enter the Rate ID.';
+
                 }
 
                 if(empty($data['fclassbase'])){
                     $data['fclassbaseError']='Please Enter the First Class.';
+
                 }
 
                 if(empty($data['sclassbase'])){
                     $data['sclassbaseError']='Please Enter the Second Class.';
+
                 }
 
                 if(empty($data['tclassbase'])){
                     $data['tclassbaseError']='Please Enter the Third Class.';
+
                 }
 
                 if(empty($data['fclassnormalbase'])){
                     $data['fclassnormalbaseError']='Please Enter the First Class.';
+
+                }
+                if(empty($data['sclassnormalbase'])){
+                    $data['sclassnormalbaseError']='Please Enter the Second Class.';
+                }
+                if(empty($data['tclassnormalbase'])){
+                    $data['tclassnormalbaseError']='Please Enter the Third Class.';
+
                 }
                 if(empty($data['sclassnormalbase'])){
                     $data['sclassnormalbaseError']='Please Enter the Second Class.';
@@ -204,6 +216,7 @@ class Admin_manage_fares extends Controller{
 
                 if(empty($data['distance'])){
                     $data['distanceError']='Please Enter the Distance.';
+
                 }
 
                 if(empty($data['rate'])){

@@ -12,7 +12,7 @@
 ?>
 
 <!-- <?php var_dump($_SESSION); ?>  -->
-
+<!-- <?php var_dump($data); ?> -->
 <!-- tickets results -->
 	<div class="body-section">
 		<div class="content-row">
@@ -27,45 +27,27 @@
 				<table class="content-table">
 					<thead>
 						<tr>
+							<th>Reservation No</th>
+							<th>Date</th>
+							<th>Train Id</th>
 							<th>From</th>
 							<th>To</th>
-							<th>Departure Time</th>
-							<th>Arrival Time</th>
-							<th>Type</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="active-row">
-							<td data-label="From">Colombo Fort</td>
-							<td data-label="To">Kandy</td>
-							<td data-label="Deptarture Time">7.00 a.m.</td>
-							<td data-label="Arrival Time">9.38 a.m.</td>
-							<td data-label="Type">A.C.- Intercity</td>
-							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTicket1'" type="submit" class="btn"><span>View Ticket</span></button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="From">Colombo Fort</td>
-							<td data-label="To">Kandy</td>
-							<td data-label="Deptarture Time">7.05 a.m.</td>
-							<td data-label="Arrival Time">9.38 a.m.</td>
-							<td data-label="Type">Intercity</td>
-							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTicket1'" type="submit" class="btn"><span>View Ticket</span></button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="From">Colombo Fort</td>
-							<td data-label="To">Kandy</td>
-							<td data-label="Deptarture Time">8.30 a.m.</td>
-							<td data-label="Arrival Time">11.03 a.m.</td>
-							<td data-label="Type">Express - Udarata Menike</td>
-							<td>
-								<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTicket1'" type="submit" class="btn"><span>View Ticket</span></button>
-							</td>
-						</tr>
+						<?php foreach ($data as $row):?>
+							<tr class="active-row">
+								<td data-label="Reservation No"><?php echo $row->reservationNo; ?></td>
+								<td data-label="Date"><?php echo $row->journeyDate; ?></td>
+								<td data-label="Train Id"><?php echo $row->trainId; ?></td>
+								<td data-label="From"><?php echo $row->srcName; ?></td>
+								<td data-label="To"><?php echo $row->destName; ?></td>
+								<td>
+									<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/viewTicket?resNo=<?php echo $row->reservationNo;?>'" type="submit" class="btn"><span>View Ticket</span></button>
+								</td>
+							</tr>
+						<?php endforeach; ?>
 					</tbody>
 				</table>
 			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayAccount'" type="submit" class="btn blue-btn back-btn"><span>Back</span></button>

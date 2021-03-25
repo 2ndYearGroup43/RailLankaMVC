@@ -7,6 +7,7 @@
     // var_dump($data['drivers']);
     
 ?>
+    <script src="<?php echo URLROOT;?>/javascript/journeyAssValidation.js"></script>
     <div class="body-section">
             <div class="content-flexrow">
                 <div class="container">
@@ -45,7 +46,7 @@
                                 <label for="jstatus">Joruney Status</label>
                                 <select name="jstatus" id="jstatus">
                                     <option value="<?php echo $data['journey']->journey_status;?>"><?php echo $data['journey']->journey_status;?></option>    
-                                    <option value="Live">Ended</option>   
+                                    <option value="Ended">Ended</option>
                                     <option value="Live">Live</option>
                                     <option value="Off-Line">Off-Line</option> 
                                 </select>
@@ -53,6 +54,9 @@
                             <div class="input-data">
                                 <label for="date">Date</label>
                                 <input type="date" value="<?php echo $data['journey']->date;?>"  name="date" id="date" required >
+                                <span class="invalidFeedback">
+                                <?php echo $data['dateError'];?>
+                                </span>
                             </div>
                         </div>
                         <div class="form-row submit-btn">

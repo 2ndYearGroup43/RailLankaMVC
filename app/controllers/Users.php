@@ -144,7 +144,7 @@
 
 			$this->view('users/register', $data);
 		}
-	
+
 
 		public function login() {
 			$data = [
@@ -204,12 +204,14 @@
 
 			$this->view('users/login', $data);
 		}
+		
 
 		public function createUserSession($user) {
 			$_SESSION['userid'] = $user->userid;
 			$_SESSION['email'] = $user->email;
 			$_SESSION['role'] = $user->role;
 			$_SESSION['passenger_nic'] = '';
+			$_SESSION['passenger_id'] = '';
 			$_SESSION['admin_id'] = '';
 			$_SESSION['moderator_id'] = '';
 			$_SESSION['driver_id'] = '';
@@ -223,6 +225,7 @@
 				{
 					$passenger=$this->userModel->getPassengerById($user->userid);
 					$_SESSION['passenger_nic'] = $passenger->nic;
+					$_SESSION['passenger_id'] = $passenger->passengerId;
 				}
 
 				if($user->role==2)
@@ -264,6 +267,7 @@
 			unset($_SESSION['ro_id']);
 			header('location:' . URLROOT . '/pages/index');
 		}
+
 
 
 		public function requestReset() {

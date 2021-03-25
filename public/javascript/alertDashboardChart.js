@@ -1,6 +1,21 @@
-window.onload = function () {
-    
-    var chartAlertType = new CanvasJS.Chart("alertTypeChart", {
+var chartAlertType;
+var chartAlertIssueType;
+function initiateCharts(alertCount) {
+    console.log(alertCount);
+    var cancelCount=parseInt(alertCount['cancelledCount']);
+    var delayCount=parseInt(alertCount['delayedCount']);
+    var reschCount=parseInt(alertCount['rescheduledCount']);
+    var envCount=parseInt(alertCount['envCount']);
+    var techCount=parseInt(alertCount['techCount']);
+    var rrcount=parseInt(alertCount['railroadCount']);
+    var otherCount=parseInt(alertCount['otherCount']);
+    var unspecCount= parseInt(alertCount['unspecCount']);
+
+    var alertTypeTotal=cancelCount+delayCount+reschCount;
+    var issueTypeTotal=envCount+techCount+rrcount+otherCount+unspecCount;
+    console.log(alertTypeTotal);
+    console.log(issueTypeTotal);
+    chartAlertType = new CanvasJS.Chart("alertTypeChart", {
         animationEnabled: true,
         title: {
             text: "Alert Types on Date 2020-10-20"
@@ -11,15 +26,15 @@ window.onload = function () {
             yValueFormatString: "##0.00'%'",
             indexLabek: "{label} {y}",
             dataPoints: [
-                {y: 25, label: "Cancellations"},
-                {y: 65,  label: "Delays"}, 
-                {y: 10, label: "Reschedulements"}
+                {y: (cancelCount/alertTypeTotal)*100, label: "Cancellations"},
+                {y: (delayCount/alertTypeTotal)*100,  label: "Delays"},
+                {y: (reschCount/alertTypeTotal)*100, label: "Reschedulements"}
             ]
         }]
-    
+
     });
 
-    var chartAlertIssueType = new CanvasJS.Chart("issueTypeChart", {
+    chartAlertIssueType = new CanvasJS.Chart("issueTypeChart", {
         animationEnabled: true,
         title: {
             text: "Alert Issues on Date 2020-10-20"
@@ -30,13 +45,14 @@ window.onload = function () {
             yValueFormatString: "##0.00'%'",
             indexLabek: "{label} {y}",
             dataPoints: [
-                {y: 25, label: "Technical"},
-                {y: 45,  label: "Environmental"}, 
-                {y: 17, label: "Rail Road"},
-                {y: 13, label: "Other"}
+                {y: (techCount/issueTypeTotal)*100, label: "Technical"},
+                {y: (envCount/issueTypeTotal)*100,  label: "Environmental"},
+                {y: (rrcount/issueTypeTotal)*100, label: "Rail Road"},
+                {y: (otherCount/issueTypeTotal)*100, label: "Other"},
+                {y: (unspecCount/issueTypeTotal)*100, label: "Unspecified"}
             ]
         }]
-    
+
     });
 
 
@@ -44,4 +60,7 @@ window.onload = function () {
     chartAlertIssueType.render();
 }
 
-
+function printCharts(){
+    chartAlertType.print();
+    chartAlertIssueType.print();
+}

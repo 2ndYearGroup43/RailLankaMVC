@@ -52,5 +52,11 @@ class DriverMobile{
         }
     }
 
+        public function getMainStations(){
+            $this->db->query("SELECT * FROM `station` WHERE type='Main'");
+            $results=$this->db->resultSet();
+            return $results;
+        }
+
 
 }

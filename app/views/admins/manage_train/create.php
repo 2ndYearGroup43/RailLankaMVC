@@ -3,6 +3,7 @@
 ?>
 <?php
     require APPROOT.'/views/includes/admin_navigation.php';
+    var_dump($data['reservable_status']);
 ?>  
     <div class="body-section">
         <div class="content-flexrow">

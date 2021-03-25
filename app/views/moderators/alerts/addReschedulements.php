@@ -4,6 +4,8 @@
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
 ?>
+
+    <script src="<?php echo URLROOT;?>/javascript/alertValidations/reschedulementValidation.js"></script>
 <div class="marquee-area info-tag">
 	<marquee>
 		<i class="fa fa-exclamation-triangle" aria-hidden="true" size="3x"></i> Coronavirus(COVID-19) - For the latest updates and travel information, please visit our Coronavirus Information Center
@@ -31,21 +33,12 @@
                     </div>
                     <div class="form-row">
                         <div class="input-data">
-                            <label for="newdate">New Date</label>
-                            <input type="date" name="newdate" id="newdate" required >
+                            <label for="olddate">Old Date</label>
+                            <input type="date" name="olddate" id="olddate" required >
                             <span class="invalidFeedback">
-                                <?php echo $data['newDateError']?>
+                                <?php echo $data['oldDateError']?>
                             </span>
                         </div>
-                        <div class="input-data">
-                            <label for="newtime">New Time</label>
-                            <input type="time" name="newtime" id="newtime" required >
-                            <span class="invalidFeedback">
-                                <?php echo $data['newTimeError']?>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-row">
                         <div class="input-data">
                             <label for="issueType">Issue Type</label>
                             <select name="issueType" id="issueType">
@@ -57,6 +50,22 @@
                             </select>
                             <span class="invalidFeedback">
                                 <?php echo $data['issueTypeError'];?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-data">
+                            <label for="newdate">New Date</label>
+                            <input type="date" name="newdate" id="newdate" required >
+                            <span class="invalidFeedback">
+                                <?php echo $data['newDateError']?>
+                            </span>
+                        </div>
+                        <div class="input-data">
+                            <label for="newtime">New Time</label>
+                            <input type="time" name="newtime" id="newtime" required >
+                            <span class="invalidFeedback">
+                                <?php echo $data['newTimeError']?>
                             </span>
                         </div>
                     </div>
