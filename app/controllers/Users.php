@@ -369,6 +369,7 @@
 			unset($_SESSION['moderator_id']);
 			unset($_SESSION['driver_id']);
 			unset($_SESSION['ro_id']);
+			unset($_SESSION['superadmin_id']);
 			header('location:' . URLROOT . '/pages/index');
 		}
 
