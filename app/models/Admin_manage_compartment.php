@@ -10,13 +10,14 @@ class Admin_manage_compartment {
 		$flag;
 
 		foreach ($data['compartments'] as $comp) {
+			//this is an preapared statement
 			$this->db->query('INSERT INTO compartment (trainId, compartmentNo, class, type) VALUES (:trainId, :compartmentNo, :class, :type)');
-
+            //bind values
 			$this->db->bind(':trainId', $data['trainId']);
 			$this->db->bind(':compartmentNo', $comp->compartmentNo);		
 			$this->db->bind(':class', $comp->trainClass);
 			$this->db->bind(':type', $comp->type);
-
+            //execute
 			if($this->db->execute()){
 				$flag= true;
 			}else{
@@ -24,8 +25,6 @@ class Admin_manage_compartment {
 			}
 
 		}
-
-			
 
 		if($flag){
 			return true;
@@ -37,15 +36,12 @@ class Admin_manage_compartment {
 
 	    public function findCompartmentByCompartmentNo($trainId,$cno)
     {
-        //this is an preapared statement
-        $this->db->query('SELECT COUNT(*) as count FROM compartment WHERE compartmentNo = :cno AND trainId=:trainId');
 
-        //Email param will be binded by the email variable
+        $this->db->query('SELECT COUNT(*) as count FROM compartment WHERE compartmentNo = :cno AND trainId=:trainId');
 
         $this->db->bind(':cno', $cno);
         $this->db->bind(':trainId', $trainId);
 
-        //check if the email is already registsered;
         $results=array();
         $results=$this->db->resultSet();
         $count=$results[0]->count;
@@ -58,14 +54,11 @@ class Admin_manage_compartment {
 
     public function findTrainByTrainId($tid)
     {
-        //this is an preapared statement
-        $this->db->query('SELECT COUNT(*) as count FROM compartment WHERE trainId = :tid');
 
-        //Email param will be binded by the email variable
+        $this->db->query('SELECT COUNT(*) as count FROM compartment WHERE trainId = :tid');
 
         $this->db->bind(':tid', $tid);
 
-        //check if the email is already registsered;
         $results=array();
         $results=$this->db->resultSet();
         $count=$results[0]->count;
@@ -78,14 +71,11 @@ class Admin_manage_compartment {
 
     public function findCompartmentByType($tid)
     {
-        //this is an preapared statement
-        $this->db->query('SELECT COUNT(*) as count FROM compartment WHERE type = :tid');
 
-        //Email param will be binded by the email variable
+        $this->db->query('SELECT COUNT(*) as count FROM compartment WHERE type = :tid');
 
         $this->db->bind(':tid', $tid);
 
-        //check if the email is already registsered;
         $results=array();
         $results=$this->db->resultSet();
         $count=$results[0]->count;
@@ -171,9 +161,6 @@ class Admin_manage_compartment {
 			return false;
 		}
 	}
-
-
-	
 
 	public function findTrain2($trainId){
 		$this->db->query('SELECT t1.*,s1.name AS dest FROM 

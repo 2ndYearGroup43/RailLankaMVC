@@ -7,8 +7,9 @@ class Admin_manage_available_day {
 	}
 
 	public function create_available_day($data){
+		//this is an preapared statement
 		$this->db->query('INSERT INTO availabledays (trainId, sunday, monday, tuesday, wednesday, thursday, friday, saturday) VALUES (:trainId, :sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday)');
-
+        //bind values
 		$this->db->bind(':trainId', $data['trainId']);
 		$this->db->bind(':sunday', $data['sunday']);
 		$this->db->bind(':monday', $data['monday']);
@@ -17,7 +18,7 @@ class Admin_manage_available_day {
 		$this->db->bind(':thursday', $data['thursday']);
 		$this->db->bind(':friday', $data['friday']);
 		$this->db->bind(':saturday', $data['saturday']);
-
+        //execute
 		if($this->db->execute()){
 			return true;
 		}else{
@@ -28,14 +29,10 @@ class Admin_manage_available_day {
 
 	    public function findTrainTypeByTrainId($tid)
     {
-        //this is an preapared statement
+
         $this->db->query('SELECT COUNT(*) as count FROM availabledays WHERE trainId = :tid');
-
-        //Email param will be binded by the email variable
-
         $this->db->bind(':tid', $tid);
 
-        //check if the email is already registsered;
         $results=array();
         $results=$this->db->resultSet();
         $count=$results[0]->count;

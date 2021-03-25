@@ -7,11 +7,12 @@ class Admin_manage_compartment_type {
 	}
 
 	public function create_compartment_type($data){
+		//this is an preapared statement
 		$this->db->query('INSERT INTO compartment_type (typeNo, imageDir) VALUES (:typeNo, :imageDir)');
-
+        //bind values
 		$this->db->bind(':typeNo', $data['typeNo']);
 		$this->db->bind(':imageDir', $data['imageDir']);
-
+        //execute
 		if($this->db->execute()){
 			return true;
 		}else{
@@ -22,14 +23,11 @@ class Admin_manage_compartment_type {
 
 	    public function findCompartmentTypeByTypeNo($tno)
     {
-        //this is an preapared statement
-        $this->db->query('SELECT COUNT(*) as count FROM compartment_type WHERE typeNo = :tno');
 
-        //Email param will be binded by the email variable
+        $this->db->query('SELECT COUNT(*) as count FROM compartment_type WHERE typeNo = :tno');
 
         $this->db->bind(':tno', $tno);
 
-        //check if the email is already registsered;
         $results=array();
         $results=$this->db->resultSet();
         $count=$results[0]->count;

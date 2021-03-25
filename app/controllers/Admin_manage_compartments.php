@@ -35,7 +35,7 @@ class Admin_manage_compartments extends Controller{
 			];
 
 			if(empty($data['compartments'])){
-				$data['compartmentError']="Please enter atleast one compartment";
+				$data['compartmentError']="Please enter at least one compartment";
 			}
             
             if(empty($data['compartmentError'])){
@@ -118,17 +118,16 @@ class Admin_manage_compartments extends Controller{
             }elseif(!preg_match($numberValidation, $data['compartmentNo'])){
                 $data['compartmentNoError']="Compartment No can only contain letters and numbers.";
             }elseif($compartment->compartmentNo!=$data['compartmentNo']){
-                //if Employee ID exists
                 if($this->adminModel->findCompartmentByCompartmentNo($trainId, $data['compartmentNo'])){
                     $data['compartmentNoError']='This compartment is already registered as a compartment in the system.'; 
                 }
             }
             if(empty($data['class'])){
-                $data['classError']='Please Enter the First Name.';
+                $data['classError']='Please Enter the Class.';
             }
             
             if(empty($data['type'])){
-                $data['typeError']='Please Enter the Compartment No.';
+                $data['typeError']='Please Enter the Type.';
             }
             
             if(empty($data['compartmentNoError']) &&
@@ -190,23 +189,22 @@ class Admin_manage_compartments extends Controller{
                 }elseif(!preg_match($idValidation, $data['compartmentNo'])){
                     $data['compartmentNoError']="Compartment No can only contain letters and numbers.";
                 }else{
-                    //if Employee ID exists
                     if($this->adminModel->findCompartmentByCompartmentNo($data['compartmentNo'])){
                         $data['compartmentNoError']='This compartment is already registered as a compartment in the system.'; 
                     }
                 }
                 if(empty($data['class'])){
-                    $data['classError']='Please Enter the First Name.';
+                    $data['classError']='Please Enter the Class.';
                 }elseif(!preg_match($nameValidation, $data['class'])){
                     $data['classError']="Class can only contain letters.";
                 }
 
                 if(empty($data['type'])){
-                    $data['typeError']='Please Enter the Compartment No.';
+                    $data['typeError']='Please Enter the Type.';
                 }elseif(!preg_match($numberValidation, $data['compartmentNo'])){
                     $data['typeError']="Type can only contain letters and numbers.";
                 }else{
-                    //if Employee ID exists
+
                     if($this->adminModel->findCompartmentByType($data['type'])){
                         $data['typeError']='This compartment is already registered as a compartment in the system.'; 
                     }
@@ -301,7 +299,7 @@ class Admin_manage_compartments extends Controller{
 			];
 
 			if(empty($data['compartments'])){
-				$data['compartmentError']="Please enter atleast one compartment";
+				$data['compartmentError']="Please enter at least one compartment";
 			}
             
             if(empty($data['compartmentError'])){

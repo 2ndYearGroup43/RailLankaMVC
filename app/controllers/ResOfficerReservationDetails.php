@@ -49,10 +49,16 @@
                     'timeError'=>''
                 ];
 
-                if(empty($data['srcStation']) && empty($data['destStation'])){
-                    $data['srcError']='Please enter Atleast one station to proceed';
-                    $data['destError']='Please enter Atleast one station to proceed';
+                if(empty($data['srcStation'])){
+                    $data['srcError']='Please enter source station to proceed';
                 }
+                if(empty($data['destStation'])){
+                    $data['destError']='Please enter destination station to proceed';
+                }
+                if(empty($data['date'])){
+                    $data['dateError']='Please enter the date to proceed';
+                }
+
                 if(!empty($data['srcStation'])){
                     if(!$this->resofficerReservationModel->checkStation($data['srcStation'])){
                         $data['srcError']='Entered source station doesnt exist';
@@ -67,40 +73,16 @@
                     $data['time']=1;
                 }
                 if (!empty($data['date'])){
-                    $data['date']= date('l', strtotime($data['date']));
+                    $data['date']= date('l', strtotime($data['date']));////Parse about any English textual datetime description into a Unix timestamp
 
                 }
 
 
                 if(empty($data['srcError']) && empty($data['destError'])
                     && empty($data['dateError']) && empty($data['timeError'])){
-                    if(empty($data['srcStation']) || empty($data['destStation'])){
-                        if(empty($data['destStation'])){
-                            if(empty($data['date'])){
-                                $data['trains']=$this->resofficerReservationModel->searchSrcOnly($data);
-                            }else{
-                                $data['trains']=$this->resofficerReservationModel->searchSrcDate($data);
-                            }
-                        }
-                        if(empty($data['srcStation'])){
-
-                            if(empty($data['date'])){
-
-                                $data['trains']=$this->resofficerReservationModel->searchDestOnly($data);
-                            }else{
-
-                                $data['trains']=$this->resofficerReservationModel->searchDestDate($data);
-                            }
-                        }
-                    }else{
-                        if(empty($data['date'])){
-                            $data['trains']=$this->resofficerReservationModel->searchSrcDestOnly($data);
-                        }else{
-                            $data['trains']=$this->resofficerReservationModel->searchSrcDestDate($data);
-                        }
-                    }
-
-                    //$this->view('moderators/schedule/scheduleSearchResults', $data);
+                                            
+                    $data['trains']=$this->resofficerReservationModel->searchSrcDestDate($data);
+                         
                     $this->displayAllReservationDetails($data);
                     return;
 
@@ -133,23 +115,22 @@
 			$this->view('resofficers/reservation_details/display_train_reservation_details', $data); 
 		}
 
-		public function viewReservationDetails($trainId, $ticketId, $nic) {
+		public function viewReservationDetails($trainId, $ticketId) {
 
-        //$manage_train=$this->resofficerReservationModel->findTrain($trainId, $nic);
-        //$names=$this->resofficerReservationModel->findTrainName($trainId);
-        //$nics=$this->resofficerReservationModel->findPassengerDetails($nic);
-        //$seats=$this->resofficerReservationModel->findSeatDetails($nic);
-          $passengers=$this->resofficerReservationModel->getPassengerDetails($trainId, $ticketId, $nic);  
+          $compseats=$this->resofficerReservationModel->getCompSeatDetails($ticketId);
+          $passenger=$this->resofficerReservationModel->checkUnregisteredPassenger($ticketId);
 
-        $data = [
-            //'manage_train'=>$manage_train,
-            //'trainId'=>$trainId,
-            //'names'=>$names,
-            //'nics'=>$nics,
-            //'seats'=>$seats
-            'passengers'=>$passengers
-        ];    
+            if($passenger->tid==$passenger->uid){
+                $passengers=$this->resofficerReservationModel->getUnregisteredPassengerDetails($trainId, $ticketId);
+            }else{
+                $passengers=$this->resofficerReservationModel->getRegisteredPassengerDetails($trainId, $ticketId);
+            }    
 
+            $data = [
+
+                'passengers'=>$passengers,
+                'compseats'=>$compseats
+            ];  
 			
 			$this->view('resofficers/reservation_details/view_reservation_details', $data); 
 		}

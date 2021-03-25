@@ -42,31 +42,21 @@ class Admin_manage_available_days extends Controller{
 				'saturday'=>trim($_POST['saturday']),
             ];
 
-
 			if ($this->adminModel->create_available_day($data)) {
 				if($rstatus=='1'){
-					echo "me";
 					header("Location: " . URLROOT . "/Admin_manage_compartments/create/".$data['trainId']);
 				}else{
-					
-					echo "me";
 					header("Location: " . URLROOT . "/Admin_manage_trains");
 				}
 				
 			}else{
-				
-				echo "me";
 				die("Something went Wrong");
 			}
 
 		}
-		
-
 		$this->view('admins/manage_available_day/create', $data);
 
 	}
-
-
 
 	public function edit($trainId){
 

@@ -5,183 +5,119 @@
     require APPROOT.'/views/includes/resofficer_navigation.php';
 ?>
 
-
-<!-- Further Details -->
-	<div class="body-section"  id="e-ticket">
+<div class="body-section" id="e-ticket">
 		<div class="content-row">
 		</div>
 		<div class="content-row">
 		</div>
-		<div class="conf-ticket">
-			<div class="print-header">
-				<img src="<?php echo URLROOT ?>/public/img/logob2.png">
-				<p class="title">BOOKING SUCCESSFUL!</p>	
+		<div class="conf-ticket" id="review">
+			<div>
+				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 			</div>
-			<div class="normal-header">
-				<img src="<?php echo URLROOT ?>/public/img/logob2.png">
-				<h1 class="title">BOOKING SUCCESSFUL!</h1>
-				<div class="summary">
-					<center><p>Thank you for booking with us!</p></center>
-				</div>
-			</div>
-			<!-- <br> -->
-			<div id="policy" class="summary">
-				<p>We recommend that you print this page and bring it with you. You have been sent an email with a copy of the reservation details. You may also view your reservation details online at any time.</p>
+			<h1 class="title" style="padding-left: 275px;">BOOKING REVIEW</h1>
+			<div class="summary">
+				<center><p>We will email you a confirmation of this booking.</p><p> You may also view your reservation details online at any time.</p></center>
 				<button onclick="printContent('e-ticket')" class="print"><i class="fa fa-print" aria-hidden="true"></i> Print This Page </button>
 			</div>
-		<!-- 	<br> -->
-		
+
 			<div class="summary-header">
-				<h3>CUSTOMER DETAILS</h3>
+				<h3>YOUR JOURNEY : Ticket ID <?php echo $data['tickets']->ticketId; ?></h3>
 			</div>
-			<div class=summary>
-				<table class="content-table">
-					<tbody>
-						<tr>
-							<td><b>Customer Name:</b></td>
-							<td>Emma Mackey</td>
-						</tr>
-						<tr>
-							<td><b>NIC:</b></td>
-							<td>971701617V</td>
-						</tr>
-						<tr>
-							<td><b>Address Number:</b></td>
-							<td>40</td>
-						</tr>
-						<tr>
-							<td><b>Street:</b></td>
-							<td>Kandy Road</td>
-						</tr>
-						<tr>
-							<td><b>City/Town:</b></td>
-							<td>Gampaha</td>
-						</tr>
-						<tr>
-							<td><b>Country:</b></td>
-							<td>Sri Lanka</td>
-						</tr>
-						<tr>
-							<td><b>Phone:</b></td>
-							<td>+94 711 409911</td>
-						</tr>
-						<tr>
-							<td><b>Email:</b></td>
-							<td>emma@gmail.com</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<!-- <br> -->
+			<div class="summary">
 			
-			<div class="summary-header">
-				<h3>YOUR JOURNEY</h3>
-			</div>
-			<div class=summary>
 				<div class="journey">
-					Colombo Fort <i class="fa fa-long-arrow-right" aria-hidden="true"></i> Badulla
+					<?php echo $data['train']->srcName; ?><i class="fa fa-long-arrow-right" aria-hidden="true"></i> <?php echo $data['train']->destName; ?>
 				</div>
 				<div class="journey-row">
-                    <div class="journey-details">
-                        <p>Express Train <b>Denuwara Manike</b></p>
-                        <p><i class="fa fa-calendar-o" aria-hidden="true"></i> 26th November 2020</p>
-                        <p><i class="fa fa-clock-o" aria-hidden="true"></i> 6.30 AM -> 03.03 PM</p>
-                        <p><i class="fa fa-clock-o" aria-hidden="true"></i> 7 hrs 33 mins</p>
-                        <p>Train to Badulla</p>
-                    </div>
-                    <div class="journey-seats">
-                        <p>Train ID: 101COLBAD0630</p>
-                        <p>Seat Numbers:</p>
-
-                            <ul>
-                                <li>Compartment 1 :  21 , 22</li>
-                                <li>Compartment 2 :  33 , 34</li>
-                            </ul> 
-                        
-                    </div>
-                </div>
+					<div class="journey-details">
+						<p><?php echo $data['train']->type; ?> Train <b><?php echo $data['train']->name; ?></b></p>
+						<p>Train ID: <?php echo $data['train']->trainId; ?></p>
+						<p><i class="fa fa-calendar-o" aria-hidden="true"></i> <?php echo $data['reservation']->journeyDate; ?></p>
+						<p><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $data['train']->starttime; ?> -> <?php echo $data['train']->endtime; ?></p>
+						<p><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $data['duration']->format('%h hour(s) %i minute(s)'); ?></p>
+						<p>Train to <?php echo $data['train']->destName; ?></p>
+					</div>
+				</div>
 			</div>
-		<!-- 	<br> -->
-			
+
+
 			<div class="summary-header">
 				<h3>BOOKING AND PAYMENT SUMMARY</h3>
 			</div>
 			<div class="summary">
-				<table class="content-table">
+				<table class="content-table" id="booking-rev-table">
 					<thead>
 						<tr>
-							<td>Type</td>
-							<td>Price</td>
-							<td>Quantity</td>
-							<td>Total</td>
+							<td data-label="Compartment">Comprtment</td>
+							<td data-label="SeatNo">Seat Number</td>
+							<td data-label="Type">Type</td>
+							<td data-label="Price">Price</td>
 						</tr>
 					</thead>
 					<tbody>
+						<?php foreach ($data['seats'] as $seat):?>
 						<tr>
-							<td>First Class</td>
-							<td>Rs. 400.00</td>
-							<td>3</td>
-							<td>Rs. 1200.00</td>
+							<td data-label="Compartment"><?php echo $seat->compartmentNo; ?></td>
+							<td data-label="SeatNo"><?php echo $seat->seatNo; ?></td>
+							<td data-label="Type"><?php echo $seat->classtype; ?> Seat</td>
+							<td data-label="Price"><?php echo $seat->price; ?></td>
 						</tr>
-						<tr>
-							<td>Second Class</td>
-							<td>Rs. 230.00</td>
-							<td>1</td>
-							<td>Rs. 230.00</td>
-						</tr>
-						<tr>
-							<td>First Class</td>
-							<td>Rs. 125.00</td>
-							<td>2</td>
-							<td>Rs. 250.00</td>
+						<?php endforeach; ?>
+						<tr class="grand-total">
+							<td>Seat Count</td>
+							<td></td>
+							<td></td>
+							<td><?php echo $data['count']; ?></td>
 						</tr>
 						<tr class="grand-total">
 							<td>Total</td>
 							<td></td>
 							<td></td>
-							<td>Rs. 1680.00</td>
-						</tr>
-						<tr></tr>
-						<tr class="grand-total">
-							<td>Total Payment</td>
-							<td></td>
-							<td></td>
-							<td>Rs. 1680.00</td>
+							<td><?php echo $data['total']; ?></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-		<!-- 	<br> -->
-		
+			
 			<div id="cancel-policy" class="summary">
-				<div class="summary-header">
+				<div>
 					<h3>CANCELLATION POLICY</h3>
 				</div>
-				<p>Deposit is non-refundable and will be charged to your credit card.</p>
 				<p>A passenger is entitled to a refund on the ticket price if a train journey is marked as cancelled, regardless of the reason. A full refund can be obtained by producing the email confirmation/e-ticket at the counter.</p>
 			</div>
-			<br>
-
-			<div id="contact" class="summary">
-				<div class="journey-row">
-					<div class="journey-details">
-						<h3>WE'RE HERE TO HELP!</h3>
-						<p>Any further queries? Please contact us for assistance</p>
-					</div>
-					<div class="journey-seats">
-						<ul>
-							<li><i class="fa fa-phone" aria-hidden="true"></i> +940112-695-722</li>
-							<li><i class="fa fa-phone" aria-hidden="true"></i> +940112-696-722</li>
-							<li><i class="fa fa-at" aria-hidden="true"></i> raillanka@gmail.com</li>
-						</ul>
-					</div>
-				</div>
+			
+			<div class="summary-header">
+				<h3>CUSTOMER DETAILS</h3>
 			</div>
+			<div class=summary>
+				<div class="acc-wrapper">
+					    <div class="acc-form">
+						    <div class="acc-inputfield">
+						    	<p>Name <b><?php echo $data['account']->firstname; ?> <?php echo $data['account']->lastname; ?></b></p>
+						    </div> 
+						    <div class="acc-inputfield">
+						    	<p>NIC <b><?php echo $data['account']->nic; ?></b></p>
+						    </div>
+						    <div class="acc-inputfield">
+						    	<p>Email <b><?php echo $data['account']->email; ?></b></p>
+						    </div>
+						    <div class="acc-inputfield">
+						    	<p>Telephone No <b><?php echo $data['account']->mobileno; ?></b></p>
+						    </div>
+						    <div class="acc-inputfield">
+						    	<p>Address <b><?php echo $data['account']->address_number; ?>, <?php echo $data['account']->street; ?>, <?php echo $data['account']->city; ?>, <?php echo $data['account']->country; ?></b></p>
+						    </div>  
+					    </div>
+					</div>
+			</div>
+			
+		</div>
+		<div class="content-row">
 		</div>
 		<div class="content-row">		
 		</div>
 	</div>
-	<!-- end of further details -->
+
 	<script>
 		function printContent(el){
 			var restorepage = document.body.innerHTML;

@@ -25,7 +25,9 @@
                             <?php echo $data['routeIdError'];?>
                         </span> -->
                         <label for="stationID">Station Id</label>
-                        <input list="stations" name="stationID" id="stationID" required >
+
+                        <input list="stations" name="stationID" id="stationID" >
+
                         <datalist id="stations">
                             <?php foreach ($data['stations'] as $station ):?>
                                 <option value="<?php echo $station->stationID?>"><?php echo $station->stationID?> : <?php echo $station->name?></option>

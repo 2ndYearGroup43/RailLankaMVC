@@ -25,20 +25,37 @@
                             <td colspan="2"></td>
                         </tr>
                         <tr>
+                            <td >Train Name: </td>
+                            <td><?php echo $data['trains']->name?></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
                             <td >Price: </td>
                             <td><?php echo $data['tickets']->price?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td >Compartment No: </td>
-                            <td><?php echo $data['tickets']->compartmentNo?></td>
+                            <td >Journey Date: </td>
+                            <td><?php echo $data['journeys']->JourneyDate?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td >Seat No: </td>
-                            <td><?php echo $data['tickets']->seatNo?></td>
+                            <td >Start Station: </td>
+                            <td><?php echo $data['journeys']->srcName?></td>
                             <td colspan="2"></td>
                         </tr>
+                        <tr>
+                            <td >End Station: </td>
+                            <td><?php echo $data['journeys']->destName?></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <?php foreach($data['compseats'] as $compseat):?>
+                        <tr>
+                            <td >Compartment & Seat No: </td>
+                            <td><?php echo $compseat->compartmentNo?> <?php echo $compseat->seatNo?></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <?php endforeach; ?>
                     </table>
                     <button type="button" onclick="history.go(-1);" class="back-btn" value="Back">Back</button>
                 </div>

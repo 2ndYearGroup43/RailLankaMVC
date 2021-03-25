@@ -16,10 +16,16 @@ class ResOfficerRefundDetails extends Controller{
 	public function displayRefundDetails($ticketId) {
 
         $tickets=$this->resofficerRefundModel->getRefundDetails($ticketId);
-
+        $journeys=$this->resofficerRefundModel->getJourneyDetails($ticketId);
+        $trains=$this->resofficerRefundModel->getTrainDetails($ticketId);
+        $compseats=$this->resofficerRefundModel->getCompSeatDetails($ticketId);
 
         $data = [
-            'tickets'=>$tickets
+            'tickets'=>$tickets,
+            'journeys'=>$journeys,
+            'trains'=>$trains,
+            'compseats'=>$compseats
+
         ];			
 			$this->view('resofficers/refunds/displayRefundDetails', $data); 
 		}	

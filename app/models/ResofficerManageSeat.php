@@ -6,7 +6,7 @@
 			$this->db = new Database;
 		}
 
-	public function getStations()
+    public function getStations()
     {
         $this->db->query('SELECT * FROM station');
         $result=$this->db->resultSet();
@@ -31,7 +31,7 @@
         INNER JOIN station s1 ON t.src_station=s1.stationID
         INNER JOIN station s2 ON t.dest_station=s2.stationID
         WHERE t.dest_station <> :srcStation
-      	');
+        ');
         $this->db->bind(':time', $data['time']);
         $this->db->bind(':srcStation', $data['srcStation']);
 
@@ -113,7 +113,7 @@
         INNER JOIN station s1 ON t.src_station=s1.stationID
         INNER JOIN station s2 ON t.dest_station=s2.stationID
         WHERE t.src_station <> :destStation
-      	');
+        ');
         $this->db->bind(':destStation', $data['destStation']);
         $this->db->bind(':time', $data['time']);
         $trains = $this->db->resultSet();
@@ -304,36 +304,142 @@
 
     }
 
-    public function getTrain($trainId){
-        $this->db->query('
-SELECT t1.*, ss.name AS src_name FROM
-    (SELECT t.*, sd.name AS dest_name FROM train t INNER JOIN station sd ON t.dest_station=sd.stationID WHERE t.trainId=:trainId)
-    t1 INNER JOIN station ss ON t1.src_station=ss.stationID');
+        public function getTrain($trainId){
+        $this->db->query('SELECT t1.*, ss.name AS src_name FROM
+                (SELECT t.*, sd.name AS dest_name FROM train t INNER JOIN station sd ON t.dest_station=sd.stationID WHERE t.trainId=:trainId)
+                t1 INNER JOIN station ss ON t1.src_station=ss.stationID');
         $this->db->bind(':trainId', $trainId);
         $row=$this->db->single();
         return $row;
     }
 
-    public function getSchedule($trainId){
-        $this->db->query('SELECT t1.*,s.name FROM (SELECT rs.* FROM (SELECT * FROM route WHERE trainId=:trainId) rt INNER JOIN route_station rs ON rs.routeId=rt.routeId) t1 INNER JOIN station s on s.stationId=t1.stationId');
-        $this->db->bind(':trainId', $trainId);
-        $results=$this->db->resultSet();
-        return $results;
-    }
+        public function getCompartments($id){
 
-    public function getDays($trainId){
-        $this->db->query('SELECT * FROM availabledays WHERE trainid=:trainId');
-        $this->db->bind(':trainId', $trainId);
-        $row=$this->db->single();
-        return $row;
-    }
+            $this->db->query('SELECT c.* FROM compartment c INNER JOIN train t ON c.trainId=t.trainId INNER JOIN compartment_type ct ON c.type=ct.typeNo WHERE t.trainId=:id ORDER BY c.compartmentNo');
+            $this->db->bind(':id',$id);
+            $results = $this->db->resultSet();
+            return $results;
+        }
 
-    public function getRate ($trainId)
-    {
-        $this->db->query('SELECT f.* FROM fare f INNER JOIN train t ON f.rateID=f.rateID WHERE t.trainId=:trainId');
-        $this->db->bind(":trainId", $trainId);
-        $row=$this->db->single();
-        return $row;
-    }
+        public function getCompartmentDetails($id,$compNo){
 
-	}
+            $this->db->query('SELECT * FROM compartment WHERE trainId=:id AND compartmentNo=:compNo');
+            $this->db->bind(':id',$id);
+            $this->db->bind(':compNo',$compNo);
+            $results = $this->db->single();
+            return $results;
+        }
+
+
+        //Function to get the stop No of a station in a route????
+        public function getStopNo($id,$stationid){
+
+            $this->db->query('SELECT rs.stopNo, s.name FROM train t INNER JOIN route r ON r.trainId=t.trainId INNER JOIN route_station rs ON r.routeId=rs.routeId INNER JOIN station s ON s.stationID=rs.stationId WHERE t.trainId=:id AND rs.stationId=:stationid');
+            $this->db->bind(':id',$id);
+            $this->db->bind(':stationid',$stationid);
+            $results = $this->db->single();
+            return $results;
+        }
+
+        //Function to check if the selected seat(train, compartment, seat, date) is already selected
+        // public function checkSeat($date, $trainId, $compNo, $seatNo){
+
+        //  $this->db->query('SELECT COUNT(*) AS count FROM seat WHERE trainid=:trainId AND compartmentNo=:compNo AND seatNo=:seatNo AND journeyDate=:journeyDate');
+        //  $this->db->bind(':trainId',$trainId);
+        //  $this->db->bind(':compNo',$compNo);
+        //  $this->db->bind(':seatNo',$seatNo);
+        //  $this->db->bind(':journeyDate',$date);
+        //  $results=array();
+        //  $results=$this->db->resultSet();
+        //  $count = (int) $results[0]->count;
+
+        //  if($count > 0){
+        //      return false;
+        //  }else{
+        //      return true;
+        //  }
+            
+        // }
+
+        public function addDisabled($data){
+
+            $this->db->query('INSERT INTO disabled_seat ( disabledNo, trainId, officerId) VALUES (:disabledNo , :trainId, :officerId)');
+
+            //bind values
+            $this->db->bind(':disabledNo', $data['disabledNo']);
+            $this->db->bind(':trainId', $data['trainId']);
+            $this->db->bind(':officerId', $data['officerId']);          
+
+            //Execute function
+            if ($this->db->execute()) {
+                $this->db->query('SELECT LAST_INSERT_ID() As resNo');
+                $result = [];
+                $result = $this->db->resultSet();
+                return $result[0]->resNo;       
+            } else {
+                return false;
+            }
+        }
+
+        public function checkSeat($date, $trainId, $compNo, $seatNo){
+
+            $this->db->query('SELECT r.reservationNo, s.seatId, s.status, r.res_time, TIMESTAMPDIFF(SECOND,r.res_time, NOW()) AS dif FROM seat s INNER JOIN reservation r ON r.reservationNo=s.reservationNo WHERE s.trainid=:trainId AND s.compartmentNo=:compNo AND s.seatNo=:seatNo AND r.journeyDate=:journeyDate');
+            $this->db->bind(':trainId',$trainId);
+            $this->db->bind(':compNo',$compNo);
+            $this->db->bind(':seatNo',$seatNo);
+            $this->db->bind(':journeyDate',$date);
+            
+            $results=$this->db->single();
+            return $results;
+            
+        }
+
+        //Function to add a selected seat 
+        public function addSeat($data){
+
+            $this->db->query('INSERT INTO disabled_seat_mark (disabledNo, trainId, compartmentNo, seatNo, seatId) VALUES (:resNo, :trainId, :compNo, :label, :id)');
+
+            //bind values
+            $this->db->bind(':resNo', $data['resno']);
+            $this->db->bind(':trainId', $data['trainId']);
+            $this->db->bind(':compNo', $data['compartment']);
+            $this->db->bind(':label', $data['label']);
+            $this->db->bind(':id', $data['id']);
+ 
+            //Execute function
+            if ($this->db->execute()) {
+                return true;                
+            } else {
+                return false;
+            }
+        }
+
+        public function findResofficerById($oid){
+            $this->db->query('SELECT m.*, u.email FROM reservation_officer m INNER JOIN users u ON m.userId=u.userId WHERE m.userId=:userId');
+            $this->db->bind(":userId",$oid);
+            $row=$this->db->single();
+            return $row; 
+        }
+
+        public function getDisabledSeatDetails(){
+            $this->db->query('SELECT ds.*, dsm.* 
+                FROM disabled_seat ds 
+                INNER JOIN disabled_seat_mark dsm 
+                ON ds.disabledNo=dsm.disabledNo');
+
+            $results=$this->db->resultSet();
+            return $results;
+        }
+
+        public function delete($disabledId){
+            $this->db->query('DELETE FROM disabled_seat_mark WHERE disabledId=:disabledId');
+
+            $this->db->bind(':disabledId', $disabledId);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }

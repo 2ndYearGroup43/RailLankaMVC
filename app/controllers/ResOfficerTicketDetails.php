@@ -49,10 +49,16 @@
                     'timeError'=>''
                 ];
 
-                if(empty($data['srcStation']) && empty($data['destStation'])){
-                    $data['srcError']='Please enter Atleast one station to proceed';
-                    $data['destError']='Please enter Atleast one station to proceed';
+                if(empty($data['srcStation'])){
+                    $data['srcError']='Please enter source station to proceed';
                 }
+                if(empty($data['destStation'])){
+                    $data['destError']='Please enter destination station to proceed';
+                }
+                if(empty($data['date'])){
+                    $data['dateError']='Please enter the date to proceed';
+                }
+
                 if(!empty($data['srcStation'])){
                     if(!$this->resofficerReservationModel->checkStation($data['srcStation'])){
                         $data['srcError']='Entered source station doesnt exist';
@@ -67,45 +73,15 @@
                     $data['time']=1;
                 }
                 if (!empty($data['date'])){
-                    //$search_date=$data['date'];
-                    //echo $data['date'];
-                    $data['date']= date('l', strtotime($data['date']));
-
+                    $data['date']= date('l', strtotime($data['date'])); //Parse about any English textual datetime description into a Unix timestamp
                 }
 
-
-                if(empty($data['srcError']) && empty($data['destError'])
-                    && empty($data['dateError']) && empty($data['timeError'])){
-                    if(empty($data['srcStation']) || empty($data['destStation'])){
-                        if(empty($data['destStation'])){
-                            if(empty($data['date'])){
-                                $data['trains']=$this->resofficerReservationModel->searchSrcOnly($data);
-                            }else{
-                                $data['trains']=$this->resofficerReservationModel->searchSrcDate($data);
-                            }
-                        }
-                        if(empty($data['srcStation'])){
-
-                            if(empty($data['date'])){
-
-                                $data['trains']=$this->resofficerReservationModel->searchDestOnly($data);
-                            }else{
-
-                                $data['trains']=$this->resofficerReservationModel->searchDestDate($data);
-                            }
-                        }
-                    }else{
-                        if(empty($data['date'])){
-                            $data['trains']=$this->resofficerReservationModel->searchSrcDestOnly($data);
-                        }else{
-                            $data['trains']=$this->resofficerReservationModel->searchSrcDestDate($data);
-                        }
-                    }
-
-                    //$this->view('moderators/schedule/scheduleSearchResults', $data);
+                if(empty($data['srcError']) && empty($data['destError']) && empty($data['dateError']) && empty($data['timeError'])){
+                                                                    
+                        $data['trains']=$this->resofficerReservationModel->searchSrcDestDate($data);
+                        
                     $this->displayTicketTrains($data);
                     return;
-
 
                 }else{
                     $this->view('resofficers/ticket_details/search_ticket_details',$data);
@@ -123,12 +99,10 @@
 		public function displayTicketDetails($trainId, $searchDate) {
 
         $trains=$this->resofficerReservationModel->getTicketDetails($trainId, $searchDate);
-        $names=$this->resofficerReservationModel->findTrainName($trainId);
 
         $data = [
             'trains'=>$trains,
-            'trainId'=>$trainId,
-            'names'=>$names
+            'trainId'=>$trainId
         ];
             
 			$this->view('resofficers/ticket_details/display_ticket_details', $data); 

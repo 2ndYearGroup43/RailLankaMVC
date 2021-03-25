@@ -36,7 +36,7 @@ class Admin_manage_compartment_types extends Controller{
                 }elseif(!preg_match($nameValidation, $data['typeNo'])){
                     $data['typeNoError']="Type can only contain letters and numbers.";
                 }else{
-                    //if moderatorID exists
+
                     if($this->adminModel->findCompartmentTypeByTypeNo($data['typeNo'])){
                         $data['typeNoError']='This Type is already registered in the system.'; 
                     }
