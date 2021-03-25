@@ -8,13 +8,14 @@
 
 
 		public function register($data) {
-			$this->db->query('INSERT INTO users (email,password,role) VALUES (:email, :password, :role)');
+			$this->db->query('INSERT INTO users (email,password,role,isVerified) VALUES (:email, :password, :role, :status)');
 
 			//bind values
 			// $this->db->bind(':username', $data['username']);
 			$this->db->bind(':email', $data['email']);
 			$this->db->bind(':password', $data['password']);
 			$this->db->bind(':role', $data['role']);
+			$this->db->bind(':status', 0); //?
 
 			//Execute function
 			if ($this->db->execute()) {
@@ -32,7 +33,17 @@
 
 				//execute function
 				if ($this->db->execute()){
-					return true;
+					
+					$this->db->query('INSERT INTO verify_email (userId, code) VALUES (:userid, :code)');
+				
+					$this->db->bind(':userid', $result[0]->userid);
+					$this->db->bind(':code', $data['code']);
+
+					if ($this->db->execute()){
+						return true;
+					}else{
+						return false;
+					}
 				} else {
 					return false;
 				}
@@ -143,6 +154,52 @@
 			}
 		}
 
+		public function findUserIdByCode($code) {
+
+			$this->db->query('SELECT * FROM verify_email WHERE code = :code'); 
+
+			//code param will be binded with the code variable
+			$this->db->bind(':code', $code);
+
+			$row = $this->db->single();
+			
+			if(!empty($row)){
+				return $row;
+			}
+		}
+
+		public function verifyEmail($id){
+
+			$this->db->query('UPDATE users SET isVerified = :status WHERE userid = :id');
+
+			//bind values
+			$this->db->bind(':status', 1);
+			$this->db->bind(':id', $id);
+
+			//Execute function
+			if ($this->db->execute()) {
+				return true;				
+			} else {
+				return false;
+			}
+		}
+
+		public function deleteVerifyCode($code){
+
+			$this->db->query('DELETE FROM verify_email WHERE code = :code');
+
+			//bind values
+			$this->db->bind(':code', $code);
+
+			//execute function
+			if ($this->db->execute()){
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+
 		public function requestReset($email, $code){
 
 			$this->db->query('INSERT INTO resetpasswords (email,code) VALUES (:email, :code)');
@@ -207,14 +264,6 @@
             return $row; 
 		}
 
-		public function getSuperAdminById($id)
-        {
-            $this->db->query('SELECT s.*, u.email FROM super_admin s INNER JOIN users u ON s.userId=u.userId WHERE s.userId=:userId');
-            $this->db->bind(":userId",$id);
-            $row=$this->db->single();
-            return $row; 
-        }
-
 		public function getModeratorById($id)
 		{
 			$this->db->query('SELECT m.*, u.email FROM moderator m INNER JOIN users u ON m.userId=u.userId WHERE m.userId=:userId');
@@ -239,6 +288,21 @@
             return $row; 
 		}
 
+		public function removeUser($email){
+
+			$this->db->query('DELETE FROM users WHERE email = :email');
+
+			//bind values
+			$this->db->bind(':email', $email);
+
+			//execute function
+			if ($this->db->execute()){
+				return true;
+			} else {
+				return false;
+			}
+
+		}
 
 		// public function getUsers() {
 		// 	$this->db->query("SELECT * FROM users");
