@@ -61,9 +61,9 @@ class Admin_manage_schedules extends Controller{
                     $data['routeIdError']="Route ID can only contain letters and numbers.";
                 }
                 if(empty($data['stationID'])){
-                    $data['stationIDError']='Please Enter the Compartment No.';
+                    $data['stationIDError']='Please Enter the Station ID.';
                 }elseif(!preg_match($idValidation, $data['stationID'])){
-                    $data['stationIDError']="Compartment No can only contain letters and numbers.";
+                    $data['stationIDError']="Station ID can only contain letters and numbers.";
                 }
                 if(empty($data['stopNo'])){
                     $data['stopNoError']='Please Enter the Stop Number.';
@@ -71,7 +71,7 @@ class Admin_manage_schedules extends Controller{
                     $data['stopNoError']="Stop Number can only contain numbers.";
                 }
                 if(empty($data['distance'])){
-                    $data['distanceError']='Please Enter the Last Name.';
+                    $data['distanceError']='Please Enter the Distance.';
                 }elseif(!preg_match($numberValidation, $data['distance'])){
                     $data['distanceError']="Distance can only contain numbers.";
                 }
@@ -93,16 +93,12 @@ class Admin_manage_schedules extends Controller{
 
 	public function addSchedule($trainId)
 	{
-		// $routes=$this->adminModel->getRouteId();
+
 		$stations=$this->adminModel->getStationID();
-		// $added_data=$this->adminModel->get();
 
 		$data=[
 			'trainId'=>$trainId,
-			// 'routes'=>$routes,
 			'stations'=>$stations,
-			// 'added_data'=>$added_data,
-			// "trainId"=>$trainId,
 			"scheduleError"=>'',
 			"schedules"=>''
 		];
@@ -114,10 +110,7 @@ class Admin_manage_schedules extends Controller{
 
 			$data=[
 				'trainId'=>$trainId,
-				// 'routes'=>$routes,
 				'stations'=>$stations,
-				// 'added_data'=>$added_data,
-				// "trainId"=>$trainId,
 				"scheduleError"=>'',
 				"schedules"=>$a
 			];
@@ -128,16 +121,6 @@ class Admin_manage_schedules extends Controller{
 			}
 
 			if(empty($data['scheduleError'])){
-				// $this->adminModel();
-
-				// echo $_POST['scheduleField'];
-			
-				// var_dump($a);
-				// echo $a[0]->stationId;
-				// echo $a[2]->distance;
-				// $this->view('admins/manage_schedule/create', $data);
-			
-			
 				
 				if($this->adminModel->addSchedule($data)){
 					header("Location: " . URLROOT . "/Admin_manage_available_days/create/".$data['trainId']);
@@ -145,9 +128,6 @@ class Admin_manage_schedules extends Controller{
 					die("Something went wrong");
 				}
 				
-				
-
-
 			}else{
 				$this->view('admins/manage_schedule/create', $data);
 				return;
@@ -156,8 +136,6 @@ class Admin_manage_schedules extends Controller{
 		}
 
 		$this->view('admins/manage_schedule/create', $data);
-
-
 
 	}
 
@@ -213,17 +191,17 @@ class Admin_manage_schedules extends Controller{
                 }elseif(!preg_match($idValidation, $data['routeId'])){
                     $data['routeIdError']="Route ID can only contain letters and numbers.";
                 }else{
-                    //if moderatorID exists
+
                     if($this->adminModel->findRouteByRouteId($data['routeId'])){
                         $data['routeIdError']='This ID is already registered as a Route in the system.'; 
                     }
                 }
                 if(empty($data['stationID'])){
-                    $data['stationIDError']='Please Enter the Compartment No.';
+                    $data['stationIDError']='Please Enter the Station ID.';
                 }elseif(!preg_match($idValidation, $data['stationID'])){
-                    $data['stationIDError']="Compartment No can only contain letters and numbers.";
+                    $data['stationIDError']="Station ID can only contain letters and numbers.";
                 }else{
-                    //if Employee ID exists
+
                     if($this->adminModel->findRouteByStationID($data['stationID'])){
                         $data['stationIDError']='This route is already registered as a route in the system.'; 
                     }
@@ -234,7 +212,7 @@ class Admin_manage_schedules extends Controller{
                     $data['stopNoError']="Stop Number can only contain numbers.";
                 }
                 if(empty($data['distance'])){
-                    $data['distanceError']='Please Enter the Last Name.';
+                    $data['distanceError']='Please Enter the Distance.';
                 }elseif(!preg_match($numberValidation, $data['distance'])){
                     $data['distanceError']="Distance can only contain numbers.";
                 }
@@ -348,8 +326,6 @@ class Admin_manage_schedules extends Controller{
 			'trainId'=>$trainId,
 			'routeId'=>$routeId,
 			'stations'=>$stations,
-			// 'added_data'=>$added_data,
-			// "trainId"=>$trainId,
 			"scheduleError"=>'',
 			"schedules"=>''
 		];
@@ -361,10 +337,7 @@ class Admin_manage_schedules extends Controller{
 
 			$data=[
 				'trainId'=>$trainId,
-				// 'routes'=>$routes,
 				'stations'=>$stations,
-				// 'added_data'=>$added_data,
-				// "trainId"=>$trainId,
 				"scheduleError"=>'',
 				"schedules"=>$a
 			];
@@ -375,16 +348,6 @@ class Admin_manage_schedules extends Controller{
 			}
 
 			if(empty($data['scheduleError'])){
-				// $this->adminModel();
-
-				// echo $_POST['scheduleField'];
-			
-				// var_dump($a);
-				// echo $a[0]->stationId;
-				// echo $a[2]->distance;
-				// $this->view('admins/manage_schedule/create', $data);
-			
-			
 				
 				if($this->adminModel->addNewStops($trainId,$routeId,$data)){
 					header("Location: " . URLROOT . "/Admin_manage_schedules/viewAllSchedule/". $trainId);
@@ -392,9 +355,6 @@ class Admin_manage_schedules extends Controller{
 					die("Something went wrong");
 				}
 				
-				
-
-
 			}else{
 				$this->view('admins/manage_schedule/addNewStops', $data);
 				return;
@@ -495,8 +455,7 @@ class Admin_manage_schedules extends Controller{
                 }
                 if(($data['distance'])==''){
                     $data['distanceError']='Please Enter the Last Name.';
-                }elseif(!preg_match($distanceValidation, $data['distance'])){
-                    $data['distanceError']="Distance can only contain numbers.";
+
                 }
 
                 if(empty($data['routeIdError']) && empty($data['stationIDError']) &&
@@ -514,7 +473,7 @@ class Admin_manage_schedules extends Controller{
 	}
 
 	public function calPrices($schedules, $rate){
-            //var_dump($routes);
+
             $data= array();
             foreach ($schedules as $schedule){
                 $prices=[
@@ -522,9 +481,9 @@ class Admin_manage_schedules extends Controller{
                     "sclass"=>'',
                     "tclass"=>''
                 ];
-                $fb=$rate->fclassbase;
-                $sb=$rate->sclassbase;
-                $tb=$rate->tclassbase;
+                $fb=$rate->fclassnormalbase;
+                $sb=$rate->sclassnormalbase;
+                $tb=$rate->tclassnormalbase;
                 $dis=$rate->distance;
                 $rdis=$schedule->distance;
                 $r=$rate->rate;
@@ -541,10 +500,6 @@ class Admin_manage_schedules extends Controller{
                 }
                 array_push($data, $prices);
             }
-            //var_dump($data);
-            //echo sizeof($data);
-
-
 
             return $data;
         }

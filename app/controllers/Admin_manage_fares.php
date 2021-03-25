@@ -177,49 +177,46 @@ class Admin_manage_fares extends Controller{
 
                 if(empty($data['rateID'])){
                 $data['rateIDError']='Please Enter the Rate ID.';
-                }elseif(!preg_match($idValidation, $data['rateID'])){
-                    $data['rateIDError']="Rate ID can only contain letters and numbers.";
+
                 }
 
                 if(empty($data['fclassbase'])){
                     $data['fclassbaseError']='Please Enter the First Class.';
-                }elseif(!preg_match($decimalNumberValidation, $data['fclassbase'])){
-                    $data['fclassbaseError']="First Class can only contain letters.";
+
                 }
 
                 if(empty($data['sclassbase'])){
                     $data['sclassbaseError']='Please Enter the Second Class.';
-                }elseif(!preg_match($decimalNumberValidation, $data['sclassbase'])){
-                    $data['sclassbaseError']="Second Class can only contain letters.";
+
                 }
 
                 if(empty($data['tclassbase'])){
                     $data['tclassbaseError']='Please Enter the Third Class.';
-                }elseif(!preg_match($decimalNumberValidation, $data['tclassbase'])){
-                    $data['tclassbaseError']="Third Class can only contain letters.";
+
                 }
 
                 if(empty($data['fclassnormalbase'])){
                     $data['fclassnormalbaseError']='Please Enter the First Class.';
-                }elseif(!preg_match($decimalNumberValidation, $data['fclassnormalbase'])){
-                    $data['fclassnormalbaseError']="First Class can only contain letters.";
+
                 }
                 if(empty($data['sclassnormalbase'])){
                     $data['sclassnormalbaseError']='Please Enter the Second Class.';
-                }elseif(!preg_match($decimalNumberValidation, $data['sclassnormalbase'])){
-                    $data['sclassnormalbaseError']="Second Class can only contain letters.";
                 }
                 if(empty($data['tclassnormalbase'])){
                     $data['tclassnormalbaseError']='Please Enter the Third Class.';
-                }elseif(!preg_match($decimalNumberValidation, $data['tclassnormalbase'])){
-                    $data['tclassnormalbaseError']="Third Class can only contain letters.";
+
+                }
+                if(empty($data['sclassnormalbase'])){
+                    $data['sclassnormalbaseError']='Please Enter the Second Class.';
+                }
+                if(empty($data['tclassnormalbase'])){
+                    $data['tclassnormalbaseError']='Please Enter the Third Class.';
                 }
 
 
                 if(empty($data['distance'])){
                     $data['distanceError']='Please Enter the Distance.';
-                }elseif(!preg_match($decimalNumberValidation, $data['distance'])){
-                    $data['distanceError']="Distance can only contain numbers";
+
                 }
 
                 if(empty($data['rate'])){
