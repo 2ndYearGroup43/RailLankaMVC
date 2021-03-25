@@ -288,6 +288,14 @@
             return $row; 
 		}
 
+		public function getSuperAdminById($id)
+		{
+			$this->db->query('SELECT a.*, u.email FROM super_admin a INNER JOIN users u ON a.userId=u.userId WHERE a.userId=:userId');
+            $this->db->bind(":userId",$id);
+            $row=$this->db->single();
+            return $row; 
+		}
+
 		public function removeUser($email){
 
 			$this->db->query('DELETE FROM users WHERE email = :email');

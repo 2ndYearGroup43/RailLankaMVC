@@ -44,6 +44,18 @@
 		}
 	}
 
+	function isSuperAdminLoggedIn() {
+		if(isset($_SESSION['userid']))
+		{
+			if($_SESSION['role']!=6)
+			{
+				redirect($_SESSION['role']);
+			}
+		} else {
+			header('location:' . URLROOT . '/users/login');
+		}
+	}
+
 	//redirect to login if a user is not logged in 
 	//if the user is logged in but not as a moderator redirect to the respective dashboard
 	function isModeratorLoggedIn() {
@@ -112,5 +124,8 @@
 		{
 			// $_SESSION['role'] = "resofficer";
 			header('location:' . URLROOT . '/resofficers/index');
+		}
+		if($role==6){
+			header('location:' . URLROOT . '/superadmins/index');
 		}
 	}

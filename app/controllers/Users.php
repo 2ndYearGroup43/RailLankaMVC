@@ -314,7 +314,7 @@
 			$_SESSION['moderator_id'] = '';
 			$_SESSION['driver_id'] = '';
 			$_SESSION['ro_id'] = '';
-
+			$_SESSION['superadmin_id'] = '';
 
 			
 			if($user->role)
@@ -348,6 +348,12 @@
 				{
 					$RO=$this->userModel->getROById($user->userid);
 					$_SESSION['ro_id'] = $RO->officerId;
+				}
+
+				if($user->role==6)
+				{
+					$superadmin=$this->userModel->getSuperAdminById($user->userid);
+					$_SESSION['superadmin_id'] = $superadmin->super_adminId;
 				}
 			}
 
