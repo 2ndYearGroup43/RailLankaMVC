@@ -15,12 +15,12 @@
                         </div>    
                         <div class="form-row">
                             <div class="input-data">
-                                <label for="src">Source Station</label>
-                                <input list="srcStations" name="src" id="src">
+                                <label for="source">Source Station</label>
+                                <input list="srcStations" name="source" id="source">
                                 <datalist id="srcStations">
                                     <?php foreach ( $data['stations'] as $station ):?>
                                         <?php var_dump($data['stations']);?>
-                                        <option value="<?php echo $station->stationID;?>"><?php echo $station->stationID.' '.$station->name?></option>
+                                        <option value="<?php echo $station->stationName;?>"><?php echo $station->stationId.' '.$station->stationName?></option>
                                     <?php endforeach;?>    
                                 </datalist>
                                 <span class="invalidFeedback">
@@ -30,11 +30,11 @@
                         </div>
                         <div class="form-row">
                             <div class="input-data">
-                                <label for="dest">Destination Station</label>
-                                <input list="destStations" name="dest" id="dest">
+                                <label for="destination">Destination Station</label>
+                                <input list="destStations" name="destination" id="destination">
                                 <datalist id="destStations">
                                     <?php foreach ($data['stations'] as $station ):?>
-                                        <option value="<?php echo $station->stationID;?>"><?php echo $station->stationID.' '.$station->name;?></option>
+                                        <option value="<?php echo $station->stationName;?>"><?php echo $station->stationId.' '.$station->stationName;?></option>
                                     <?php endforeach;?>    
                                 </datalist>
                                 <span class="invalidFeedback">

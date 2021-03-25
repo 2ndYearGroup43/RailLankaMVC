@@ -15,6 +15,7 @@
                                 <thead>
                                     <tr>
                                         <th>Train ID</th>
+                                        <th>Train Name</th>
                                         <th>Date</th>
                                         <th>Compartment No</th>
                                         <th>Seat No</th>
@@ -26,6 +27,7 @@
                                 <?php foreach ($data['trains'] as $train):?>
                                 <tr>
                                     <td data-th="Train ID"><?php echo $train->trainId?></td>
+                                    <td data-th="Train ID"><?php echo $train->name?></td>
                                     <td data-th="Date"><?php echo $train->JourneyDate?></td>
                                     <td data-th="Compartment No"><?php echo $train->compartmentNo?></td>
                                     <td data-th="Seat No"><?php echo $train->seatNo?></td>

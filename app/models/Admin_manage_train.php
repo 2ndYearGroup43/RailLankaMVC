@@ -7,8 +7,9 @@ class Admin_manage_train {
 	}
 
 	public function create_train($data){
+		//this is an preapared statement
 		$this->db->query('INSERT INTO train (trainId, name, reservable_status, type, src_station, starttime, dest_station, endtime, rateId, entered_date, entered_time ) VALUES (:trainId, :name, :reservable_status, :type, :src_station, :starttime, :dest_station, :endtime, :rateId, :entered_date, :entered_time)');
-
+        //bind values
 		$this->db->bind(':trainId', $data['trainId']);
 		$this->db->bind(':name', $data['name']);		
 		$this->db->bind(':reservable_status', (int)$data['reservable_status']);
@@ -20,7 +21,7 @@ class Admin_manage_train {
         $this->db->bind(':rateId', $data['rateId']);
         $this->db->bind(':entered_date', $data['entered_date']);
         $this->db->bind(':entered_time', $data['entered_time']);
-
+        //execute
 		if($this->db->execute()){
 			return true;
 		}else{
@@ -30,14 +31,11 @@ class Admin_manage_train {
 
     public function findTrainByTrainId($tid)
     {
-        //this is an preapared statement
-        $this->db->query('SELECT COUNT(*) as count FROM train WHERE trainId = :tid');
 
-        //Email param will be binded by the email variable
+        $this->db->query('SELECT COUNT(*) as count FROM train WHERE trainId = :tid');
 
         $this->db->bind(':tid', $tid);
 
-        //check if the email is already registsered;
         $results=array();
         $results=$this->db->resultSet();
         $count=$results[0]->count;
@@ -154,6 +152,20 @@ class Admin_manage_train {
 			return false;
 		}
 	}
+
+    public function findStationById($stationID) {
+        $this->db->query('SELECT COUNT(*) AS count FROM station WHERE stationID = :stationID');
+
+        $this->db->bind(':stationID', $stationID);
+
+        $row = $this->db->single();
+        if($row->count>0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 
 	public function delete($trainId){
 		$this->db->query('DELETE FROM train WHERE trainId=:trainId');

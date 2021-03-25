@@ -50,20 +50,44 @@
 			   		</li>
 			   		<li class="nav-link" style="--i: 1.8s">	
 			   			<a href="<?php echo URLROOT; ?>/ResOfficerManageSeats/search">Manage Seats</a>
+			   			<div class="nav-dropdown">
+			   			    <ul>
+			   					<li class="nav-dropdown-link">	
+			   						<a href="<?php echo URLROOT; ?>/ResOfficerManageSeats/search">Manage Seats<i class="fa fa-caret-down"></i></a>
+			   					</li>	
+			   					<div class="arrow">	</div>
+			   				</ul>	
+			   				<ul>
+			   					<li class="nav-dropdown-link">	
+			   						<a href="<?php echo URLROOT; ?>/ResOfficerManageSeats/viewDisabledSeats">Seat Details</a>
+			   					</li>	
+			   					<div class="arrow">	</div>
+			   				</ul>
+			   			</div>
 			   		</li>
 			   		<?php if(isset($_SESSION['userid'])) : ?>
 			   		<li class="nav-link" style="--i: 2.05s">	
 			   			<a href="<?php echo URLROOT; ?>/resofficers/resofficerAccount">Account <i class="fa fa-caret-down"></i></a>
+			   			<div class="nav-dropdown">
+			   			    <ul>
+			   					<li class="nav-dropdown-link">	
+			   						<a href="<?php echo URLROOT; ?>/resofficers/resofficerAccount">Account <i class="fa fa-caret-down"></i></a>
+			   					</li>	
+			   					<div class="arrow">	</div>
+			   				</ul>	
+			   				<ul>
+			   					<li class="nav-dropdown-link">	
+			   						<?php if(isset($_SESSION['userid'])) : ?>
+									<a href="<?php echo URLROOT; ?>/users/logout">Log Out</a>
+									<?php else : ?>
+									<a href="<?php echo URLROOT; ?>/users/login">Log In</a>	
+									<?php endif; ?>
+			   					</li>	
+			   					<div class="arrow">	</div>
+			   				</ul>
+			   			</div>
 			   		</li>
 			   		<?php endif; ?>
-			   		<li class="nav-link" style="--i: 2.3s">	
-			   			<?php if(isset($_SESSION['userid'])) : ?>
-						<a href="<?php echo URLROOT; ?>/users/logout">Log Out</a>
-						<?php else : ?>
-						<a href="<?php echo URLROOT; ?>/users/login">Log In</a>
-						<div class="nav-dropdown">	
-						<?php endif; ?>
-			   		</li>
 			   	</ul>
 			    </div>	
 			</div>

@@ -15,8 +15,33 @@
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td >Name: </td>
+                            <td >Train ID: </td>
+                            <td><?php echo $data['passengers']->trainId?></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td >Train Name: </td>
+                            <td><?php echo $data['passengers']->name?></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td>Passenger Name</td>
                             <td><?php echo $data['passengers']->firstname?> <?php echo $data['passengers']->lastname?></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td>Passenger Email</td>
+                            <td><?php echo $data['passengers']->email?></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td>Passenger Mobile No</td>
+                            <td><?php echo $data['passengers']->mobileno?></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td>Passenger Address</td>
+                            <td><?php echo $data['passengers']->address_number?>, <?php echo $data['passengers']->street?>, <?php echo $data['passengers']->city?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
@@ -25,40 +50,32 @@
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td >Mobile No: </td>
-                            <td><?php echo $data['passengers']->mobileno?></td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr>
                             <td >Source Station: </td>
-                            <td><?php echo $data['passengers']->start_station?></td>
+                            <td><?php echo $data['passengers']->sname?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
                             <td >Destination: </td>
-                            <td><?php echo $data['passengers']->dest_station?></td>
+                            <td><?php echo $data['passengers']->dname?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td >Date: </td>
+                            <td >Journey Date: </td>
                             <td><?php echo $data['passengers']->JourneyDate?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td >Compartment No: </td>
-                            <td><?php echo $data['passengers']->compartmentNo?></td>
+                            <td >Price: </td>
+                            <td><?php echo $data['passengers']->price?></td>
                             <td colspan="2"></td>
                         </tr>
+                        <?php foreach($data['compseats'] as $compseat):?>
                         <tr>
-                            <td >Seat No: </td>
-                            <td><?php echo $data['passengers']->seatNo?></td>
+                            <td >Class & Compartment No & Seat No: </td>
+                            <td><?php echo $compseat->classtype?> : <?php echo $compseat->compartmentNo?> : <?php echo $compseat->seatNo?></td>
                             <td colspan="2"></td>
                         </tr>
-                        <tr>
-                            <td >Class: </td>
-                            <td><?php echo $data['passengers']->classtype?></td>
-                            <td colspan="2"></td>
-                        </tr>
+                        <?php endforeach; ?>
                     </table>
                     <button type="button" onclick="history.go(-1);" class="back-btn" value="Back">Back</button>
                 </div>

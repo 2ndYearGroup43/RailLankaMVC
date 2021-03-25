@@ -25,12 +25,18 @@
                             <?php echo $data['routeIdError'];?>
                         </span> -->
                         <label for="stationID">Station Id</label>
-                        <select name="stationID" id="stationID" >
-                            <option value="">Select</option>
-                                <?php foreach ($data['stations'] as $station ):?>
+                        <input list="stations" name="stationID" id="stationID">
+                        <datalist id="stations">
+                            <?php foreach ($data['stations'] as $station ):?>
                                 <option value="<?php echo $station->stationID?>"><?php echo $station->stationID?> : <?php echo $station->name?></option>
-                            <?php endforeach;?>
-                        </select>
+                           <?php endforeach;?>
+                        </datalist>
+<!--                        <select name="stationID" id="stationID" >-->
+<!--                            <option value="">Select</option>-->
+<!--                                --><?php //foreach ($data['stations'] as $station ):?>
+<!--                                <option value="--><?php //echo $station->stationID?><!--">--><?php //echo $station->stationID?><!-- : --><?php //echo $station->name?><!--</option>-->
+<!--                            --><?php //endforeach;?>
+<!--                        </select>-->
                         <span class="invalidFeedback" id="stationIDError">
                             <!-- <?php echo $data['stationIDError'];?> -->
                         </span>

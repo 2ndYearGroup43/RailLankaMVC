@@ -39,7 +39,21 @@
                                     <a href="<?php echo URLROOT; ?>/ResOfficerTicketDetails/search">Ticket Details</a>
                                 </li>
                                 <li class="nav-link" style="--i: .6s"> 
-                                    <a href="<?php echo URLROOT; ?>/ResOfficerManageSeats/search">Manage Seats</a>
+                                    <a href="<?php echo URLROOT; ?>/ResOfficerManageSeats/search">Manage Seats<i class="fa fa-caret-down"></i></a>
+                                    <div class="dropdown">
+                                        <ul>
+                                            <li class="dropdown-link">
+                                                <a href="<?php echo URLROOT; ?>/ResOfficerManageSeats/search">Manage Seats</a>
+                                            </li>
+                                            <div class="arrow"></div>
+                                        </ul>
+                                        <ul>
+                                            <li class="dropdown-link">
+                                                <a href="<?php echo URLROOT; ?>/ResOfficerManageSeats/viewDisabledSeats">Seat Details</a>
+                                            </li>
+                                            <div class="arrow"></div>
+                                        </ul>
+                                    </div>
                                 </li>
                                 <li class="nav-link" style="--i: 2.05s">
                                     <label for="btn-6" class="show">Account <i class="fa fa-caret-down"></i></label></label>

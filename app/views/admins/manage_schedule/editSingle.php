@@ -11,6 +11,22 @@
             <form action="<?php echo URLROOT; ?>/Admin_manage_schedules/editSingle/<?php echo $data['routeId'];?>/<?php echo $data['schedule']->stationID;?>/<?php echo $data['trainId'];?>" method = "POST">
                                 <div class="form-row">
                                     <div class="input-data">
+                                        <label for="routeId">Route ID</label>
+                                        <input type="text" name="routeId" value="<?php echo $data['routeId'];?>" id="routeId" required >
+                                        <span class="invalidFeedback">
+                                            <?php echo $data['routeIdError'];?>
+                                        </span>
+                                    </div>
+                                    <div class="input-data">
+                                        <label for="stationID">Station ID</label>
+                                        <input type="text" name="stationID" value="<?php echo $data['stationID'];?>" id="stationID" required >
+                                        <span class="invalidFeedback">
+                                            <?php echo $data['stationIDError'];?>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="input-data">
                                         <label for="stopNo">Stop No</label>
                                         <input type="text" name="stopNo" value="<?php echo $data['stopNo'];?>" id="stopNo" required >
                                         <span class="invalidFeedback">

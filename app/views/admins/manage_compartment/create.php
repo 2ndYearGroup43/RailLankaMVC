@@ -6,7 +6,7 @@
 ?>   
 
 
-<script src="<?php echo URLROOT;?>/javascript/trainCompartmentAdd.js"></script>
+<script src="<?php echo URLROOT;?>/javascript/trainCompartmentAddNew.js"></script>
         <div class="body-section">
             <div class="content-flexrow">
                 <div class="container">
@@ -24,9 +24,9 @@
                                     <label for="class">Class</label>
                                     <select name="class" id="trainClass" >
                                         <option >Select</option>
-                                        <option >First</option>
-                                        <option >Second</option>
-                                        <option >Third</option>
+                                        <option >F</option>
+                                        <option >S</option>
+                                        <option >T</option>
                                     </select>
                                     <span class="invalidFeedback" id="classError">
                                         <!-- <?php echo $data['classError'];?> -->
@@ -72,7 +72,6 @@
                                 <tr>
                                     <th>Compartment No</th>
                                     <th>Class</th>
-                                    <th>No of Seats</th>
                                     <th>Type</th>
                                     <th>Manage</th>
                                 </tr>

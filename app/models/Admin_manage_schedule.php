@@ -7,8 +7,9 @@ class Admin_manage_schedule {
 	}
 
 	public function create_schedule($data){
+		//this is an preapared statement
 		$this->db->query('INSERT INTO route_station (routeId, stationID, stopNo, arrivaltime, departuretime, date, distance) VALUES (:routeId, :stationID, :stopNo, :arrivaltime, :departuretime, :date, :distance )');
-
+        //bind values
 		$this->db->bind(':routeId', $data['routeId']);
 		$this->db->bind(':stationID', $data['stationID']);		
 		$this->db->bind(':stopNo', $data['stopNo']);
@@ -16,7 +17,7 @@ class Admin_manage_schedule {
 		$this->db->bind(':departuretime', $data['departuretime']);
 		$this->db->bind(':date', $data['date']);
 		$this->db->bind(':distance', $data['distance']);
-
+        //execute
 		if($this->db->execute()){
 			return true;
 		}else{
@@ -24,7 +25,6 @@ class Admin_manage_schedule {
 		}
         
 	}
-
 
 	
 	public function addSchedule($data){
@@ -73,14 +73,11 @@ class Admin_manage_schedule {
 
 	    public function findRouteByRouteId($rid)
     {
-        //this is an preapared statement
-        $this->db->query('SELECT COUNT(*) as count FROM route_station WHERE routeId = :rid');
 
-        //Email param will be binded by the email variable
+        $this->db->query('SELECT COUNT(*) as count FROM route_station WHERE routeId = :rid');
 
         $this->db->bind(':rid', $rid);
 
-        //check if the email is already registsered;
         $results=array();
         $results=$this->db->resultSet();
         $count=$results[0]->count;
@@ -93,14 +90,11 @@ class Admin_manage_schedule {
 
     public function findRouteByStationID($sid)
     {
-        //this is an preapared statement
-        $this->db->query('SELECT COUNT(*) as count FROM route_station WHERE stationID = :sid');
 
-        //Email param will be binded by the email variable
+        $this->db->query('SELECT COUNT(*) as count FROM route_station WHERE stationID = :sid');
 
         $this->db->bind(':sid', $sid);
 
-        //check if the email is already registsered;
         $results=array();
         $results=$this->db->resultSet();
         $count=$results[0]->count;
@@ -133,7 +127,7 @@ class Admin_manage_schedule {
 	}
 
 	public function edit($data){
-		$this->db->query('UPDATE route_station SET routeId=:routeId, stationID=:stationID, stopNo=:stopNo, arrivaltime=:arrivaltime, departuretime=:departuretime, date=:date, distance=:distance WHERE stationID=:stationID');
+		$this->db->query('UPDATE route_station SET routeId=:routeId, stationID=:stationID, stopNo=:stopNo, arrivaltime=:arrivaltime, departuretime=:departuretime, date=:date, distance=:distance WHERE routeId=:routeId AND stationID=:stationID');
 
 		$this->db->bind(':routeId', $data['routeId']);
 		$this->db->bind(':stationID', $data['stationID']);		

@@ -26,13 +26,13 @@
                         <tr>
                             <td >Source Station: </td>
                             <td><?php echo $data['manage_train']->src_station?> <?php echo $data['manage_train']->src?></td>
-                            <td >Arrival time: </td>
+                            <td >Start time: </td>
                             <td><?php echo $data['manage_train']->starttime?></td>
                         </tr>
                         <tr>
                             <td >Destination Station: </td>
                             <td><?php echo $data['manage_train']->dest_station?> <?php echo $data['manage_train']->dest?></td>
-                            <td >Arrival time: </td>
+                            <td >End time: </td>
                             <td><?php echo $data['manage_train']->endtime?></td>
                         </tr>
                         <tr>

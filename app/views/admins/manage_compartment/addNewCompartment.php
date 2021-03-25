@@ -24,9 +24,9 @@
                                     <label for="class">Class</label>
                                     <select name="class" id="trainClass" >
                                         <option >Select</option>
-                                        <option >First</option>
-                                        <option >Second</option>
-                                        <option >Third</option>
+                                        <option >F</option>
+                                        <option >S</option>
+                                        <option >T</option>
                                     </select>
                                     <span class="invalidFeedback" id="classError">
                                         <!-- <?php echo $data['classError'];?> -->

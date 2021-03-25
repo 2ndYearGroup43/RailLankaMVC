@@ -13,7 +13,7 @@
                                 <img src="<?php echo URLROOT;?>/public/img/logoschedule.jpg" alt="raillankatracktrains">
                             </div>
                         </div>    
-                        <div class="form-row">
+                           <div class="form-row">
                             <div class="input-data">
                                 <label for="src">Source Station</label>
                                 <input list="srcStations" name="src" id="src">

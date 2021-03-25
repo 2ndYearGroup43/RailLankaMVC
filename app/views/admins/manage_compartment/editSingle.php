@@ -22,9 +22,9 @@
                                     <label for="class">Class</label>
                                     <select name="class" id="class" required>
                                         <option value="<?php echo $data['class'];?>" selected><?php echo $data['class'];?></option>
-                                        <option >First</option>
-                                        <option >Second</option>
-                                        <option >Third</option>
+                                        <option >F</option>
+                                        <option >S</option>
+                                        <option >T</option>
                                     </select>
                                     <span class="invalidFeedback">
                                         <?php echo $data['classError'];?>

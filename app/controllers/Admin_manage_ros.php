@@ -63,7 +63,7 @@ class Admin_manage_ros extends Controller{
                 }elseif(!preg_match($idValidation, $data['officerId'])){
                     $data['officerIdError']="Officer ID can only contain letters and numbers.";
                 }else{
-                    //if moderatorID exists
+
                     if($this->adminModel->findOfficerByOfficerId($data['officerId'])){
                         $data['officerIdError']='This ID is already registered as a Officer in the system.'; 
                     }
@@ -73,7 +73,7 @@ class Admin_manage_ros extends Controller{
                 }elseif(!preg_match($idValidation, $data['employeeId'])){
                     $data['employeeIdError']="Employee ID can only contain letters and numbers.";
                 }else{
-                    //if Employee ID exists
+
                     if($this->adminModel->findOfficerByEmployeeId($data['employeeId'])){
                         $data['employeeIdError']='This employee is already registered as a Officer in the system.'; 
                     }
@@ -93,7 +93,7 @@ class Admin_manage_ros extends Controller{
                 }elseif(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
                     $data['emailError']='Please enter the correct format';
                 }else{
-                    //if email exists
+
                     if($this->adminModel->findofficerByEmail($data['email'])){
                         $data['emailError']='email is already taken'; 
                     }
@@ -105,7 +105,7 @@ class Admin_manage_ros extends Controller{
                     $data['mobilenoError']="Mobile No can only contain numbers and +.";
                 }
 
-                //password validate by length and numeric values
+
                 if(empty($data['password'])){
                     $data['passwordError']='Please Enter the passsword.';
                 }elseif (strlen($data['password'])<8) {
@@ -118,9 +118,9 @@ class Admin_manage_ros extends Controller{
                 empty($data['firstnameError']) && empty($data['lastnameError']) && 
                 empty($data['emailError']) && empty($data['mobilenoError']) &&
                 empty($data['passwordError']) ){
-                        //Hash passsword
+
                         $data['password']=password_hash($data['password'], PASSWORD_DEFAULT);
-                        //Rgoster user from model function
+
 
 			if ($this->adminModel->create_ro($data)) {
 				header("Location: " . URLROOT . "/Admin_manage_ros");
@@ -186,7 +186,7 @@ class Admin_manage_ros extends Controller{
                 }elseif(!preg_match($idValidation, $data['officerId'])){
                     $data['officerIdError']="Officer ID can only contain letters and numbers.";
                 }else{
-                    //if Employee ID exists
+
                     if($this->adminModel->findOfficerByOfficerId($data['officerId'])){
                         $data['employeeIdError']='This Officer is already registered as a Officer in the system.'; 
                     }
@@ -197,7 +197,7 @@ class Admin_manage_ros extends Controller{
                 }elseif(!preg_match($idValidation, $data['employeeId'])){
                     $data['employeeIdError']="Employee ID can only contain letters and numbers.";
                 }else{
-                    //if Employee ID exists
+
                     if($this->adminModel->findOfficerByEmployeeId($data['employeeId']) && $this->adminModel->findOfficerByOfficerId($officerId)->employeeId!=$data['employeeId']){
                         $data['employeeIdError']='This employee is already registered as a Moderator in the system.'; 
                     }
@@ -217,7 +217,7 @@ class Admin_manage_ros extends Controller{
                 }elseif(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
                     $data['emailError']='Please enter the correct format';
                 }else{
-                    //if email exists
+
                     if($this->adminModel->findOfficerByEmail($data['email']) && $this->adminModel->findOfficerByOfficerId($officerId)->email!=$data['email']){
                         $data['emailError']='Entered email is already registered in the system.'; 
                     }
@@ -229,7 +229,7 @@ class Admin_manage_ros extends Controller{
                     $data['mobilenoError']="Mobile No can only contain numbers and +.";
                 }
 
-                //password validate by length and numeric values
+
                 if(empty($data['password'])){
                     $data['passwordError']='Please Enter the passsword.';
                 }elseif (strlen($data['password'])<8) {
@@ -256,9 +256,9 @@ class Admin_manage_ros extends Controller{
                 if(empty($data['employeerIdError']) && empty($data['firstnameError']) && empty($data['lastnameError']) && 
                 empty($data['emailError']) && empty($data['mobilenoError']) &&
                 empty($data['passwordError']) ){
-                        //Hash passsword
+
                         $data['password']=password_hash($data['password'], PASSWORD_DEFAULT);
-                        //Rgoster user from model function
+
 
 			if ($this->adminModel->edit($data)) {
 				header("Location: " . URLROOT . "/Admin_manage_ros");

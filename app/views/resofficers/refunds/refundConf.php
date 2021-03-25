@@ -18,7 +18,7 @@
 			</div>
 			<div class="normal-header">
 				<img src="<?php echo URLROOT ?>/public/img/logob2.png">
-				<h1 class="title">REFUNDING SUCCESSFUL!</h1>
+				<h1 class="title" style="padding-left: 175px";>REFUNDING SUCCESSFUL!</h1>
 				<div class="summary">
 					<center><p>Thank you for booking with us!</p></center>
 				</div>
@@ -43,16 +43,24 @@
 							<td><?php echo $data['tickets']->trainId?></td>
 						</tr>
 						<tr>
+							<td><b>Train ID:</b></td>
+							<td><?php echo $data['trains']->name?></td>
+						</tr>
+						<tr>
 							<td><b>Price:</b></td>
 							<td><?php echo $data['tickets']->price?></td>
 						</tr>
 						<tr>
-							<td><b>Compartment No:</b></td>
-							<td><?php echo $data['tickets']->compartmentNo?></td>
+							<td><b>Journey Date:</b></td>
+							<td><?php echo $data['journeys']->journeyDate?></td>
 						</tr>
 						<tr>
-							<td><b>Seat No:</b></td>
-							<td><?php echo $data['tickets']->seatNo?></td>
+							<td><b>Start Station:</b></td>
+							<td><?php echo $data['journeys']->srcName?></td>
+						</tr>
+						<tr>
+							<td><b>End Station:</b></td>
+							<td><?php echo $data['journeys']->destName?></td>
 						</tr>
 					</tbody>
 				</table>
@@ -74,7 +82,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="policy" class="summary">
+			<div id="policy" class="summary" style="padding-bottom: 100px";>
 				<button onclick="printContent('e-ticket')" class="print"><i class="fa fa-print" aria-hidden="true" ></i> Print</button>
 			</div>
 		</div>

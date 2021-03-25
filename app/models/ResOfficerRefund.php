@@ -7,9 +7,8 @@
 		}
 
 	public function refund($data){
-		$this->db->query('INSERT INTO refund (refundNo, refundDate, refundTime, ticketId, officerId) VALUES (:refundNo, :refundDate, :refundTime, :ticketId, :officerId)');
+		$this->db->query('INSERT INTO refund (refundDate, refundTime, ticketId, officerId) VALUES (:refundDate, :refundTime, :ticketId, :officerId)');
 
-		$this->db->bind(':refundNo', $data['refundNo']);
 		$this->db->bind(':refundDate', $data['refundDate']);		
 		$this->db->bind(':refundTime', $data['refundTime']);
 		$this->db->bind(':ticketId', $data['ticketId']);
@@ -36,10 +35,10 @@
     }
 
     public function checkDate($ticketId){
-            $this->db->query('SELECT t.ticketId, t.trainId, t.seatNo, r.JourneyDate AS seat_date, a.alertId, a.cancelled_date, c.alertId AS cancelled_alertId 
+            $this->db->query('SELECT t.ticketId, r.journeyDate AS seat_date, c.cancellation_date as cancelled_date, c.alertId AS cancelled_alertId 
 			FROM ticket t 
 			INNER JOIN seat s 
-			ON t.trainId=s.trainId 
+			ON t.ticketId=s.reservationNo 
 			INNER JOIN  alerts a 
 			ON t.trainId=a.trainId 
 			INNER JOIN  cancelled_alerts c 
@@ -54,12 +53,25 @@
     }
 
     public function getPassengerEmail($ticketId){
-            $this->db->query('SELECT t.ticketId, t.nic, p.userid, u.email 
+            $this->db->query('SELECT u.email
 			FROM ticket t 
 			INNER JOIN passenger p 
-			ON t.nic=p.nic 
+			ON t.passengerId=p.passengerId 
 			INNER JOIN  users u 
 			ON p.userid=u.userid 
+            WHERE t.ticketId=:ticketId');
+
+            $this->db->bind(":ticketId",$ticketId);
+            $row=$this->db->single();
+            return $row; 
+
+    }
+
+    public function getUnregisteredPassengerEmail($ticketId){
+            $this->db->query('SELECT up.email
+            FROM ticket t 
+            INNER JOIN unregistered_passenger up 
+            ON t.uPassenger_id =up.uPassenger_id  
             WHERE t.ticketId=:ticketId');
 
             $this->db->bind(":ticketId",$ticketId);
@@ -84,6 +96,81 @@
 
         $row = $this->db->single();
         return $row;
-    }		
+    }
+    
+    public function checkUnregisteredPassenger($ticketId){
+        $this->db->query('SELECT t.uPassenger_id as tid, u.uPassenger_id as uid FROM ticket t INNER JOIN unregistered_passenger u ON t.uPassenger_id=u.uPassenger_id WHERE t.ticketId=:ticketId');
+
+        $this->db->bind(':ticketId', $ticketId);
+
+        $row = $this->db->single();
+        return $row;
 
 	}
+
+    public function getJourneyDetails($ticketId){
+        $this->db->query('SELECT r.journeyDate, s1.name as srcName, s2.name as destName 
+            FROM ticket ti 
+            INNER JOIN reservation r 
+            ON ti.trainId=r.trainId
+            INNER JOIN train tr
+            ON tr.trainId=ti.trainId
+            INNER JOIN station s1
+            ON s1.stationID=tr.src_station 
+            INNER JOIN station s2
+            ON s2.stationID=tr.dest_station 
+            WHERE ti.ticketId=:ticketId');
+
+        $this->db->bind(':ticketId', $ticketId);
+
+        $row = $this->db->single();
+        return $row;
+    }
+
+    public function getTrainDetails($ticketId){
+        $this->db->query('SELECT tr.name
+            FROM ticket t 
+            INNER JOIN train tr
+            ON t.trainId=tr.trainId 
+            WHERE t.ticketId=:ticketId');
+
+        $this->db->bind(':ticketId', $ticketId);
+
+        $row = $this->db->single();
+        return $row;
+    }
+
+    public function checkTicketId($ticketId){
+
+        $this->db->query('SELECT COUNT(*) as count FROM refund WHERE ticketId = :ticketId');
+
+        $this->db->bind(':ticketId', $ticketId);
+
+        $results=array();
+        $results=$this->db->resultSet();
+        $count=$results[0]->count;
+        if($count>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function checkRescheduledAlertDate($ticketId){
+            $this->db->query('SELECT t.ticketId, r.journeyDate AS seat_date, rs.olddate as rescheduled_date, rs.alertId AS rescheduled_alertId 
+            FROM ticket t 
+            INNER JOIN seat s 
+            ON t.ticketId=s.reservationNo 
+            INNER JOIN  alerts a 
+            ON t.trainId=a.trainId 
+            INNER JOIN   rescheduled_alerts rs 
+            ON a.alertId=rs.alertId 
+            INNER JOIN reservation r
+            ON r.reservationNo=s.reservationNo WHERE t.ticketId=:ticketId');
+
+            $this->db->bind(":ticketId",$ticketId);
+            $row=$this->db->single();
+            return $row; 
+
+    }
+}
