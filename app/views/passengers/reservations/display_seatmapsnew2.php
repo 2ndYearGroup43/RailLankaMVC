@@ -28,7 +28,7 @@
 
 <br>
 <br>
-<?php var_dump($data['unavailable']); ?> -->
+<?php var_dump($data['disabled']); ?> -->
 
 	<div class="body-section">
 		<div class="content-row">
@@ -402,6 +402,13 @@
 							<?php foreach($data['unavailable'] AS $unavailable): ?>
 									sc.get(['<?php echo $unavailable->seatId; ?>']).status('unavailable');
 							<?php endforeach; ?>
+
+
+							//Disable seats in this train, compartment
+							<?php foreach($data['disabled'] AS $disabled): ?>
+									sc.get(['<?php echo $disabled->seatId; ?>']).status('unavailable');
+							<?php endforeach; ?>
+
 
 							//Find seats previously selected from the same compartment by the same user and mark as selected 
 							<?php foreach($data['selected'] AS $selected): ?>
