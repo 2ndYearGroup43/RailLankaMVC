@@ -276,7 +276,7 @@
 
 				$alertType=$this->passengerAlertModel->getAlertType($alertid);
 
-				if($alertType->type=="cancelled"){
+				if($alertType->type=="c"){
 
 					$result=$this->passengerAlertModel->getCancelledAlert($alertid);
 
@@ -287,13 +287,17 @@
 								<td>'.$result->alertId.'</td>
 							</tr>
 							<tr>
+								<th>Cancellation Date:</th>	
+								<td>'.$result->cancellation_date.'</td>
+							</tr>
+							<tr>
 								<th>Cancellation Cause:</th>	
 								<td>'.$result->cancellation_cause.'</td>
 							</tr>
 						</tbody>	
 					';
 
-				}else if($alertType->type=="delayed"){
+				}else if($alertType->type=="d"){
 
 					$result=$this->passengerAlertModel->getDelayedAlert($alertid);
 
@@ -304,17 +308,21 @@
 								<td>'.$result->alertId.'</td>
 							</tr>
 							<tr>
-								<th>Delay Cause:</th>	
-								<td>'.$result->delay_cause.'</td>
+								<th>Delay Date:</th>	
+								<td>'.$result->delaydate.'</td>
 							</tr>
 							<tr>
 								<th>Delay Time:</th>	
 								<td>'.$result->delaytime.'</td>
 							</tr>
+							<tr>
+								<th>Delay Cause:</th>	
+								<td>'.$result->delay_cause.'</td>
+							</tr>
 						</tbody>	
 					';
 
-				}else if($alertType->type=="rescheduled"){
+				}else if($alertType->type=="r"){
 
 					$result=$this->passengerAlertModel->getRescheduledAlert($alertid);
 
@@ -323,6 +331,10 @@
 							<tr>
 								<th>AlertID:</th>	
 								<td>'.$result->alertId.'</td>
+							</tr>
+							<tr>
+								<th>Old Date:</th>	
+								<td>'.$result->olddate.'</td>
 							</tr>
 							<tr>
 								<th>New Date:</th>	

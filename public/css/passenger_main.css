@@ -127,7 +127,7 @@ form input{
 	/*display: inline-block;*/
 	background: rgb(28, 36, 52);
 	color: #fff;
-	padding: 8px 10px;
+	padding: 6px 10px;
 	margin: 20px auto;
 	border-radius: .25rem;
 	cursor: pointer;
@@ -175,9 +175,9 @@ form input{
     position: absolute;
     top: 80px;
     left: 90px;
-    font-size: 1em;
+    /*font-size: 1em;*/
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 @media screen and (max-width: 1300px){
@@ -830,8 +830,10 @@ header{
 	border: 1px solid #000000;
 	background-color: #000000;
 	color: #ffffff;
-	font-size: 20px;
+	font-size: 17px;
 	margin: 40px auto 10px auto ;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 #submit:hover {
@@ -1388,7 +1390,7 @@ form .form-row .textarea{
 .details-content-table td,
 .content-table th,
 .content-table td{
-	padding: 15px 15px;
+	padding: 12px 12px;
 	/*border-right: 1px solid #C5C6C7;*/
 }
 
@@ -4786,20 +4788,43 @@ div.seatCharts-seat.unavailable {
 
 .delayed-label{
     border: 1px solid #f2a53b;
-    background-color: #F7C987; 
+    background-color: #f9d9aa;/* #F7C987; */
     padding: 2px 5px;
+    font-weight: 600;
 }
 
 .cancelled-label {
     border: 1px solid #ef754c;
-    background-color: #F4A58A; 
+    background-color: #f7bfac;/*#F4A58A; */
     padding: 2px 5px;
+    font-weight: 600;
 }
 
 .rescheduled-label {
     border: 1px solid #279427;
-    background-color: #85DF85; 
+    background-color: #b7ecb7;/*#85DF85; */
     padding: 2px 5px;
+    font-weight: 600;
+}
+
+
+.delayed-title{
+    border-left: 10px solid #f2a53b;
+    padding-left: 5px;
+}
+
+.cancelled-title{
+    border-left: 10px solid #ef754c;
+    padding-left: 5px;
+}
+
+.rescheduled-title{
+    border-left: 10px solid #279427;
+    padding-left: 5px;
+}
+
+.alert-important{
+    font-weight: 600;
 }
 
 /*end of alert labels*/
