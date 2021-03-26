@@ -23,6 +23,7 @@
 	        	'date'=>'',
 	        	'deptTime'=>'',
 	        	'trains'=> '',
+	        	'unavailable'=>'',
 	        	'stations'=>$stations,
 	        	'srcError'=>'',
 	        	'destError'=>'',
@@ -43,6 +44,7 @@
 		        	'date'=>'',
 		        	'deptTime'=>trim($_POST['time']),
 					'trains'=>'',
+					'unavailable'=>'',
 					'stations'=>$stations,
 		        	'srcError'=>'',
 		        	'destError'=>'',
@@ -235,7 +237,7 @@
 			
 			$nic=$_SESSION['passenger_nic'];
 			$compartments=$this->passengerReservationModel->getCompartments($id); //To list the compartments of the given train
-			//$train=$this->passengerReservationModel->getTrainDetails($id); //To get details about the train
+			$train=$this->passengerReservationModel->getTrainDetails($id); //To get details about the train
 			$currComp=$this->passengerReservationModel->getCompartmentDetails($id,$compNo); //To get details about this compartment
 			//$src=$this->passengerReservationModel->getStopNo($id,$train->src_station);	//To get the stopNo of the source station
 			//$dest=$this->passengerReservationModel->getStopNo($id,$train->dest_station); //To get the stopNo of the destination station
@@ -255,10 +257,12 @@
 			//echo $currTime;
 			
 			$selected=$this->passengerReservationModel->getSelectedSeats($resNo); //Seats in all compartments selected by the user for that order
+			$disabled=$this->passengerReservationModel->getDisabledSeats($id,$compNo);//Seats disabled in this compartment
 			$unavailable=$this->passengerReservationModel->getUnavailable($id, $compNo, $journeyDate, $resNo, $currTime); //Seats in this compartment selected or booked by other users(or same user)
 
 			$data=[
 				'trainId'=>$id,
+				'train'=>$train,
 				'date'=>$journeyDate,
 				'compartments'=>$compartments,
 				'currComp'=>$currComp,
@@ -269,6 +273,7 @@
 				'seats'=>'',
 				'selected'=>$selected,
 				'unavailable'=>$unavailable,
+				'disabled'=>$disabled,
 				'endTime'=>$endTime,
 				'reservation'=>$reservation
 				// 'endH'=>$endH,
