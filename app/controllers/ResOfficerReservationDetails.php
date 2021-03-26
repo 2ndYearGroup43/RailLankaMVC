@@ -105,20 +105,20 @@
         $trains=$this->resofficerReservationModel->getReservationDetails($trainId, $searchDate);
 
 
-        $data = [
-            'trains'=>$trains,
-            'trainId'=>$trainId
+            $data = [
+                'trains'=>$trains,
+                'trainId'=>$trainId
 
-        ];
+            ];
 
-			
 			$this->view('resofficers/reservation_details/display_train_reservation_details', $data); 
 		}
 
-		public function viewReservationDetails($trainId, $ticketId) {
+		public function viewReservationDetails($trainId, $ticketId, $journeyDate) {
 
           $compseats=$this->resofficerReservationModel->getCompSeatDetails($ticketId);
           $passenger=$this->resofficerReservationModel->checkUnregisteredPassenger($ticketId);
+          $old=$this->resofficerReservationModel->getOldPassengerDetails($trainId, $ticketId);
 
             if($passenger->tid==$passenger->uid){
                 $passengers=$this->resofficerReservationModel->getUnregisteredPassengerDetails($trainId, $ticketId);
@@ -129,10 +129,17 @@
             $data = [
 
                 'passengers'=>$passengers,
-                'compseats'=>$compseats
+                'compseats'=>$compseats,
+                'old'=>$old
             ];  
+
+            if(strtotime($journeyDate)>=strtotime(date("Y-m-d"))){
+                $this->view('resofficers/reservation_details/view_reservation_details', $data);
+            }else{
+                $this->view('resofficers/reservation_details/view_old_reservation_details', $data);
+            }
 			
-			$this->view('resofficers/reservation_details/view_reservation_details', $data); 
+			 
 		}
 		
 	}

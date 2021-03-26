@@ -154,15 +154,13 @@
     }
 
     public function getTicketDetails($trainId, $searchDate){
-        $this->db->query('SELECT t.ticketId, t.reservationType, t.price, t.trainId, s.compartmentNo, s.seatNo, t.nic, s.classtype, r.JourneyDate, tr.name 
+        $this->db->query('SELECT t.ticketId, t.reservationType, t.price, t.trainId, s.compartmentNo, s.seatNo, t.nic, s.classtype, t.journeyDate, tr.name 
             FROM ticket t 
             INNER JOIN seat s 
             ON t.ticketId = s.reservationNo
-            INNER JOIN reservation r
-            ON r.reservationNo=s.reservationNo
             INNER JOIN train tr
             ON tr.trainId=t.trainId 
-            WHERE t.trainId=:trainId AND r.JourneyDate=:searchDate ORDER BY s.classtype, s.seatNo ASC');
+            WHERE t.trainId=:trainId AND t.journeyDate=:searchDate ORDER BY s.classtype, s.seatNo ASC');
 
         $this->db->bind(":trainId", $trainId);
         $this->db->bind(":searchDate", $searchDate);

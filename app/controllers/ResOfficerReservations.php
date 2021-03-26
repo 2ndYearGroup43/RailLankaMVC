@@ -430,6 +430,7 @@
                 'ticketId'=>$resNo, 
                 'reservationType'=>"Counter",
                 'price'=>$total,
+                'journeyDate'=>$reservation->journeyDate,
                 'issueDate'=>date("Y-m-d"),
                 'issueTime'=>date("H:i:sa"),
                 'trainId'=>$train->trainId,
@@ -441,7 +442,7 @@
      
                 if ($this->resofficerReservationModel->create_ticket($data)){
 
-                    $this->informPassengerOftheReservation($account->email, $resNo, $total, $train->trainId, $account->nic, $reservation->JourneyDate);
+                    $this->informPassengerOftheReservation($account->email, $resNo, $total, $train->trainId, $train->name, $account->nic, $reservation->journeyDate);
                     header("Location: " . URLROOT . "/ResOfficerReservations/bookingReview/" .$resNo."/".$uPId);                              
                 }else{
                     die("Something Going Wrong");
@@ -486,7 +487,7 @@
         
     }
 
-    public function informPassengerOftheReservation($email, $ticketId, $price, $trainId, $nic, $JourneyDate)
+    public function informPassengerOftheReservation($email, $ticketId, $price, $trainId, $name, $nic, $journeyDate)
         {   
             require APPROOT . '/libraries/PHPMailer/src/Exception.php';
             require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
@@ -519,8 +520,11 @@
                 <br> Your Ticket ID : $ticketId</br>
                 <br> Your Ticket Price : $price</br>
                 <br> Train ID : $trainId</br>
+                <br> Train Name : $name</br>
                 <br> Your NIC : $nic</br>
-                <br> Your Journey Date : $JourneyDate</br>
+                <br> Your Journey Date : $journeyDate</br>
+                <br></br>
+                <h2>Thank You For Booking With Us</h2>
                 </p>";
                 $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
