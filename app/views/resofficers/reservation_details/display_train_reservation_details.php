@@ -16,6 +16,7 @@
                                     <tr>
                                         <th>Train ID</th>
                                         <th>Train Name</th>
+                                        <th>Journey Date</th>
                                         <th>Compartment No</th>
                                         <th>Seat No</th>
                                         <th>Class</th>
@@ -27,12 +28,13 @@
                                 <tr>
                                     <td data-th="Train ID"><?php echo $train->trainId?></td>
                                     <td data-th="Reservation Type"><?php echo $train->name?></td>
+                                    <td data-th="Journey Date"><?php echo $train->journeyDate?></td>
                                     <td data-th="Compartment No"><?php echo $train->compartmentNo?></td>
                                     <td data-th="Seat No"><?php echo $train->seatNo?></td>
                                     <td data-th="Seat No"><?php echo $train->classType?></td>
                                     <td data-th="Ticket ID"><?php echo $train->ticketId?></td>
                                     <td data-th="Action">                              
-                                    <a class= "blue-btn" href="<?php echo URLROOT . "/ResOfficerReservationDetails/viewReservationDetails/" . $train->trainId?>/<?php echo $train->ticketId?>">View</a>
+                                    <a class= "blue-btn" href="<?php echo URLROOT . "/ResOfficerReservationDetails/viewReservationDetails/" . $train->trainId?>/<?php echo $train->ticketId?>/<?php echo $train->journeyDate?>">View</a>
                                    </td>
                                 </tr>
                                 <?php endforeach;?>

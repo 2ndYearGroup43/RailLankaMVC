@@ -191,15 +191,13 @@
     }
 
     public function getReservationDetails($trainId, $searchDate){
-        $this->db->query('SELECT t.trainId, t.name, ti.ticketId, ti.price, ti.reservationType, s.compartmentNo, s.seatNo, ti.nic, s.classType, s.status, r.JourneyDate
+        $this->db->query('SELECT t.trainId, t.name, ti.ticketId, ti.price, ti.reservationType, s.compartmentNo, s.seatNo, ti.nic, s.classType, s.status, ti.journeyDate
         FROM train t 
         INNER JOIN ticket ti 
         ON t.trainId=ti.trainId
         INNER JOIN  seat s 
         ON ti.ticketId=s.reservationNo
-        INNER JOIN reservation r
-        ON r.reservationNo=s.reservationNo
-        WHERE t.trainId=:trainId AND r.JourneyDate=:searchDate ORDER BY s.compartmentNo, s.seatNo ASC');
+        WHERE t.trainId=:trainId AND ti.journeyDate=:searchDate ORDER BY s.compartmentNo, s.seatNo ASC');
 
         $this->db->bind(":trainId",$trainId);
         $this->db->bind(":searchDate", $searchDate);
@@ -209,14 +207,12 @@
     }
 
     public function getUnregisteredPassengerDetails($trainId, $ticketId){
-        $this->db->query('SELECT up.*, t.trainId, t.name, ti.ticketId, ti.price, s.classtype, r.JourneyDate, s1.name as sname, s2.name as dname
+        $this->db->query('SELECT up.*, t.trainId, t.name, ti.ticketId, ti.price, s.classtype, ti.journeyDate, s1.name as sname, s2.name as dname
         FROM train t
         INNER JOIN ticket ti 
         ON t.trainId=ti.trainId
         INNER JOIN  seat s 
         ON ti.ticketId=s.reservationNo
-        INNER JOIN reservation r
-        ON r.reservationNo=s.reservationNo
         INNER JOIN station s1
         ON s1.stationId=t.src_station
         INNER JOIN station s2
@@ -233,14 +229,12 @@
     }
 
     public function getRegisteredPassengerDetails($trainId, $ticketId){
-        $this->db->query('SELECT rp.*, t.trainId, t.name, ti.ticketId, ti.price, s.classtype, r.JourneyDate, s1.name as sname, s2.name as dname
+        $this->db->query('SELECT rp.*, t.trainId, t.name, ti.ticketId, ti.price, s.classtype, ti.journeyDate, s1.name as sname, s2.name as dname
         FROM train t
         INNER JOIN ticket ti 
         ON t.trainId=ti.trainId
         INNER JOIN  seat s 
         ON ti.ticketId=s.reservationNo
-        INNER JOIN reservation r
-        ON r.reservationNo=s.reservationNo
         INNER JOIN station s1
         ON s1.stationId=t.src_station
         INNER JOIN station s2
@@ -277,6 +271,26 @@
         $row = $this->db->single();
         return $row;
 
+    }
+
+    public function getOldPassengerDetails($trainId, $ticketId){
+        $this->db->query('SELECT t.trainId, t.name, ti.ticketId, ti.price, s.classtype, ti.journeyDate, ti.nic, s1.name as sname, s2.name as dname
+        FROM train t
+        INNER JOIN ticket ti 
+        ON t.trainId=ti.trainId
+        INNER JOIN  seat s 
+        ON ti.ticketId=s.reservationNo
+        INNER JOIN station s1
+        ON s1.stationId=t.src_station
+        INNER JOIN station s2
+        ON s2.stationId=t.dest_station
+        WHERE t.trainId=:trainId AND ti.ticketId=:ticketId');
+
+        $this->db->bind(":trainId",$trainId);
+        $this->db->bind(':ticketId', $ticketId);
+
+        $row = $this->db->single();
+        return $row;
     }
 
 	}

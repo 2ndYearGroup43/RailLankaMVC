@@ -743,12 +743,13 @@
 
         public function create_ticket($data){
             //this is an preapared statement
-            $this->db->query('INSERT INTO ticket (ticketNo, ticketId, reservationType, price, issueDate, issueTime, trainId, officerId, uPassenger_id, nic ) VALUES (:ticketNo, :ticketId, :reservationType, :price, :issueDate, :issueTime, :trainId, :officerId, :uPassenger_id, :nic )');
+            $this->db->query('INSERT INTO ticket (ticketNo, ticketId, reservationType, price, journeyDate, issueDate, issueTime, trainId, officerId, uPassenger_id, nic ) VALUES (:ticketNo, :ticketId, :reservationType, :price, :journeyDate, :issueDate, :issueTime, :trainId, :officerId, :uPassenger_id, :nic )');
             //bind values
             $this->db->bind(':ticketNo', $data['ticketNo']);
             $this->db->bind(':ticketId', $data['ticketId']);
             $this->db->bind(':reservationType', $data['reservationType']);        
             $this->db->bind(':price', $data['price']);
+            $this->db->bind(':journeyDate', $data['journeyDate']);
             $this->db->bind(':issueDate', $data['issueDate']);
             $this->db->bind(':issueTime', $data['issueTime']);
             $this->db->bind(':trainId', $data['trainId']);

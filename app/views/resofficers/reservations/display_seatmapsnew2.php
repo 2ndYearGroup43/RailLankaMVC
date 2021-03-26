@@ -469,7 +469,7 @@
 			<p><?php echo $data['train']->srcName; ?> - <?php echo $data['train']->destName; ?></p>
 			<p><?php echo $data['train']->type; ?> Train</p>
 			<p><b><?php echo $data['train']->name; ?></b></p>
-			<p><i class="fa fa-calendar-o" aria-hidden="true"></i> <?php echo $data['reservation']->JourneyDate; ?></p>
+			<p><i class="fa fa-calendar-o" aria-hidden="true"></i> <?php echo $data['reservation']->journeyDate; ?></p>
 			<p><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $data['train']->starttime; ?> -> <?php echo $data['train']->endtime; ?></p>
 			<p><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $data['duration']->format('%h hour(s) %i minute(s)'); ?></p>
 			<p>Train to <?php echo $data['train']->destName; ?></p>

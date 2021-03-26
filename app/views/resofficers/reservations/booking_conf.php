@@ -99,14 +99,8 @@
 						    	<p>NIC <b><?php echo $data['account']->nic; ?></b></p>
 						    </div>
 						    <div class="acc-inputfield">
-						    	<p>Email <b><?php echo $data['account']->email; ?></b></p>
-						    </div>
-						    <div class="acc-inputfield">
 						    	<p>Telephone No <b><?php echo $data['account']->mobileno; ?></b></p>
-						    </div>
-						    <div class="acc-inputfield">
-						    	<p>Address <b><?php echo $data['account']->address_number; ?>, <?php echo $data['account']->street; ?>, <?php echo $data['account']->city; ?>, <?php echo $data['account']->country; ?></b></p>
-						    </div>  
+						    </div> 
 					    </div>
 					</div>
 			</div>
