@@ -22,7 +22,6 @@
         }
 
 
-        //nn
         public function searchSrc($data){
 
             $this->db->query('SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
@@ -44,66 +43,78 @@
                     INNER JOIN station s1 ON s1.stationID=t.src_station 
                     INNER JOIN station s2 ON s2.stationID=t.dest_station
                     INNER JOIN availabledays a ON a.trainId=t.trainId
-                        WHERE :src!=t.dest_station AND a.Monday='Yes' AND t.reservable_status!=0");
+                        WHERE :src!=t.dest_station AND a.Monday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
                     break;
+
                 case 'Tuesday':
                     $this->db->query("SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
                     INNER JOIN (SELECT DISTINCT r.trainId FROM route r INNER JOIN route_station rs ON r.routeId=rs.routeId WHERE rs.stationId=:src) t1 ON t.trainId=t1.trainId 
                     INNER JOIN station s1 ON s1.stationID=t.src_station 
                     INNER JOIN station s2 ON s2.stationID=t.dest_station
                     INNER JOIN availabledays a ON a.trainId=t.trainId
-                        WHERE :src!=t.dest_station AND a.Tuesday='Yes' AND t.reservable_status!=0");
+                        WHERE :src!=t.dest_station AND a.Tuesday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
+                    $this->db->bind(':journeyDate',$data['dateFull']);
                     break;
+
                 case 'Wednesday':
                     $this->db->query("SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
                     INNER JOIN (SELECT DISTINCT r.trainId FROM route r INNER JOIN route_station rs ON r.routeId=rs.routeId WHERE rs.stationId=:src) t1 ON t.trainId=t1.trainId 
                     INNER JOIN station s1 ON s1.stationID=t.src_station 
                     INNER JOIN station s2 ON s2.stationID=t.dest_station
                     INNER JOIN availabledays a ON a.trainId=t.trainId
-                        WHERE :src!=t.dest_station AND a.Wednesday='Yes' AND t.reservable_status!=0");
+                        WHERE :src!=t.dest_station AND a.Wednesday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
+                    $this->db->bind(':journeyDate',$data['dateFull']);
                     break;
+
                 case 'Thursday':
                     $this->db->query("SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
                     INNER JOIN (SELECT DISTINCT r.trainId FROM route r INNER JOIN route_station rs ON r.routeId=rs.routeId WHERE rs.stationId=:src) t1 ON t.trainId=t1.trainId 
                     INNER JOIN station s1 ON s1.stationID=t.src_station 
                     INNER JOIN station s2 ON s2.stationID=t.dest_station
                     INNER JOIN availabledays a ON a.trainId=t.trainId
-                        WHERE :src!=t.dest_station AND a.Thursday='Yes' AND t.reservable_status!=0");
+                        WHERE :src!=t.dest_station AND a.Thursday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
+                    $this->db->bind(':journeyDate',$data['dateFull']);
                     break;
+
                 case 'Friday':
                     $this->db->query("SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
                     INNER JOIN (SELECT DISTINCT r.trainId FROM route r INNER JOIN route_station rs ON r.routeId=rs.routeId WHERE rs.stationId=:src) t1 ON t.trainId=t1.trainId 
                     INNER JOIN station s1 ON s1.stationID=t.src_station 
                     INNER JOIN station s2 ON s2.stationID=t.dest_station
                     INNER JOIN availabledays a ON a.trainId=t.trainId
-                        WHERE :src!=t.dest_station AND a.Friday='Yes' AND t.reservable_status!=0");
+                        WHERE :src!=t.dest_station AND a.Friday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
+                    $this->db->bind(':journeyDate',$data['dateFull']);
                     break;
+
                 case 'Saturday':
                     $this->db->query("SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
                     INNER JOIN (SELECT DISTINCT r.trainId FROM route r INNER JOIN route_station rs ON r.routeId=rs.routeId WHERE rs.stationId=:src) t1 ON t.trainId=t1.trainId 
                     INNER JOIN station s1 ON s1.stationID=t.src_station 
                     INNER JOIN station s2 ON s2.stationID=t.dest_station
                     INNER JOIN availabledays a ON a.trainId=t.trainId
-                        WHERE :src!=t.dest_station AND a.Saturday='Yes' AND t.reservable_status!=0");
+                        WHERE :src!=t.dest_station AND a.Saturday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
+                    $this->db->bind(':journeyDate',$data['dateFull']);
                     break;
+
                 case 'Sunday':
                     $this->db->query("SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
                     INNER JOIN (SELECT DISTINCT r.trainId FROM route r INNER JOIN route_station rs ON r.routeId=rs.routeId WHERE rs.stationId=:src) t1 ON t.trainId=t1.trainId 
                     INNER JOIN station s1 ON s1.stationID=t.src_station 
                     INNER JOIN station s2 ON s2.stationID=t.dest_station
                     INNER JOIN availabledays a ON a.trainId=t.trainId
-                        WHERE :src!=t.dest_station AND a.Sunday='Yes' AND t.reservable_status!=0");
+                        WHERE :src!=t.dest_station AND a.Sunday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
                     break;
 
             }
 
             $this->db->bind(':src',$data['src']);
+            $this->db->bind(':journeyDate',$data['dateFull']);
             $results = $this->db->resultSet();
             return $results;
             
         }
 
-        //nn
+
         public function searchSrcTime($data){
 
             $this->db->query('SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
@@ -118,7 +129,7 @@
             
         }
 
-        //nn
+
         public function searchSrcDateTime($data){
 
             switch($data['date']){
@@ -187,7 +198,7 @@
             return $results;
         }
 
-        //nn
+
         public function searchSrcDest($data){
 
             $this->db->query('SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
@@ -271,7 +282,7 @@
             
         }
 
-        //nn
+   
         public function searchSrcDestTime($data){
 
             $this->db->query('SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
@@ -404,26 +415,6 @@
             $results = $this->db->single();
             return $results;
         }
-
-        //Function to check if the selected seat(train, compartment, seat, date) is already selected
-        // public function checkSeat($date, $trainId, $compNo, $seatNo){
-
-        //  $this->db->query('SELECT COUNT(*) AS count FROM seat WHERE trainid=:trainId AND compartmentNo=:compNo AND seatNo=:seatNo AND journeyDate=:journeyDate');
-        //  $this->db->bind(':trainId',$trainId);
-        //  $this->db->bind(':compNo',$compNo);
-        //  $this->db->bind(':seatNo',$seatNo);
-        //  $this->db->bind(':journeyDate',$date);
-        //  $results=array();
-        //  $results=$this->db->resultSet();
-        //  $count = (int) $results[0]->count;
-
-        //  if($count > 0){
-        //      return false;
-        //  }else{
-        //      return true;
-        //  }
-            
-        // }
 
         public function addReservation($data){
 
@@ -596,15 +587,15 @@
 
 
         //Function to update the reservation table with the total price and item count 
-        public function updateReservation($resNo,$count,$total){
+        public function updateReservation($resNo,$count,$total,$comp_time){
 
-            $this->db->query('UPDATE reservation SET itemCount=:count, total=:total WHERE reservationNo=:resNo');
+            $this->db->query('UPDATE reservation SET itemCount=:count, total=:total, comp_time=:comp_time WHERE reservationNo=:resNo');
 
             //bind values
             $this->db->bind(':resNo', $resNo);
             $this->db->bind(':count', $count);
             $this->db->bind(':total', $total);
-
+            $this->db->bind(':comp_time', $comp_time);
             //Execute function
             if ($this->db->execute()) {
                 return true;                

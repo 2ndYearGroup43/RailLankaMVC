@@ -30,11 +30,6 @@
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td>Passenger Email</td>
-                            <td><?php echo $data['passengers']->email?></td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr>
                             <td>Passenger Mobile No</td>
                             <td><?php echo $data['passengers']->mobileno?></td>
                             <td colspan="2"></td>
