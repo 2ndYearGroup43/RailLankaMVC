@@ -32,8 +32,8 @@
 
 					<?php if(isset($_SESSION['userid'])) : ?>
                     <div class="btn-group col-4" id="cng">
-					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displaySubscriptions'" class="blue-btn">My Alerts</button>
-					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/search'" class="blue-btn">Subscribe</button>
+					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displaySubscriptions'" class="blue-btn">My Alerts <i class="fa fa-bell-o"></i> </button>
+					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/search'" class="blue-btn">Subscribe </button>
 					</div>
 					<?php endif; ?>
 
@@ -44,7 +44,7 @@
 		                    	 <span>
 		                        	<select name="searchField" id="searchField">
 		                            <?php foreach ($data['fields'] as $field ):?>
-		                                <?php if($field->columns!='moderatorId' AND $field->columns!='time'):?>
+		                                <?php if($field->columns!='moderatorId' AND $field->columns!='time' AND $field->columns!='issueType'):?>
 		                                    <option value="<?php echo $field->columns?>"><?php echo $field->columns?></option>
 		                                <?php endif;?>
 		                            <?php endforeach;?>
@@ -89,6 +89,7 @@
 						<tr>
 							<th>AlertID</th>
 							<th>TrainID</th>
+							<th>Name</th>
 							<th>Type</th>
 							<th>Entered Date</th>
 							<th>Entered Time</th>
@@ -98,17 +99,18 @@
 					<tbody>
 						<?php foreach ($data['alerts'] as $row):?>
 						<tr class="active-row">
-							<td data-label="AlertID"><?php echo $row->alertId ?></td>
-							<td data-label="TrainID"><?php echo $row->trainId ?></td>
-							<?php if($row->type=="delayed"): ?>
-								<td class="delayed-label" data-label="Type"><?php echo $row->type ?></td>
-							<?php elseif($row->type=="cancelled"): ?>
-								<td class="cancelled-label" data-label="Type"><?php echo $row->type ?></td>
-							<?php elseif($row->type=="rescheduled"): ?>
-								<td class="rescheduled-label" data-label="Type"><?php echo $row->type ?></td>
+							<td data-label="AlertID"><?php echo $row->alertId; ?></td>
+							<td data-label="TrainID"><?php echo $row->trainId; ?></td>
+							<td data-label="Name"><?php echo $row->name; ?></td>
+							<?php if($row->type=="d"): ?>
+								<td class="delayed-label" data-label="Type">Delayed</td>
+							<?php elseif($row->type=="c"): ?>
+								<td class="cancelled-label" data-label="Type">Cancelled</td>
+							<?php elseif($row->type=="r"): ?>
+								<td class="rescheduled-label" data-label="Type">Rescheduled</td>
 							<?php endif; ?>
-							<td data-label="Date"><?php echo $row->date ?></td>
-							<td data-label="Time"><?php echo $row->time ?></td>
+							<td data-label="Date"><?php echo $row->date; ?></td>
+							<td data-label="Time"><?php echo $row->time; ?></td>
 							<td>
 								<button type="submit" id="<?php echo $row->alertId; ?>" class="btn pop-up"><span>View Details</span></button>
 							</td>

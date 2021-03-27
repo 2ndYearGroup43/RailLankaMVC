@@ -28,7 +28,7 @@
                                 <tr>
                                     <td data-th="Train ID"><?php echo $train->trainId?></td>
                                     <td data-th="Train ID"><?php echo $train->name?></td>
-                                    <td data-th="Date"><?php echo $train->JourneyDate?></td>
+                                    <td data-th="Date"><?php echo $train->journeyDate?></td>
                                     <td data-th="Compartment No"><?php echo $train->compartmentNo?></td>
                                     <td data-th="Seat No"><?php echo $train->seatNo?></td>
                                     <td data-th="NIC"><?php echo $train->nic?></td>

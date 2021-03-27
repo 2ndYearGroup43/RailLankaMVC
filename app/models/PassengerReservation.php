@@ -602,6 +602,17 @@
 
 		}
 
+		//Function to get the disabled seats in a particular compartment
+		public function getDisabledSeats($id, $compNo){
+
+			$this->db->query("SELECT m.seatId FROM disabled_seat_mark m INNER JOIN disabled_seat s ON s.disabledNo=m.disabledNo WHERE m.trainId=:id AND m.compartmentNo=:compNo");
+			$this->db->bind(':id',$id);
+			$this->db->bind(':compNo',$compNo);
+			$results = $this->db->resultSet();
+			return $results;
+
+		}
+	
 
 		//Function to get the total no of items and total price of the reservation to update the database reservation table 
 		public function getSummary($resNo){
