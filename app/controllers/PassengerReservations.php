@@ -98,15 +98,17 @@
 
 		        if(empty($data['srcError']) && empty($data['destError']) && empty($data['dateError']) && empty($data['timeError'])){
 
+		        	//get ids of trains that are cancelled or rescheduled for the day
+		        	$data['unavailable']=$this->passengerReservationModel->getUnavailableTrains($data['dateFull']);
 		        	#src-date-time/src-date/src-time/src
 		        	if(empty($data['dest'])){
 
-		        		#src
+		        		#src //nn
 		        		if(empty($data['date']) && empty($data['deptTime'])){
 		        			echo "#src";
 		        			$data['trains']=$this->passengerReservationModel->searchSrc($data);
 
-		        		#src-time
+		        		#src-time //nn
 		        		}elseif(empty($data['date'])){
 		        			echo "#src-time";
 		        			$data['trains']=$this->passengerReservationModel->searchSrcTime($data);
@@ -123,11 +125,11 @@
 		        	#src-dest-date-time/src-dest-date/src-dest-time/src-dest
 		        	}else {
 
-		        		#src-dest
+		        		#src-dest //nn
 		        		if(empty($data['date']) && empty($data['deptTime'])){
 		        			echo "#src-dest";
 		        			$data['trains']=$this->passengerReservationModel->searchSrcDest($data);
-		        		#src-dest-time
+		        		#src-dest-time //nn
 		        		}elseif(empty($data['date'])){
 		        			echo "#src-dest-time";
 		        			$data['trains']=$this->passengerReservationModel->searchSrcDestTime($data);
@@ -483,11 +485,11 @@
 				// echo $resNo;
 			}
 
-			$seats=$this->passengerReservationModel->getSelectedSeats($resNo);
-			$summary=$this->passengerReservationModel->getSummary($resNo);
+			$seats=$this->passengerReservationModel->getSelectedSeats($resNo); //
+			$summary=$this->passengerReservationModel->getSummary($resNo); //get price and item count
 			$count=$summary[0]->count;
 			$total=$summary[0]->total;
-			$result=$this->passengerReservationModel->updateReservation($resNo,$count,$total);
+			$result=$this->passengerReservationModel->updateReservation($resNo,$count,$total); //update reservation table with summary
 			$reservation=$this->passengerReservationModel->getReservationDetails($resNo);
 			$resEnd=date('Y-m-d H:i:s',strtotime('+30 minutes',strtotime($reservation->res_time)));
 			// var_dump($reservation);
@@ -561,6 +563,8 @@
 					$nic=$_SESSION['passenger_nic']; //getNICbyID
 					$nowdate = date('Y-m-d', $timenow);
 					$nowTime = date('H:i:s', $timenow);
+
+					//Add ticket details to ticket table
 					$this->passengerReservationModel->addTicket($reservation,$nowdate, $nowTime, $nic);
 				
 					header('location: ' . URLROOT . '/PassengerReservations/viewTicket?resNo='.$resNo);

@@ -21,6 +21,15 @@
 			return $results;
 		}
 
+		//Function to get trains that were cancelled or rescheduled on a given day
+		public function getUnavailableTrains($journeyDate){
+
+			$this->db->query('SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate');
+			$this->db->bind(':journeyDate',$journeyDate);
+			//$results = array();
+			$results = $this->db->resultSet();
+			return $results;
+		}
 
 		//nn
 		public function searchSrc($data){
@@ -44,60 +53,72 @@
 					INNER JOIN station s1 ON s1.stationID=t.src_station 
 					INNER JOIN station s2 ON s2.stationID=t.dest_station
 					INNER JOIN availabledays a ON a.trainId=t.trainId
-						WHERE :src!=t.dest_station AND a.Monday='Yes' AND t.reservable_status!=0");
+						WHERE :src!=t.dest_station AND a.Monday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
 					break;
+
 				case 'Tuesday':
 					$this->db->query("SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
 					INNER JOIN (SELECT DISTINCT r.trainId FROM route r INNER JOIN route_station rs ON r.routeId=rs.routeId WHERE rs.stationId=:src) t1 ON t.trainId=t1.trainId 
 					INNER JOIN station s1 ON s1.stationID=t.src_station 
 					INNER JOIN station s2 ON s2.stationID=t.dest_station
 					INNER JOIN availabledays a ON a.trainId=t.trainId
-						WHERE :src!=t.dest_station AND a.Tuesday='Yes' AND t.reservable_status!=0");
+						WHERE :src!=t.dest_station AND a.Tuesday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
+					$this->db->bind(':journeyDate',$data['dateFull']);
 					break;
+
 				case 'Wednesday':
 					$this->db->query("SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
 					INNER JOIN (SELECT DISTINCT r.trainId FROM route r INNER JOIN route_station rs ON r.routeId=rs.routeId WHERE rs.stationId=:src) t1 ON t.trainId=t1.trainId 
 					INNER JOIN station s1 ON s1.stationID=t.src_station 
 					INNER JOIN station s2 ON s2.stationID=t.dest_station
 					INNER JOIN availabledays a ON a.trainId=t.trainId
-						WHERE :src!=t.dest_station AND a.Wednesday='Yes' AND t.reservable_status!=0");
+						WHERE :src!=t.dest_station AND a.Wednesday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
+					$this->db->bind(':journeyDate',$data['dateFull']);
 					break;
+
 				case 'Thursday':
 					$this->db->query("SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
 					INNER JOIN (SELECT DISTINCT r.trainId FROM route r INNER JOIN route_station rs ON r.routeId=rs.routeId WHERE rs.stationId=:src) t1 ON t.trainId=t1.trainId 
 					INNER JOIN station s1 ON s1.stationID=t.src_station 
 					INNER JOIN station s2 ON s2.stationID=t.dest_station
 					INNER JOIN availabledays a ON a.trainId=t.trainId
-						WHERE :src!=t.dest_station AND a.Thursday='Yes' AND t.reservable_status!=0");
+						WHERE :src!=t.dest_station AND a.Thursday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
+					$this->db->bind(':journeyDate',$data['dateFull']);
 					break;
+
 				case 'Friday':
 					$this->db->query("SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
 					INNER JOIN (SELECT DISTINCT r.trainId FROM route r INNER JOIN route_station rs ON r.routeId=rs.routeId WHERE rs.stationId=:src) t1 ON t.trainId=t1.trainId 
 					INNER JOIN station s1 ON s1.stationID=t.src_station 
 					INNER JOIN station s2 ON s2.stationID=t.dest_station
 					INNER JOIN availabledays a ON a.trainId=t.trainId
-						WHERE :src!=t.dest_station AND a.Friday='Yes' AND t.reservable_status!=0");
+						WHERE :src!=t.dest_station AND a.Friday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
+					$this->db->bind(':journeyDate',$data['dateFull']);
 					break;
+
 				case 'Saturday':
 					$this->db->query("SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
 					INNER JOIN (SELECT DISTINCT r.trainId FROM route r INNER JOIN route_station rs ON r.routeId=rs.routeId WHERE rs.stationId=:src) t1 ON t.trainId=t1.trainId 
 					INNER JOIN station s1 ON s1.stationID=t.src_station 
 					INNER JOIN station s2 ON s2.stationID=t.dest_station
 					INNER JOIN availabledays a ON a.trainId=t.trainId
-						WHERE :src!=t.dest_station AND a.Saturday='Yes' AND t.reservable_status!=0");
+						WHERE :src!=t.dest_station AND a.Saturday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
+					$this->db->bind(':journeyDate',$data['dateFull']);
 					break;
+
 				case 'Sunday':
 					$this->db->query("SELECT t.*, s1.name AS srcName, s2.name AS destName FROM train t 
 					INNER JOIN (SELECT DISTINCT r.trainId FROM route r INNER JOIN route_station rs ON r.routeId=rs.routeId WHERE rs.stationId=:src) t1 ON t.trainId=t1.trainId 
 					INNER JOIN station s1 ON s1.stationID=t.src_station 
 					INNER JOIN station s2 ON s2.stationID=t.dest_station
 					INNER JOIN availabledays a ON a.trainId=t.trainId
-						WHERE :src!=t.dest_station AND a.Sunday='Yes' AND t.reservable_status!=0");
+						WHERE :src!=t.dest_station AND a.Sunday='Yes' AND t.reservable_status!=0 AND t.trainId NOT IN (SELECT a.trainId FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId WHERE c.cancellation_date = :journeyDate UNION SELECT a.trainId FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId WHERE r.olddate = :journeyDate)");
 					break;
 
 			}
 
 			$this->db->bind(':src',$data['src']);
+			$this->db->bind(':journeyDate',$data['dateFull']);
 			$results = $this->db->resultSet();
 			return $results;
 			
@@ -425,6 +446,7 @@
 			
 		// }
 
+		//FUnction to create a reservation - CREATE RESERVATION
 		public function addReservation($data){
 
 			$this->db->query('INSERT INTO reservation (trainId,journeyDate,passengerId) VALUES (:trainid, :jdate, :passengerId)');
@@ -449,6 +471,7 @@
 			}
 		}
 
+		//Function to check if a seat is availbale(selected)
 		public function checkSeat($date, $trainId, $compNo, $seatNo){
 
 			$this->db->query('SELECT r.reservationNo, s.seatId, s.status, r.res_time, TIMESTAMPDIFF(SECOND,r.res_time, NOW()) AS dif FROM seat s INNER JOIN reservation r ON r.reservationNo=s.reservationNo WHERE s.trainid=:trainId AND s.compartmentNo=:compNo AND s.seatNo=:seatNo AND r.journeyDate=:journeyDate');
@@ -462,7 +485,7 @@
 			
 		}
 
-		//Function to add a selected seat 
+		//Function to add a selected seat SEAT SELECTED(SEAT MAP AJAX)
 		public function addSeat($data){
 
 			$this->db->query('INSERT INTO seat (reservationNo,trainId,compartmentNo,seatNo,seatId,classtype,status,price) VALUES (:resNo, :trainid, :compNo, :label, :id, :class, :status, :price)');
@@ -485,6 +508,7 @@
 			}
 		}
 
+		//Assign the reservation number to a previously deslected seat - SEAT SELECTED(SEAT MAP AJAX)
 		public function updateSeat($data, $prevres){
 
 			$this->db->query('UPDATE seat SET status=:status, reservationNo=:resno WHERE reservationNo=:prevres AND trainId=:trainid AND compartmentNo=:compNo AND seatNo=:label');
@@ -506,7 +530,7 @@
 			}
 		}
 
-		//Function to deselect a seat 
+		//Function to deselect a seat -DISPLAY SEATMAP
 		public function removeSeat($data){
 
 			//$this->db->query('DELETE FROM seat WHERE trainId=:trainid AND compartmentNo=:compNo AND seatNo=:label');
@@ -528,7 +552,7 @@
 
 		}
 
-		//Function to deselect the seats of a reservation 
+		//Function to deselect the seats of a reservation - TIMEOUT(but has selected/deselected seats)
 		public function cancelReservation($resNo){
 
 			$this->db->query("UPDATE seat SET status='deselected' WHERE reservationNo=:resNo");
@@ -546,7 +570,7 @@
 
 		}
 
-		//Function to remove a reservation when the user has not selected any seats
+		//Function to remove a reservation when the user has not selected any seats - TIMEOUT
 		public function removeReservation($resNo){
 
 			$this->db->query("DELETE FROM reservation WHERE reservationNo=:resNo");
@@ -562,7 +586,7 @@
 			}
 		}
 
-		//Function to get all seats selected by the GIVEN USER in ANY COMPARTMENT in the GIVEN TRAIN, DATE -  For a given booking 
+		//Function to get all seats selected by the GIVEN USER in ANY COMPARTMENT in the GIVEN TRAIN, DATE -  For a given booking - DISPLAY SEATS 
 		public function getSelectedSeats($resNo){
 
 			$this->db->query("SELECT s.seatNo, s.seatId, s.compartmentNo, s.classtype, s.price FROM seat s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE s.reservationNo=:resNo AND s.status='selected'");
@@ -574,7 +598,7 @@
 			return $results;
 		}
 
-		//Function to get all seats booked or selected by(other passengers-different order number) in the GIVEN COMPARTMENT, TRAIN, DATE
+		//Function to get all seats booked or selected by(other passengers-different order number) in the GIVEN COMPARTMENT, TRAIN, DATE - GET UNAVAILABLE AND DESELECTED SEATS(AJAX)
 		public function getUnavailable($id, $compNo, $date, $resNo, $currTime){
 
 			$this->db->query("SELECT s.seatId FROM seat s INNER JOIN reservation r ON r.reservationNo=s.reservationNo WHERE (s.trainId=:id AND s.compartmentNo=:compNo AND r.journeyDate=:jdate AND s.status='booked') OR (s.trainId=:id AND s.compartmentNo=:compNo AND r.journeyDate=:jdate AND s.status='selected' AND r.reservationNo!=:resNo AND TIMESTAMPDIFF(SECOND,r.res_time,:currTime) <= 1800)");
@@ -588,7 +612,7 @@
 		}
 
 
-		//Function to get all seats deselected by other passengers in the GIVEN COMPARTMENT, TRAIN AND DATE
+		//Function to get all seats deselected by other passengers in the GIVEN COMPARTMENT, TRAIN AND DATE GET UNAVAILABLE AND DESELECTED SEATS(AJAX)
 		public function getDeselected($id, $compNo, $date, $resNo, $currTime){
 
 			$this->db->query("SELECT s.seatId FROM seat s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE (s.trainId=:id AND s.compartmentNo=:compNo AND r.journeyDate=:jdate AND s.status='deselected' AND r.reservationNo!=:resNo) OR (s.trainId=:id AND s.compartmentNo=:compNo AND r.journeyDate=:jdate AND s.status='selected' AND r.reservationNo!=:resNo AND TIMESTAMPDIFF(SECOND,r.res_time,:currTime) > 1800)");
@@ -602,7 +626,7 @@
 
 		}
 
-		//Function to get the disabled seats in a particular compartment
+		//Function to get the disabled seats in a particular compartment -DISPLAY SEAT MAP
 		public function getDisabledSeats($id, $compNo){
 
 			$this->db->query("SELECT m.seatId FROM disabled_seat_mark m INNER JOIN disabled_seat s ON s.disabledNo=m.disabledNo WHERE m.trainId=:id AND m.compartmentNo=:compNo");
@@ -614,7 +638,7 @@
 		}
 	
 
-		//Function to get the total no of items and total price of the reservation to update the database reservation table 
+		//Function to get the total no of items and total price of the reservation to update the database reservation table BOOKING REVIEW
 		public function getSummary($resNo){
 			$this->db->query("SELECT COUNT(s.seatNo) AS count, SUM(s.price) AS total FROM seat s WHERE s.reservationNo=:resNo AND status='selected'");
 
@@ -627,7 +651,7 @@
 		}
 
 
-		//Function to update the reservation table with the total price and item count 
+		//Function to update the reservation table with the total price and item count - BOOKING REVIEW
 		public function updateReservation($resNo,$count,$total){
 
 			$this->db->query('UPDATE reservation SET itemCount=:count, total=:total WHERE reservationNo=:resNo');
@@ -646,7 +670,7 @@
 		}
 
 
-		//Get the reservation details of the relevant reservation 
+		//Get the reservation details of the relevant reservation - BOOKING REVIEW, BOOKING CONF, DISPLAY TICKET 
 		public function getReservationDetails($resNo){
 
 			$this->db->query('SELECT r.*, s1.name AS srcName, s2.name AS destName FROM reservation r INNER JOIN train t ON r.trainId=t.trainId INNER JOIN station s1 ON s1.stationID=t.src_station INNER JOIN station s2 ON s2.stationID=t.dest_station WHERE r.reservationNo=:resNo');
@@ -659,7 +683,7 @@
 		}
 
 
-		//Get the account details of the relevant customer - BOOKING REVIEW
+		//Get the account details of the relevant customer - BOOKING REVIEW, VIEW TICKET
 		public function getAccountDetails($passengerId){
 
 			$this->db->query('SELECT p.*, u.email FROM passenger p INNER JOIN users u ON p.userid=u.userid WHERE p.passengerId=:passengerId');
@@ -672,7 +696,7 @@
 		}
 
 
-		//Function to get the time at which the reservation was started 
+		//Function to get the time at which the reservation was started - BOOKING CONF 
 		public function checkReservation($resNo){
 
 			$this->db->query('SELECT res_time FROM reservation WHERE reservationNo=:resNo');
@@ -686,7 +710,7 @@
 		}
 
 
-		//Function to change the status of the seats as booked upon payment confirmation
+		//Function to change the status of the seats as booked upon payment confirmation - BOOKING CONF 
 		public function confirmReservation($resNo, $timenow){
 
 			$this->db->query("UPDATE seat SET status='booked' WHERE reservationNo=:resNo AND status='selected'");
@@ -714,7 +738,7 @@
 			}
 		}
 
-		//Function to get the seats of a relevant booking
+		//Function to get the seats of a relevant booking - VIEW TICKET
 		public function getBookedSeats($resNo){
 
 			$this->db->query("SELECT s.seatNo, s.compartmentNo, s.classtype, s.price FROM seat s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE s.reservationNo=:resNo AND s.status='booked'");
@@ -726,7 +750,7 @@
 			return $results;
 		}
 
-		//After timeout - Function to check if the reservation has any selected or deselected seats
+		//After timeout - Function to check if the reservation has any selected or deselected seats - TIMEOUT
 		public function checkReservationSeats($resNo){
 
 			$this->db->query("SELECT s.seatId FROM seat s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE r.reservationNo=:resNo AND r.status='P'");
@@ -738,22 +762,22 @@
 			return $results;
 		}
 
+		//Passenger runs out of time 
+		// public function reservationTimeout($resNo,$timenow){
 
-		public function reservationTimeout($resNo,$timenow){
+		// 	$this->db->query("UPDATE reservation SET status='T', comp_time=:timenow WHERE reservationNo=:resNo");
+		// 	$this->db->bind(':resNo', $resNo);
+		// 	$this->db->bind(':timenow', $timenow);
 
-			$this->db->query("UPDATE reservation SET status='T', comp_time=:timenow WHERE reservationNo=:resNo");
-			$this->db->bind(':resNo', $resNo);
-			$this->db->bind(':timenow', $timenow);
+		// 	if ($this->db->execute()) {
+		// 		return true;		
+		// 	}else{
+		// 		return false;
+		// 	}		
 
-			if ($this->db->execute()) {
-				return true;		
-			}else{
-				return false;
-			}		
+		// }
 
-		}
-
-
+		//Add reservation details to the ticket table - BOOKING CONF
 		public function addTicket($reservation, $nowDate, $nowTime, $nic){
 
 			$this->db->query("INSERT INTO ticket (ticketId, journeyDate, reservationType, price, issueDate, issueTime, trainId, passengerId, nic) VALUES (:ticketId, :journeyDate, 'online', :price, :issueDate, :issueTime, :trainId, :passengerId, :nic)");
