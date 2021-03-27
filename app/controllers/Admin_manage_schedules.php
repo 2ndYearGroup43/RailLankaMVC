@@ -320,13 +320,15 @@ class Admin_manage_schedules extends Controller{
 	public function addNewStops($trainId,$routeId){
 		$stations=$this->adminModel->getStationID();
 		$route=$this->adminModel->getRouteId($trainId);
-		$routeId=$route->routeId;
+        $routes=$this->adminModel->getRoutes($routeId);
+        $routeId=$route->routeId;
 
 		$data=[
 			'trainId'=>$trainId,
 			'routeId'=>$routeId,
 			'stations'=>$stations,
 			"scheduleError"=>'',
+            "currentSchedules"=>$routes,
 			"schedules"=>''
 		];
 
@@ -339,7 +341,8 @@ class Admin_manage_schedules extends Controller{
 				'trainId'=>$trainId,
 				'stations'=>$stations,
 				"scheduleError"=>'',
-				"schedules"=>$a
+                "currentSchedules"=>$routes,
+                "schedules"=>$a
 			];
 
 
