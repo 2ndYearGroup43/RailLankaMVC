@@ -14,7 +14,7 @@ echo $data['manage_train']->src_station;
                 <div class="form-row">
                     <div class="input-data">
                         <label for="trainId">Train Id</label>
-                        <input type="text" name="trainId" value="<?php echo $data['manage_train']->trainId?>" id="trainId"  >
+                        <input type="text" name="trainId" value="<?php echo $data['manage_train']->trainId?>" id="trainId" disabled >
                     </div>
                     <div class="input-data">
                         <label for="name">Name</label>

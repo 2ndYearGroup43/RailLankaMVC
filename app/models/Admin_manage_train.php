@@ -112,7 +112,7 @@ class Admin_manage_train {
     }
 
 	public function edit($data){
-		$this->db->query('UPDATE train SET trainId=:trainId, name=:name, reservable_status=:reservable_status, type=:type, src_station=:src_station, starttime=:starttime, dest_station=:dest_station, endtime=:endtime, rateId=:rateId WHERE trainId=:trainId');
+		$this->db->query('UPDATE train SET name=:name, reservable_status=:reservable_status, type=:type, src_station=:src_station, starttime=:starttime, dest_station=:dest_station, endtime=:endtime, rateId=:rateId WHERE trainId=:trainId');
 
 		$this->db->bind(':trainId', $data['trainId']);
 		$this->db->bind(':name', $data['name']);		
