@@ -64,7 +64,7 @@ class Admin_manage_trains extends Controller{
             'typeError'=>''
 			];
             $idValidation="/^[a-zA-Z0-9]*$/";
-            $nameValidation="/^[a-zA-Z]*$/";
+            $nameValidation="/^[a-zA-Z\s]*$/";
 
                 if(empty($data['trainId'])){
                 $data['trainIdError']='Please Enter the Train ID.';
@@ -103,7 +103,7 @@ class Admin_manage_trains extends Controller{
                 if(empty($data['name'])){
                     $data['nameError']='Please Enter the Train Name.';
                 }elseif(!preg_match($nameValidation, $data['name'])){
-                    $data['nameError']="Train Name can only contain letters and numbers.";
+                    $data['nameError']="Train Name can only contain letters.";
                 }
                 if($data['reservable_status']==""){
                     $data['reservable_statusError']='Please Enter the Reservable Status.';
@@ -178,12 +178,12 @@ class Admin_manage_trains extends Controller{
 			];
 
             $idValidation="/^[a-zA-Z0-9]*$/";
-            $nameValidation="/^[a-zA-Z]*$/";
+            $nameValidation="/^[a-zA-Z\s]*$/";
 
                 if(empty($data['name'])){
                     $data['nameError']='Please Enter the Train Name.';
                 }elseif(!preg_match($nameValidation, $data['name'])){
-                    $data['nameError']="Train Name can only contain letters and numbers.";
+                    $data['nameError']="Train Name can only contain letters.";
                 }
 
                 if(empty($data['src_station'])){
@@ -204,7 +204,7 @@ class Admin_manage_trains extends Controller{
                     }
                 }
                 
-                if(empty($data['reservable_status'])){
+                if(($data['reservable_status'])==''){
                     $data['reservable_statusError']='Please Enter the Reservable Status.';
                 }
                 if(empty($data['type'])){
