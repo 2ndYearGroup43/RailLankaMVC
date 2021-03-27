@@ -24,10 +24,14 @@
 			<div class="summary">
 				<p><b>Your Ticket ID: <?php echo $data['resNo']; ?></b></p>
 				<p><b>Booking Date: <?php echo $data['endTime']; ?></b></p>
-				<!-- <button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/sendEmail?resNo=<?php echo $data['resNo']; ?>'" class="mail-btn" type="submit"><i class="fa fa-envelope-o" aria-hidden="true"></i> Send Email</button> -->
+				
+				<!-- <button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/sendEmail?resNo=<?php echo $data['resNo']; ?>'" class="mail-btn" type="submit"><i class="fa fa-envelope-o" aria-hidden="true"></i> Send Email</button>  -->
 			</div>
 			<div id="policy" class="summary">
-				<p>We recommend that you print this page and bring it with you. You have been sent an email with a copy of the reservation details. You may also view your reservation details online at any time.</p>
+				<p>We recommend that you print this page and bring it with you.You may also view your reservation details online at any time.</p>
+				<form action="<?php echo URLROOT; ?>/passengerAccounts/viewTicket?resNo=<?php echo $data['resNo']; ?>" method="POST">
+					<button class="mail-btn" type="submit" name="mail"><i class="fa fa-envelope-o" aria-hidden="true"></i> Send Email</button>
+				</form>
 				<button onclick="printContent('e-ticket')" class="print-btn"><i class="fa fa-print" aria-hidden="true"></i> Print This Page </button>
 			</div>
 	

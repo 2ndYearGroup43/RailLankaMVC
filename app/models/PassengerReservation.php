@@ -427,15 +427,15 @@
 
 		public function addReservation($data){
 
-			$this->db->query('INSERT INTO reservation (trainId,journeyDate,start_station,start_stopNo,dest_station,dest_stopNo,passengerId) VALUES (:trainid, :jdate, :src, :srcNo, :dest, :destNo, :passengerId)');
+			$this->db->query('INSERT INTO reservation (trainId,journeyDate,passengerId) VALUES (:trainid, :jdate, :passengerId)');
 
 			//bind values
 			$this->db->bind(':trainid', $data['trainId']);
 			$this->db->bind(':jdate', $data['date']);
-			$this->db->bind(':src', $data['src']);
-			$this->db->bind(':srcNo', $data['srcNo']);
-			$this->db->bind(':dest', $data['dest']);
-			$this->db->bind(':destNo', $data['destNo']);
+			// $this->db->bind(':src', $data['src']);
+			// $this->db->bind(':srcNo', $data['srcNo']);
+			// $this->db->bind(':dest', $data['dest']);
+			// $this->db->bind(':destNo', $data['destNo']);
 			$this->db->bind(':passengerId', $data['passengerId']);			
 
 			//Execute function
@@ -649,7 +649,7 @@
 		//Get the reservation details of the relevant reservation 
 		public function getReservationDetails($resNo){
 
-			$this->db->query('SELECT r.*, s1.name AS srcName, s2.name AS destName FROM reservation r INNER JOIN station s1 ON s1.stationID=r.start_station INNER JOIN station s2 ON s2.stationID=r.dest_station WHERE r.reservationNo=:resNo');
+			$this->db->query('SELECT r.*, s1.name AS srcName, s2.name AS destName FROM reservation r INNER JOIN train t ON r.trainId=t.trainId INNER JOIN station s1 ON s1.stationID=t.src_station INNER JOIN station s2 ON s2.stationID=t.dest_station WHERE r.reservationNo=:resNo');
 
 			//bind values
             $this->db->bind(":resNo",$resNo);
@@ -751,6 +751,29 @@
 				return false;
 			}		
 
+		}
+
+
+		public function addTicket($reservation, $nowDate, $nowTime, $nic){
+
+			$this->db->query("INSERT INTO ticket (ticketId, journeyDate, reservationType, price, issueDate, issueTime, trainId, passengerId, nic) VALUES (:ticketId, :journeyDate, 'online', :price, :issueDate, :issueTime, :trainId, :passengerId, :nic)");
+
+			//bind values
+			$this->db->bind(':ticketId', $reservation->reservationNo); 
+			$this->db->bind(':journeyDate', $reservation->journeyDate);
+			$this->db->bind(':price', $reservation->total);
+			$this->db->bind(':issueDate', $nowDate);
+			$this->db->bind(':issueTime', $nowTime);
+			$this->db->bind(':trainId', $reservation->trainId);
+			$this->db->bind(':passengerId', $reservation->passengerId);
+			$this->db->bind(':nic', $nic);
+
+			//Execute function
+			if ($this->db->execute()) {
+				return true;		
+			} else {
+				return false;
+			}
 		}
 
 		public function testmethod($id){
