@@ -24,12 +24,29 @@ function addCompartmentRow() {
     if(compartmentNo.value.length==0){
         document.getElementById("compartmentNoError").innerHTML="You should enter the compartment number.";
         return;
+    }else if(isNaN(compartmentNo.value-1) ){
+        document.getElementById("compartmentNoError").innerHTML="Compartment Number should be numerical.";
+        return;
     }else if (trainClass.value.length==0) {
         document.getElementById("classError").innerHTML="You should enter the class.";
         return;
     }else if(type.value.length==0){
         document.getElementById("typeError").innerHTML="You should enter a a compartment type.";
         return;
+    }else if(compartments.length>0){
+        for(var i=0;i<compartments.length;i++){
+            if (compartments[i].compartmentNo==compartmentNo.value){
+                document.getElementById("compartmentNoError").innerHTML="Compartment number has been repeated.";
+                return;
+            }
+        }
+    }else if(currentCompartments.length>0){
+        for(var i=0;i<currentCompartments.length;i++){
+            if (currentCompartments[i].compartmentNo==compartmentNo.value){
+                document.getElementById("compartmentNoError").innerHTML="Compartment number has been already inserted.";
+                return;
+            }
+        }
     }
         
 
