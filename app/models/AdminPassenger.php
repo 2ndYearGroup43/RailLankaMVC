@@ -65,7 +65,7 @@ class AdminPassenger {
                         break;
                     case 'email':
                         $this->db->query('SELECT p.*,u.email FROM passenger p
-                        INNER JOIN users u ON u.userId=p.userId WHERE p.email = :searchTerm');
+                        INNER JOIN users u ON u.userId=p.userId WHERE u.email = :searchTerm');
                         break;
                     case 'city':
                         $this->db->query('SELECT p.*,u.email FROM passenger p
