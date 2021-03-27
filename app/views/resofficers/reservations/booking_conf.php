@@ -14,7 +14,7 @@
 			<div>
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 			</div>
-			<h1 class="title" style="padding-left: 275px;">BOOKING REVIEW</h1>
+			<h1 class="title" style="padding-left: 200px;">BOOKING CONFIRMATION</h1>
 			<div class="summary">
 				<center><p>We will email you a confirmation of this booking.</p><p> You may also view your reservation details online at any time.</p></center>
 				<button onclick="printContent('e-ticket')" class="print"><i class="fa fa-print" aria-hidden="true"></i> Print This Page </button>

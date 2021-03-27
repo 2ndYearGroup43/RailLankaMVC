@@ -120,7 +120,7 @@
           $passenger=$this->resofficerReservationModel->checkUnregisteredPassenger($ticketId);
           $old=$this->resofficerReservationModel->getOldPassengerDetails($trainId, $ticketId);
 
-            if($passenger->tid==$passenger->uid){
+            if(empty($passenger->passengerId)){
                 $passengers=$this->resofficerReservationModel->getUnregisteredPassengerDetails($trainId, $ticketId);
             }else{
                 $passengers=$this->resofficerReservationModel->getRegisteredPassengerDetails($trainId, $ticketId);

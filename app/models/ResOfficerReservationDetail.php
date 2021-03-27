@@ -264,7 +264,7 @@
     }
 
     public function checkUnregisteredPassenger($ticketId){
-        $this->db->query('SELECT t.uPassenger_id as tid, u.uPassenger_id as uid FROM ticket t INNER JOIN unregistered_passenger u ON t.uPassenger_id=u.uPassenger_id WHERE t.ticketId=:ticketId');
+        $this->db->query('SELECT passengerId FROM ticket WHERE ticketId=:ticketId');
 
         $this->db->bind(':ticketId', $ticketId);
 

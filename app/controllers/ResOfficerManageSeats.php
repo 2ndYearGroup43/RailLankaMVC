@@ -16,97 +16,119 @@
             $this->view('resofficers/manage_seats/search_trains',$data);
         }
 
-		public function search()
-        {
+        public function search() {
+            
             $stations=$this->resofficerReservationModel->getStations();
-            $data=[
-                'stations'=>$stations,
-                'trains'=>'',
-                'srcStation'=>'',
-                'destStation'=>'',
+            
+            $data = [
+                'src'=>'',
+                'dest'=>'',
+                'dateFull'=>'',
                 'date'=>'',
-                'time'=>'',
+                'deptTime'=>'',
+                'trains'=> '',
+                'stations'=>$stations,
                 'srcError'=>'',
                 'destError'=>'',
                 'dateError'=>'',
                 'timeError'=>''
             ];
 
+
             if($_SERVER['REQUEST_METHOD']=='POST'){
+
+                //sanitise post data
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-                $data=[
-                    'stations'=>$stations,
+                
+                $data = [
+                    'src'=>trim($_POST['source']),
+                    'dest'=>trim($_POST['destination']),
+                    'dateFull'=>trim($_POST['date']),
+                    'date'=>'',
+                    'deptTime'=>trim($_POST['time']),
                     'trains'=>'',
-                    'srcStation'=>trim($_POST['src']),
-                    'destStation'=>trim($_POST['dest']),
-                    'date'=>trim($_POST['date']),
-                    'time'=>trim($_POST['time']),
+                    'stations'=>$stations,
                     'srcError'=>'',
                     'destError'=>'',
                     'dateError'=>'',
                     'timeError'=>''
-                ];
+                ];   
 
-                if(empty($data['srcStation']) && empty($data['destStation'])){
-                    $data['srcError']='Please enter Atleast one station to proceed';
-                    $data['destError']='Please enter Atleast one station to proceed';
+                if(empty($data['src'])){
+                    $data['srcError']="Please enter the source station to proceed.";
+                }else{
+                    if(!$this->resofficerReservationModel->checkStation($data['src'])){
+                        $data['srcError']='Source station doesnt exist'; //Passenger enters non existing source station
+                    } else{
+                        $result=$this->resofficerReservationModel->getStationId($data['src']);
+                        $data['src']=$result->stationId;
+                    } 
                 }
-                if(!empty($data['srcStation'])){
-                    if(!$this->resofficerReservationModel->checkStation($data['srcStation'])){
-                        $data['srcError']='Entered source station doesnt exist';
+
+                if(!empty($data['dest'])){
+                    if(!$this->resofficerReservationModel->checkStation($data['dest'])){
+                        $data['destError']='Destination station doesnt exist';
+                    } else{
+                        $result=$this->resofficerReservationModel->getStationId($data['dest']);
+                        $data['dest']=$result->stationId;
+
+                        if($data['src']==$data['dest']){
+                            $data['destError']='Destination and source station cannot be the same';
+                        }
                     }
                 }
-                if(!empty($data['destStation'])){
-                    if(!$this->resofficerReservationModel->checkStation($data['destStation'])){
-                        $data['destError']='Entered destination station doesnt exist';
-                    }
-                }
-                if(empty($data['time'])){
-                    $data['time']=1;
-                }
-                if (!empty($data['date'])){
-                    $data['date']= date('l', strtotime($data['date']));
-                }
 
+                if(empty($data['srcError']) && empty($data['destError']) && empty($data['dateError']) && empty($data['timeError'])){
 
-                if(empty($data['srcError']) && empty($data['destError'])
-                    && empty($data['dateError']) && empty($data['timeError'])){
-                    if(empty($data['srcStation']) || empty($data['destStation'])){
-                        if(empty($data['destStation'])){
-                            if(empty($data['date'])){
-                                $data['trains']=$this->resofficerReservationModel->searchSrcOnly($data);
-                            }else{
-                                $data['trains']=$this->resofficerReservationModel->searchSrcDate($data);
-                            }
+                    #src-date-time/src-date/src-time/src
+                    if(empty($data['dest'])){
+
+                        #src
+                        if(empty($data['date']) && empty($data['deptTime'])){
+                            $data['trains']=$this->resofficerReservationModel->searchSrc($data);
+
+                        #src-time
+                        }elseif(empty($data['date'])){
+                            $data['trains']=$this->resofficerReservationModel->searchSrcTime($data);
+                        #src-date
+                        }elseif(empty($data['deptTime'])){
+                            $data['trains']=$this->resofficerReservationModel->searchSrcDate($data);
+                        #src-date-time
+                        }else {
+                            $data['trains']=$this->resofficerReservationModel->searchSrcDateTime($data);
                         }
-                        if(empty($data['srcStation'])){
-                            echo 'methana';
-                            if(empty($data['date'])){
-                                echo 'methana';
-                                $data['trains']=$this->resofficerReservationModel->searchDestOnly($data);
-                            }else{
-                                echo "here";
-                                $data['trains']=$this->resofficerReservationModel->searchDestDate($data);
-                            }
-                        }
-                    }else{
-                        if(empty($data['date'])){
-                            $data['trains']=$this->resofficerReservationModel->searchSrcDestOnly($data);
-                        }else{
+
+                    #src-dest-date-time/src-dest-date/src-dest-time/src-dest
+                    }else {
+
+                        #src-dest
+                        if(empty($data['date']) && empty($data['deptTime'])){
+                            $data['trains']=$this->resofficerReservationModel->searchSrcDest($data);
+                        #src-dest-time
+                        }elseif(empty($data['date'])){
+                            $data['trains']=$this->resofficerReservationModel->searchSrcDestTime($data);
+                        #src-dest-date
+                        }elseif(empty($data['deptTime'])){
                             $data['trains']=$this->resofficerReservationModel->searchSrcDestDate($data);
+                        #src-dest-date-time
+                        }else {
+                            $data['trains']=$this->resofficerReservationModel->searchAll($data);
                         }
+
                     }
 
                     $this->displayTrains($data); 
                     return;
 
+                }else {
 
-                }else{
-                    $this->view('resofficers/manage_seats/search_trains',$data);
+                     $this->view('resofficers/manage_seats/search_trains',$data);
                 }
             }
-            $this->view('resofficers/manage_seats/search_trains',$data);
+            
+             $this->view('resofficers/manage_seats/search_trains',$data); 
         }
+
 
         public function displayTrains($data) {
 

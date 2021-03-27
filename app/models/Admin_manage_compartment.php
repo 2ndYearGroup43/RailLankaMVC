@@ -199,7 +199,7 @@ class Admin_manage_compartment {
 
 	public function getCompartments($trainId)
 	{
-		$this->db->query('SELECT c.*, ct.imageDir FROM compartment c INNER JOIN compartment_type ct ON ct.typeno=c.type WHERE c.trainId=:trainId');
+		$this->db->query('SELECT c.*, ct.imageDir FROM compartment c INNER JOIN compartment_type ct ON ct.typeno=c.type WHERE c.trainId=:trainId ORDER BY c.compartmentNo');
 
 		$this->db->bind(':trainId', $trainId);
 
