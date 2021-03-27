@@ -14,7 +14,7 @@
 <!-- <?php var_dump($_SESSION); ?>
 <br>
 <?php var_dump($data['trains']); ?> -->
-
+<?php var_dump($data['unavailable']); ?>
 <!-- search results -->
 	<div class="body-section">
 		<a href="#" id="pop-up" class="btn pop-up-btn">Search <i class="fa fa-search" aria-hidden="true"></i></a>
