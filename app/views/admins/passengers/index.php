@@ -154,9 +154,8 @@
                             </script>
                             <td data-th="Manage">
                                 
-                                
-                                <button type="button" class="table-btn blue" onclick="openPassengerView(alerts,<?php echo $count;?>)">View</button>
                             <form action="<?php echo URLROOT;?>/adminPassengers/delete/<?php echo $row->userid;?>" method="POST">
+                            <button type="button" class="table-btn blue" onclick="openPassengerView(alerts,<?php echo $count;?>)">View</button>
                             <input type="submit" class="red-btn" value="Delete"></form>
                                 
                             </td>

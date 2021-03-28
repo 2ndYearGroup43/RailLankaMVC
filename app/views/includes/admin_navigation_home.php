@@ -47,9 +47,11 @@
                                             <!-- <input type="checkbox" id="btn-2"> -->
                                             <div class="nav-dropdown second">
                                                 <ul>
+                                                    <?php if($_SESSION['role']==6): ?>
                                                     <li class="nav-dropdown-link">
-                                                        <a href="<?php echo URLROOT; ?>/admins/registerAdmin">Admins</a>
+                                                        <a href="<?php echo URLROOT; ?>/superadmins/registerAdmin">Admins</a>
                                                     </li>
+                                                    <?php endif; ?>
                                                     <li class="nav-dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/resofficers/registerResofficer">Res. officers</a>
                                                     </li>
@@ -69,9 +71,11 @@
                                             <!-- <input type="checkbox" id="btn-3"> -->
                                             <div class="nav-dropdown second">
                                                 <ul>
-                                                    <li class="nav-dropdown-link">
-                                                        <a href="<?php echo URLROOT; ?>/admins/viewAdmins">Admins</a>
-                                                    </li>
+                                                    <?php if($_SESSION['role']==6): ?>
+                                                     <li class="nav-dropdown-link">
+                                                        <a href="<?php echo URLROOT; ?>/superadmins/viewAdmins">Admins</a> 
+                                                    </li> 
+                                                    <?php endif; ?>
                                                     <li class="nav-dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/resofficers/viewResofficers">Res. officers</a>
                                                     </li>

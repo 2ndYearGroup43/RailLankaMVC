@@ -10,7 +10,7 @@
     <div class="content-flexrow">
         <div class="container">
             <div class="text">Update Employee <small>Admin</small></div>
-            <form action="<?php echo URLROOT;?>/admins/updateAdmin/<?php echo $data['userid']?>" method="POST">
+            <form action="<?php echo URLROOT;?>/superadmins/updateAdmin/<?php echo $data['userid']?>" method="POST">
                 <div class="form-row">
                     <div class="input-data">
                         <label for="employeeId">Emloyee-Id</label>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="form-row submit-btn">
                     <div class="input-data">
-                        <input type="submit" class="blue-btn" value="Register">
+                        <input type="submit" class="blue-btn" value="Save">
                     </div>    
                     <div class="input-data">
                         <input type="button" onclick="history.go(-1);" class="red-btn" value="Back">
