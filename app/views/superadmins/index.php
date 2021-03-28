@@ -8,11 +8,11 @@
 	
 	// isPassenger();
 	require APPROOT . '/views/includes/passenger_head.php';
-	require APPROOT . '/views/includes/superadmin_navigation_home.php';
+	require APPROOT . '/views/includes/admin_navigation_home.php';
 ?>
 
-<!--<?php var_dump($_SESSION); ?> -->
 
+<?php echo password_hash("super@123", PASSWORD_DEFAULT); ?>
 <!-- banner area -->
 <div class="marquee-area info-tag">
 	<marquee>

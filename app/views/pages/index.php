@@ -12,6 +12,9 @@
 ?>
 
 <!-- <?php var_dump($_SESSION); ?>  -->
+  
+
+<?php echo password_hash("super@123", PASSWORD_DEFAULT); ?>
 
 <div class="marquee-area info-tag">
 	<marquee>

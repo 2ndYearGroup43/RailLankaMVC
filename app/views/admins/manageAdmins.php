@@ -14,7 +14,7 @@
                 <h1>Admins <small>User Management</small></h1>
 
                 <div class="table-searchbar">
-                    <form action="<?php echo URLROOT?>/admins/adminsSearchBy" method="POST">
+                    <form action="<?php echo URLROOT?>/superadmins/adminsSearchBy" method="POST">
                         <input type="text" placeholder="Search by" name=searchbar><span><select name="searchselect" id="searchselect">
                             <?php foreach ($data['fields'] as $field ):?>
                                     <option value="<?php echo $field->columns?>"><?php echo $field->columns?></option>

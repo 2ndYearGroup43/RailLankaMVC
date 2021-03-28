@@ -6,7 +6,14 @@ class AdminAccounts extends Controller {
     }
 
     public function index() {
+
+    	$id = $_SESSION['userid'];
+            $admin=$this->adminaccountModel->findAdminById($id);
+            $data=[
+                'admin'=>$admin,
+                'id'=>$id
+            ];
+        $this->view('admins/accounts/index', $data);
         
-        $this->view('admins/accounts/index');
     }
 }

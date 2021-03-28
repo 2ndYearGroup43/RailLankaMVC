@@ -31,7 +31,8 @@ class AdminNotices extends Controller {
             'typeError' => '',
             'descriptionError' => '',
             'entered_dateError' => '',
-            'entered_timeError' => ''        ];
+            'entered_timeError' => ''       
+        ];
 
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
@@ -39,7 +40,7 @@ class AdminNotices extends Controller {
 
             $data = [
 
-                    'adminId'=>$_SESSION['admin_id'],
+                    'adminId'=>'',
                     'type'=>trim($_POST['type']),
                     'description'=>trim($_POST['description']),
                     'entered_date'=>date("Y-m-d"),
@@ -53,7 +54,13 @@ class AdminNotices extends Controller {
                     'adminIdError' => ''
             ];
 
-//var_dump($data);
+            if($_SESSION['role']==6){
+                $data['adminId'] = $_SESSION['superadmin_id'];
+            }elseif($_SESSION['role']==2){
+                $data['adminId']=$_SESSION['admin_id'];
+            }
+
+var_dump($data);
             if(empty($data['description'])) {
                 $data['descriptionError'] = 'The description of a notice cannot be empty';
             }
@@ -96,14 +103,18 @@ class AdminNotices extends Controller {
             $data = [
                     'noticeId'=>$noticeId, //fields wenas kara
                     'notice' => $notice,
-                    'adminId'=>$_SESSION['admin_id'],
+                    //'adminId'=>$_SESSION['admin_id'],
                     'description'=>trim($_POST['description']),
                     'type'=>trim($_POST['type']),
                     'descriptionError' => '',
                     'typeError' => ''
             ];
 
-
+            if($_SESSION['role']==6){
+                $data['adminId'] = $_SESSION['superadmin_id'];
+            }elseif($_SESSION['role']==2){
+                $data['adminId']=$_SESSION['admin_id'];
+            }
 
             
             if(empty($data['description'])) {
