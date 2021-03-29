@@ -711,6 +711,15 @@
 
                 if(empty($data['newDate'])){
                     $data['newDateError']='The new date should not be empty';    
+                }else{
+                    if(empty($data['trainIdError'])){
+                        $day=date('l', strtotime($data['newDate']));
+                        $day=strtolower($day);
+                        $availableDays=$this->alertModel->getDays($data['trainId']);
+                        if($availableDays->$day=="Yes"){
+                            $data['newDateError']='The assigned train already runs on '.$day.'s.';
+                        }
+                    }
                 }
 
                 $rnewDate=new DateTime($data['newDate']);
@@ -834,6 +843,15 @@
 
                 if(empty($data['newDate'])){
                     $data['newDateError']='The new date should not be empty';    
+                }else{
+                    if(empty($data['trainIdError'])){
+                        $day=date('l', strtotime($data['newDate']));
+                        $day=strtolower($day);
+                        $availableDays=$this->alertModel->getDays($data['trainId']);
+                        if($availableDays->$day=="Yes"){
+                            $data['newDateError']='The assigned train already runs on '.$day.'s.';
+                        }
+                    }
                 }
 
                 $rnewDate=new DateTime($data['newDate']);
@@ -1130,12 +1148,12 @@
                 $mail->isSMTP();                                            // Send using SMTP
                 $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
-                $mail->Password   = 'Raillanka@2';                               // SMTP password
+                $mail->Username   = PROJECTEMAIL;                     // SMTP username
+                $mail->Password   = PROJECTEMAILPASSWORD;                               // SMTP password
                 $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
                 //From mail
-                $mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+                $mail->setFrom(PROJECTEMAIL, 'RailLanka');
 
                 //looping through mail list
 

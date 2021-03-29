@@ -118,13 +118,13 @@ class DriverMobiles extends Controller{
             $mail->isSMTP();                                            // Send using SMTP
             $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
-            $mail->Password   = 'Raillanka@2';                               // SMTP password
+            $mail->Username   = PROJECTEMAIL;                     // SMTP username
+            $mail->Password   = PROJECTEMAILPASSWORD;                               // SMTP password
             $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Recipients
-            $mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+            $mail->setFrom(PROJECTEMAIL, 'RailLanka');
             $mail->addAddress($email);     // Add a recipient
                     // Name is optional
             $mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');

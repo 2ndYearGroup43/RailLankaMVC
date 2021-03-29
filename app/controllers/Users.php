@@ -147,7 +147,7 @@
 					        $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
 					        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
 					        $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
-					        $mail->Password   = 'Raillanka@2';                               // SMTP password
+					        $mail->Password   = 'Raillanka@1234';                               // SMTP password
 					        $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
 					        $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
@@ -174,7 +174,7 @@
 
 					    } catch (Exception $e) {
 					    	//echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-					    	if($this->userModel->removeUser($email)){
+					    	if($this->userModel->removeUser($data['email'])){
 					    		$data['emailError'] = 'Please enter a valid email address'; //??
 					    		$this->view('users/register', $data);
 					    	}

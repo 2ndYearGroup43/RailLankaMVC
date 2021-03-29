@@ -64,8 +64,6 @@
                     // 'passwordError'=>'',
                     // 'confirmPasswordError'=>''              
                 ];
-                echo "wtf";
-                echo $data['driverId'];
                 $idValidation="/^[a-zA-Z0-9]*$/";
                 $nameValidation="/^[a-zA-Z]*$/";
                 $mobileValidation="/^[0-9]{10}+$/";
@@ -117,26 +115,10 @@
                     $data['mobileNoError']="Name can only contain numbers and +.";
                 }
 
-                $informPass=$data['email'].$data['adminId'];
+                $informPass=$data['email'].$data['driverId'];
                 $data['password']=$informPass;
                 $userEmail=$data['email'];
 
-                //password validate by length and numeric values
-                // if(empty($data['password'])){
-                //     $data['passwordError']='Please Enter the passsword.';
-                // }elseif (strlen($data['password'])<8) {
-                //     $data['passwordError']="Password length should be atleast 8 characters long";
-                // }elseif(!preg_match($passwordValidation, $data['password'])){
-                //     $data['passwordError']="Password must have atleast one numeric value.";
-                // }
-
-                // if(empty($data['confirmPassword'])){
-                //     $data['confirmPasswordError']='Please Enter the passsword.';
-                // }else{
-                //     if($data['password']!=$data['confirmPassword']){
-                //         $data['confirmPasswordError']='Passwords do not match.';
-                //     }
-                // }
 
                 if(empty($data['driverIdError']) && empty($data['employeerIdError']) &&
                 empty($data['firstNameError']) && empty($data['lastNameError']) && 
@@ -183,13 +165,13 @@
                 $mail->isSMTP();                                            // Send using SMTP
                 $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
-                $mail->Password   = 'Raillanka@2';                               // SMTP password
+                $mail->Username   = PROJECTEMAIL;                     // SMTP username
+                $mail->Password   = PROJECTEMAILPASSWORD;                               // SMTP password
                 $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
                 //Recipients
-                $mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+                $mail->setFrom(PROJECTEMAIL, 'RailLanka');
                 $mail->addAddress($email);     // Add a recipient
                         // Name is optional
                 $mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');
@@ -411,7 +393,7 @@
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 if ($this->driverModel->deleteUser($userId)) {
-                    header("Location: ".URLROOT."/drivers/mobileapp/viewDrivers");
+                    header("Location: ".URLROOT."/drivers/viewdrivers");
                 } else {
                     die("Something went wrong");
                 }
