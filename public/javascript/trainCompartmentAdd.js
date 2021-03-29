@@ -24,9 +24,6 @@ function addCompartmentRow() {
     if(compartmentNo.value.length==0){
         document.getElementById("compartmentNoError").innerHTML="You should enter the compartment number.";
         return;
-    }else if(isNaN(compartmentNo.value-1) ){
-        document.getElementById("compartmentNoError").innerHTML="Compartment Number should be numerical.";
-        return;
     }else if (trainClass.value.length==0) {
         document.getElementById("classError").innerHTML="You should enter the class.";
         return;
