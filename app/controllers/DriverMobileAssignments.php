@@ -10,8 +10,30 @@
             $response = array();
             $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $driverId= $_POST['driverId'];
-//            $driverId='01';
-            $assignment=$this->driverAssignmentModel->checkCurrentAssignments($driverId);
+
+            $date=new DateTime();
+            $prevDate=new DateTime();
+            $prevDate->modify("-1 day");
+            $date=$date->format("Y-m-d");
+            $prevDate=$prevDate->format("Y-m-d");
+
+            $assignedTrain=$this->driverAssignmentModel->getAssignedTrain($driverId);
+            if ($assignedTrain){
+              if($assignedTrain->type=="Night"){ //check if assigned train is night mail
+                  $assignment=$this->driverAssignmentModel->checkCurrentOverNightAssignments($driverId, $date, $prevDate);
+                  if($assignment){
+                      $response['result']=true;
+                      $response['assignment']=$assignment;
+                  }else{
+                      $response['result']=false;
+                  }
+
+                  echo json_encode($response);
+                  return;
+              }
+            }
+
+            $assignment=$this->driverAssignmentModel->checkCurrentAssignments($driverId, $date);
 //            var_dump($assignment);
             if($assignment){
                 $response['result']=true;
