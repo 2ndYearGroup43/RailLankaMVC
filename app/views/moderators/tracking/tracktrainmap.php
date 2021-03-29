@@ -4,7 +4,7 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
-   // var_dump($data);
+//    var_dump($data);
 
 ?>
     <script>
@@ -78,40 +78,39 @@
                     
                 </div>
                 <script>
+                    //setup global variables
                     var marker;
                     var map;
                     function initMap(){
-                        // var cities =[['Colombo Fort',6.933924, 79.850026, 1],['Kandy',7.289776, 80.632347, 2]];
-                        var colombo = {lat: 6.933924,lng: 79.850026}; 
-                        var kandy = {lat: 7.289776,lng: 80.632347}; 
-                        // 6.933924, 79.850026 Colombo Fort station location
-                        // 7.289776, 80.632347 Kandy Station location
-                        map = new google.maps.Map(document.getElementById('map'),{
+                        var colombo = {lat: 6.933924,lng: 79.850026};
+                        var kandy = {lat: 7.289776,lng: 80.632347};
+                        var journey=<?php echo  json_encode($data['journey']);?>;
+
+                        map = new google.maps.Map(document.getElementById('map'),{ //define the div #id
                             zoom: 15,
                             center: colombo
                         });
+
                         marker = new google.maps.Marker({
                             map: map,
-                            title: "Colombo-fort"
+                            position: new google.maps.LatLng(Number(journey.latitude), Number(journey.longitude)),
+                            title: "<?php echo $data['train']->trainId.' '.$data['train']->name;?>",
+                            label: journey.trainId
                         });
                         var jstatus="<?php echo $data['journey']->journey_status;?>";
-
                         if(jstatus=="Live"){
                             marker.setIcon(icons['live']['iconPath']);
                         }else if(jstatus=="Off-Line"){
                             marker.setIcon(icons['stopped']['iconPath']);
                         }
-                        // var marker2 = new google.maps.Marker({
-                        //     position: kandy,
-                        //     map: map,
-                        //     title: "kandy"
-                        // });
+
                     }
                 </script>
                     <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpvvsHk0hFouQ96SvUrCbPrq6GDXLDuy8&callback=initMap"
                     type="text/javascript"></script>
 
                 <script>
+                    //get ajax json from gettrainlocation/journeyID
                     setInterval(function(){
                         $.ajax({
                             type: 'get',
@@ -128,11 +127,12 @@
                                    marker.setPosition(location);
                                    marker.title=response[0].trainId+" "+response[0].name;
 
+                                   //update date in the date div
                                    var d= new Date();
                                    var dateDisplay=document.getElementById("date-time");
                                    dateDisplay.innerHTML=d;
 
-
+                                    //change status according to location status of the response
                                    var status=document.getElementById("LocStatus");
                                    status.innerHTML="";
                                    console.log(marker);
@@ -146,6 +146,7 @@
                                        marker.setIcon(icons['live']['iconPath']);
                                    }
                                }else{
+                                   //if response is none meaning n response array
                                     var status=document.getElementById("LocStatus");
                                     status.innerText="Journey Ended";
                                     status.style.color="#850423";

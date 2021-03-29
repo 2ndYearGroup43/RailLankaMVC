@@ -41,9 +41,7 @@
                     <div class="card-count">
                         <?php echo $data['cancelledCount'];?>
                     </div>
-                    <div class="card-link">
-                        <a href="#">Manage</a>
-                    </div>
+
                 </div>
                 <div class="count-card">
                     <div class="card-title">
@@ -53,9 +51,7 @@
                     <div class="card-count">
                         <?php echo $data['delayedCount'];?>
                     </div>
-                    <div class="card-link">
-                        <a href="#">Manage</a>
-                    </div>
+
                 </div>
                 <div class="count-card">
                     <div class="card-title">
@@ -65,9 +61,7 @@
                     <div class="card-count">
                         <?php echo $data['rescheduledCount'];?>
                     </div>
-                    <div class="card-link">
-                        <a href="#">Manage</a>
-                    </div>
+
                 </div>
             </div>
         </div>

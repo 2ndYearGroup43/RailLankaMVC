@@ -363,7 +363,8 @@ class ModeratorTrack{
     }
 
     public function getJourney($journeyId){
-        $this->db->query("SELECT * FROM journey WHERE journeyId=:journeyId AND journey_status<>'Ended'");
+        $this->db->query("SELECT j.*, l.* FROM journey j INNER JOIN location l ON j.journeyId=l.journeyId
+        WHERE j.journeyId=:journeyId AND j.journey_status<>'Ended'");
         $this->db->bind(":journeyId", $journeyId);
         $journey=$this->db->single();
         return $journey;

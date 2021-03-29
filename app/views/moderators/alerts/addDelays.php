@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-row">
                         <div class="input-data">
-                            <label for="delayDate">Cancellation Date</label>
+                            <label for="delayDate">Delay Date</label>
                             <input type="date" name="delaydate" id="delaydate" required>
                             <span class="invalidFeedback">
                                 <?php echo $data['delayDateError'];?>

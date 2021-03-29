@@ -103,9 +103,15 @@
                     $data['jstatusError']='The journey status should not be empty';    
                 }
 
+                $adate=new DateTime($data['date']);
+                $adate=$adate->format("Y-m-d");
+                $now=new DateTime();
+                $now=$now->format("Y-m-d");
                 //check if the date field is empty
                 if(empty($data['date'])){
                     $data['dateError']='The date should not be empty';    
+                }elseif ($adate<$now){
+                    $data['dateError']='The assignment date cannot be in the past';
                 }else{
                     if(empty($data['trainIdError'])){
                         $day=date('l', strtotime($data['date']));
