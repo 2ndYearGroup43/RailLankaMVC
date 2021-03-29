@@ -68,7 +68,7 @@
                     'password'=>'',
                     //'confirmPassword'=>trim($_POST['confirmPassword']),
                     'regDate'=>date("Y-m-d"),
-                    'regTime'=>date("H:i:sa"),
+                    'regTime'=>date("H:i:s"),
                     'moderatorIdError'=>'',
                     'employeeIdError'=>'',
                     'firstNameError'=>'',

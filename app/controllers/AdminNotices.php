@@ -24,11 +24,13 @@ class AdminNotices extends Controller {
 
         $data = [
             'type' => '',
+            'title'=>'',
             'description' => '',
             'entered_date' => '',
             'entered_time' => '',       
             'adminId' => '',
             'typeError' => '',
+            'titleError' => '',
             'descriptionError' => '',
             'entered_dateError' => '',
             'entered_timeError' => ''       
@@ -42,13 +44,13 @@ class AdminNotices extends Controller {
 
                     'adminId'=>'',
                     'type'=>trim($_POST['type']),
+                    'title'=>trim($_POST['title']),
                     'description'=>trim($_POST['description']),
                     'entered_date'=>date("Y-m-d"),
-                    'entered_time'=>date("H:i:s"),  
-                    // 'noticeId' =>'',
-                    //'adminId'=>trim($_POST['admin_id']),
+                    'entered_time'=>date("H:i:s"),                                                   //'adminId'=>trim($_POST['admin_id']),
                     'typeError' => '',
                     'descriptionError' => '',
+                    'titleError' => '',
                     'entered_dateError' => '',
                     'entered_timeError' => '',
                     'adminIdError' => ''
@@ -60,15 +62,20 @@ class AdminNotices extends Controller {
                 $data['adminId']=$_SESSION['admin_id'];
             }
 
-var_dump($data);
+
+//var_dump($data);
+            if(empty($data['title'])) {
+                $data['titleError'] = 'The title of a notice cannot be empty';
+            }
             if(empty($data['description'])) {
                 $data['descriptionError'] = 'The description of a notice cannot be empty';
             }
             if(empty($data['type'])) {
                 $data['typeError'] = 'The type of a notice cannot be empty';
             }
+            
 
-            if (empty($data['descriptionError']) && empty($data['typeError'])) {
+            if (empty($data['titleError']) && empty($data['typeError']) && empty($data['descriptionError'])) {
                 if ($this->adminnoticeModel->addNotice($data)) {
                     header("Location: " . URLROOT . "/adminNotices");
                 } else {
@@ -84,12 +91,13 @@ var_dump($data);
 
      }
 
-     public function updateNotice($noticeId) { //change kara
+     public function updateNotice($noticeId) { 
 
        $notice = $this->adminnoticeModel->findNoticeById($noticeId);
 
-        $data = [  //fields wenas kara
+        $data = [  
             'notice' => $notice,
+            'title'=>'',
             'description' => '',
             'type' => '',
             'descriptionError' => '',
@@ -101,9 +109,10 @@ var_dump($data);
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $data = [
-                    'noticeId'=>$noticeId, //fields wenas kara
+                    'noticeId'=>$noticeId,
                     'notice' => $notice,
                     //'adminId'=>$_SESSION['admin_id'],
+                    'title'=>trim($_POST['title']),
                     'description'=>trim($_POST['description']),
                     'type'=>trim($_POST['type']),
                     'descriptionError' => '',
@@ -125,6 +134,9 @@ var_dump($data);
             if(empty($data['type'])) {
                 $data['typeError'] = 'The type of a station cannot be empty';
             }
+            if(empty($data['title'])) {
+                $data['titleError'] = 'The title of a notice cannot be empty';
+            }
 
 
             if($data['description'] == $this->adminnoticeModel->findNoticeById($noticeId)->description) {
@@ -133,8 +145,11 @@ var_dump($data);
             if($data['type'] == $this->adminnoticeModel->findNoticeById($noticeId)->type) {
                 $data['typeError'] = 'At least change one field!';
             }
+            if($data['title'] == $this->adminnoticeModel->findNoticeById($noticeId)->title) {
+                $data['titleError'] = 'At least change one field!';
+            }
 
-            if (empty($data['descriptionError']) && empty($data['typeError'])) {
+            if (empty($data['descriptionError']) && empty($data['typeError']) && empty($data['titleError'])) {
                 if ($this->adminnoticeModel->updateNotice($data)) {
                     header("Location: " . URLROOT . "/adminNotices");
                 } else {

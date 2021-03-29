@@ -45,6 +45,17 @@
                                 </span>
                             </div>
                         </div>
+
+                        <div class="form-row">
+                            <div class="input-data">
+                                <label for="type">Notice Title</label>
+                                <input type="text" name="title" id="title" placeholder="Enter Notice Title.." required >
+                                
+                                <span class="invalidFeedback">
+                                    <?php echo $data['typeError']; ?>
+                                </span>
+                            </div>
+                        </div>
                         
                         <div class="form-row">
                             <div class="input-data textarea">

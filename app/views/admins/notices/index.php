@@ -41,6 +41,11 @@
                             <td id="noticeId">Not available</td>
                             <td colspan="2"></td>
                         </tr>
+                        <tr id="title">
+                            <td>title: </td>
+                            <td id="title">Not available</td>
+                            <td colspan="2"></td>
+                        </tr>
                         <tr id="description">
                             <td>description: </td>
                             <td id="description">Not available</td>
@@ -55,7 +60,7 @@
                             <td>type: </td>
                             <td id="type">Not available</td>
                             <td colspan="2"></td>
-                         </tr>   
+                        </tr>   
                         <tr id="entered_date">
                             <td>entered_date: </td>
                             <td id="entered_date">Not available</td>
@@ -78,6 +83,7 @@
                             <tr>
                                 <th>Notice ID</th>
                                 <th>Notice Type</th>
+                                <th>Notice Title</th>
                                 <th>Entered Date</th>
                                 <th>Entered Time</th>
                                 <th>Admin ID</th>
@@ -95,6 +101,7 @@
                     <tr>
                         <td data-th="Notice ID"><?php echo $row->noticeId;?></td>
                         <td data-th="Notice Type"><?php echo $row->type;?></td>
+                        <td data-th="Notice Title"><?php echo $row->title;?></td>
                         <td data-th="Entered Date"><?php echo $row->entered_date;?></td>
                         <td data-th="Entered Time"><?php echo $row->entered_time;?></td>
                         <td data-th="Admin ID"><?php echo $row->adminId;?></td>
@@ -126,6 +133,7 @@
                     function openNoticeView(alerts,x) {
                         var table=document.getElementById("cancelpopup");
                         table.rows.namedItem("noticeId").cells.namedItem("noticeId").innerHTML=alerts[x].noticeId;
+                        table.rows.namedItem("title").cells.namedItem("title").innerHTML=alerts[x].type;
                         table.rows.namedItem("description").cells.namedItem("description").innerHTML=alerts[x].description;
                         table.rows.namedItem("adminId").cells.namedItem("adminId").innerHTML=alerts[x].adminId;
                         table.rows.namedItem("type").cells.namedItem("type").innerHTML=alerts[x].type;
