@@ -8,7 +8,11 @@ class AdminAccounts extends Controller {
     public function index() {
 
     	$id = $_SESSION['userid'];
-            $admin=$this->adminaccountModel->findAdminById($id);
+    	if($_SESSION['role']==6){
+    	   $admin= $this->adminaccountModel->getSuperAdminDetails($id);
+        }elseif ($_SESSION['role']==2){
+    	    $admin=$this->adminaccountModel->findAdminbyId($id);
+        }
             $data=[
                 'admin'=>$admin,
                 'id'=>$id

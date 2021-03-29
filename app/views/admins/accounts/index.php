@@ -28,7 +28,11 @@
                     <caption>Admin Details</caption>
                     <tr>
                         <td>Admin ID: </td>
-                        <td><?php echo $data['admin']->adminId;?></td>
+                        <td><?php if($_SESSION['role']==6){
+                                echo $data['admin']->super_adminId;
+                            }else{
+                                echo $data['admin']->adminId;
+                            } ?></td>
                         <td colspan="2"></td>
                     </tr>
                     <tr>
