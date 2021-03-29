@@ -81,9 +81,8 @@
                     //setup global variables
                     var marker;
                     var map;
-                    function initMap(){
-                        var colombo = {lat: 6.933924,lng: 79.850026};
-                        var kandy = {lat: 7.289776,lng: 80.632347};
+                    function initMap(){ //initiate map
+                        var colombo = {lat: 6.933924,lng: 79.850026}; //center around colombo
                         var journey=<?php echo  json_encode($data['journey']);?>;
 
                         map = new google.maps.Map(document.getElementById('map'),{ //define the div #id
