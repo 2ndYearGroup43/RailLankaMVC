@@ -41,8 +41,8 @@
 		<!-- <div class="content-row">
 		</div> -->
 		<div class="map-container2">
-			
-			<h1 class="title">Seat Map</h1>
+		
+		<h1 class="title">Seat Map</h1>
 			<br>
 			<!-- <div class="tooltip"> -->
 			<div class="timer" id="countdown">
@@ -86,7 +86,7 @@
 				</div>
 
 				<div class="map-column center-map">
-						<center><h3 class="comp-name">Compartment <?php echo $data['compartmentNo']; ?> -  <?php echo $data['class']; ?></h3></center>
+						<center><h3 class="comp-name">Compartment <?php echo $data['compartmentNo']; ?> -  <?php echo $data['class']; ?> (Rs. <?php echo $data['compPrice']; ?>)</h3></center>
 						<div id="seat-map">
 				      		<div class="front-indicator">Front</div>
 				    	</div>
@@ -196,7 +196,7 @@
 
 									if (this.status() == 'available') {
 										//add to the cart
-										$('<li>'+this.data().category+" Seat - <div class='selected-btn btn-f'><?php echo $data['compartmentNo']; ?>"+this.settings.label+'</div> : <b>Rs. '+this.data().price+'</b> <a href="#" class="cancel-cart-item"><i class="fa fa-times"></i></a></li>')
+										$('<li>'+this.data().category+" Seat - <div class='selected-btn btn-f'><?php echo $data['compartmentNo']; ?>"+this.settings.label+'</div> : <b>Rs. '+this.data().price+'</b></li>')
 											.attr('id', 'cart-item-'+this.settings.id)
 											.data('seatId', this.settings.id)
 											.appendTo($cart);
@@ -394,9 +394,9 @@
 							// }, 5000);
 
 							//handle "[cancel]" link clicks
-							$('#selected-seats').on('click', '.cancel-cart-item', function () {
-								sc.get($(this).parents('li:first').data('seatId')).click();
-							});
+							// $('#selected-seats').on('click', '.cancel-cart-item', function () {
+							// 	sc.get($(this).parents('li:first').data('seatId')).click();
+							// });
 
 							//seats already booked
 							//sc.get(['1_2', '7_1', '7_2']).status('unavailable');
@@ -424,7 +424,7 @@
 
 							//Add the previously selected seats(in the same compartment) to the cart and update the total
 							sc.find('selected').each(function(seatId) {
-								$('<li>'+this.data().category+" Seat - <div class='selected-btn btn-f'><?php echo $data['compartmentNo']; ?>"+this.settings.label+'</div> : <b>Rs. '+this.data().price+'</b> <a href="#" class="cancel-cart-item"><i class="fa fa-times"></i></a></li>')
+								$('<li>'+this.data().category+" Seat - <div class='selected-btn btn-f'><?php echo $data['compartmentNo']; ?>"+this.settings.label+'</div> : <b>Rs. '+this.data().price+'</b></li>')
 											.attr('id', 'cart-item-'+this.settings.id)
 											.data('seatId', this.settings.id)
 											.appendTo($cart);
@@ -462,7 +462,7 @@
 					
 				<br><br><br><br><br>		
 				<button data-target="alert-info-popup" class="btn checkout-btn alert-btn2" type="button" href="#" id="checkoutBtn">BOOK NOW &raquo;</button>
-				<p class="options" id="options-once">Back to search results? <a data-target="alert-enquire-popup" class="alert-btn2" href="#">Click here.</a></p>
+				<p class="options" id="options-once">Cancel Reservations? <a data-target="alert-enquire-popup" class="alert-btn2" href="#">Click here.</a></p>
 			</div>		
 			<div class="content-row">
 			</div>
@@ -500,7 +500,7 @@
 			<div class="alert-body">
 				<h3>Are you sure?</h3>
 				<p>You will lose progress if you continue</p>
-				<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displayTrains'" class="proceed-btn">Proceed Anyway</button>
+				<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/removeReservation?resNo=<?php echo $data['resNo']; ?>'" class="proceed-btn">Proceed Anyway</button>
 			</div>
 			<button type="button" class="close-alert">&times;</button>
 		</div>
@@ -802,8 +802,8 @@ function print_nav_timing_data() {
 
 		    if(now.getHours() > hours ||
 		       (now.getHours() == hours && now.getMinutes() > minutes) ||
-		        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
-		        then.setDate(now.getDate() + 1);
+		        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() > seconds) {
+		        window.location.href='<?php echo URLROOT; ?>/passengerReservations/timeout?resNo=<?php echo $data['resNo']; ?>';
 		    }
 		    then.setHours(hours);
 		    then.setMinutes(minutes);
@@ -814,7 +814,9 @@ function print_nav_timing_data() {
 		    setTimeout(function() { 
 		    	//alert("You have 1 minute remaining");
 		    	document.getElementById('time-alert-btn').click();
-		    	document.getElementById('countdown').style.backgroundColor = '#F39E82';
+		    	const tm = document.getElementById('countdown');
+		    	tm.style.backgroundColor = '#F39E82';
+		    	tm.style.borderColor = '#F39E82';
 		    	//window.location.reload(true); 
 		    }, timeout-60000);
 

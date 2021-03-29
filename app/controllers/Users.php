@@ -23,9 +23,12 @@
 				'reg_date' => '',
 				'reg_time' => '',
 				'code'=> '',
+				'auth'=>'',
 				'nicError' => '',
 				'passportError' => '',
-				'usernameError' => '',
+				'fnameError' => '',
+				'lnameError' => '',
+				'mobileError' => '',
 				'emailError' => '',
 				'passwordError' => '',
 				'confirmPasswordError' => ''
@@ -38,6 +41,9 @@
 				$data = [
 					'nic' => trim($_POST['nic']),
 					'passport' => trim($_POST['passport']),
+					'fname' => trim($_POST['fname']),
+					'lname' => trim($_POST['lname']),
+					'mobile' => trim($_POST['mobile']),
 					// 'username' => trim($_POST['username']),
 					'email' => trim($_POST['email']),
 					'password' => trim($_POST['password']),
@@ -46,9 +52,12 @@
 					'reg_date'=>date("Y-m-d"),
                     'reg_time'=>date("H:i:sa"),
                     'code'=>uniqid(true),
+                    'auth'=>'',
                     'nicError' => '',
                     'passportError' => '',
-					'usernameError' => '',
+					'fnameError' => '',
+					'lnameError' => '',
+					'mobileError' => '',
 					'emailError' => '',
 					'passwordError' => '',
 					'confirmPasswordError' => ''
@@ -58,6 +67,7 @@
 				$nicValidation = "/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/";
 				$nameValidation = "/^[a-zA-Z0-9]*$/";
 				$passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
+                $mobileValidation="/^[0-9]{10}+$/";
 
 
 				//check if either NIC field or passport field is filled
@@ -71,9 +81,11 @@
 						if (!preg_match($nicValidation, $data['nic'])) {
 							$data['nicError'] = 'Invalid NIC number.';
 							//check if nic is already registered
-						} elseif ($this->userModel->findPassengerByNIC($data['nic'])) {
-								$data['nicError'] = 'nic is already registered.';
-						}
+						} 
+						$data['auth']=$data['nic'];
+						// elseif ($this->userModel->findPassengerByNIC($data['nic'])) {
+						// 		$data['nicError'] = 'nic is already registered.';
+						// }
 					}
 
 					//validate passport number on letters and numbers
@@ -82,9 +94,12 @@
 						if (!preg_match($passportValidation, $data['passport'])) {
 							$data['passportError'] = 'Invalid Passport number.';
 							//check if passport is already registered
-						} elseif ($this->userModel->findPassengerByNIC($data['nic'])) {
-								$data['passportError'] = 'passport is already registered.';
-						}
+						} 
+
+						$data['auth']=$data['passport'];
+						// elseif ($this->userModel->findPassengerByNIC($data['nic'])) {
+						// 		$data['passportError'] = 'passport is already registered.';
+						// }
 					}
 				}
 				
@@ -98,7 +113,7 @@
 
 				//validate email
 				if (empty($data['email'])) {
-					$data['emailError'] = 'Please enter email address.';
+					$data['emailError'] = 'Please enter the email address.';
 				} elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
 					$data['emailError'] = 'Please enter the correct format.';
 				} else {
@@ -108,9 +123,21 @@
 					}
 				}
 
+				if(empty($data['fname'])){
+                    $data['fnameError']='Please enter the First Name.';
+                }elseif(!preg_match($nameValidation, $data['fname'])){
+                    $data['fnameError']="Name can only contain letters.";
+                }
+                
+                if(empty($data['lname'])){
+                    $data['lnameError']='Please enter the Last Name.';
+                }elseif(!preg_match($nameValidation, $data['lname'])){
+                    $data['lnameError']="Name can only contain letters.";
+                }
+
 				//Validate password on length and numeric values 
 				if (empty($data['password'])) {
-					$data['passwordError'] = 'Please enter password.';
+					$data['passwordError'] = 'Please enter the password.';
 				} elseif(strlen($data['password']) < 6){
 					$data['passwordError'] = 'Password must be at least 8 characters.';
 				} elseif (preg_match($passwordValidation, $data['password'])) {
@@ -126,8 +153,14 @@
 					}
 				}
 
+				if(empty($data['mobile'])){
+                    $data['mobileError']='Please Enter the Mobile No.';
+                }elseif(!preg_match($mobileValidation, $data['mobile'])){
+                    $data['mobileError']="Name can only contain numbers and +.";
+                }
+
 				//make sure that errors are empty
-				if (empty($data['nicError']) && empty($data['passportError']) && empty($data['emailError']) && empty($data['passwordError']) && empty($data['confirmPasswordError'])) {
+				if (empty($data['nicError']) && empty($data['passportError']) && empty($data['emailError']) && empty($data['passwordError']) && empty($data['confirmPasswordError']) && empty($data['lnameError']) && empty($data['fnameError']) && empty($data['mobileError'])) {
 
 					//Hash password
 					$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
@@ -365,6 +398,7 @@
 			unset($_SESSION['email']);
 			unset($_SESSION['role']);
 			unset($_SESSION['passenger_nic']);
+			unset($_SESSION['passenger_id']);
 			unset($_SESSION['admin_id']);
 			unset($_SESSION['moderator_id']);
 			unset($_SESSION['driver_id']);
@@ -440,7 +474,7 @@
 					        $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
 					        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
 					        $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
-					        $mail->Password   = 'Raillanka@2';                               // SMTP password
+					        $mail->Password   = 'Raillanka@1234';                               // SMTP password
 					        $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
 					        $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 

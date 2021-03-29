@@ -1,23 +1,13 @@
 <?php 
 
-	//echo out databse info to the screen
-	// foreach ($data['users'] as $user) {
-	// 	echo "Information: " . $user->user_name . $user->user_email;
-	// 	echo "<br>";
-	// }
-	
 	// isPassenger();
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<?php var_dump($_SESSION); ?>
-<br>
-<?php var_dump($data['trains']); ?>
-
 <!-- search results -->
 	<div class="body-section">
-		<a href="#" id="pop-up" class="btn pop-up-btn">Search <i class="fa fa-search" aria-hidden="true"></i></a>
+		<a href="#" id="pop-up" class="btn blue-btn pop-up-btn">Search <i class="fa fa-search" aria-hidden="true"></i></a>
 		<div class="content-row">
 		</div>
 		<div class="content-row">
@@ -29,6 +19,7 @@
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 			</div>
 			<h1 class="title2">Search Results</h1>
+			<!-- <a href="#" id="pop-up" class="btn blue-btn pop-up-btn">Search <i class="fa fa-search" aria-hidden="true"></i></a> -->
 			<!-- <div class=form-container> -->
 				<table class="content-table">
 					<thead>
@@ -134,56 +125,13 @@
 			                        </span>
 						       	</div> 
 						       	
-						    	<div class="acc-inputfield">
+						    	<div class="acc-inputfield-flex">
 						        	<input type="submit" name="search" class="acc-btn">
 						      	</div>
 						    </div>
 						</form>
 					</div>
-		</div>
-			<!-- <div class="notices-container">
-				<div class="mini-schedule">
-					<div class="img-container">
-						<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
-					</div>
-					<br>
-					<form action="#">
-						<div class="form-row">
-							<div class="mini-input-data">
-								<label for="src">From</label>
-                                <select name="src" id="src">
-                                    <option value="Fort">Fort</option>
-                                    <option value="Kandy">Kandy</option>
-                                    <option value="Galle">Galle</option>
-                                    <option value="Baadulla">Baadulla</option>
-                                </select>
-							</div>
-							<div class="mini-input-data">
-								<label for="src">To</label>
-                                <select name="src" id="src">
-                                   	<option value="Fort">Fort</option>
-                                   	<option value="Kandy">Kandy</option>
-                                   	<option value="Galle">Galle</option>
-                                   	<option value="Baadulla">Baadulla</option>
-                                </select>
-                            </div>	
-						</div>
-						<div class="form-row">
-							<div class="mini-input-data">
-								<label for="date">Date</label>
-                            	<input type="date" id="date" >
-                            </div>
-						</div>
-						<div class="form-row">
-							<div class="mini-input-data">
-								<label for="time">Time</label>
-                            	<input type="time" id="time" >
-                            </div>
-						</div>
-					</form>
-					<center><button onclick="location.href='<?php echo URLROOT; ?>/passengerSchedules/displayTrains'" class="btn blue-btn">Go <i class="fa fa-long-arrow-right"></i></button></center>
-				</div>
-			</div> -->
+			</div>
 		</div>
 	</div>
 	<!-- end of pop up -->

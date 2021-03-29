@@ -40,7 +40,7 @@
 			<h1 class="title">Seat Map</h1>
 			<!-- <div class="tooltip"> -->
 			<div class="timer">
-				<div class="time_text">Time Left:</div>
+				<div class="time_text">Time Ends:</div>
 				<div class="timer_sec"><?php echo  date('H:i:s', strtotime($data['endTime'])); ?></div>			
 			</div>
 			<!-- <button onclick="toggleSMPopup()" class="details-tooltip">Journey Details <i class="fa fa-train"></i></button> -->
@@ -52,36 +52,18 @@
 				<div class="map-column left-map">
 					<div class="tabs__sidebar" id="new_tabs_sidebar">
 						<?php foreach ($data['compartments'] as $comp):?>
-						<!-- <form method="post" action="<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps">
-							<input type="hidden" name="id" value="<?php echo $data['trainId'];?>">
-							<input type="hidden" name="date" value="<?php echo $data['date']; ?>">
-							<input type="hidden" name="compNo" value="<?php echo $comp->compartmentNo; ?>">
-							<input type="hidden" name="resNo" value="<?php echo $data['resNo']; ?>">
-							<input type="hidden" name="ctime" id="ctime">
-							<button type="submit" class="tabs__button" >
-								<span class="map-large">Compartment <?php echo $comp->compartmentNo; ?></span>
-								<span class="map-small"><?php echo $comp->compartmentNo; ?></span>
-							</button>
-						</form> -->
-						<?php if($comp == $data['currComp']): ?>
-							<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps?compNo=<?php echo $comp->compartmentNo; ?>&resNo=<?php echo $data['resNo']; ?>'" type="submit" class="tabs__button tabs__button--active" ><span class="map-large">Compartment <?php echo $comp->compartmentNo; ?></span><span class="map-small"><?php echo $comp->compartmentNo; ?></span></button> 
-						<?php else: ?>
-							<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps?compNo=<?php echo $comp->compartmentNo; ?>&resNo=<?php echo $data['resNo']; ?>'" type="submit" class="tabs__button" ><span class="map-large">Compartment <?php echo $comp->compartmentNo; ?></span><span class="map-small"><?php echo $comp->compartmentNo; ?></span></button> 
-						<?php endif; ?>
-						<!-- <button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps?id=<?php echo $data['trainId'];?>&date=<?php echo $data['date']; ?>&compNo=<?php echo $comp->compartmentNo; ?>&resNo=<?php echo $data['resNo']; ?>'" type="submit" class="tabs__button" ><span class="map-large">Compartment <?php echo $comp->compartmentNo; ?></span><span class="map-small"><?php echo $comp->compartmentNo; ?></span></button> -->
-						<!-- <button class="tabs__button" data-for-tab="2"><span class="map-large">Compartment B</span><span class="map-small">B</span></button>
-						<button class="tabs__button" data-for-tab="3"><span class="map-large">Compartment C</span><span class="map-small">C</span></button>
-						<button class="tabs__button" data-for-tab="4"><span class="map-large">Compartment D</span><span class="map-small">D</span></button>
-						<button class="tabs__button" data-for-tab="5"><span class="map-large">Compartment E</span><span class="map-small">E</span></button>
-						<button class="tabs__button" data-for-tab="6"><span class="map-large">Compartment F</span><span class="map-small">F</span></button>
-						<button class="tabs__button" data-for-tab="7"><span class="map-large">Compartment G</span><span class="map-small">G</span></button>
-						<button class="tabs__button" data-for-tab="8"><span class="map-large">Compartment H</span><span class="map-small">H</span></button> -->
+							
+							<?php if($comp == $data['currComp']): ?>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps?compNo=<?php echo $comp->compartmentNo; ?>&resNo=<?php echo $data['resNo']; ?>'" type="submit" class="tabs__button tabs__button--active" ><span class="map-large">Compartment <?php echo $comp->compartmentNo; ?></span><span class="map-small"><?php echo $comp->compartmentNo; ?></span></button> 
+							<?php else: ?>
+								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displaySeatMaps?compNo=<?php echo $comp->compartmentNo; ?>&resNo=<?php echo $data['resNo']; ?>'" type="submit" class="tabs__button" ><span class="map-large">Compartment <?php echo $comp->compartmentNo; ?></span><span class="map-small"><?php echo $comp->compartmentNo; ?></span></button> 
+							<?php endif; ?>
 						<?php endforeach; ?>
 					</div>
 				</div>
 
 				<div class="map-column center-map">
-						<center><h3 class="comp-name">Compartment <?php echo $data['compartmentNo']; ?> -  <?php echo $data['class']; ?></h3></center>
+						<center><h3 class="comp-name">Compartment <?php echo $data['compartmentNo']; ?> -  <?php echo $data['class']; ?> (Rs. <?php echo $data['compPrice']; ?>)</h3></center>
 						<div id="seat-map">
 				      		<div class="front-indicator">Front</div>
 				    	</div>
@@ -192,7 +174,7 @@
 
 									if (this.status() == 'available') {
 										//add to the cart
-										$('<li>'+this.data().category+" Seat - <div class='selected-btn btn-s'><?php echo $data['compartmentNo']; ?>"+this.settings.label+'</div> : <b>Rs. '+this.data().price+'</b> <a href="#" class="cancel-cart-item"><i class="fa fa-times"></i></a></li>')
+										$('<li>'+this.data().category+" Seat - <div class='selected-btn btn-s'><?php echo $data['compartmentNo']; ?>"+this.settings.label+'</div> : <b>Rs. '+this.data().price+'</b></li>')
 											.attr('id', 'cart-item-'+this.settings.id)
 											.data('seatId', this.settings.id)
 											.appendTo($cart);
@@ -421,7 +403,7 @@
 
 							//Add the previously selected seats(in the same compartment) to the cart and update the total
 							sc.find('selected').each(function(seatId) {
-								$('<li>'+this.data().category+" Seat - <div class='selected-btn btn-s'><?php echo $data['compartmentNo']; ?>"+this.settings.label+'</div> : <b>Rs. '+this.data().price+'</b> <a href="#" class="cancel-cart-item"><i class="fa fa-times"></i></a></li>')
+								$('<li>'+this.data().category+" Seat - <div class='selected-btn btn-s'><?php echo $data['compartmentNo']; ?>"+this.settings.label+'</div> : <b>Rs. '+this.data().price+'</b> </li>')
 											.attr('id', 'cart-item-'+this.settings.id)
 											.data('seatId', this.settings.id)
 											.appendTo($cart);
@@ -432,6 +414,7 @@
 							$counter.text(sc.find('selected').length+<?php echo $count; ?>);
 							$total.text(recalculateTotal(sc)+<?php echo $price; ?>);
 
+							//To disable the proceed button if the customer has not selected seats
 							if(sc.find('selected').length+<?php echo $count; ?> == 0){
 								const chkbtn = document.getElementById('checkoutBtn');
 								chkbtn.disabled=true;
@@ -456,7 +439,7 @@
 						
 				<br><br><br><br><br>		
 				<button data-target="alert-info-popup" class="btn checkout-btn alert-btn2" type="button" href="#" id="checkoutBtn">BOOK NOW &raquo;</button>
-				<p class="options" id="options-once">Back to search results? <a data-target="alert-enquire-popup" class="alert-btn2" href="#">Click here.</a></p>
+				<p class="options" id="options-once">Cancel Reservations? <a data-target="alert-enquire-popup" class="alert-btn2" href="#">Click here.</a></p>
 			</div>		
 			<div class="content-row">
 			</div>
@@ -494,7 +477,7 @@
 			<div class="alert-body">
 				<h3>Are you sure?</h3>
 				<p>You will lose progress if you continue</p>
-				<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/displayTrains'" class="proceed-btn">Proceed Anyway</button>
+				<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/removeReservation?resNo=<?php echo $data['resNo']; ?>'" class="proceed-btn">Proceed Anyway</button>
 			</div>
 			<button type="button" class="close-alert">&times;</button>
 		</div>
@@ -747,8 +730,8 @@
 
 		    if(now.getHours() > hours ||
 		       (now.getHours() == hours && now.getMinutes() > minutes) ||
-		        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
-		        then.setDate(now.getDate() + 1);
+		        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() > seconds) {
+		        window.location.href='<?php echo URLROOT; ?>/passengerReservations/timeout?resNo=<?php echo $data['resNo']; ?>';
 		    }
 		    then.setHours(hours);
 		    then.setMinutes(minutes);
@@ -759,7 +742,9 @@
 		    setTimeout(function() { 
 		    	//alert("You have 1 minute remaining");
 		    	document.getElementById('time-alert-btn').click();
-		    	document.getElementById('countdown').style.backgroundColor = '#F39E82';
+		    	const tm = document.getElementById('countdown');
+		    	tm.style.backgroundColor = '#F39E82';
+		    	tm.style.borderColor = '#F39E82';
 		    	//window.location.reload(true); 
 		    }, timeout-60000);
 

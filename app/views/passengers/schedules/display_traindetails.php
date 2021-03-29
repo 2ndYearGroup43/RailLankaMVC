@@ -1,18 +1,8 @@
 <?php 
 
-	//echo out databse info to the screen
-	// foreach ($data['users'] as $user) {
-	// 	echo "Information: " . $user->user_name . $user->user_email;
-	// 	echo "<br>";
-	// }
-	
-	// isPassenger();
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
-
-<!-- <?php var_dump($_SESSION); ?>  -->
-<?php var_dump($data['train']); ?>
 
 <!-- Further Details -->
 	<div class="body-section">
@@ -25,7 +15,7 @@
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 			</div>
 			<h1 class="title">Train Details</h1>
-			<!-- <div class=form-container> -->
+			
 				<?php foreach ($data['train'] as $train)?>
 				<table class="details-content-table">
 
@@ -89,8 +79,10 @@
 						</tr>
 					</tbody>		
 				</table>
+
 				<br>
-				<h3>Colombo Fort to Badulla Train Stops</h3>
+
+				<h3><?php echo $train->srcName; ?> to <?php echo $train->destName; ?> Train Stops</h3>
 				<table class="content-table">
 
 					<thead>
@@ -99,24 +91,30 @@
 							<th>Station</th>
 							<th>Arrival Time</th>
 							<th>Departure Time</th>
+							<th>Distance</th>
 							<th>First Class Price</th>
 							<th>Second Class Price</th>
 							<th>Third Class Price</th>
 					<tbody>	
-						<?php foreach ($data['route'] as $stop):?>
+						 <?php $it=0;?>
+						<?php foreach ($data['routes'] as $stop):?>
 						<tr>	
 							<td data-label="Stop No."><?php echo $stop->stopNo; ?></td>
-							<td data-label="Station"><?php echo $stop->stationName; ?></td>
+							<td data-label="Station"><?php echo $stop->name; ?></td>
 							<td data-label="Arrival Time"><?php echo $stop->arrivaltime; ?></td>
 							<td data-label="Dept. Time"><?php echo $stop->departuretime; ?></td>
-							<td data-label="First Class">-</td>
-							<td data-label="Second Class">-</td>
-							<td data-label="Third Class">-</td>
+							<td data-th="Distance"><?php echo $stop->distance;?></td>
+							<td data-label="First Class Price"><?php echo 'Rs. '.$data['prices'][$it]["fclass"];?></td>
+							<td data-label="Second Class Price"><?php echo 'Rs. '.$data['prices'][$it]["sclass"];?></td>
+							<td data-label="Third Class Price"><?php echo 'Rs. '.$data['prices'][$it]["tclass"];?></td>
+							<?php $it++?>
 						</tr>
 						<?php endforeach; ?>
 					</tbody>		
 				</table>
+
 				<br>
+				
 				<h3>Available Days</h3>
 				<table class="content-table">
 
@@ -181,7 +179,7 @@
 	<!-- end of further details -->
 
 	 <!--  js for toggle menu -->
-	<script>
+	<!-- <script>
 		var menuItems = document.getElementById("menuItems");
 		menuItems.style.maxHeight = "0px"
 		function menutoggle(){
@@ -193,6 +191,6 @@
 			}
 		}
 	</script>
-
+ -->
 	
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

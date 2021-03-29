@@ -52,7 +52,7 @@
 		public function searchAlerts($searchfield,$searchval,$start,$limit){
 
 			if($searchval==''){
-				$this->db->query('SELECT a.*, t.name, c.cancellation_cause, d.delay_cause, d.delaytime, r.reschedulement_cause, r.newtime, r.newdate FROM alerts a LEFT JOIN cancelled_alerts c ON a.alertId=c.alertId LEFT JOIN delayed_alerts d ON a.alertId=d.alertId LEFT JOIN rescheduled_alerts r ON a.alertId=r.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE (DATEDIFF(CURRENT_DATE, c.cancellation_date) < 3) OR (DATEDIFF(CURRENT_DATE, d.delaydate) < 3) OR (DATEDIFF(CURRENT_DATE, r.newdate) < 3) ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
+				$this->db->query('SELECT a.*, t.name, c.cancellation_cause, d.delay_cause, d.delaytime, r.reschedulement_cause, r.newtime, r.newdate FROM alerts a LEFT JOIN cancelled_alerts c ON a.alertId=c.alertId LEFT JOIN delayed_alerts d ON a.alertId=d.alertId LEFT JOIN rescheduled_alerts r ON a.alertId=r.alertId INNER JOIN train t ON a.trainId=t.trainId ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
 				
 			} else {
 				switch($searchfield) {
@@ -61,13 +61,13 @@
 						$this->db->bind(':searchVal',$searchval);
 						$result=$this->db->single();
 						if($result->type=="c"){
-							$this->db->query('SELECT a.*, t.name, c.cancellation_cause FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.alertId=:searchVal AND (DATEDIFF(CURRENT_DATE, c.cancellation_date) < 3) ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
+							$this->db->query('SELECT a.*, t.name, c.cancellation_cause FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.alertId=:searchVal ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
 							$this->db->bind(':searchVal',$searchval);
 						}elseif ($result->type=="d") {
-							$this->db->query('SELECT a.*, t.name, d.delay_cause, d.delaytime FROM alerts a INNER JOIN delayed_alerts d ON a.alertId=d.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.alertId=:searchVal AND (DATEDIFF(CURRENT_DATE, d.delaydate) < 3) ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
+							$this->db->query('SELECT a.*, t.name, d.delay_cause, d.delaytime FROM alerts a INNER JOIN delayed_alerts d ON a.alertId=d.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.alertId=:searchVal ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
 							$this->db->bind(':searchVal',$searchval);
 						}elseif ($result->type=="r") {
-							$this->db->query('SELECT a.*, t.name, r.reschedulement_cause, r.newtime, r.newdate FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.alertId=:searchVal AND (DATEDIFF(CURRENT_DATE, r.newdate) < 3) ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
+							$this->db->query('SELECT a.*, t.name, r.reschedulement_cause, r.newtime, r.newdate FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.alertId=:searchVal ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
 							$this->db->bind(':searchVal',$searchval);
 						}
 						break;
@@ -76,27 +76,27 @@
 						$this->db->bind(':searchVal',$searchval);
 						$result=$this->db->single();
 						if($result->type=="c"){
-							$this->db->query('SELECT a.*, t.name, c.cancellation_cause FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.trainId=:searchVal AND (DATEDIFF(CURRENT_DATE, c.cancellation_date) < 3) ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
+							$this->db->query('SELECT a.*, t.name, c.cancellation_cause FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.trainId=:searchVal ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
 							$this->db->bind(':searchVal',$searchval);
 						}elseif ($result->type=="d") {
-							$this->db->query('SELECT a.*, t.name, d.delay_cause, d.delaytime FROM alerts a INNER JOIN delayed_alerts d ON a.alertId=d.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.trainId=:searchVal AND (DATEDIFF(CURRENT_DATE, d.delaydate) < 3) ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
+							$this->db->query('SELECT a.*, t.name, d.delay_cause, d.delaytime FROM alerts a INNER JOIN delayed_alerts d ON a.alertId=d.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.trainId=:searchVal ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
 							$this->db->bind(':searchVal',$searchval);
 						}elseif ($result->type=="r") {
-							$this->db->query('SELECT a.*, t.name, r.reschedulement_cause, r.newtime, r.newdate FROM alerts a INNER JOIN rescheduled_alerts r ON a.trainId=r.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.alertId=:searchVal AND (DATEDIFF(CURRENT_DATE, r.newdate) < 3) ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
+							$this->db->query('SELECT a.*, t.name, r.reschedulement_cause, r.newtime, r.newdate FROM alerts a INNER JOIN rescheduled_alerts r ON a.trainId=r.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.alertId=:searchVal ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
 							$this->db->bind(':searchVal',$searchval);
 						}
 						break;
 					case 'date':
-						$this->db->query('SELECT a.*, t.name, c.cancellation_cause, d.delay_cause, d.delaytime, r.reschedulement_cause, r.newtime, r.newdate FROM alerts a LEFT JOIN cancelled_alerts c ON a.alertId=c.alertId LEFT JOIN delayed_alerts d ON a.alertId=d.alertId LEFT JOIN rescheduled_alerts r ON a.alertId=r.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.date=:searchVal AND WHERE (DATEDIFF(CURRENT_DATE, c.cancellation_date) < 3) OR (DATEDIFF(CURRENT_DATE, d.delaydate) < 3) OR (DATEDIFF(CURRENT_DATE, r.newdate) < 3) ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
+						$this->db->query('SELECT a.*, t.name, c.cancellation_cause, d.delay_cause, d.delaytime, r.reschedulement_cause, r.newtime, r.newdate FROM alerts a LEFT JOIN cancelled_alerts c ON a.alertId=c.alertId LEFT JOIN delayed_alerts d ON a.alertId=d.alertId LEFT JOIN rescheduled_alerts r ON a.alertId=r.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE a.date=:searchVal ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
 						$this->db->bind(':searchVal',$searchval);
 						break;
 					case 'type':
 						if($searchval=="cancelled"){
-							$this->db->query('SELECT a.*, t.name, c.cancellation_cause FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE (DATEDIFF(CURRENT_DATE, c.cancellation_date) < 3) ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
+							$this->db->query('SELECT a.*, t.name, c.cancellation_cause FROM alerts a INNER JOIN cancelled_alerts c ON a.alertId=c.alertId INNER JOIN train t ON a.trainId=t.trainId ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
 						}elseif ($searchval=="delayed") {
-							$this->db->query('SELECT a.*, t.name, d.delay_cause, d.delaytime FROM alerts a INNER JOIN delayed_alerts d ON a.alertId=d.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE (DATEDIFF(CURRENT_DATE, d.delaydate) < 3) ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
+							$this->db->query('SELECT a.*, t.name, d.delay_cause, d.delaytime FROM alerts a INNER JOIN delayed_alerts d ON a.alertId=d.alertId INNER JOIN train t ON a.trainId=t.trainId ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
 						}elseif ($searchval=="rescheduled") {
-							$this->db->query('SELECT a.*, t.name, r.reschedulement_cause, r.newtime, r.newdate FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId INNER JOIN train t ON a.trainId=t.trainId WHERE (DATEDIFF(CURRENT_DATE, r.newdate) < 3) ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
+							$this->db->query('SELECT a.*, t.name, r.reschedulement_cause, r.newtime, r.newdate FROM alerts a INNER JOIN rescheduled_alerts r ON a.alertId=r.alertId INNER JOIN train t ON a.trainId=t.trainId ORDER BY a.alertId DESC LIMIT :start , :noPerPage');
 						}
 						break;
 				}
@@ -544,6 +544,15 @@
 			} else {
 				return false;
 			}
+		}
+
+		public function checkSubscriptions($trainId, $passengerId){
+
+			$this->db->query('SELECT s.subscriptionNo FROM subscriptions s WHERE s.passengerId=:id AND s.trainId=:trainid');
+            $this->db->bind(':id',$passengerId);
+            $this->db->bind(':trainid',$trainId);
+            $results = $this->db->resultSet();
+            return $results;
 		}
 
 	}

@@ -133,7 +133,7 @@
 			                        </span>
 						       	</div> 
 						       	
-						    	<div class="acc-inputfield">
+						    	<div class="acc-inputfield-flex">
 						        	<input type="submit" name="search" class="acc-btn">
 						      	</div>
 						    </div>
@@ -152,7 +152,7 @@
 			</div>
 			<div class="alert-body">
 				<h3>Subscription Successful!</h3>
-				<p>You will recieve notifications via email.
+				<p>You will recieve notifications via email for trainid: <label id="alert-train-id"></label>.
 				</p>
 			</div>
 			<button type="button" class="close-alert">&times;</button>
@@ -167,9 +167,8 @@
 				<i class="fa fa-exclamation" aria-hidden="true"></i>
 			</div>
 			<div class="alert-body">
-				<h3>Something Went Wrong!</h3>
-				<p>Please Try Again.
-				</p>
+				<h3>Error!</h3>
+				<p id="alert-error-msg"></p>
 			</div>
 			<button type="button" class="close-alert">&times;</button>
 		</div>
@@ -207,7 +206,8 @@
 						data: {'trainid':trainid},
 						success: function(returndata){
 							if(returndata==1){
-								alert(returndata);
+								//alert(returndata);
+								$("#alert-train-id").html(trainid);
 								alertBox.classList.add("alert-box-show");
 
 								const closeAlert = alertBox.querySelector(".close-alert");
@@ -221,6 +221,13 @@
 									}
 								});
 							} else{
+
+								if(returndata==2){
+									$("#alert-error-msg").html("You have already subscribed to recieve alerts from this train");
+								}else{
+									$("#alert-error-msg").html("Something went wrong, Please try agaian");
+								}
+
 								errorAlertBox.classList.add("alert-box-show");
 
 								const closeAlert = errorAlertBox.querySelector(".close-alert");

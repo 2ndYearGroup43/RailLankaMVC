@@ -552,39 +552,6 @@
 
 		}
 
-		//Function to deselect the seats of a reservation - TIMEOUT(but has selected/deselected seats)
-		public function cancelReservation($resNo){
-
-			$this->db->query("UPDATE seat SET status='deselected' WHERE reservationNo=:resNo");
-			//$this->db->query("DELETE FROM reservation WHERE reservationNo=:resNo");
-
-			//bind values
-			$this->db->bind(':resNo', $resNo);
-
-			//Execute function
-			if ($this->db->execute()) {
-				return true;				
-			} else {
-				return false;
-			}
-
-		}
-
-		//Function to remove a reservation when the user has not selected any seats - TIMEOUT
-		public function removeReservation($resNo){
-
-			$this->db->query("DELETE FROM reservation WHERE reservationNo=:resNo");
-
-			//bind values
-			$this->db->bind(':resNo', $resNo);
-
-			//Execute function
-			if ($this->db->execute()) {
-				return true;				
-			} else {
-				return false;
-			}
-		}
 
 		//Function to get all seats selected by the GIVEN USER in ANY COMPARTMENT in the GIVEN TRAIN, DATE -  For a given booking - DISPLAY SEATS 
 		public function getSelectedSeats($resNo){
@@ -762,6 +729,21 @@
 			return $results;
 		}
 
+
+		//Function to check the status of a reservation
+		public function getReservationStatus($resNo){
+
+			$this->db->query("SELECT r.status FROM reservation r WHERE r.reservationNo=:resNo");
+			// $this->db->bind(':id',$id);
+			// $this->db->bind(':nic',$nic);
+			// $this->db->bind(':jdate',$date);
+			$this->db->bind(':resNo',$resNo);
+			$results = $this->db->single();
+			return $results;
+		}
+
+
+
 		//Passenger runs out of time 
 		// public function reservationTimeout($resNo,$timenow){
 
@@ -795,6 +777,41 @@
 			//Execute function
 			if ($this->db->execute()) {
 				return true;		
+			} else {
+				return false;
+			}
+		}
+
+
+		//Function to deselect the seats of a reservation - TIMEOUT(but has selected/deselected seats)
+		public function cancelReservation($resNo){
+
+			$this->db->query("UPDATE seat SET status='deselected' WHERE reservationNo=:resNo");
+			//$this->db->query("DELETE FROM reservation WHERE reservationNo=:resNo");
+
+			//bind values
+			$this->db->bind(':resNo', $resNo);
+
+			//Execute function
+			if ($this->db->execute()) {
+				return true;				
+			} else {
+				return false;
+			}
+
+		}
+
+		//Function to remove a reservation when the user has not selected any seats - TIMEOUT
+		public function removeReservation($resNo){
+
+			$this->db->query("DELETE FROM reservation WHERE reservationNo=:resNo");
+
+			//bind values
+			$this->db->bind(':resNo', $resNo);
+
+			//Execute function
+			if ($this->db->execute()) {
+				return true;				
 			} else {
 				return false;
 			}

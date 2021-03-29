@@ -18,15 +18,33 @@
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 			</div>
 			<h1 class="title">BOOKING REVIEW</h1>
-			<br>	
+			<!-- <br>	 -->
 			<div class="timer" id="countdown">
 				<div class="time_text">Time Ends:</div>
 				<div class="timer_sec"><?php echo  date('H:i:s', strtotime($data['resEnd'])); ?></div>			
 			</div>
-			<div class="summary">
-				<center><p>We will email you a confirmation of this booking.</p><p> You may also view your reservation details online at any time.</p></center>
+			<br>
+			<div class="summary-header">
+				<h3>CUSTOMER DETAILS</h3>
 			</div>
-
+			<div class=summary>
+				<table class="content-table">
+					<tbody>
+						<tr>
+							<td><b>Customer Name:</b></td>
+							<td><?php echo $data['account']->firstname; ?> <?php echo $data['account']->lastname; ?></td>
+						</tr>
+						<tr>
+							<td><b>NIC:</b></td>
+							<td><?php echo $data['account']->nic; ?></td>
+						</tr>
+						<tr>
+							<td><b>Mobile Number:</b></td>
+							<td><?php echo $data['account']->mobileno; ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 			<div class="summary-header">
 				<h3>YOUR JOURNEY</h3>
 			</div>
@@ -104,56 +122,8 @@
 				<p>Deposit is non-refundable and will be charged to your credit card.</p>
 				<p>A passenger is entitled to a refund on the ticket price if a train journey is marked as cancelled, regardless of the reason. A full refund can be obtained by producing the email confirmation/e-ticket at the counter.</p>
 			</div>
-			
-			<div class="summary-header">
-				<h3>CUSTOMER DETAILS</h3>
-			</div>
-			<div class=summary>
-				<div class="acc-wrapper">
-					<form method="post" action="https://sandbox.payhere.lk/pay/checkout">
-					    <div class="acc-form">
-					    	<input type="hidden" name="merchant_id" value="1216685">   
-						    <input type="hidden" name="return_url" value="<?php echo URLROOT; ?>/passengerReservations/bookingConf">
-						    <input type="hidden" name="cancel_url" value="<?php echo URLROOT; ?>/passengerReservations/paymentFailure">
-						    <input type="hidden" name="notify_url" value="<?php echo URLROOT; ?>/passengerReservations/paymentSuccess"> 
-						    <input type="hidden" name="order_id" value="<?php echo $data['resNo']; ?>">
-						    <input type="hidden" name="items" value="-">
-						    <input type="hidden" name="currency" value="LKR">
-						    <input type="hidden" name="amount" value="<?php echo $data['total']; ?>">  
-						    <div class="acc-inputfield">
-					          	<label>First Name *</label>
-						    	<input type="text" class="acc-input" name="first_name" value="<?php echo $data['account']->firstname; ?>">
-						    </div> 
-						    <div class="acc-inputfield">
-					          	<label>Last Name *</label>
-						    	<input type="text" class="acc-input" name="last_name" value="<?php echo $data['account']->lastname;?>">
-						    </div> 
-						    <div class="acc-inputfield">
-					          	<label>Email Address *</label>
-						    	<input type="text" class="acc-input" name="email" value="<?php echo $data['account']->email;?>">
-						    </div>
-						    <div class="acc-inputfield">
-					          	<label>Phone Number *</label> 
-						    	<input type="text" class="acc-input" name="phone" value="<?php echo $data['account']->mobileno;?>">
-						    </div>
-						    <div class="acc-inputfield">
-					          	<label>Address Line 1 *</label>
-						    	<input type="text" class="acc-input" name="address" value="No.1, Galle Road">
-						    </div>
-						    <div class="acc-inputfield">
-					          	<label>City *</label>
-						    	<input type="text" class="acc-input" name="city" value="Colombo">
-						    </div> 
-						    <input type="hidden" name="country" value="Sri Lanka"><br><br> 
-						    <!-- <div class="acc-inputfield">
-						    	<input type="submit" value="CHECKOUT&raquo;" class="acc-btn"> 
-						    </div>  -->
-					    </div>
-					</form>
-					</div>
-			</div>
-			
-			<br><br>
+		
+			<br><!-- <br> -->
 			
 			<button type="submit" id="payhere-payment" class="btn checkout-btn">Checkout &raquo;</button>
 			<!-- <p class="options">Back to seat map? <a data-target="alert-warning-popup" class="alert-btn" href="#">Click here.</a></p> -->
@@ -246,12 +216,12 @@
 	        "last_name": "<?php echo $data['account']->lastname;?>",
 	        "email": "<?php echo $data['account']->email;?>",
 	        "phone": "<?php echo $data['account']->mobileno;?>",
-	        "address": "No.1, Galle Road",
-	        "city": "Colombo",
-	        "country": "Sri Lanka",
-	        "delivery_address": "No. 46, Galle road, Kalutara South",
-	        "delivery_city": "Kalutara",
-	        "delivery_country": "Sri Lanka",
+	        "address": "-",
+	        "city": "-",
+	        "country": "-",
+	        "delivery_address": "-",
+	        "delivery_city": "-",
+	        "delivery_country": "-",
 	        "custom_1": "",
 	        "custom_2": ""
 	    };
@@ -269,8 +239,8 @@
 
 		    if(now.getHours() > hours ||
 		       (now.getHours() == hours && now.getMinutes() > minutes) ||
-		        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
-		        then.setDate(now.getDate() + 1);
+		        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() > seconds) {
+		        window.location.href='<?php echo URLROOT; ?>/passengerReservations/timeout?resNo=<?php echo $data['resNo']; ?>';
 		    }
 		    then.setHours(hours);
 		    then.setMinutes(minutes);
@@ -281,7 +251,10 @@
 		    setTimeout(function() { 
 		    	//alert("You have 1 minute remaining");
 		    	document.getElementById('time-alert-btn').click();
-		    	document.getElementById('countdown').style.backgroundColor = '#F39E82';
+		    	const tm = document.getElementById('countdown');
+		    	tm.style.backgroundColor = '#F39E82';
+		    	tm.style.borderColor = '#F39E82';
+
 		    	//window.location.reload(true); 
 		    }, timeout-60000);
 

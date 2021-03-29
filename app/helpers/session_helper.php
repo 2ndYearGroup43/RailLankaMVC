@@ -37,9 +37,7 @@
 		{
 			if($_SESSION['role']!=2)
 			{
-				if($_SESSION['role']!=6){
-					redirect($_SESSION['role']);
-				}
+				redirect($_SESSION['role']);
 			}
 		} else {
 			header('location:' . URLROOT . '/users/login');
@@ -127,6 +125,7 @@
 			// $_SESSION['role'] = "resofficer";
 			header('location:' . URLROOT . '/resofficers/index');
 		}
+
 		if($role==6){
 			header('location:' . URLROOT . '/superadmins/index');
 		}

@@ -15,11 +15,11 @@
 		<div class="conf-ticket">
 			<div class="print-header">
 				<img src="<?php echo URLROOT ?>/public/img/logob2.png">
-				<p class="title" id="title3">BOOKING SUCCESSFUL!</p>	
+				<p class="title" id="title3">BOOKING CONFIRMATION</p>	
 			</div>
 			<div class="normal-header">
 				<img src="<?php echo URLROOT ?>/public/img/logob2.png">
-				<h1 class="title" id="title3">BOOKING SUCCESSFUL!</h1>
+				<h1 class="title" id="title3">BOOKING CONFIRMATION</h1>
 				<div class="summary">
 					<center><p>Thank you for booking with us!</p></center>
 				</div>
@@ -35,7 +35,7 @@
 				</form>
 				<button onclick="printContent('e-ticket')" class="print-btn"><i class="fa fa-print" aria-hidden="true"></i> Print This Page </button>
 			</div>
-	
+			<br>
 		
 			<div class="summary-header">
 				<h3>CUSTOMER DETAILS</h3>

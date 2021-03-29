@@ -14,6 +14,7 @@
 <!-- <?php var_dump($_SESSION); ?> 
  -->
 <!-- subscriptions results -->
+
 	<div class="body-section">
 		<div class="content-row">
 		</div>
@@ -27,45 +28,31 @@
 				<table class="content-table">
 					<thead>
 						<tr>
+							<th>Subscription No</th>
+							<th>Train ID</th>
+							<th>Name</th>
 							<th>From</th>
 							<th>To</th>
 							<th>Departure Time</th>
 							<th>Arrival Time</th>
-							<th>Type</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="active-row">
-							<td data-label="From">Colombo Fort</td>
-							<td data-label="To">Kandy</td>
-							<td data-label="Departure Time">7.00 a.m.</td>
-							<td data-label="Arrival Time">9.38 a.m.</td>
-							<td data-label="Type">A.C.- Intercity</td>
-							<td>
-								<button type="submit" data-target="alert-warning-popup" class="alert-btn btn"><span>Unsubscribe</span></button>
-							</td>
-						</tr>
+						<?php foreach($data AS $row): ?>
 						<tr>
-							<td data-label="From">Colombo Fort</td>
-							<td data-label="To">Kandy</td>
-							<td data-label="Departure Time">7.05 a.m.</td>
-							<td data-label="Arrival Time">9.38 a.m.</td>
-							<td data-label="Type">Intercity</td>
+							<td data-label=">Subscription No"><?php echo $row->subscriptionNo; ?></td>
+							<td data-label="Train ID"><?php echo $row->trainId; ?></td>
+							<td data-label="Name"><?php echo $row->name; ?></td>
+							<td data-label="From"><?php echo $row->srcName; ?></td>
+							<td data-label="To"><?php echo $row->destName; ?></td>
+							<td data-label="Departure Time"><?php echo $row->starttime; ?></td>
+							<td data-label="Arrival Time"><?php echo $row->endtime; ?></td>
 							<td>
-								<button type="submit" data-target="alert-warning-popup" class="alert-btn btn"><span>Unsubscribe</span></button>
+								<button id="<?php echo $row->subscriptionNo; ?>" type="submit" data-target="alert-warning-popup" class="alert-btn btn"><span>Unsubscribe</span></button>
 							</td>
 						</tr>
-						<tr>
-							<td data-label="From">Colombo Fort</td>
-							<td data-label="To">Kandy</td>
-							<td data-label="Departure Time">8.30 a.m.</td>
-							<td data-label="Arrival Time">11.03 a.m.</td>
-							<td data-label="Type">Express - Udarata Menike</td>
-							<td>
-								<button type="submit" data-target="alert-warning-popup" class="alert-btn btn"><span>Unsubscribe</span></button>
-							</td>
-						</tr>
+						<?php endforeach; ?>
 					</tbody>
 				</table>
 			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayAccount'" type="submit" class="btn blue-btn back-btn"><span>Back</span></button>
@@ -87,7 +74,7 @@
 				<h3>Are you sure?</h3>
 				<p>If you unsubscribe you won't receive email notifications in the future.</p>
 				<!-- <p><a>Proceed Anyway?</a></p> -->
-				<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displaySubscriptions'" class="proceed-btn">Proceed Anyway</button>
+				<button type="button" class="proceed-alert proceed-btn">Proceed Anyway</button>
 			</div>
 			<button type="button" class="close-alert">&times;</button>
 		</div>
@@ -100,6 +87,7 @@
 		alertBtn.forEach(function(btn){
 			btn.addEventListener("click", function(){
 				const target = this.getAttribute("data-target");
+				const subid = this.getAttribute("id");
 				const alertBox = document.getElementById(target)
 				alertBox.classList.add("alert-box-show");
 
@@ -107,6 +95,12 @@
 				closeAlert.addEventListener("click",function(){
 					alertBox.classList.remove("alert-box-show");
 				});
+
+				const proceedAlert = alertBox.querySelector(".proceed-alert");
+				proceedAlert.addEventListener("click",function(){
+					window.location.href="<?php echo URLROOT; ?>/passengerAccounts/unsubscribe?id="+subid+";?>";
+				});
+
 
 				alertBox.addEventListener("click",function(event){
 					if(event.target === this){

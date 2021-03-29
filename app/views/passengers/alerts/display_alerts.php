@@ -30,7 +30,7 @@
 
 					<?php if(isset($_SESSION['userid'])) : ?>
                     <div class="btn-group col-4" id="cng">
-					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displaySubscriptions'" class="blue-btn">My Alerts</button>
+					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displaySubscriptions'" class="blue-btn">My Alerts <i class="fa fa-bell"></i></button>
 					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/search'" class="blue-btn">Subscribe</button>
 					</div>
 					<?php endif; ?>
@@ -98,11 +98,11 @@
 						<tr class="active-row">
 							<td data-label="AlertID"><?php echo $row->alertId ?></td>
 							<td data-label="TrainID"><?php echo $row->trainId ?></td>
-							<?php if($row->type=="delayed"): ?>
+							<?php if($row->type=="d"): ?>
 								<td class="delayed-label" data-label="Type"><?php echo $row->type ?></td>
-							<?php elseif($row->type=="cancelled"): ?>
+							<?php elseif($row->type=="c"): ?>
 								<td class="cancelled-label" data-label="Type"><?php echo $row->type ?></td>
-							<?php elseif($row->type=="rescheduled"): ?>
+							<?php elseif($row->type=="r"): ?>
 								<td class="rescheduled-label" data-label="Type"><?php echo $row->type ?></td>
 							<?php endif; ?>
 							<td data-label="Date"><?php echo $row->date ?></td>
