@@ -6,7 +6,7 @@
 <?php
     require APPROOT . '/views/includes/admin_navigation.php';
 ?>
-
+<!-- <?php var_dump($data["trains"]) ?> -->
     <div class="body-section">
             <div class="content-row">
                 <ul class="breadcrumb">
@@ -21,7 +21,7 @@
             <div class="content-flexrow">
                 <div class="container">
                     <div class="text">Add Revenue Report Details</div>
-                    <form action="<?php echo URLROOT; ?>/adminReports/setting" method="POST">
+                    <form action="<?php echo URLROOT; ?>/adminReports/index" method="POST">
                     
 
 
@@ -45,13 +45,19 @@
                      <div class="form-row">
                             <div class="input-data">
                                 <label for="dest">Select Train</label>
-                                <select name="dest" id="dest">
-                                    <option value="t1">All Trains</option>
-                                    <option value="t1">Galuu Kumaree</option>
-                                    <option value="t2">Udarata Manike</option>
-                                    <option value="t2">Badulu Dewi</option>
-                                    <option value="t2">Ruhunu Kumaree</option>
+
+                                <select name = "trainName">
+
+                                <?php foreach ($data["trains"] as $train): ?>
+                                <option value= "<?php echo $train->trainId; ?>"> <?php echo $train->name; ?></option>
+                                <?php endforeach ;?>
+
+                                <span class="invalidFeedback">
+                                    <?php echo $data['nameError']; ?>
+                                </span>
+
                                 </select>
+                                
                             </div>
                     </div>
                     <br>
@@ -59,26 +65,26 @@
                      <div class="form-row">
                         
                             <div class="input-data">
-                                <label for="date">From</label>
-                                <input type="date" id="date" >
+                                <label for="from_date">From</label>
+                                <input type="date" name="fromDate" id="from_date" max= "<?php echo date("Y-m-d");?>" >
+
+                                <span class="invalidFeedback">
+                                    <?php echo $data['fromError']; ?>
+                                </span>
+                                 
                             </div>
                             <div class="input-data">
-                                <label for="date">To</label>
-                                <input type="date" id="date" >
+                                <label for="to_date">To</label>
+                                <input type="date" name="toDate" id="to_date" max= "<?php echo date("Y-m-d");?>" >
+
+                                <span class="invalidFeedback">
+                                    <?php echo $data['toError']; ?>
+                                </span>
+
                             </div>
                         
                     </div>
-                      <br>  
-                
-                     <!--<div class="form-row">
-                            <div class="input-data">
-                                <label for="dest">Order By</label>
-                                <select name="dest" id="dest">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                </select>
-                            </div>
-                    </div>-->
+                    <br> 
                     <br>
 
     
@@ -93,9 +99,6 @@
                         </div>
 
                     </form>
-
-
-
 
                 </div>
             </div>
