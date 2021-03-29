@@ -53,6 +53,17 @@
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="input-data ">
+                                <label for="title">Notice Title</label>
+                                <input type="text" name="title" id="title" value="<?php echo $data['notice']->title;?>" required >
+
+                                <span class="invalidFeedback">
+                                    <?php echo $data['titleError']; ?>
+                                </span>   
+                            </div>
+                        </div>
+
 
                         <div class="form-row">
                             <div class="input-data textarea">

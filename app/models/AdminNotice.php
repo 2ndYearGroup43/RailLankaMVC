@@ -15,7 +15,7 @@ class AdminNotice {
         return $results;
     }
 
-    public function findNoticeById($noticeId) {  //methana change kara
+    public function findNoticeById($noticeId) { 
        
         $this->db->query('SELECT * FROM notice WHERE noticeId = :noticeId');
 
@@ -33,17 +33,14 @@ class AdminNotice {
     public function addNotice($data) {
 
 
-        $this->db->query('INSERT INTO notice (adminId, description, entered_date, entered_time, type) VALUES (:adminId, :description, :entered_date, :entered_time, :type)');
+        $this->db->query('INSERT INTO notice (adminId, title, description, entered_date, entered_time, type) VALUES (:adminId,:title, :description, :entered_date, :entered_time, :type)');
 
         $this->db->bind(':adminId', $data['adminId']);
+        $this->db->bind(':title', $data['title']);
         $this->db->bind(':description', $data['description']);
         $this->db->bind(':entered_date', $data['entered_date']);
         $this->db->bind(':entered_time', $data['entered_time']);
-        //$this->db->bind(':adminId', $data['adminId']);
         $this->db->bind(':type', $data['type']);
-       
-        //$this->db->bind(':entered_date', $data['entered_date']);
-        
 
      
         if ($this->db->execute()) {
@@ -63,9 +60,10 @@ class AdminNotice {
     }
 
     public function updateNotice($data) {
-        $this->db->query('UPDATE notice SET description = :description, type = :type WHERE noticeId = :noticeId');
+        $this->db->query('UPDATE notice SET title = :title description = :description, type = :type WHERE noticeId = :noticeId');
 
         $this->db->bind(':noticeId', $data['noticeId']);
+        $this->db->bind(':title', $data['title']);
         $this->db->bind(':description', $data['description']);
         $this->db->bind(':type', $data['type']);
 
@@ -93,7 +91,7 @@ class AdminNotice {
     public function getNoticesFields(){
 
         $this->db->query("SELECT DISTINCT column_name AS columns FROM INFORMATION_SCHEMA.columns WHERE TABLE_NAME IN('notice', 'admin') AND
-         column_name IN('noticeId','type','adminId','entered_date','entered_time')");
+         column_name IN('noticeId','type','title','adminId','entered_date','entered_time')");
         $results=$this->db->resultSet();
         return $results;
     }
@@ -118,6 +116,10 @@ class AdminNotice {
                         $this->db->query('SELECT n.*,a.adminId FROM notice n
                         INNER JOIN admin a ON a.adminId=n.adminId WHERE n.type = :searchTerm');
                         break;
+                    case 'title':
+                        $this->db->query('SELECT n.*,a.adminId FROM notice n
+                        INNER JOIN admin a ON a.adminId=n.adminId WHERE n.title = :searchTerm');
+                        break;    
                     case 'entered_date':
                         $this->db->query('SELECT n.*,a.adminId FROM notice n
                         INNER JOIN admin a ON a.adminId=n.adminId WHERE n.entered_date = :searchTerm');
