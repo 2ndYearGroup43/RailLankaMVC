@@ -6,25 +6,22 @@
     <?php
        require APPROOT . '/views/includes/admin_navigation.php';
     ?>
-
+<!-- <?php var_dump($data["trains"]) ?> -->
 <div class="body-section">
 
             <div class="content-row">
                 <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="<?php echo URLROOT; ?>/admins/index">Home</a></li>
                     <li><u>Reports</u></li>
                     <li><a href="<?php echo URLROOT; ?>/adminReports/addAlertDetails">Add Alert Report Details</a></li>
                 </ul>
             </div>
 
 
-
-    
             <div class="content-flexrow">
                 <div class="container">
                     <div class="text">Add Alert Report Details</div>
-                    <form action="<?php echo URLROOT; ?>/adminReports/alertsetting" method="POST">
-
+                    <form action="<?php echo URLROOT; ?>/adminReports/addAlertDetails" method="POST">
 
 
                     <br>
@@ -49,16 +46,23 @@
             </label>
 
 
-                     <div class="form-row">
+                    <div class="form-row">
                             <div class="input-data">
                                 <label for="dest">Select Train</label>
-                                <select name="dest" id="dest">
-                                    <option value="t1">All Trains</option>
-                                    <option value="t1">Galuu Kumaree</option>
-                                    <option value="t2">Udarata Manike</option>
-                                    <option value="t2">Badulu Dewi</option>
-                                    <option value="t2">Ruhunu Kumaree</option>
+
+                                <select name = "trainName">
+
+                                <?php foreach ($data["trains"] as $train): ?>
+                                <option value= "<?php echo $train->trainId; ?>"> <?php echo $train->name; ?></option>
+                                <?php endforeach ;?>
+
+                                <span class="invalidFeedback">
+                                    <?php echo $data['nameError']; ?>
+                                </span>
+
+                                     <!-- <?php echo $data['train']->name;?> -->
                                 </select>
+                                
                             </div>
                     </div>
 
@@ -67,41 +71,29 @@
                     <div class="form-row">
                         <!--<label>Select Duration</label>-->
                             <div class="input-data">
-                                <label for="date">From</label>
-                                <input type="date" id="date" >
+                                <label for="from_date">From</label>
+                                <input type="date" name="fromDate" id="from_date" max= "<?php echo date("Y-m-d");?>" >
+
+                                <span class="invalidFeedback">
+                                    <?php echo $data['fromError']; ?>
+                                </span>
+
                             </div>
                             <div class="input-data">
-                                <label for="date">To</label>
-                                <input type="date" id="date" >
+                                <label for="to_date">To</label>
+                                <input type="date" name="toDate" id="to_date" max= "<?php echo date("Y-m-d");?>" >
+                                <span class="invalidFeedback">
+                                    <?php echo $data['toError']; ?>
+                                </span>
                             </div>
                         
                     </div>
 
-
-                     
-                    <div class="form-row">
-                            <div class="input-data">
-                                <label for="dest">Alert Cause Type</label>
-                                <select name="dest" id="dest">
-                                    <option value="d1">main</option>
-                                    <option value="d2">normal</option>
-                                </select>
-                            </div>
-                    </div>
-                     <!--<div class="form-row">
-                            <div class="input-data">
-                                <label for="dest">Order By</label>
-                                <select name="dest" id="dest">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                </select>
-                            </div>
-                    </div>-->
                     <br>
 
                         <div class="form-row submit-btn">
                             <div class="input-data">
-                                <input name="create" type="submit" class="blue-btn" value="Create Report">
+                      <input name="create" type="submit" class="blue-btn"  value="Create Report">         <!--  <input onclick="location.href='<?php echo URLROOT; ?>/adminReports/alertsetting' "                            type="submit"  class="blue-btn" value="Create Report"> -->
                             </div>
                             <div class="input-data">
                                 <input onclick="history.go(-1);" type="button" class="red-btn" value="Back">
