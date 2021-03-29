@@ -3,9 +3,9 @@
 ?>
 
 
-    <?php
-       require APPROOT . '/views/includes/admin_navigation.php';
-    ?>
+<?php
+    require APPROOT . '/views/includes/admin_navigation.php';
+?>
 
 <div class="body-section">
 
@@ -15,7 +15,8 @@
                     <li><u>Reports</u></li>
                     <li><a href="<?php echo URLROOT; ?>/adminReports/counterRevenueReport">Over the Counter Revenue Report </a></li></ul>
                 </ul>
-            </div><br><br>
+            </div>
+            <br><br>
 
 <center>
         <div class="div3" >
@@ -23,118 +24,119 @@
             <div class="content-flexrow">
                 <div class="container-table" id="printrev">
 
-                    <center>
+                    
                         <div class="logo-container" align="center">
                         <a href="index.html">
                         <img src="<?php echo URLROOT;?>/public/img/logotrack.jpg" height="130px" algin="center" >
                         </a>
                         </div>
-                    </center>
+                    
+                     <center>
+                    <h2 style="color: #13406d;">Revenue Details 
+                        <br>
+                    <small style="color: black;">Admin Id: <b><?php echo $data['adminId'];?></b></small></h2>
+                    <h2 style="color: black;">Date : <small style="color: black;"> <?php echo $data['date'];?></small></h2></center> 
 
-                    <h2 style="color: #13406d;">Revenue Details <small style="color: black;">Admin Id: 0001A</small></h2>
-                    <h2 style="color: #13406d;">Date : <small style="color: black;"> 12/12/2020</small></h2>
                     <table class="data-display">
-                        <caption>Over the Counter Details</caption>
+                        <center><caption><h2>Over the Counter Revenue Details </h2></caption></center>
+                       
                         <tr>
                             <td>Train Id</td>
-                            <td>00007A</td>
-                            <td colspan="3"></td>
-                        </tr>
-                        <tr>
-                            <td >Train Name: </td>
-                            <td>Ruhunu Kumaree</td>
+                            <td><?php echo $data['train']->trainId;?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td>Route: </td>
-                            <td>T38</td>
+                            <td >Train Name: </td>
+                            <td><?php echo $data['train']->name;?></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td>Start Station: </td>
+                            <td><?php echo $data['train']->srcName;?></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td>Destination Station: </td>
+                            <td><?php echo $data['train']->destName;?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
                             <td > Duration: </td>
-                            <td>from: 01/11/2020</td>
-                            <td>to: 30/11/2020</td>
+                            <td id="from_date"><?php echo $data['from'];?></td>
+                            <td id="to_date"><?php echo $data['to'];?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
                             <td>Number of dates: </td>
-                            <td>30</td>
+                            <td><?php echo (strtotime($data['to'])-strtotime($data['from']))/(60*60*24); ?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td>Number of travels: </td>
-                            <td>40</td>
+                            <td>Number of Journey: </td>
+                            <td><?php echo " ". count($data["results"]);?></td>
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td>Total Revenue for Online : </td>
-                            <td>Rs. 300 000.00</td>
+                            <td>Total Revenue for Counter  : </td>
+                            <td><?php echo $data['totalc']; ?></td>
+                            <td colspan="2"></td>
+                        </tr> 
+                         
+                        <tr>
+                            <td><h3><b>Total Revenue for Counter : </b></h3></td>
+                            <td><h3><b><?php echo count($data["results"]);?></b></h3></td>
                             <td colspan="2"></td>
                         </tr>
+
                     
                     </table>
 
                     <br><br>
+                    <br>
+                    <br>
+                    <br>
 
-<div id="repo">
-<table class="repo" align="center">
+                    <div id="repo">
+                    <table class="repo" align="center">
 
-<tr>
-    <td><b>Date</b></td>
-    <td><b>Departure time</b></td>
-    <td><b>Arrival time</b></td>
-    <td><b>Counter revenue</b></td>
-  </tr>
-  <tr>
-    <td>01/11/2020</td>
-    <td>08:00 AM</td>
-    <td>11:00 AM</td>
-    <td>Rs. 10 000.00</td>
-  </tr>
-  
-  <tr>
-    <td>01/11/2020</td>
-    <td>01:00 PM</td>
-    <td>05:00 PM</td>
-    <td>Rs. 8 500.00</td>
-  </tr>
-  <tr>
-    <td>03/11/2020</td>
-    <td>08:00 AM</td>
-    <td>11:00 AM</td>
-    <td>Rs. 10 000.00</td>
-  </tr>
-  <tr>
-    <td>03/11/2020</td>
-    <td>08:00 AM</td>
-    <td>11:00 AM</td>
-    <td>Rs. 8 000.00</td>
-  </tr>
-  <tr>
-    <td>06/11/2020</td>
-    <td>10:00 AM</td>
-    <td>01:00 PM</td>
-    <td>Rs. 10 000.00</td>
-  </tr>
-  <tr>
-    <td>07/11/2020</td>
-    <td>08:00 AM</td>
-    <td>11:00 AM</td>
-    <td>Rs. 20 000.00</td>
-  </tr>
 
-</table>  
-</div>
+                        <thead>
+                            <tr>
+                                
+                                <th>Ticket ID</th>
+                                <th>Journey Date</th>
+                                <th>Price</th>
+                                <th>Officer ID</th>
+                                <th>Issue Date</th>
+                                <th>Issue Time</th>
+                                
+
+                            </tr>
+                        </thead>
+
+                        <?php foreach ($data["results"] as $row):?>
+                    <tr>
+                        <td data-th="Ticket ID"><?php echo $row->ticketId;?></td>
+                        <td data-th="Journey Date"><?php echo $row->journeyDate;?></td>
+                        <td data-th="Price"><?php echo $row->price;?></td>
+                        <td data-th="Officer ID"><?php echo $row->officerId;?></td>
+                        <td data-th="Issue Date"><?php echo $row->issueDate;?></td>
+                        <td data-th="Issue Time"><?php echo $row->issueTime;?></td>
+                    </tr>
+                        <?php endforeach;?>
+
+                    </table>  
+                    </div>
 
                     <button  type="button" onclick="printContent('printrev')" class="back-btn">Print</button>
+                    
                     <button onclick="history.go(-1);" type="button" class="back-btn">Back</button>
                 </div>
             </div>
-
-</div>
-</center>            
+            <br>
         </div>
-
+</center>
+<br><br></div>
 
 
 <script >
@@ -147,6 +149,8 @@
 
     }
 </script>
+
+
 
 
 <?php
