@@ -81,9 +81,6 @@
                     }
                 }
 
-                if(!empty($data['deptTime'])){
-                    var_dump($data['deptTime']);
-                }
 
                 if(empty($data['srcError']) && empty($data['destError']) && empty($data['dateError']) && empty($data['timeError'])){
 
@@ -412,7 +409,8 @@
             $summary=$this->resofficerReservationModel->getSummary($resNo);
             $count=$summary[0]->count;
             $total=$summary[0]->total;
-            $result=$this->resofficerReservationModel->updateReservation($resNo,$count,$total);
+            $comp_time=date("Y-m-d H:i:sa");
+            $result=$this->resofficerReservationModel->updateReservation($resNo,$count,$total,$comp_time);
             $reservation=$this->resofficerReservationModel->getReservationDetails($resNo);
             $train=$this->resofficerReservationModel->getTrainDetails($reservation->trainId);
             $account=$this->resofficerReservationModel->getUnregisteredPassengerDetails($uPId);
@@ -428,7 +426,7 @@
                 'total'=>$total,
                 'ticketNo'=>trim($_POST['ticketNo']), 
                 'ticketId'=>$resNo, 
-                'reservationType'=>"Counter",
+                'reservationType'=>"counter",
                 'price'=>$total,
                 'journeyDate'=>$reservation->journeyDate,
                 'issueDate'=>date("Y-m-d"),
@@ -443,14 +441,14 @@
                 if ($this->resofficerReservationModel->create_ticket($data)){
 
                     $this->informPassengerOftheReservation($account->email, $resNo, $total, $train->trainId, $train->name, $account->nic, $reservation->journeyDate);
-                    header("Location: " . URLROOT . "/ResOfficerReservations/bookingReview/" .$resNo."/".$uPId);                              
+                    header("Location: " . URLROOT . "/ResOfficerReservations/ticketReview/" .$resNo."/".$uPId);                              
                 }else{
                     die("Something Going Wrong");
                 }
                      
         }
 
-        public function bookingReview($resNo, $uPId) {
+        public function ticketReview($resNo, $uPId) {
 
             if(isset($_GET['resNo'])){
                 $resNo = $_GET['resNo'];
@@ -501,7 +499,7 @@
                 $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
                 $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
-                $mail->Password   = 'Raillanka@2';                               // SMTP password
+                $mail->Password   = 'Raillanka@1234';                               // SMTP password
                 $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 

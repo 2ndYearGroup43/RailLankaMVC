@@ -15,11 +15,13 @@ class Admin_manage_compartments extends Controller{
 
 	public function create($trainId){
 		$types=$this->adminModel->getType();
+		$compartments=$this->adminModel->getCompartments($trainId);
 		$data = [
 			'types'=>$types,
-			'trainId'=>$trainId,
-			'compartmentError'=>'',
-			'compartments'=>''
+            'trainId'=>$trainId,
+            'compartmentError'=>'',
+            'currentCompartments'=>$compartments,
+            'compartments'=>''
 		];
 
 		if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -28,10 +30,11 @@ class Admin_manage_compartments extends Controller{
 			
 			
 			$data=[
-			'types'=>$types,
-			'trainId'=>$trainId,
-			'compartmentError'=>'',
-			'compartments'=>$a
+			    'types'=>$types,
+                'trainId'=>$trainId,
+                'compartmentError'=>'',
+                'currentCompartments'=>$compartments,
+                'compartments'=>$a
 			];
 
 			if(empty($data['compartments'])){

@@ -90,35 +90,36 @@
                         });
                     </script>
                     <div class="container-table">
-                        <h2 style="color: #13406d;">Searched Trains</h2>
+                        <h2 style="color: #13406d;">Searched Trains : <?php echo $data['dateFull']; ?></h2>
                         <div class="res-table">
                             <table class="blue">
-                        <thead>
-                            <tr>
-                                <th >Train ID</th>
-                                <th>Start Station</th>
-                                <th>Arrival Time</th>
-                                <th>End Station</th>
-                                <th>End Time</th>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Action</th>    
-                            </tr>
-                        </thead>
-                        <?php foreach ($data['trains'] as $train):?>
-                        <tr>
-                            <td data-th="Train-ID"><?php echo $train->trainId;?></td>
-                            <td data-th="Start Station"><?php echo $train->src_name;?></td>
-                            <td data-th="Arrival Time"><?php echo $train->starttime;?></td>
-                            <td data-th="End Station"><?php echo $train->dest_name;?></td>
-                            <td data-th="End Time"><?php echo $train->endtime;?></td>
-                            <td data-th="Name"><?php echo $train->name;?></td>
-                            <td data-th="Type"><?php echo $train->type;?></td>
-                            <td data-th="View Now"><a class= "blue-btn" href="<?php echo URLROOT . "/ResOfficerManageSeats/createReservation/" . $train->trainId?>">Manage Seat</a></td>
-                        </tr>
-                        <?php endforeach;?>
-                    </table> 
-                            <br>  
+                                <thead>
+                                    <tr>
+                                        <th >Train ID</th>
+                                        <th>Start Station</th>
+                                        <th>Arrival Time</th>
+                                        <th>End Station</th>
+                                        <th>End Time</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Action</th>    
+                                    </tr>
+                                </thead>
+                                <?php foreach ($data['trains'] as $train):?>
+                                    <tr>
+                                        <td data-th="Train-ID"><?php echo $train->trainId;?></td>
+                                        <td data-th="Start Station"><?php echo $train->srcName;?></td>
+                                        <td data-th="Arrival Time"><?php echo $train->starttime;?></td>
+                                        <td data-th="End Station"><?php echo $train->destName;?></td>
+                                        <td data-th="End Time"><?php echo $train->endtime;?></td>
+                                        <td data-th="Name"><?php echo $train->name;?></td>
+                                        <td data-th="Type"><?php echo $train->type;?></td>
+                                        <td data-th="View Now"><a class= "blue-btn" href="<?php echo URLROOT . "/ResOfficerManageSeats/createReservation/" . $train->trainId?>">Manage Seat</a></td>
+                                    </tr>
+                                <?php endforeach;?>
+                            </table>
+                            <br>
+
                         </div>      
                     </div>
                 </div>

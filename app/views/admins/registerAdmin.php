@@ -9,7 +9,7 @@
     <div class="content-flexrow">
         <div class="container">
             <div class="text">Admin Registration <small>Admin</small></div>
-            <form action="<?php echo URLROOT;?>/admins/registerAdmin" method="POST">
+            <form action="<?php echo URLROOT;?>/superadmins/registerAdmin" method="POST">
                 <div class="form-row">
                     <div class="input-data">
                         <label for="adminId">Admin Id</label>

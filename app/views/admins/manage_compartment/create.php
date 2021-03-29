@@ -97,6 +97,9 @@
                             }
                         }
                     </script>
+                    <script>
+                        var currentCompartments=<?php echo json_encode($data['currentCompartments']);?>;
+                    </script>
 
                 </div>
             </div>
