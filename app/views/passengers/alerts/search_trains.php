@@ -78,7 +78,7 @@
 			                        </span>
 						       	</div> 
 						       	
-						    	<div class="acc-inputfield">
+						    	<div class="acc-inputfield-flex">
 						        	<input type="submit" name="search" class="acc-btn">
 						      	</div>
 						    </div>

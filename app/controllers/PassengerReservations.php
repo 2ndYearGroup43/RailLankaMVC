@@ -56,7 +56,7 @@
 		        	$data['srcError']="Please enter the source station to proceed.";
 		        }else{
 		        	if(!$this->passengerReservationModel->checkStation($data['src'])){
-		        		$data['srcError']='Source station doesnt exist'; //Passenger enters non existing source station
+		        		$data['srcError']='Source station does not exist'; //Passenger enters non existing source station
 		        	} else{
 		        		$result=$this->passengerReservationModel->getStationId($data['src']);
 		        		$data['src']=$result->stationId;
@@ -69,7 +69,7 @@
 
 		        if(!empty($data['dest'])){
 		        	if(!$this->passengerReservationModel->checkStation($data['dest'])){
-		        		$data['destError']='Destination station doesnt exist';
+		        		$data['destError']='Destination station does not exist';
 		        	} else{
 		        		$result=$this->passengerReservationModel->getStationId($data['dest']);
 		        		$data['dest']=$result->stationId;
@@ -77,7 +77,7 @@
 		        		if($data['src']==$data['dest']){
 		        			$data['destError']='Destination and source station cannot be the same';
 		        		}
-		        		var_dump($data['dest']);
+		        		//var_dump($data['dest']);
 		        	}
 		        }
 
@@ -105,12 +105,12 @@
 
 		        		#src //nn
 		        		if(empty($data['date']) && empty($data['deptTime'])){
-		        			echo "#src";
+		        			//echo "#src";
 		        			$data['trains']=$this->passengerReservationModel->searchSrc($data);
 
 		        		#src-time //nn
 		        		}elseif(empty($data['date'])){
-		        			echo "#src-time";
+		        			//echo "#src-time";
 		        			$data['trains']=$this->passengerReservationModel->searchSrcTime($data);
 		        		#src-date
 		        		}elseif(empty($data['deptTime'])){
@@ -118,7 +118,7 @@
 		        			$data['trains']=$this->passengerReservationModel->searchSrcDate($data);
 		        		#src-date-time
 		        		}else {
-		        			echo "#src-date-time";
+		        			//echo "#src-date-time";
 		        			$data['trains']=$this->passengerReservationModel->searchSrcDateTime($data);
 		        		}
 
@@ -127,19 +127,19 @@
 
 		        		#src-dest //nn
 		        		if(empty($data['date']) && empty($data['deptTime'])){
-		        			echo "#src-dest";
+		        			//echo "#src-dest";
 		        			$data['trains']=$this->passengerReservationModel->searchSrcDest($data);
 		        		#src-dest-time //nn
 		        		}elseif(empty($data['date'])){
-		        			echo "#src-dest-time";
+		        			//echo "#src-dest-time";
 		        			$data['trains']=$this->passengerReservationModel->searchSrcDestTime($data);
 		        		#src-dest-date
 		        		}elseif(empty($data['deptTime'])){
-		        			echo "#src-dest-date";
+		        			//echo "#src-dest-date";
 		        			$data['trains']=$this->passengerReservationModel->searchSrcDestDate($data);
 		        		#src-dest-date-time
 		        		}else {
-		        			echo "#src-dest-date-time";
+		        			//echo "#src-dest-date-time";
 		        			$data['trains']=$this->passengerReservationModel->searchAll($data);
 		        		}
 
@@ -213,87 +213,81 @@
 		public function displaySeatMaps() {
 
 
-				if(isset($_GET['compNo'])){ 
-					$compNo=$_GET['compNo'];
+			if(isset($_GET['compNo'])){ 
+				$compNo=$_GET['compNo'];
 					//echo $compNo;
-				}else{
+			}else{
 					//echo "No compNo";
-					$compNo="A";
+				$compNo="A";
 					//echo $compNo;
-				}
+			}
 
-				if(isset($_GET['resNo'])){
-					$resNo = $_GET['resNo'];
+			if(isset($_GET['resNo'])){
+				$resNo = $_GET['resNo'];
 					//echo $resNo;
-				}
+			}
 
-				$reservation=$this->passengerReservationModel->getReservationDetails($resNo);
+			$reservation=$this->passengerReservationModel->getReservationDetails($resNo);
+
+			if($reservation->status=='P'){
+
 				$id=$reservation->trainId;
 				$journeyDate=$reservation->journeyDate;
 				$endTime=date('Y-m-d H:i:s',strtotime('+30 minutes',strtotime($reservation->res_time)));
-				//echo $endTime;
-				// $endH=date('H', strtotime($endTime));
-				// $endM=date('i', strtotime($endTime));
-				// $endS=date('s', strtotime($endTime));
+				$nic=$_SESSION['passenger_nic'];
+				$compartments=$this->passengerReservationModel->getCompartments($id); //To list the compartments of the given train
+				$train=$this->passengerReservationModel->getTrainDetails($id); //To get details about the train
+				$currComp=$this->passengerReservationModel->getCompartmentDetails($id,$compNo); //To get details about this compartment
+					
+				$class='';
+				$compPrice='';
+
+				if(($currComp->class)=="F"){
+					$class = "First Class";
+					$compPrice = $train->fclassbase;
+				}elseif(($currComp->class)=="S"){
+					$class = "Second Class";
+					$compPrice = $train->sclassbase;
+				}else {
+					$class = "Third Class";
+					$compPrice = $train->tclassbase;
+				}
+
+				$currTime=date("Y-m-d H:i:s");
+				$selected=$this->passengerReservationModel->getSelectedSeats($resNo); //Seats in all compartments selected by the user for that order
+				$disabled=$this->passengerReservationModel->getDisabledSeats($id,$compNo);//Seats disabled in this compartment
+				$unavailable=$this->passengerReservationModel->getUnavailable($id, $compNo, $journeyDate, $resNo, $currTime); //Seats in this compartment selected or booked by other users(or same user)
+
+				$data=[
+					'trainId'=>$id,
+					'train'=>$train,
+					'date'=>$journeyDate,
+					'compartments'=>$compartments,
+					'currComp'=>$currComp,
+					'compartmentNo'=>$currComp->compartmentNo,
+					'class'=>$class,
+					'count'=>0,
+					'resNo'=>$resNo,
+					'compPrice'=>$compPrice,
+					'selected'=>$selected,
+					'unavailable'=>$unavailable,
+					'disabled'=>$disabled,
+					'endTime'=>$endTime,
+					'reservation'=>$reservation
+				]; 
 				
-			
-			$nic=$_SESSION['passenger_nic'];
-			$compartments=$this->passengerReservationModel->getCompartments($id); //To list the compartments of the given train
-			$train=$this->passengerReservationModel->getTrainDetails($id); //To get details about the train
-			$currComp=$this->passengerReservationModel->getCompartmentDetails($id,$compNo); //To get details about this compartment
-			//$src=$this->passengerReservationModel->getStopNo($id,$train->src_station);	//To get the stopNo of the source station
-			//$dest=$this->passengerReservationModel->getStopNo($id,$train->dest_station); //To get the stopNo of the destination station
-		
-			$class='';
+				if($currComp->type==1){
+					$this->view('passengers/reservations/display_seatmapsnew',$data); 
+				} elseif($currComp->type==2){
+					$this->view('passengers/reservations/display_seatmapsnew2',$data);
+				} else {
+					$this->view('passengers/reservations/display_seatmapsnew3',$data);
+				}
 
-			if(($currComp->class)=="F"){
-				$class = "First Class";
-			}elseif(($currComp->class)=="S"){
-				$class = "Second Class";
-			}else {
-				$class = "Third Class";
-			}
-
-			$nic=$_SESSION['passenger_nic'];
-			$currTime=date("Y-m-d H:i:s");
-			//echo $currTime;
-			
-			$selected=$this->passengerReservationModel->getSelectedSeats($resNo); //Seats in all compartments selected by the user for that order
-			$disabled=$this->passengerReservationModel->getDisabledSeats($id,$compNo);//Seats disabled in this compartment
-			$unavailable=$this->passengerReservationModel->getUnavailable($id, $compNo, $journeyDate, $resNo, $currTime); //Seats in this compartment selected or booked by other users(or same user)
-
-			$data=[
-				'trainId'=>$id,
-				'train'=>$train,
-				'date'=>$journeyDate,
-				'compartments'=>$compartments,
-				'currComp'=>$currComp,
-				'compartmentNo'=>$currComp->compartmentNo,
-				'class'=>$class,
-				'count'=>0,
-				'resNo'=>$resNo,
-				'seats'=>'',
-				'selected'=>$selected,
-				'unavailable'=>$unavailable,
-				'disabled'=>$disabled,
-				'endTime'=>$endTime,
-				'reservation'=>$reservation
-				// 'endH'=>$endH,
-				// 'endM'=>$endM,
-				// 'endS'=>$endS
-			]; 
-			
-
-		
-			if($currComp->type==1){
-				$this->view('passengers/reservations/display_seatmapsnew',$data); 
-			} elseif($currComp->type==2){
-				$this->view('passengers/reservations/display_seatmapsnew2',$data);
-			} else {
-				$this->view('passengers/reservations/display_seatmapsnew3',$data);
+			}else{
+				header('location: ' . URLROOT . '/passengerReservations/search');
 			}
 		
-			
 		}
 
 
@@ -478,44 +472,54 @@
 			$this->view('passengers/reservations/display_seatmapsn6'); 
 		}
 
+
 		public function bookingReview() {
 
 			if(isset($_GET['resNo'])){
 				$resNo = $_GET['resNo'];
 				// echo $resNo;
 			}
-
-			$seats=$this->passengerReservationModel->getSelectedSeats($resNo); //
-			$summary=$this->passengerReservationModel->getSummary($resNo); //get price and item count
-			$count=$summary[0]->count;
-			$total=$summary[0]->total;
-			$result=$this->passengerReservationModel->updateReservation($resNo,$count,$total); //update reservation table with summary
 			$reservation=$this->passengerReservationModel->getReservationDetails($resNo);
-			$resEnd=date('Y-m-d H:i:s',strtotime('+30 minutes',strtotime($reservation->res_time)));
-			// var_dump($reservation);
-			// $summary=$this->passengerReservationModel->getSummary($resNo);
-			$account=$this->passengerReservationModel->getAccountDetails($reservation->passengerId);
-			$train=$this->passengerReservationModel->getTrainDetails($reservation->trainId);
-			$startTime= new DateTime($train->starttime);
-			$endTime= new DateTime($train->endtime);
-			$duration=$startTime->diff($endTime);
 
-			$data = [
-				'train'=>$train,
-				'reservation'=>$reservation,
-				'account'=>$account,
-				'seats'=>$seats,
-				'total'=>$total,
-				'count'=>$count,
-				'startTime'=>$startTime,
-				'endTime'=>$endTime,
-				'duration'=>$duration,
-				'resNo'=>$resNo,
-				'resEnd'=>$resEnd
-			];
+			if($reservation->status=='P'){
+
+				$seats=$this->passengerReservationModel->getSelectedSeats($resNo); //
+				$summary=$this->passengerReservationModel->getSummary($resNo); //get price and item count
+				$count=$summary[0]->count;
+				$total=$summary[0]->total;
+				$result=$this->passengerReservationModel->updateReservation($resNo,$count,$total); //update reservation table with summary
+				$resEnd=date('Y-m-d H:i:s',strtotime('+30 minutes',strtotime($reservation->res_time)));
+				// var_dump($reservation);
+				// $summary=$this->passengerReservationModel->getSummary($resNo);
+				$account=$this->passengerReservationModel->getAccountDetails($reservation->passengerId);
+				$train=$this->passengerReservationModel->getTrainDetails($reservation->trainId);
+				$startTime= new DateTime($train->starttime);
+				$endTime= new DateTime($train->endtime);
+				$duration=$startTime->diff($endTime);
+
+				$data = [
+					'train'=>$train,
+					'reservation'=>$reservation,
+					'account'=>$account,
+					'seats'=>$seats,
+					'total'=>$total,
+					'count'=>$count,
+					'startTime'=>$startTime,
+					'endTime'=>$endTime,
+					'duration'=>$duration,
+					'resNo'=>$resNo,
+					'resEnd'=>$resEnd
+				];
+				
+				$this->view('passengers/reservations/booking_review', $data); 
+
+			}else{
+				header('location: ' . URLROOT . '/passengerReservations/search');
+			}
 			
-			$this->view('passengers/reservations/booking_review', $data); 
 		}
+
+
 
 		public function bookingConf() {
 
@@ -913,7 +917,7 @@
 				   	$mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
 				   	$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
 				   	$mail->Username   = 'raillankaproject@gmail.com';                  // SMTP username
-					$mail->Password   = 'Raillanka@2';                               // SMTP password
+					$mail->Password   = 'Raillanka@1234';                               // SMTP password
 				  	$mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
 				  	$mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 					//Recipients
@@ -949,6 +953,33 @@
 				$resNo=$_GET['resNo'];
 			}
 
+			$row=$this->passengerReservationModel->getReservationStatus($resNo);
+
+			//If the payment is complete
+			if($row->status=='S'){
+				echo "here";
+				header('location: ' . URLROOT . '/passengerReservations/search');
+			}else{
+				//If there are selected or deselected seats 
+				if($this->passengerReservationModel->checkReservationSeats($resNo)){
+					$result=$this->passengerReservationModel->cancelReservation($resNo);
+				//User has not selected or deselected any seats 
+				}else {
+					$result=$this->passengerReservationModel->removeReservation($resNo);
+				}
+
+				if($result){
+					$this->view('passengers/reservations/booking_failed');
+				}
+			}
+		}
+
+		public function removeReservation(){
+
+			if(isset($_GET['resNo'])){
+				$resNo=$_GET['resNo'];
+			}
+
 			//If there are selected or deselected seats 
 			if($this->passengerReservationModel->checkReservationSeats($resNo)){
 				$result=$this->passengerReservationModel->cancelReservation($resNo);
@@ -958,7 +989,7 @@
 			}
 			
 			if($result){
-				$this->view('passengers/reservations/booking_failed');
+				header('location: ' . URLROOT . '/passengerReservations/search');
 			}
 		}
 

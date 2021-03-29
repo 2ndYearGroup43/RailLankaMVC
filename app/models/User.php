@@ -23,11 +23,14 @@
 				$this->db->query('SELECT LAST_INSERT_ID() As userid');
 				$result = [];
 				$result = $this->db->resultSet();
-				$this->db->query('INSERT INTO passenger (userid, nic, reg_date, reg_time) VALUES (:userid, :nic, :reg_date, :reg_time)');
+				$this->db->query('INSERT INTO passenger (userid, nic, firstname, lastname, mobileno, reg_date, reg_time) VALUES (:userid, :nic, :fname, :lname, :mobile, :reg_date, :reg_time)');
 
 				//bind values
 				$this->db->bind(':userid', $result[0]->userid);
-				$this->db->bind(':nic', $data['nic']);
+				$this->db->bind(':nic', $data['auth']);
+				$this->db->bind(':fname', $data['fname']);
+				$this->db->bind(':lname', $data['lname']);
+				$this->db->bind(':mobile', $data['mobile']);
 				$this->db->bind(':reg_date', $data['reg_date']);
 				$this->db->bind(':reg_time', $data['reg_time']);
 

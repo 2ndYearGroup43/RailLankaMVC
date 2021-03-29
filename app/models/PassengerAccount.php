@@ -96,7 +96,7 @@
 
         public function getTickets($id){
 
-            $this->db->query("SELECT r.*, s1.name AS srcName, s2.name AS destName FROM reservation r INNER JOIN train t ON r.trainId=t.trainId INNER JOIN station s1 ON s1.stationID=t.src_station INNER JOIN station s2 ON s2.stationID=t.dest_station WHERE r.passengerId=:id AND r.status='S'");
+            $this->db->query("SELECT r.*, s1.name AS srcName, s2.name AS destName FROM reservation r INNER JOIN train t ON r.trainId=t.trainId INNER JOIN station s1 ON s1.stationID=t.src_station INNER JOIN station s2 ON s2.stationID=t.dest_station WHERE r.passengerId=:id AND r.status='S' AND r.journeyDate >= CURRENT_DATE");
 
             //Email param will be binded with the email variable
             $this->db->bind(':id', $id);
@@ -153,6 +153,58 @@
             return $results;
         }
 
+
+        public function getSubscriptions($passengerId){
+
+            $this->db->query('SELECT t.*, s.subscriptionNo, s1.name AS srcName, s2.name AS destName FROM subscriptions s INNER JOIN train t ON s.trainId=t.trainId INNER JOIN station s1 ON s1.stationID=t.src_station INNER JOIN station s2 ON s2.stationID=t.dest_station WHERE s.passengerId=:id ORDER BY s.subscriptionNo');
+            $this->db->bind(':id',$passengerId);
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
+        public function removeSubscription($subNo){
+
+            $this->db->query("DELETE FROM subscriptions WHERE subscriptionNo=:subNo");
+
+            //bind values
+            $this->db->bind(':subNo', $subNo);
+
+            //Execute function
+            if ($this->db->execute()) {
+                return true;                
+            } else {
+                return false;
+            }
+
+        } 
+
+        public function checkReservations($passengerId){
+
+            $this->db->query('SELECT r.reservationNo FROM reservation r WHERE r.passengerId=:passengerId AND r.journeyDate >= CURRENT_DATE');
+
+            //bind values
+            $this->db->bind(":passengerId",$passengerId);
+            $row=$this->db->resultSet();
+            var_dump($row);
+            return $row; 
+
+        }
+
+        public function deleteAccount($userId){
+
+            $this->db->query("DELETE FROM users WHERE userid=:userid");
+
+            //bind values
+            $this->db->bind(':userid', $userId);
+
+            //Execute function
+            if ($this->db->execute()) {
+                return true;                
+            } else {
+                return false;
+            }
+
+        }
 
 
 	}

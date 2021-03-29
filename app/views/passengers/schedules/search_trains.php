@@ -13,7 +13,8 @@
 
 <!-- <?php var_dump($_SESSION); ?>  -->
 <!-- <?php var_dump($data); ?> -->
-<!-- form -->
+<!-- <?php echo date("Y-m-d", strtotime("+2 months")); ?>
+ --><!-- form -->
 	<div class="body-section">
 		<div class="content-row">
 		</div>
@@ -64,7 +65,7 @@
 
 						       	<label>Departure Date</label>
 						       	<div class="acc-inputfield">
-						          	<input type="date" name="date" class="acc-input">
+						          	<input type="date" name="date" min="<?php echo date("Y-m-d"); ?>" class="acc-input"> 
 						          	<span class="invalidFeedback">
 			                            <?php echo $data['dateError'];?>
 			                        </span>
@@ -78,7 +79,7 @@
 			                        </span>
 						       	</div> 
 						       	
-						    	<div class="acc-inputfield">
+						    	<div class="acc-inputfield-flex">
 						        	<input type="submit" name="search" class="acc-btn">
 						      	</div>
 						    </div>

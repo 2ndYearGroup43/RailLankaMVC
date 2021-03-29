@@ -23,9 +23,9 @@
 			$this->view('passengers/accounts/view_account', $data); 
 		}
 
-		public function editAccount($id) {
+		public function editAccount() {
 
-			// $id = $_SESSION['userid'];
+			$id = $_SESSION['userid'];
 	        $passenger=$this->passengerAccountModel->findPassengerById($id);
 	        $data = [
 	        	'userId'=>$id,
@@ -499,7 +499,7 @@
 				   	$mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
 				   	$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
 				   	$mail->Username   = 'raillankaproject@gmail.com';                  // SMTP username
-					$mail->Password   = 'Raillanka@2';                               // SMTP password
+					$mail->Password   = 'Raillanka@1234';                               // SMTP password
 				  	$mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
 				  	$mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 					//Recipients
@@ -530,8 +530,60 @@
 
 		public function displaySubscriptions() {
 			
-			
-			$this->view('passengers/accounts/view_subscriptions'); 
+			$passengerId=$_SESSION['passenger_id'];
+			$data=$this->passengerAccountModel->getSubscriptions($passengerId);
+			$this->view('passengers/accounts/view_subscriptions', $data); 
+		}
+
+
+		public function unsubscribe(){
+
+			if(isset($_GET['id'])){
+				$subNo = $_GET['id'];
+			}
+
+			$this->passengerAccountModel->removeSubscription($subNo);
+			$this->displaySubscriptions();
+			return;
+		}
+
+		// public function checkReservations(){
+
+		// 	if(isset($_POST['passengerid'])){
+		// 		$passengerId = $_POST['passengerid'];
+		// 	}
+
+		// 	$results=$this->passengerAccountModel->checkReservations($passengerId);
+		// 	if($results){
+		// 		return true;
+		// 	}else{
+		// 		return false;
+		// 	}
+
+		// }
+
+
+		public function deleteAccount(){
+
+			$userId = $_SESSION['userid'];
+			$passengerId = $_SESSION['passenger_id'];
+
+			//check if there are any pending reservations
+			$results=$this->passengerAccountModel->checkReservations($passengerId);
+			if($results){
+				header('location: ' . URLROOT . '/passengerAccounts/displayAccount');
+				return;//??
+			}else{
+				if($this->passengerAccountModel->deleteAccount($userId)){
+					unset($_SESSION['userid']); //??
+					unset($_SESSION['email']);
+					unset($_SESSION['role']);
+					unset($_SESSION['passenger_nic']);
+					unset($_SESSION['passenger_id']);
+					header('location: ' . URLROOT . '/pages/index');
+				}
+			}
+
 		}
 		
 	}

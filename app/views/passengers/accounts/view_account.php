@@ -19,7 +19,7 @@
 			<?php foreach ($data['passenger'] as $row)?>
 				<div class="row">
 					<div class="btn-group">
-						<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/editAccount/<?php echo $row->userid;?>'" type="submit" class="blue-btn"><span>Edit Account <i class="fa fa-edit"></i></span></button>
+						<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/editAccount'" type="submit" class="blue-btn"><span>Edit Account <i class="fa fa-edit"></i></span></button>
 						<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayTickets'" type="submit" class="blue-btn"><span>My Tickets <i class="fa fa-credit-card" aria-hidden="true"></i></span></button>
 						<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displaySubscriptions'" type="submit" class="blue-btn"><span>Subscriptions <i class="fa fa-bell-o" aria-hidden="true"></i></span></button>
 					</div>

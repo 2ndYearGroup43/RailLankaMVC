@@ -14,7 +14,7 @@
 <!-- <?php var_dump($_SESSION); ?>
 <br>
 <?php var_dump($data['trains']); ?> -->
-<?php var_dump($data['unavailable']); ?>
+<!-- <?php var_dump($data['unavailable']); ?> -->
 <!-- search results -->
 	<div class="body-section">
 		<a href="#" id="pop-up" class="btn pop-up-btn">Search <i class="fa fa-search" aria-hidden="true"></i></a>
@@ -120,7 +120,7 @@
 
 						       	<label>Departure Date</label>
 						       	<div class="acc-inputfield">
-						          	<input type="date" name="date" class="acc-input">
+						          	<input type="date" name="date" min="<?php echo date("Y-m-d"); ?>" max="<?php echo date("Y-m-d", strtotime("+2 months")); ?>" class="acc-input">
 						          	<span class="invalidFeedback">
 			                            <?php echo $data['dateError'];?>
 			                        </span>
@@ -134,7 +134,7 @@
 			                        </span>
 						       	</div> 
 						       	
-						    	<div class="acc-inputfield">
+						    	<div class="acc-inputfield-flex">
 						        	<input type="submit" name="search" class="acc-btn">
 						      	</div>
 						    </div>

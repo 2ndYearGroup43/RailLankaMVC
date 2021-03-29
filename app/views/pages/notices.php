@@ -1,20 +1,10 @@
 <?php 
 
-	//echo out databse info to the screen
-	// foreach ($data['users'] as $user) {
-	// 	echo "Information: " . $user->user_name . $user->user_email;
-	// 	echo "<br>";
-	// }
-	
-	// isPassenger();
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($_SESSION); ?>  -->
-
-
-<!-- display all alerts -->
+<!-- display all notices -->
 	<div class="body-section">
 		<div class="content-row">
 		</div>
@@ -27,46 +17,24 @@
 						<tr>
 							<th>Notice ID</th>
 							<th>Date</th>
-							<th>Description</th>
+							<th>Title</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
+						<?php foreach($data AS $row): ?>
 						<tr class="active-row">
-							<td data-label="Notice ID">001</td>
-							<td data-label="Date">02/10/2020</td>
-							<td data-label="Description">Unawatuna sub railway station temporarily closed over COVID-19 scare</td>
+							<td data-label="Notice ID"><?php echo $row->noticeId; ?></td>
+							<td data-label="Date"><?php echo $row->entered_date; ?></td>
+							<td data-label="Title"><?php echo $row->title ?></td>
 							<td>
-								<button type="submit" class="btn pop-up"><span>View Details</span></button>
+								<button id="<?php echo $row->noticeId; ?>" type="submit" class="btn pop-up"><span>View Details</span></button>
 							</td>
 						</tr>
-						<tr>
-							<td data-label="AlertID">002</td>
-							<td data-label="TrainID">28/08/2020</td>
-							<td data-label="Type">Beliatta-Anuradhapura Express Train won't be in operation until further notice</td>
-							<td>
-								<button type="submit" class="btn pop-up">View Details</button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="AlertID">003</td>
-							<td data-label="TrainID">27/06/2020</td>
-							<td data-label="Type">Class s5 718 - 719 finds a new home</td>
-							<td>
-								<button type="submit" class="btn pop-up">View Details</button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="AlertID">004</td>
-							<td data-label="TrainID">13/06/2020</td>
-							<td data-label="Type">Fort-Station closed for renovation</td>
-							<td>
-								<button type="submit" class="btn pop-up">View Details</button>
-							</td>
-						</tr>
+					<?php endforeach; ?>
 					</tbody>
 				</table>
-			<!-- </div> -->
+
 			<button onclick="location.href='<?php echo URLROOT; ?>/pages/index'" type="submit" class="btn blue-btn back-btn">Back</button>	
 		</div>
 		<div class="content-row">
@@ -74,42 +42,45 @@
 		<div class="content-row">
 		</div>
 	</div>
-	<!-- end of display all alerts -->
+	<!-- end of display all notices -->
 
-	<!-- pop up -->
-	<div class="bg-modal">
+
+	<!-- notice pop up -->
+	<div class="bg-modal" id="front-page">
 		<div class="modal-content">
 			<div class="close">+</div>
 			<div class="notices-container">
+			<div class="img-container">
+					<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+			</div>  
 			<h2 class="title">Notice</h2>
 				<table class="content-table" id="details">
-					<tbody>	
-						<tr>
-							<td>2nd October 2020</td>
-						</tr>
-						<tr>
-							<td><h3>Unawatuna sub railway station temporarily closed due to COVID-19</h3></td>
-						</tr>
-						<tr>	
-							<td>The Unawatuna Railway Station was temporarily closed on Monday (July 13), according to the Department of Railways.
-
-							“An officer at the Unawatuna Railway Station was directed for PCR testing after it was confirmed he maintained contact with a COVID-19 case,” Dilantha Fernando – the General Manager of Railways said on Monday (July 12).
-
-							According to Fernando, the Unawatuna Railway station will remain closed until the officer’s PCR test results are released.
-							</td>
-						</tr>
-					</tbody>		
 				</table>
 			</div>
 		</div>
 	</div>
-	<!-- end of pop up -->
+	<!-- end of notice pop up -->
 
-	<!-- js for pop up -->
+	
+	<!-- js for notice pop up -->
 	<script>
 
 		$('.pop-up').bind('click', function() {
-				document.querySelector('.bg-modal').style.display = 'flex';
+			var notice_id = $(this).attr("id");
+
+			$.ajax({
+				url:"<?php echo URLROOT; ?>/pages/displayNoticeDetails",
+				type:"POST",
+				data: {'noticeid':notice_id},
+				success: function(returndata){
+					$('#details').html(returndata);
+					document.querySelector('.bg-modal').style.display = 'flex';
+				},
+				error: function(){
+					alert('error');
+				}
+			})
+			
 		});
 
 		document.querySelector('.close').addEventListener('click', function(){
@@ -117,8 +88,7 @@
 		});
 
 	</script>
-	<!-- end of js for pop up -->
-
+	<!-- end of js for notice pop up -->
 	
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

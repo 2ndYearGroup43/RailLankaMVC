@@ -9,17 +9,17 @@
 	<div class="body-section">
 		<div class="content-row">
 		</div>
-		<div class="content-row">
-		</div>
+		<!-- <div class="content-row">
+		</div> -->
 		<div class="map-container2">
 			
 			<h1 class="title">Seat Map</h1>
 			<!-- <div class="tooltip"> -->
 				<button onclick="toggleSMPopup()" class="details-tooltip"><i class="fa fa-train"></i></button>
 			<!-- </div> -->
-			<center><p>	Train ID : 1001</p></center>
-			<center><p>	Colombo - Badulla </p></center>
-			<br>
+			<!-- <center><p>	Train ID : 1001</p></center>
+			<center><p>	Colombo - Badulla </p></center> -->
+			<!-- <br> -->
 
 			<div class="tabs">
 				<div class="tabs__sidebar">
@@ -1151,7 +1151,8 @@
 			<h3>Journey Details</h3>
 			<p>Train ID: 1001</p>
 			<p>Colombo - Badulla</p>
-			<p>Intercity Express Train <b>Denuwara Menike</b></p>
+			<p>Intercity Express Train</p>
+			<p><b>Denuwara Menike</b></p>
 			<p><i class="fa fa-calendar-o" aria-hidden="true"></i> 20th June 2020</p>
 			<p><i class="fa fa-clock-o" aria-hidden="true"></i> 6.30 AM -> 15.01 AM</p>
 			<p><i class="fa fa-clock-o" aria-hidden="true"></i> 8 hrs 43 mins</p>

@@ -20,51 +20,70 @@
 		<div class="content-row">
 		</div>
 		<div class="form-container">
-			<div class="img-container">
+			<!-- <div class="img-container">
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 			</div>  
-			<h1 class="title" id="title4">Search Trains</h1>
+			<h1 class="title" id="title4">Search Trains</h1> -->
 			<!-- <br> -->
-			<form action="#">
-				<div class="form-row">	
-					<div class="input-data">
-						<input type="text" name="source" list="stationList" required>
-						<datalist id="stationList">
-							<option>Fort</option>
-							<option>Kandy</option>
-							<option>Galle</option>
-							<option>Badulla</option>
-						</datalist>
-						<div class="underline"></div>
-						<label>Source Station</label>
+			<div class="acc-wrapper">
+				<div class="img-container">
+					<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+				</div>  
+				<h1 class="title" id="title4">Search Trains</h1>
+					   <!--  <div class="acc-title">
+					    	Search Trains
+					    </div> -->
+					    <form action="<?php echo URLROOT;?>/passengerTrackings/search?>" method="post">
+						    <div class="acc-form">
+
+						    	<label>Source Station</label>
+						    	<div class="acc-inputfield">
+						          	<input type="text" name="source" list="stationList" class="acc-input">
+									<datalist id="stationList">
+										<?php foreach ($data['stations'] as $station):?>
+											<option value="<?php echo $station->stationName; ?>">
+										<?php endforeach ?>
+									</datalist>
+						          	<span class="invalidFeedback">
+			                            <?php echo $data['srcError'];?>
+			                        </span>
+						       	</div> 
+
+						       	<label>Destination Station</label>
+						       	<div class="acc-inputfield">
+						          	<input type="text" name="destination" list="stationList" class="acc-input">
+									<datalist id="stationList">
+										<?php foreach ($data['stations'] as $station):?>
+											<option value="<?php echo $station->stationName; ?>">
+										<?php endforeach ?>
+									</datalist>
+						          	<span class="invalidFeedback">
+			                            <?php echo $data['destError'];?>
+			                        </span>
+						       	</div>   
+
+						       	<label>Departure Date</label>
+						       	<div class="acc-inputfield">
+						          	<input type="date" name="date" min="<?php echo date("Y-m-d"); ?>" class="acc-input"> 
+						          	<span class="invalidFeedback">
+			                            <?php echo $data['dateError'];?>
+			                        </span>
+						       	</div>  
+
+						      	<label>Departure Time</label>
+						      	<div class="acc-inputfield">
+						          	<input type="time" name="time" class="acc-input">
+						          	<span class="invalidFeedback">
+			                            <?php echo $data['timeError'];?>
+			                        </span>
+						       	</div> 
+						       	
+						    	<div class="acc-inputfield-flex">
+						        	<input type="submit" name="search" class="acc-btn">
+						      	</div>
+						    </div>
+						</form>
 					</div>
-				</div>	
-				<div class="form-row">
-					<div class="input-data">
-						<input type="text" name="destination" list="stationList" required>
-						<div class="underline"></div>
-						<label>Destination Station</label>
-					</div>
-				</div>
-				<div class="form-row">	
-					<div class="input-data">
-						<input type="date" name="" placeholder="" required>
-						<div class="underline"></div>
-						<label>Date</label>
-					</div>
-				</div>
-				<div class="form-row">	
-					<div class="input-data">
-						<input type="time" name="" required>	
-						<div class="underline"></div>
-						<label>Time</label>
-					</div>
-				</div>
-				<div class="form-row">
-					<button onclick="location.href='<?php echo URLROOT; ?>/passengerTrackings/displayTrains'" type="submit" class="blue-btn btn">Search</button>
-					<button type="submit" class="blue-btn btn">Reset</button>
-                </div>
-			</form>	
 		</div>
 		<div class="content-row">
 		</div>
@@ -72,7 +91,6 @@
 		</div>
 
 	</div>
-
 
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

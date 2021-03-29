@@ -8,6 +8,8 @@
 
 <?php var_dump($_SESSION); ?> 
 
+<?php var_dump($results); ?> 
+
 	<div class="body-section">
 		<div class="content-row">
 		</div>

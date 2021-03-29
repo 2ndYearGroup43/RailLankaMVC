@@ -47,7 +47,7 @@
 		        	$data['srcError']="Please enter the source station to proceed.";
 		        }else{
 		        	if(!$this->passengerAlertModel->checkStation($data['src'])){
-		        		$data['srcError']='Source station doesnt exist';
+		        		$data['srcError']='Source station does not exist';
 		        	} else{
 		        		$result=$this->passengerAlertModel->getStationId($data['src']);
 		        		$data['src']=$result->stationId;
@@ -58,7 +58,7 @@
 
 		        if(!empty($data['dest'])){
 		        	if(!$this->passengerAlertModel->checkStation($data['dest'])){
-		        		$data['destError']='Destination station doesnt exist';
+		        		$data['destError']='Destination station does not exist';
 		        	} else{
 		        		$result=$this->passengerAlertModel->getStationId($data['dest']);
 		        		$data['dest']=$result->stationId;
@@ -365,8 +365,11 @@
 				$trainid = trim($_POST['trainid']);
 			}
 
-			$result=$this->passengerAlertModel->addSubscription($trainid, $id);
-
+			if(!$this->passengerAlertModel->checkSubscriptions($trainid, $id)){
+				$result=$this->passengerAlertModel->addSubscription($trainid, $id);
+			}else {
+				$result = 2;
+			}
 			// echo $trainid;
 			// echo $nic;
 			echo $result;
