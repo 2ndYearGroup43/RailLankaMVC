@@ -28,12 +28,12 @@ class Admin_manage_available_days extends Controller{
 			'saturday'=>''
 		];
 
-		if($_SERVER['REQUEST_METHOD']=='POST'){
-			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+		if($_SERVER['REQUEST_METHOD']=='POST'){//PHP $_POST is a PHP super global variable which is used to collect form data after submitting an HTML form with method="post". $_POST is also widely used to pass variables
+			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);//$_SERVER is a PHP super global variable which holds information about headers, paths, and script locations
 			$data=[
 				'trainId'=>$trainId,
 				'rstatus'=>$rstatus,
-				'sunday'=>trim($_POST['sunday']),
+				'sunday'=>trim($_POST['sunday']), //The trim() function removes whitespace and other predefined characters from both sides of a string.
 				'monday'=>trim($_POST['monday']),
 				'tuesday'=>trim($_POST['tuesday']),
 				'wednesday'=>trim($_POST['wednesday']),
@@ -80,7 +80,7 @@ class Admin_manage_available_days extends Controller{
 		];
 
 		if($_SERVER['REQUEST_METHOD']=='POST'){
-			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING); //The FILTER_SANITIZE_STRING filter removes tags and remove or encode special characters from a string.
 			$data=[
 			'manage_available_day'=>$manage_available_day,	
 			'trainId'=>$trainId,
