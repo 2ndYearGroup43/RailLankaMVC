@@ -1,9 +1,9 @@
-
 window.onload= function (){
 
     for (var i=0;i<currentSchedules.length;i++){
         console.log(currentSchedules[i].stationID);
     }
+
 
 }
 
@@ -101,7 +101,6 @@ function addScheduleRow() {
 
     console.log(schedules);
 
-
     row.insertCell(0).innerHTML=stationName.value;
     row.insertCell(1).innerHTML=stopNo.value;
     row.insertCell(2).innerHTML=arrivalTime.value;
@@ -114,6 +113,7 @@ function addScheduleRow() {
 
     stationName.value='';
     stopNo.value="";
+
     date.value='';
     distance.value='';
 

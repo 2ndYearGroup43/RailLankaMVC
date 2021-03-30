@@ -4,13 +4,18 @@
 ?>
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
+    //var_dump($data);
+    // foreach ($data['stations'] as $station ) {
+    //     echo $station->stationID;
+    // }
+    // var_dump($data['stations']);
 ?>
 
 <div class="body-section">
             <div class="content-flexrow">
                 <div class="container-searchbox">
-                    <form action="#">
-                        <div class="form-row logoimg">    
+                    <form action="<?php echo URLROOT;?>/moderatorschedules/searchTrains/search" method="POST">
+                        <div class="form-row logoimg">
                             <div class="searchlogo">
                                 <img src="<?php echo URLROOT;?>/public/img/logoschedule.jpg" alt="raillankatracktrains">
                             </div>
@@ -18,40 +23,53 @@
                         <div class="form-row">
                             <div class="input-data">
                                 <label for="src">Source Station</label>
-                                <select name="src" id="src">
-                                    <option value="Fort">Fort</option>
-                                    <option value="Kandy">Kandy</option>
-                                    <option value="Galle">Galle</option>
-                                    <option value="Baadulla">Baadulla</option>
-                                </select>
+                                <input list="srcStations" name="src" id="src">
+                                <datalist id="srcStations">
+                                    <?php foreach ( $data['stations'] as $station ):?>
+                                        <?php var_dump($data['stations']);?>
+                                        <option value="<?php echo $station->stationID;?>"><?php echo $station->stationID.' '.$station->name?></option>
+                                    <?php endforeach;?>    
+                                </datalist>
+                                <span class="invalidFeedback">
+                                    <?php echo $data['srcError'];?>
+                                </span>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="input-data">
                                 <label for="dest">Destination Station</label>
-                                <select name="dest" id="dest">
-                                    <option value="Fort">Fort</option>
-                                    <option value="Kandy">Kandy</option>
-                                    <option value="Galle">Galle</option>
-                                    <option value="Baadulla">Baadulla</option>
-                                </select>
+                                <input list="destStations" name="dest" id="dest">
+                                <datalist id="destStations">
+                                    <?php foreach ($data['stations'] as $station ):?>
+                                        <option value="<?php echo $station->stationID;?>"><?php echo $station->stationID.' '.$station->name;?></option>
+                                    <?php endforeach;?>    
+                                </datalist>
+                                <span class="invalidFeedback">
+                                    <?php echo $data['destError'];?>
+                                </span>        
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="input-data">
                                 <label for="date">Date</label>
-                                <input type="date" id="date" >
+                                <input type="date" id="date" name="date" >
+                                <span class="invalidFeedback">
+                                    <?php echo $data['dateError'];?>
+                                </span>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="input-data">
-                                <label for="time">Time</label>
-                                <input type="time" id="time" >
+                                <label for="time">Departure Time</label>
+                                <input type="time" id="time" name="time" >
+                                <span class="invalidFeedback">
+                                    <?php echo $data['timeError'];?>
+                                </span>
                             </div>
                         </div>
                         <div class="form-row submit-btn">
                             <div class="input-data" style="margin-left: 70px;">
-                                <input type="button" onclick="location.href='<?php echo URLROOT;?>/moderatorSchedules/displayschedulelist'" class="blue-btn" value="Search">
+                                <input type="submit" class="blue-btn" value="Search">
                             </div>    
                             <div class="input-data">
                                 <input type="reset" class="blue-btn" value="Reset">

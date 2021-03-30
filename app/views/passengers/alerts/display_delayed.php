@@ -23,66 +23,37 @@
 			<div class="img-container">
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 			</div>
-			<h1 class="title2">Delayed Trains</h1>
+			<h1 class="title2 delayed-title">Delayed Trains</h1>
 				<table class="content-table">
 					<thead>
 						<tr>
 							<th>AlertID</th>
 							<th>TrainID</th>
-							<th>Date</th>
+							<th>Name</th>
+							<th>Journey Date</th>
 							<th>Delay Time</th>
+							<th>Entered Date</th>
+							<th>Entered Time</th>
 							<th>Delay Cause</th>
 						</tr>
 					</thead>
 					<tbody>
+						<?php foreach ($data['alerts'] as $row):?>
 						<tr class="active-row">
-							<td data-label="Alert ID">001</td>
-							<td data-label="Train ID">0019</td>
-							<td data-label="Date">26/11/2020</td>
-							<td data-label="Delay Time">09.00 AM</td>
-							<td data-label="Cause">
-								Delayed due to breakdown
-							</td>
+							<td data-label="Alert ID"><?php echo $row->alertId ?></td>
+							<td data-label="Train ID"><?php echo $row->trainId ?></td>
+							<td data-label="Name"><?php echo $row->name ?></td>
+							<td data-label="Journey Date"><?php echo $row->delaydate ?></td>
+							<td data-label="Delay Time"><?php echo $row->delaytime ?></td>
+							<td data-label="Entered Date"><?php echo $row->date ?></td>
+							<td data-label="Entered Time"><?php echo $row->time ?></td>
+							<td data-label="Cause"><?php echo $row->delay_cause ?></td>
 						</tr>
-						<tr>
-							<td data-label="Alert ID">002</td>
-							<td data-label="Train ID">0013</td>
-							<td data-label="Date">24/11/2020</td>
-							<td data-label="Delay Time">09.30 AM</td>
-							<td data-label="Cause">
-								Delayed due to breakdown
-							</td>
-						</tr>
-						<tr>
-							<td data-label="Alert ID">003</td>
-							<td data-label="Train ID">0081</td>
-							<td data-label="Date">20/11/2020</td>
-							<td data-label="Delay Time">11.00 AM</td>
-							<td data-label="Cause">
-								Delayed due to breakdown
-							</td>
-						</tr>
-						<tr>
-							<td data-label="Alert ID">004</td>
-							<td data-label="Train ID">1001</td>
-							<td data-label="Date">15/11/2020</td>
-							<td data-label="Delay Time">11.10 AM</td>
-							<td data-label="Cause">
-								Delayed due to breakdown
-							</td>
-						</tr>
-						<!-- <tr>
-							<td>005</td>
-							<td>0051</td>
-							<td>04.20 PM</td>
-							<td>
-								Delayed due to breakdown
-							</td>
-						</tr> -->
+						<?php endforeach ?>
 					</tbody>
 				</table>
 			<!-- </div> -->
-			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/displayAlerts'" type="submit" class="btn blue-btn back-btn">Back</button>
+			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/searchAlertsBy'" type="submit" class="btn blue-btn back-btn">Back</button>
 		</div>
 		<div class="content-row">
 		</div>

@@ -22,9 +22,13 @@
 				'role' => '',
 				'reg_date' => '',
 				'reg_time' => '',
+				'code'=> '',
+				'auth'=>'',
 				'nicError' => '',
 				'passportError' => '',
-				'usernameError' => '',
+				'fnameError' => '',
+				'lnameError' => '',
+				'mobileError' => '',
 				'emailError' => '',
 				'passwordError' => '',
 				'confirmPasswordError' => ''
@@ -37,6 +41,9 @@
 				$data = [
 					'nic' => trim($_POST['nic']),
 					'passport' => trim($_POST['passport']),
+					'fname' => trim($_POST['fname']),
+					'lname' => trim($_POST['lname']),
+					'mobile' => trim($_POST['mobile']),
 					// 'username' => trim($_POST['username']),
 					'email' => trim($_POST['email']),
 					'password' => trim($_POST['password']),
@@ -44,9 +51,13 @@
 					'role' => 1,
 					'reg_date'=>date("Y-m-d"),
                     'reg_time'=>date("H:i:sa"),
+                    'code'=>uniqid(true),
+                    'auth'=>'',
                     'nicError' => '',
                     'passportError' => '',
-					'usernameError' => '',
+					'fnameError' => '',
+					'lnameError' => '',
+					'mobileError' => '',
 					'emailError' => '',
 					'passwordError' => '',
 					'confirmPasswordError' => ''
@@ -56,6 +67,7 @@
 				$nicValidation = "/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/";
 				$nameValidation = "/^[a-zA-Z0-9]*$/";
 				$passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
+                $mobileValidation="/^[0-9]{10}+$/";
 
 
 				//check if either NIC field or passport field is filled
@@ -69,9 +81,11 @@
 						if (!preg_match($nicValidation, $data['nic'])) {
 							$data['nicError'] = 'Invalid NIC number.';
 							//check if nic is already registered
-						} elseif ($this->userModel->findPassengerByNIC($data['nic'])) {
-								$data['nicError'] = 'nic is already registered.';
-						}
+						} 
+						$data['auth']=$data['nic'];
+						// elseif ($this->userModel->findPassengerByNIC($data['nic'])) {
+						// 		$data['nicError'] = 'nic is already registered.';
+						// }
 					}
 
 					//validate passport number on letters and numbers
@@ -80,9 +94,12 @@
 						if (!preg_match($passportValidation, $data['passport'])) {
 							$data['passportError'] = 'Invalid Passport number.';
 							//check if passport is already registered
-						} elseif ($this->userModel->findPassengerByNIC($data['nic'])) {
-								$data['passportError'] = 'passport is already registered.';
-						}
+						} 
+
+						$data['auth']=$data['passport'];
+						// elseif ($this->userModel->findPassengerByNIC($data['nic'])) {
+						// 		$data['passportError'] = 'passport is already registered.';
+						// }
 					}
 				}
 				
@@ -96,7 +113,7 @@
 
 				//validate email
 				if (empty($data['email'])) {
-					$data['emailError'] = 'Please enter email address.';
+					$data['emailError'] = 'Please enter the email address.';
 				} elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
 					$data['emailError'] = 'Please enter the correct format.';
 				} else {
@@ -106,9 +123,21 @@
 					}
 				}
 
+				if(empty($data['fname'])){
+                    $data['fnameError']='Please enter the First Name.';
+                }elseif(!preg_match($nameValidation, $data['fname'])){
+                    $data['fnameError']="Name can only contain letters.";
+                }
+                
+                if(empty($data['lname'])){
+                    $data['lnameError']='Please enter the Last Name.';
+                }elseif(!preg_match($nameValidation, $data['lname'])){
+                    $data['lnameError']="Name can only contain letters.";
+                }
+
 				//Validate password on length and numeric values 
 				if (empty($data['password'])) {
-					$data['passwordError'] = 'Please enter password.';
+					$data['passwordError'] = 'Please enter the password.';
 				} elseif(strlen($data['password']) < 6){
 					$data['passwordError'] = 'Password must be at least 8 characters.';
 				} elseif (preg_match($passwordValidation, $data['password'])) {
@@ -124,17 +153,70 @@
 					}
 				}
 
+				if(empty($data['mobile'])){
+                    $data['mobileError']='Please Enter the Mobile No.';
+                }elseif(!preg_match($mobileValidation, $data['mobile'])){
+                    $data['mobileError']="Name can only contain numbers and +.";
+                }
+
 				//make sure that errors are empty
-				if (empty($data['nicError']) && empty($data['passportError']) && empty($data['emailError']) && empty($data['passwordError']) && empty($data['confirmPasswordError'])) {
+				if (empty($data['nicError']) && empty($data['passportError']) && empty($data['emailError']) && empty($data['passwordError']) && empty($data['confirmPasswordError']) && empty($data['lnameError']) && empty($data['fnameError']) && empty($data['mobileError'])) {
 
 					//Hash password
 					$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
 					//Register user from model function
 					if($this->userModel->register($data)) {
+						//send verification email 
+						require APPROOT . '/libraries/PHPMailer/src/Exception.php';
+						require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
+						require APPROOT . '/libraries/PHPMailer/src/SMTP.php';
 
+						$mail = new PHPMailer(true);
+
+					    try {
+					        //Server settings   
+					        $mail->isSMTP();                                            // Send using SMTP
+					        $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+					        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+					        $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
+					        $mail->Password   = 'Raillanka@1234';                               // SMTP password
+					        $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+					        $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+					        //Recipients
+					        $mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+					        $mail->addAddress($data['email']);     // Add a recipient
+					                   // Name is optional
+					        $mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');
+					    
+					        // Content
+					        $mail->isHTML(true); 
+					        $code = $data['code'];
+					        $url = URLROOT . "/users/verifyEmail?code=$code";   //  
+
+					        // Set email format to HTML
+					        $mail->Subject = 'Verify your email address';
+					        $mail->Body    = "<h1>Thank you for signing up with RailLanka!</h1><p>To finish setting up your RailLanka Account, we just need to make sure this email address is yours.</p><p>Clink on <a href='$url'>this link</a> to verify your email.</p><br><p>Thanks,</p><p>RailLanka Team</p>";
+					        //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+					        $mail->send();
+					        // $msg = 'Reset password link has been sent to your email';
+					        header('location: ' . URLROOT . '/users/verifyRequest');
+					        
+
+					    } catch (Exception $e) {
+					    	//echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+					    	if($this->userModel->removeUser($data['email'])){
+					    		$data['emailError'] = 'Please enter a valid email address'; //??
+					    		$this->view('users/register', $data);
+					    	}
+
+					    }
+					   
+					    exit();
 						//redirect to the login page
-						header('location: ' . URLROOT . '/users/login');
+						//header('location: ' . URLROOT . '/users/login');
 					} else {
 						die('Something went wrong.');
 					}
@@ -144,7 +226,52 @@
 
 			$this->view('users/register', $data);
 		}
-	
+
+
+		public function verifyRequest(){
+			$this->view('users/validate_email');
+		}
+
+
+		public function verifyEmail(){
+
+			$data = [
+
+				'code' => '',
+				'password'=> '',
+				'email' => '',
+				'confirmPassword' => '',
+				'passwordError' => '',
+				'confirmPasswordError' => ''
+			];
+
+			if(!isset($_GET["code"])) {
+				exit("Can't find page");
+			}
+
+			$code = $_GET["code"];
+
+			// $getEmailQuery = mysqli_query($conn, "SELECT email FROM resetpasswords WHERE code='$code'" );
+			$result = (array)$this->userModel->findUserIdByCode($code);
+			// var_dump($result);
+			
+			if (empty($result)) {
+				exit("Can't find page");
+			}else{
+				
+				if($this->userModel->verifyEmail($result['userId'])){
+					
+					if($this->userModel->deleteVerifyCode($code)){
+						header('location: ' . URLROOT . '/users/login');
+					}
+					
+				}else{
+					exit("Something went wrong");
+				}
+			}
+
+		}
+
 
 		public function login() {
 			$data = [
@@ -183,9 +310,13 @@
 					$loggedInUser = $this->userModel->login($data['email'], $data['password']);
 
 					if ($loggedInUser){
-						$this->createUserSession($loggedInUser);
+						if($loggedInUser->role==1 && $loggedInUser->isVerified==0){
+							$data['emailError'] = 'Please verify your email address.';
+						}else{
+							$this->createUserSession($loggedInUser);
+						}
 					} else {
-						$data['passwordError'] = 'Password or username is incorrect. Please try again';
+						$data['passwordError'] = 'Password or email is incorrect. Please try again';
 
 						$this->view('users/login', $data);
 
@@ -204,17 +335,19 @@
 
 			$this->view('users/login', $data);
 		}
+		
 
 		public function createUserSession($user) {
 			$_SESSION['userid'] = $user->userid;
 			$_SESSION['email'] = $user->email;
 			$_SESSION['role'] = $user->role;
 			$_SESSION['passenger_nic'] = '';
+			$_SESSION['passenger_id'] = '';
 			$_SESSION['admin_id'] = '';
 			$_SESSION['moderator_id'] = '';
 			$_SESSION['driver_id'] = '';
 			$_SESSION['ro_id'] = '';
-
+			$_SESSION['superadmin_id'] = '';
 
 			
 			if($user->role)
@@ -223,6 +356,7 @@
 				{
 					$passenger=$this->userModel->getPassengerById($user->userid);
 					$_SESSION['passenger_nic'] = $passenger->nic;
+					$_SESSION['passenger_id'] = $passenger->passengerId;
 				}
 
 				if($user->role==2)
@@ -248,6 +382,12 @@
 					$RO=$this->userModel->getROById($user->userid);
 					$_SESSION['ro_id'] = $RO->officerId;
 				}
+
+				if($user->role==6)
+				{
+					$superadmin=$this->userModel->getSuperAdminById($user->userid);
+					$_SESSION['superadmin_id'] = $superadmin->super_adminId;
+				}
 			}
 
 			redirect($_SESSION['role']);	
@@ -258,12 +398,15 @@
 			unset($_SESSION['email']);
 			unset($_SESSION['role']);
 			unset($_SESSION['passenger_nic']);
+			unset($_SESSION['passenger_id']);
 			unset($_SESSION['admin_id']);
 			unset($_SESSION['moderator_id']);
 			unset($_SESSION['driver_id']);
 			unset($_SESSION['ro_id']);
+			unset($_SESSION['superadmin_id']);
 			header('location:' . URLROOT . '/pages/index');
 		}
+
 
 
 		public function requestReset() {
@@ -331,7 +474,7 @@
 					        $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
 					        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
 					        $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
-					        $mail->Password   = 'Raillanka@2';                               // SMTP password
+					        $mail->Password   = 'Raillanka@1234';                               // SMTP password
 					        $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
 					        $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 

@@ -14,5 +14,8 @@
     //SITENAME
     define('SITENAME', 'Rail Lanka');
 
+    define('PROJECTEMAIL', 'raillankaproject@gmail.com');
+    define('PROJECTEMAILPASSWORD', 'Raillanka@1234');
+
     
     

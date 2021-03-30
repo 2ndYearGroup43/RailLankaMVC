@@ -1,17 +1,11 @@
 <?php 
 
-	//echo out databse info to the screen
-	// foreach ($data['users'] as $user) {
-	// 	echo "Information: " . $user->user_name . $user->user_email;
-	// 	echo "<br>";
-	// }
-	
-	// isPassenger();
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($_SESSION); ?>  -->
+<!-- <?php var_dump($_SESSION); ?>
+ -->
 
 
 <!-- Account Details -->
@@ -22,6 +16,7 @@
 		</div>
 		<div class="table-container">
 			<h1 class="title">My Account</h1>
+			<?php foreach ($data['passenger'] as $row)?>
 				<div class="row">
 					<div class="btn-group">
 						<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/editAccount'" type="submit" class="blue-btn"><span>Edit Account <i class="fa fa-edit"></i></span></button>
@@ -31,40 +26,45 @@
 				</div>
 
 				<table class="details-content-table">
+					
 					<tbody>	
 						<tr>
-							<th>Customer Name:</th>
-							<td>John Doe</td>
+							<th>First Name:</th>
+							<td><?php echo $row->firstname;?></td>
+						</tr>
+						<tr>
+							<th>Last Name:</th>
+							<td><?php echo $row->lastname;?></td>
 						</tr>
 						<tr>
 							<th>NIC:</th>
-							<td>976709531V</td>
+							<td><?php echo $row->nic;?></td>
 						</tr>
 						<tr>
 							<th>Address Number:</th>
-							<td>40</td>
+							<td><?php echo $row->address_number;?></td>
 						</tr>
 						<tr>
 							<th>Street:</th>
-							<td>Park Street</td>
+							<td><?php echo $row->street;?></td>
 						</tr>
 						<tr>
 							<th>City/Town:</th>
-							<td>Colombo 7</td>
+							<td><?php echo $row->city;?></td>
 						</tr>
 						<tr>
 							<th>Country:</th>
-							<td>Sri Lanka</td>
+							<td><?php echo $row->country;?></td>
 						</tr>
 						<tr>
 							<th>Phone:</th>
-							<td>+94 777 875634</td>
+							<td><?php echo $row->mobileno;?></td>
 						</tr>
 						<tr>
 							<th>Email:</th>
-							<td>user1@gmail.com</td>
+							<td><?php echo $row->email;?></td>
 						</tr>
-					</tbody>		
+					</tbody>   		
 				</table>
 		</div>
 		<div class="content-row">
@@ -76,20 +76,5 @@
 	</div>
 	</div>
 	<!-- end of account details -->
-
-
-	 <!--  js for toggle menu -->
-	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-	</script>
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

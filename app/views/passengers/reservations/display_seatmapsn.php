@@ -217,14 +217,14 @@
 
 				sc2 = $('#seat-map2').seatCharts({
 					map: [
-						'ss__ss',
-						'ss__ss',
-						'ss__ss',
-						'ss__ss',
-						'ss__ss',
-						'ss__ss',
-						'ss__ss',
-						'ss__ss',
+						's[9_1,1]s[9_2,2]__s[9_5,3]s[9_6,4]',
+						's[10_1,5]s[10_2,6]__s[10_5,7]s[10_6,8]',
+						's[11_1,9]s[11_2,10]__s[11_5,11]s[11_6,12]',
+						's[12_1,13]s[12_2,14]__s[12_5,15]s[12_6,16]',
+						's[13_1,17]s[13_2,18]__s[13_5,19]s[13_6,20]',
+						's[14_1,21]s[14_2,22]__s[14_5,23]s[14_6,24]',
+						's[15_1,25]s[15_2,26]__s[15_5,27]s[15_6,28]',
+						's[16_1,29]s[16_2,30]__s[16_5,31]s[16_6,32]'
 					],
 					seats: {
 						f: {
@@ -633,7 +633,7 @@
 
 				//let's pretend some seats have already been booked
 				sc.get(['1_2', '7_1', '7_2']).status('unavailable');
-				sc2.get(['2_1', '2_2', '4_5', '4_6']).status('unavailable');
+				sc2.get(['9_1', '11_2', '13_5', '13_6']).status('unavailable');
 				sc3.get(['3_2']).status('unavailable');
 				sc4.get(['2_1', '2_2', '2_3', '5_5']).status('unavailable');
 				sc5.get(['5_1', '5_3']).status('unavailable');

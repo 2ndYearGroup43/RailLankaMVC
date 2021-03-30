@@ -4,6 +4,8 @@
     use PHPMailer\PHPMailer\Exception;
 
 class DriverMobiles extends Controller{
+
+    private $driverModel;
     public function __construct()
     {
         $this->driverModel=$this->model('DriverMobile');
@@ -46,6 +48,23 @@ class DriverMobiles extends Controller{
                 $response['message']="Email is not registered";
             }
 
+        }
+
+        echo json_encode($response);
+
+    }
+
+    public function getStations(){
+        $response = array();
+
+        $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $driverId=$_POST['driverId'];
+        $stations=$this->driverModel->getMainStations();
+        if ($stations){
+            $response['result']=true;
+            $response['stations']=$stations;
+        }else{
+            $response['result']=false;
         }
 
         echo json_encode($response);
@@ -99,13 +118,13 @@ class DriverMobiles extends Controller{
             $mail->isSMTP();                                            // Send using SMTP
             $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
-            $mail->Password   = 'Raillanka@2';                               // SMTP password
+            $mail->Username   = PROJECTEMAIL;                     // SMTP username
+            $mail->Password   = PROJECTEMAILPASSWORD;                               // SMTP password
             $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Recipients
-            $mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+            $mail->setFrom(PROJECTEMAIL, 'RailLanka');
             $mail->addAddress($email);     // Add a recipient
                     // Name is optional
             $mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');
@@ -129,6 +148,10 @@ class DriverMobiles extends Controller{
     
         exit();
     }
+
+
+
+
 
 
 

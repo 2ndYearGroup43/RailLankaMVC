@@ -6,7 +6,7 @@
 ?>   
 
 
-<script src="<?php echo URLROOT;?>/javascript/trainCompartmentAddNew.js"></script>
+<script src="<?php echo URLROOT;?>/javascript/trainCompartmentAdd.js"></script>
         <div class="body-section">
             <div class="content-flexrow">
                 <div class="container">

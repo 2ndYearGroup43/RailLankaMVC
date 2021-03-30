@@ -8,10 +8,10 @@
     ?>
 
 
+<!--<?php var_dump($data['fields'])?>-->
 
 
-
-<div class="body-section">
+    <div class="body-section">
 
             <div class="content-row">
                 <ul class="breadcrumb">
@@ -27,21 +27,20 @@
                 <div class="container-table">
                     <h2>Station Management </h2>
 
+
                 <div class="table-searchbar">
-                    <form action="#" method="POST">
+                    <form action="<?php echo URLROOT?>/adminStations/stationSearchBy" method="POST">
                         <input type="text" placeholder="Search by" name=searchbar><span><select name="searchselect" id="searchselect">
-                                    <option value="notice Id">Station ID</option>
-                                    <option value="Type">Type</option>
-                                    <option value="Date">Station Name</option>
-                                    <option value="Date">Entered Date</option>
-                                    <option value="Date">Entered Time</option>
+                            <?php foreach ($data['fields'] as $field ):?>
+                                    <option value="<?php echo $field->columns?>"><?php echo $field->columns?></option>
+                            <?php endforeach;?>
                         </select></span><span><input type="submit" value=" " class="search-btn"></span><span><i class="fa fa-search glyph"></i></span>
                     </form>
                 </div>
 
 
-
                     <table class="blue">
+
                         <thead>
                             <tr>
                                 <th>Station ID</th>
@@ -54,24 +53,30 @@
                             </tr>
                         </thead>
 
-                        <?php foreach ($data as $row):?>
-	              	<tr>
-	            	    <td data-th="Station ID"><?php echo $row->stationID;?></td>
-	                    <td data-th="Station name"><?php echo $row->name;?></td>
-	                	<td data-th="Telephone Number"><?php echo $row->telephoneNo;?></td>
-	                    <td data-th="Type"><?php echo $row->type;?></td>
-	                    <td data-th="Entered Date"><?php echo $row->entered_date;?></td>
-	                    <td data-th="Entered Time"><?php echo $row->entered_time;?></td>
-	                    <td data-th="Manage"><input onclick="location.href='<?php echo URLROOT; ?>/adminStations/update_station' " type="submit" class="blue-btn" value="Edit"><input type="submit" class="red-btn" value="Delete"></td>
-	                </tr>
-	                
-                   <?php endforeach;?>
+                    <?php foreach ($data["stations"] as $row):?>
+                    <tr>
+                        <td data-th="Station ID"><?php echo $row->stationID;?></td>
+                        <td data-th="Station name"><?php echo $row->name;?></td>
+                        <td data-th="Telephone Number"><?php echo $row->telephoneNo;?></td>
+                        <td data-th="Type"><?php echo $row->type;?></td>
+                        <td data-th="Entered Date"><?php echo $row->entered_date;?></td>
+                        <td data-th="Entered Time"><?php echo $row->entered_time;?></td>
+                        <td data-th="Manage">
 
+                            <form action="<?php echo URLROOT;?>/adminStations/deleteStation/<?php echo $row->stationID;?>" method="POST">
+                            <a href="<?php echo URLROOT;?>/adminStations/update_station/<?php echo $row->stationID;?>" class="blue-btn">Edit</a>
+                            <input type="submit" class="red-btn" value="Delete">
+                            </form>
+                            
+                        </td>    
+                    </tr>
+                    <?php endforeach;?>
 
                     </table> 
-                </div>       
-            </div>
-        </div>
+            </div>  
+                     
+    </div>
+    
 
 
 <?php

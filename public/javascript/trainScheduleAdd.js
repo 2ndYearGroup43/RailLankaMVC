@@ -66,11 +66,13 @@ function addScheduleRow() {
                 return;
             }
         }
+
     }
     curDistance=parseFloat(distance.value);
     if (date.value=="Next Day"){
         nextDayFlag=true;
     }
+
 
 
     var tbody=table.getElementsByTagName("tbody")[0];

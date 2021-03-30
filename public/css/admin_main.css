@@ -65,6 +65,8 @@ header{
     flex: 1;
     display: flex;
     align-items: center;
+    width: 100%;
+    justify-content: center;
 }
 
 .nav-btn{
@@ -822,6 +824,7 @@ footer{
     right: 5px;
     z-index: 2px;
     position: absolute;
+    /*opacity: 1;*/
     opacity: 1!important;
     display: none;
     top: 50px;
@@ -1695,7 +1698,7 @@ ul.breadcrumb li a:hover {
   background-color: #DAFAF8;/*D8E7E6*/
   border: 15px solid grey;
   width: 1500px;
-  height: 1250px;  
+  height: 1550px;  
   padding: 50px;
   left: 100px;
   border: 15px solid grey;
@@ -1707,7 +1710,7 @@ ul.breadcrumb li a:hover {
 .div2 {
    background-color: #DAFAF8;/*DAFAF8*/
   width: 1500px;
-  height: 1750px;  
+  height: 1950px;  
   padding: 50px;
   left: 100px;
   border: 15px solid grey;
@@ -1718,9 +1721,20 @@ ul.breadcrumb li a:hover {
 
 
 .div-alert {
-   background-color: #DAFAF8;/*DAFAF8*/
+   background-color: #DAFAF8;/*DAFAF8*//*AEF591*/
   width: 1500px;
   /*height: 850px;*/  
+  padding: 50px;
+  left: 100px;
+  border: 15px solid grey;
+  box-sizing: border-box;
+  text-align: left;
+  opacity: 1;
+}
+.div-alertsingle {
+   background-color: #DAFAF8;/*DAFAF8*//*AEF591*/
+  width: 1500px;
+  /*height: 1650px; */ 
   padding: 50px;
   left: 100px;
   border: 15px solid grey;
@@ -1788,7 +1802,7 @@ table.repo tbody tr:last-of-type{
 }
 
 #repo {
-  background: #D8E7E6;
+  background: #F1BDD9;
   color: black;
   padding: 15px;
   width: 100%;
@@ -1833,4 +1847,5 @@ button.redbutton:hover{
     font-size: 89%;
     transition: 0.20s ease-in-out;
 }
+
 

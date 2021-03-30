@@ -250,6 +250,20 @@ class Moderator{
         }
     }
 
+    public function getNotices(){
+        $this->db->query('SELECT * FROM notice ORDER BY entered_date DESC, entered_time DESC LIMIT 3');
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
+
+    //function to get all the notices(latest first)
+    public function getAllNotices(){
+        $this->db->query('SELECT * FROM notice ORDER BY entered_date DESC, entered_time DESC');
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
 
 
 

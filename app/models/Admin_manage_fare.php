@@ -6,7 +6,9 @@ class Admin_manage_fare {
 		$this->db = new Database;
 	}
 
+
 	public function create_fare($data){ // add fare details to fare table
+
 		$this->db->query('INSERT INTO fare (fclassnormalbase, sclassnormalbase, tclassnormalbase, fclassbase, sclassbase, tclassbase, distance, rate )
  VALUES (:fclassnormalbase, :sclassnormalbase, :tclassnormalbase, :fclassbase, :sclassbase, :tclassbase, :distance, :rate)');
 
@@ -59,7 +61,9 @@ class Admin_manage_fare {
 		return $row;
 	}
 
+
 	public function edit($data){ // edit fare details
+
 		$this->db->query('UPDATE fare SET fclassbase=:fclassbase, sclassbase=:sclassbase, tclassbase=:tclassbase,
                 fclassnormalbase=:fclassnormalbase, sclassnormalbase=:sclassnormalbase, tclassnormalbase=:tclassnormalbase, 
                 distance=:distance, rate=:rate WHERE rateID=:rateID');

@@ -4,7 +4,7 @@
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
 ?>
-
+    <script src="<?php echo URLROOT;?>/javascript/journeyAssValidation.js"></script>
     <div class="body-section">
             <div class="content-flexrow">
                 <div class="container">
@@ -33,20 +33,23 @@
                                 </datalist>
                                 <span class="invalidFeedback">
                                 <?php echo $data['driverIdError'];?>
-                            </span>
+                                </span>
                             </div>
                         </div>
                         <div class="form-row" style="padding-bottom: 30px;">
                             <div class="input-data">
                                 <label for="jstatus">Status</label>
                                 <select name="jstatus" id="jstatus">
+                                    <option value="Off-Line">Off-Line</option>
                                     <option value="Live">Live</option>
-                                    <option value="Off-Line">Off-Line</option> 
                                 </select>
                             </div>
                             <div class="input-data">
                                 <label for="date">Date</label>
                                 <input type="date" value="<?php echo date("Y-m-d");?>" name="date" id="date" required >
+                                <span class="invalidFeedback">
+                                <?php echo $data['dateError'];?>
+                                </span>
                             </div>
                         </div>
                         <div class="form-row submit-btn">

@@ -122,10 +122,12 @@
 						<div class="slideshow-item">
 							<img src="<?php echo URLROOT ?>/public/img/bookmark1.jpg">
 							<!-- <div class="slideshow-item-text">
+
 								<h3>COLOMBO-KANDY</h3>
 								<p>The three-hour trip from Colombo to Kandy will whisk you away from the big city sprawl to the genteel greenery of Sri Lanka’s spiritual capital.</p>
 								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/search'" type="submit" class="btn">Reserve Now</button>
 							</div> -->
+
 						</div>
 						<div class="slideshow-item">
 							<img src="<?php echo URLROOT ?>/public/img/bookmark2.jpg">
@@ -155,6 +157,7 @@
 			</div>
 		</div>
 	<!-- </div> -->
+
 </section>
 <!-- end of reserve shortcuts -->
 

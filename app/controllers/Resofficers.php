@@ -10,11 +10,14 @@ use PHPMailer\PHPMailer\Exception;
             $this->resofficerModel=$this->model('Resofficer');
         }
 
+
         public function index() { // index function
 
             $data = [
                 'title' => 'Resofficer Home Page',
             ];
+
+            $data=$this->resofficerModel->getNotices();
 
             $this->view('resofficers/index', $data); 
         }
@@ -156,13 +159,15 @@ use PHPMailer\PHPMailer\Exception;
                 $mail->isSMTP();                                            // Send using SMTP
                 $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+
                 $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
                 $mail->Password   = 'Raillanka@1234';                               // SMTP password
+
                 $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
                 //Recipients
-                $mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+                $mail->setFrom(PROJECTEMAIL, 'RailLanka');
                 $mail->addAddress($email);     // Add a recipient
                         // Name is optional
                 $mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');

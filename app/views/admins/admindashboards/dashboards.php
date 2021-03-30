@@ -1,14 +1,13 @@
 <?php
    require APPROOT . '/views/includes/admin_head.php';
 ?>
+<?php
+   require APPROOT . '/views/includes/admin_navigation.php';
+?>
+    <script src="<?php echo URLROOT;?>/javascript/alertDashboardChart.js"></script>
+    <script src="<?php echo URLROOT;?>/javascript/alertDashValidation.js"></script>
 
-
-    <?php
-       require APPROOT . '/views/includes/admin_navigation.php';
-    ?>
-<script src="<?php echo URLROOT;?>/javascript/alertDashboardChart.js"></script>
-
-<div class="body-section">
+<div class="body-section" onload="initiateCharts(<?php echo json_encode($data);?>)">
 
             <div class="content-row">
                 <ul class="breadcrumb">
@@ -21,12 +20,15 @@
         <div class="content-flexrow dash">
             <div class="controls-container">
                 <div class="text">
-                    <h1>Alerts Summary <br> <small>Date: </small></h1><h2>2020-10-10</h2>
+                    <h1>Alerts Summary <br> <small>Date: </small></h1><h2><?php echo $data['searchDate'];?></h2>
                 </div>
-                <form action="#">
+                <form action="<?php echo URLROOT;?>/adminDashboards/alertsDateDash" method="post">
                     <div class="input-data">
-                        <input type="Date" placeholder="Select Date" name=searchbar>
+                        <input type="date" name="searchDate" id="searchDate" max="">
                         <span><input type="submit" value="Search" class="search-btn" style="line-height: 0rem; color: white;"></span>
+                    </div>
+                    <div class="input-data">
+                        <input type="button" onclick="printCharts()" value="Print" class="search-btn" style="line-height: 0rem; color: white; margin-top: 10px;">
                     </div>
                 </form>
             </div>
@@ -37,11 +39,9 @@
                         Alerts
                     </div>
                     <div class="card-count">
-                        15
+                        <?php echo $data['cancelledCount'];?>
                     </div>
-                    <div class="card-link">
-                        <a href="#">Manage</a>
-                    </div>
+
                 </div>
                 <div class="count-card">
                     <div class="card-title">
@@ -49,11 +49,9 @@
                         Alerts
                     </div>
                     <div class="card-count">
-                        12
+                        <?php echo $data['delayedCount'];?>
                     </div>
-                    <div class="card-link">
-                        <a href="#">Manage</a>
-                    </div>
+
                 </div>
                 <div class="count-card">
                     <div class="card-title">
@@ -61,13 +59,11 @@
                         Alerts
                     </div>
                     <div class="card-count">
-                        7
+                        <?php echo $data['rescheduledCount'];?>
                     </div>
-                    <div class="card-link">
-                        <a href="#">Manage</a>
-                    </div>
+
                 </div>
-            </div>    
+            </div>
         </div>
 
         <div class="content-flexrow dash">
@@ -79,9 +75,24 @@
             </div>
         </div>
     </div>
+    <script>
+        function printAlertDash(el) {
+
+            var restorePage= document.body.innerHTML;
+            var schedule= document.getElementById(el).innerHTML;
+            document.body.innerHTML=schedule;
+            window.print();
+            document.body.innerHTML=restorePage;
+        }
 
 
-    
+
+
+        initiateCharts(<?php echo json_encode($data);?>);
+    </script>
+
+
+
 
 
 <?php

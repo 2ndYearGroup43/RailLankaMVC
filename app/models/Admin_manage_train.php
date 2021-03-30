@@ -111,7 +111,9 @@ class Admin_manage_train {
         return $results;
     }
 
+
 	public function edit($data){ // edit train data
+
 		$this->db->query('UPDATE train SET name=:name, reservable_status=:reservable_status, type=:type, src_station=:src_station, starttime=:starttime, dest_station=:dest_station, endtime=:endtime, rateId=:rateId WHERE trainId=:trainId');
 
 		$this->db->bind(':trainId', $data['trainId']);

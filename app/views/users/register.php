@@ -32,7 +32,18 @@
 			</span>
 			<br>
 			<hr>
-
+			<input type="text" placeholder="First Name*" name="fname">
+			<span class="invalidFeedback">
+				<?php echo $data['fnameError']; ?>
+			</span>
+			<input type="text" placeholder="Last Name*" name="lname">
+			<span class="invalidFeedback">
+				<?php echo $data['lnameError']; ?>
+			</span>
+			<input type="text" placeholder="Mobile*" name="mobile">
+			<span class="invalidFeedback">
+				<?php echo $data['mobileError']; ?>
+			</span>
 			<input type="email" placeholder="Email *"name="email">
 			<span class="invalidFeedback">
 				<?php echo $data['emailError']; ?>
@@ -60,6 +71,7 @@
 		</form>
 	</div>
 </div>
+<br>
 </div>
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

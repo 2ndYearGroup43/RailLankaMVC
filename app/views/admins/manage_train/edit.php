@@ -3,6 +3,8 @@
 ?>
 <?php
     require APPROOT.'/views/includes/admin_navigation.php';
+echo $data['manage_train']->src_station;
+
 ?>  
     <div class="body-section">
         <div class="content-flexrow">

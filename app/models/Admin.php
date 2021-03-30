@@ -16,7 +16,7 @@ class Admin{
         $this->db->bind(':role', $data['role']);
 
         if($this->db->execute()){
-            $this->db->query('SELECT LAST_INSERT_ID() AS userid');
+            $this->db->query('SELECT LAST_INSERT_ID() AS userid ORDER BY userid ASC');
             $resultId=[];
             $resultId=$this->db->resultSet();
 
@@ -155,7 +155,7 @@ class Admin{
                         break;
                     case 'email':
                         $this->db->query('SELECT a.*,u.email FROM admin a
-                        INNER JOIN users u ON u.userId=a.userId WHERE u.email = :searchTerm');
+                        INNER JOIN users u ON u.userId=a.userId WHERE a.email = :searchTerm');
                         break;
                     case 'mobileno':
                         $this->db->query('SELECT a.*,u.email FROM admin a
@@ -180,14 +180,14 @@ class Admin{
             return $row; 
         }
 
+
         public function updateAdmin($data)
         {
             $this->db->query("UPDATE users SET email=:email WHERE userid=:userid");
             $this->db->bind(":userid", $data['userid']);
             $this->db->bind(":email", $data['email']);
             if($this->db->execute()){
-                $this->db->query('UPDATE admin SET employeeId=:employeeId, firstname=:firstname, lastname=:lastname,
-                mobileno=:mobileno WHERE userid=:userid');
+                $this->db->query('UPDATE admin SET employeeId=:employeeId, firstname=:firstname, lastname=:lastname, mobileno=:mobileno WHERE userid=:userid');
                 $this->db->bind(":userid", $data['userid']);
                 $this->db->bind(":employeeId", $data['employeeId']);
                 $this->db->bind(":firstname", $data['firstname']);
@@ -212,14 +212,13 @@ class Admin{
                 return false;   
             }
         }
-              
-    
+
 
 
 
     public function login($username, $password)
     {
-        $this->db->query('SELECT * FROM admin a INNER JOIN users u ON a.userId=u.userId WHERE adminId = :username');
+        $this->db->query('SELECT * FROM admin a INNER JOIN users u ON a.userid=u.userid WHERE adminId = :username');
 
         //Find value in the db
         //bind it with variables
@@ -251,6 +250,20 @@ class Admin{
         } else {
             return false;
         }
+    }
+
+    public function getNotices(){
+        $this->db->query('SELECT * FROM notice ORDER BY entered_date DESC, entered_time DESC LIMIT 3');
+        $results = $this->db->resultSet();
+        return $results;
+    }
+
+
+    //function to get all the notices(latest first)
+    public function getAllNotices(){
+        $this->db->query('SELECT * FROM notice ORDER BY entered_date DESC, entered_time DESC');
+        $results = $this->db->resultSet();
+        return $results;
     }
 
 

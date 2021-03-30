@@ -24,158 +24,134 @@
                     <h2>Notice Management </h2>
 
                 <div class="table-searchbar">
-                    <form action="#" method="POST">
+                    <form action="<?php echo URLROOT?>/adminNotices/noticeSearchBy" method="POST">
                         <input type="text" placeholder="Search by" name=searchbar><span><select name="searchselect" id="searchselect">
-                                    <option value="notice Id">Notice ID</option>
-                                    <option value="Type">Type</option>
-                                    <option value="Date">Entered Date</option>
-                                    <option value="Date">Entered Time</option>
+                            <?php foreach ($data['fields'] as $field ):?>
+                                    <option value="<?php echo $field->columns?>"><?php echo $field->columns?></option>
+                            <?php endforeach;?>
                         </select></span><span><input type="submit" value=" " class="search-btn"></span><span><i class="fa fa-search glyph"></i></span>
                     </form>
                 </div>
+
+                <div class="container-table popup" id="popup-alert">
+                    <h3>Notice Details</h3>
+                    <table class="data-display" id="cancelpopup">
+                        <tr id="noticeId">
+                            <td>notice Id: </td>
+                            <td id="noticeId">Not available</td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr id="title">
+                            <td>title: </td>
+                            <td id="title">Not available</td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr id="description">
+                            <td>description: </td>
+                            <td id="description">Not available</td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr id="adminId">
+                            <td>adminId: </td>
+                            <td id="adminId">Not available</td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr id="type">
+                            <td>type: </td>
+                            <td id="type">Not available</td>
+                            <td colspan="2"></td>
+                        </tr>   
+                        <tr id="entered_date">
+                            <td>entered_date: </td>
+                            <td id="entered_date">Not available</td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr id="entered_time">
+                            <td>entered_time: </td>
+                            <td id="entered_time">Not available</td>
+                            <td colspan="2"></td>
+                        </tr>
+                       
+                        <button style="position: relative; padding: 10px 15px;" class="back-btn"><i class="fa fa-times" onclick="closeNoticeView()"></i></button>
+                    </table>
+                </div>
+
+
 
                     <table class="blue">
                         <thead>
                             <tr>
                                 <th>Notice ID</th>
                                 <th>Notice Type</th>
+                                <th>Notice Title</th>
                                 <th>Entered Date</th>
                                 <th>Entered Time</th>
                                 <th>Admin ID</th>
-                                
                                 <th>Manage</th>    
                             </tr>
                         </thead>
                         
+                        <script>
+                        var c=0;
+                        var alerts=[];
+                    </script>
+                    <?php $count=0?>
 
-                        <?php foreach ($data as $row):?>
+                        <?php foreach ($data["notices"] as $row):?>
                     <tr>
-                        <td data-th="Notice ID"><?php echo $row->nticeId;?></td>
+                        <td data-th="Notice ID"><?php echo $row->noticeId;?></td>
                         <td data-th="Notice Type"><?php echo $row->type;?></td>
-                        <td data-th="Entered Date"><?php echo $row->date;?></td>
-                        <td data-th="Entered Time"><?php echo $row->time;?></td>
+                        <td data-th="Notice Title"><?php echo $row->title;?></td>
+                        <td data-th="Entered Date"><?php echo $row->entered_date;?></td>
+                        <td data-th="Entered Time"><?php echo $row->entered_time;?></td>
                         <td data-th="Admin ID"><?php echo $row->adminId;?></td>
-                        <td data-th="Description"><?php echo $row->description;?></td>
-                        <td data-th="Manage"><input type="submit" class="blue-btn" value="View"><input type="submit" class="blue-btn" value="Edit"><input type="submit" class="red-btn" value="Delete"></td>
+                            <script> 
+                                alerts[c]=<?php echo json_encode($row, JSON_PRETTY_PRINT)?>;
+
+                            </script>
+
+                        <td data-th="Manage">
+
+                            <form action="<?php echo URLROOT;?>/adminNotices/delete/<?php echo $row->noticeId;?>" method="POST">
+                            <button type="button" class="table-btn blue" onclick="openNoticeView(alerts,<?php echo $count;?>)">View</button>
+                            <a href="<?php echo URLROOT;?>/adminNotices/updateNotice/<?php echo $row->noticeId;?>" class="blue-btn">Edit</a>
+                            <input type="submit" class="red-btn" value="Delete">
+                            </form>
+                        </td>
+
                     </tr>
+                        <script>
+                            c++;
+                        </script>
+                        <?php $count++;?> 
                     
-                   <?php endforeach;?>
-
-
-                   <tr>
-                            <td data-th="Notice ID">00001</td>
-                            <td data-th="Notice type">Main</td>
-                            <td data-th="Entered Date">14/11/2020</td>
-                            <td data-th="Entered Time">09.20 AM</td>
-                            <td data-th="Admin ID">00011</td>
-                            
-                            <td data-th="Manage"><input type="submit" class="blue-btn" onclick="openForm()" value="View"><input onclick="location.href='<?php echo URLROOT; ?>/adminNotices/updateNotice' "  type="submit" class="blue-btn" value="Edit"><input type="submit" class="red-btn" value="Delete"></td>
-
-                        </tr>
-                        <tr>
-                            <td data-th="Notice ID">00002</td>
-                            <td data-th="Notice type">Normal</td>
-                            <td data-th="Entered Date">15/12/2020</td>
-                            <td data-th="Entered Time">10.00 AM</td>
-                            <td data-th="Admin ID">00012</td>
-                        
-                            <td data-th="Manage"><input type="submit" class="blue-btn" onclick="openForm()" value="View"><input onclick="location.href='<?php echo URLROOT; ?>/adminNotices/updateNotice' " type="submit" class="blue-btn" value="Edit"><input type="submit" class="red-btn" value="Delete"></td>
-
-                        </tr>
-
-                        <tr>
-                            <td data-th="Notice ID">00003</td>
-                            <td data-th="Notice type">Normal</td>
-                            <td data-th="Entered Date">19/12/2020</td>
-                            <td data-th="Entered Time">12.10 PM</td>
-                            <td data-th="Admin ID">00011</td>
-                            
-                            <td data-th="Manage"><input type="submit" class="blue-btn" onclick="openForm()" value="View"><input onclick="location.href='<?php echo URLROOT; ?>/adminNotices/updateNotice' " type="submit" class="blue-btn" value="Edit"><input type="submit" class="red-btn" value="Delete"></td>
-
-                        </tr>
-
-
-
+                        <?php endforeach;?>
 
                     </table> 
-                </div>
-
-
-
-
-
-            <div class="container-searchbox-popup " id="popupsearch">
-                    <form action="#">
-                       
-                        <div class="form-row submit-btn">
-                               
-                            <div class="input-data">
-                                <input type="submit" class="red-btn" value="close" style="font-size: 15px;" onclick="closeForm()">
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-
-                            <div class="input-data">
-                                <label for="trainid">Notice Id</label>
-                                <input type="text" name="trainid" id="trainid" placeholder="00001" required >
-
-                            </div>
-                            <div class="input-data ">
-                                 <label for="delaycause">Admin ID</label>
-                                 <input type="text" name="trainid" id="trainid" placeholder="00011" required >
-                           </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="input-data ">
-                                 <label for="delaycause">Notice type</label>
-                                 <input type="text" name="trainid" id="trainid" placeholder="Main" required >   
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="input-data ">
-                                 <label for="delaycause">Entered Date</label>
-                                 <input type="text" name="trainid" id="trainid" placeholder="14/11/2020" required > 
-                            </div>
-                            <div class="input-data ">
-                                 <label for="delaycause">Entered Time</label>
-                                 <input type="text" name="trainid" id="trainid" placeholder="09.20 AM" required > 
-                           </div>
-                        </div>
-                        <!--<div class="form-row">
-                            <div class="input-data ">
-                                 <label for="delaycause">Entered Time</label>
-                                 <input type="text" name="trainid" id="trainid" placeholder="09.20 AM" required > 
-                           </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="input-data ">
-                                 <label for="delaycause">Admin ID</label>
-                                 <input type="text" name="trainid" id="trainid" placeholder="00011" required >
-                           </div>
-                        </div>-->
-                        <div class="form-row">
-                            <!--<div class="input-data ">
-                                 <label for="delaycause">Description </label>
-                                 <input type="text" name="trainid" id="trainid" placeholder="xxxxxxxxxxxxx" required >
-                           </div>-->
-                           <div class="input-data textarea">
-                                 <label for="delaycause">Description</label>
-                                 <textarea name="delaycause" id="delaycause" cols="30" rows="10" placeholder="Train protests are scheduled for next week " required></textarea>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-
-
-
+                
+                <script>
+                    function openNoticeView(alerts,x) {
+                        var table=document.getElementById("cancelpopup");
+                        table.rows.namedItem("noticeId").cells.namedItem("noticeId").innerHTML=alerts[x].noticeId;
+                        table.rows.namedItem("title").cells.namedItem("title").innerHTML=alerts[x].type;
+                        table.rows.namedItem("description").cells.namedItem("description").innerHTML=alerts[x].description;
+                        table.rows.namedItem("adminId").cells.namedItem("adminId").innerHTML=alerts[x].adminId;
+                        table.rows.namedItem("type").cells.namedItem("type").innerHTML=alerts[x].type;
+                        table.rows.namedItem("entered_date").cells.namedItem("entered_date").innerHTML=alerts[x].entered_date;
+                        table.rows.namedItem("entered_time").cells.namedItem("entered_time").innerHTML=alerts[x].entered_time;
+                        document.getElementById("popup-alert").style.display = "block";
+                    }
+    
+                    function closeNoticeView() {
+                        document.getElementById("popup-alert").style.display = "none";
+                    }
+                </script>  
 
 
             </div>
         </div>
 
-
+</div>
 
 
 

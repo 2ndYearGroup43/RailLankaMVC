@@ -11,8 +11,9 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($_SESSION); ?> --> 
-
+<!-- <?php var_dump($data); ?>  -->
+<!-- <br>	
+<?php var_dump($data['alerts']); ?>  -->
 
 <!-- display all alerts -->
 	<div class="body-section">
@@ -22,35 +23,65 @@
 		</div>
 
 		<div class="table-container">
-			<h1 class="title">Alerts</h1>
+			<!-- <div class="img-container">
+				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+			</div> -->
+			<h1 class="title alert-title">Alerts</h1>
 
 				<div class="row alerts-row">
 
-					<div class="col">
-						<div class="alerts-wrapper">
+					<?php if(isset($_SESSION['userid'])) : ?>
+                    <div class="btn-group col-4" id="cng">
+					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displaySubscriptions'" class="blue-btn">My Alerts <i class="fa fa-bell-o"></i> </button>
+					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/search'" class="blue-btn">Subscribe </button>
+					</div>
+					<?php endif; ?>
+
+					<!-- <div class="col"> -->
+
+						 <div class="table-searchbar">
+		                    <form action="<?php echo URLROOT?>/passengerAlerts/searchAlertsBy" method="POST">
+		                    	 <span>
+		                        	<select name="searchField" id="searchField">
+		                            <?php foreach ($data['fields'] as $field ):?>
+		                                <?php if($field->columns!='moderatorId' AND $field->columns!='time' AND $field->columns!='issueType'):?>
+		                                    <option value="<?php echo $field->columns?>"><?php echo $field->columns?></option>
+		                                <?php endif;?>
+		                            <?php endforeach;?>
+		                        	</select>
+		                        </span>
+		                        <input type="text" placeholder="Search by" name="searchVal">
+		                       
+		                        <span>
+		                        	<input type="submit" value=" " class="table-search-btn">
+		                        </span>
+		                        <span>
+		                        	<i class="fa fa-search glyph"></i>
+		                        </span>
+		                    </form>
+		                </div>
+
+						<!-- <div class="alerts-wrapper">
 						    <div class="alerts-search-box">
 						        <div class="alerts-dropdown">
-						            <div class="default_option">Train ID
-						            </div>  
-							        <ul>
-							           	<li>Train ID</li>
-							           	<li>Alert ID</li>
-							           	<li>Date</li>
-							        </ul>
+						        	<div class="default_option"><?php echo $data['fields'][0]->columns ?> 
+						        	</div> 
+								        <ul>
+								        	<?php foreach ($data['fields'] AS $field): ?>
+								        		<?php if ($field->columns!='moderatorId'):?>
+									           		<li><?php echo $field->columns ?></li>
+									           	<?php endif; ?>
+									        <?php endforeach; ?>   	
+								        </ul>
 						        </div>
 						      	<div class="search-field">
 						        	<input type="text" class="alerts-input" placeholder="Search">
 						        	<i class="fa fa-search"></i>
 						      	</div>
 						  	</div>
-						</div>
-					</div>
-					<?php if(isset($_SESSION['userid'])) : ?>
-                    <div class="btn-group col-4" id="cng">
-					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displaySubscriptions'" class="blue-btn">My Alerts</button>
-					  <button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/search'" class="blue-btn">Subscribe</button>
-					</div>
-					<?php endif; ?>
+						</div> -->
+					<!-- </div> -->
+				
 				</div>
 
 				<table class="content-table">
@@ -58,69 +89,72 @@
 						<tr>
 							<th>AlertID</th>
 							<th>TrainID</th>
+							<th>Name</th>
 							<th>Type</th>
-							<th>Date</th>
+							<th>Entered Date</th>
+							<th>Entered Time</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
+						<?php foreach ($data['alerts'] as $row):?>
 						<tr class="active-row">
-							<td data-label="AlertID">007</td>
-							<td data-label="TrainID">0019</td>
-							<td data-label="Type">Delay</td>
-							<td data-label="Date">29/10/2020</td>
+							<td data-label="AlertID"><?php echo $row->alertId; ?></td>
+							<td data-label="TrainID"><?php echo $row->trainId; ?></td>
+							<td data-label="Name"><?php echo $row->name; ?></td>
+							<?php if($row->type=="d"): ?>
+								<td class="delayed-label" data-label="Type">Delayed</td>
+							<?php elseif($row->type=="c"): ?>
+								<td class="cancelled-label" data-label="Type">Cancelled</td>
+							<?php elseif($row->type=="r"): ?>
+								<td class="rescheduled-label" data-label="Type">Rescheduled</td>
+							<?php endif; ?>
+							<td data-label="Date"><?php echo $row->date; ?></td>
+							<td data-label="Time"><?php echo $row->time; ?></td>
 							<td>
-								<button type="submit" class="btn pop-up"><span>View Details</span></button>
+								<button type="submit" id="<?php echo $row->alertId; ?>" class="btn pop-up"><span>View Details</span></button>
 							</td>
 						</tr>
-						<tr>
-							<td data-label="AlertID">008</td>
-							<td data-label="TrainID">0013</td>
-							<td data-label="Type">Rescheduled</td>
-							<td data-label="Date">27/10/2020</td>
-							<td>
-								<button type="submit" class="btn pop-up">View Details</button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="AlertID">009</td>
-							<td data-label="TrainID">0081</td>
-							<td data-label="Type">Cancelled</td>
-							<td data-label="Date">25/10/2020</td>
-							<td>
-								<button type="submit" class="btn pop-up">View Details</button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="AlertID">010</td>
-							<td data-label="TrainID">0071</td>
-							<td data-label="Type">Cancelled</td>
-							<td data-label="Date">22/10/2020</td>
-							<td>
-								<button type="submit" class="btn pop-up">View Details</button>
-							</td>
-						</tr>
-						<tr>
-							<td data-label="AlertID">011</td>
-							<td data-label="TrainID">0019</td>
-							<td data-label="Type">Delay</td>
-							<td data-label="Date">16/10/2020</td>
-							<td>
-								<button type="submit" class="btn pop-up">View Details</button>
-							</td>
-						</tr>
+						<?php endforeach;?>
 					</tbody>
 				</table>
 				<br>
 				<div class="pagination">
+					<?php 
+
+						$searchField = $data['searchField'];
+						$searchVal = $data['searchVal'];
+					?>
 					<ul>
-						<li><a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts" class="prev">Prev</a></li>
-						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts">1</a></li>
-						<li class="pageNumber active"><a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts2">2</a></li>
-						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts3">3</a></li>
-						<li><a href="<?php echo URLROOT; ?>/passengerAlerts/displayAlerts3" class="next">Next</a></li>
+						<li>
+							<?php if($data['start']==0) : ?>
+								<a href="<?php echo URLROOT; ?>/passengerAlerts/searchAlertsBy?page=1&amp;searchField=<?php echo $searchField; ?>&amp;searchVal=<?php echo $searchVal; ?>" class="prev">Prev</a>
+							<?php else : ?>
+								<a href="<?php echo URLROOT; ?>/passengerAlerts/searchAlertsBy?page=<?php echo $data['page']-1; ?>&amp;searchField=<?php echo $searchField; ?>&amp;searchVal=<?php echo $searchVal; ?>" class="prev">Prev</a>
+							<?php endif; ?>
+
+						</li>
+						<?php for($page=1;$page<=$data['totalPages'];$page++) {
+
+							if($data['page']==$page)
+							{
+
+								echo '<li class="pageNumber active"><a href="'. URLROOT . '/passengerAlerts/searchAlertsBy?page=' . $page . '&amp;searchField=' . $searchField . '&amp;searchVal=' . $searchVal . '">' . $page . '</a></li>';
+							}
+							else {
+								echo '<li class="pageNumber"><a href="'. URLROOT . '/passengerAlerts/searchAlertsBy?page=' . $page . '&amp;searchField=' . $searchField . '&amp;searchVal=' . $searchVal . '">' . $page . '</a></li>';
+							}
+						}
+						?>
+						<li>
+							<?php if($data['page']==$data['totalPages']) : ?>
+								<a href="#" class="next">Next</a>
+							<?php else : ?>
+								<a href="<?php echo URLROOT; ?>/passengerAlerts/searchAlertsBy?page=<?php echo $data['page']+1; ?>&amp;searchField=<?php echo $searchField; ?>&amp;searchVal=<?php echo $searchVal; ?>" class="prev">Next</a>
+							<?php endif; ?>
+						</li>
 					</ul>
-				</div>
+				</div> 
 				<br>			
 			</div>
 		<div class="content-row">
@@ -135,46 +169,43 @@
 		<div class="modal-content">
 			<div class="close">+</div>
 			<div class="notices-container">
-			<h2 class="title">Train Details</h2>
+			<div class="img-container">
+					<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
+			</div>  
+			<h2 class="title">Alert Details</h2>
 				<table class="content-table" id="details">
-
-					<tbody>	
-						<tr>
-							<th>AlertID:</th>	
-							<td>001</td>
-						</tr>
-						<tr>
-							<th>TrainID:</th>	
-							<td>0019</td>
-						</tr>
-						<tr>
-							<th>Type:</th>	
-							<td>Cancelled</td>
-						</tr>
-						<tr>
-							<th>New Time:</th>	
-							<td>7.00 a.m.</td>
-						</tr>
-						<tr>
-							<th>New Date:</th>	
-							<td>9.38 p.m.</td>
-						</tr>
-						<tr>
-							<th>Cause:</th>	
-							<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</td>
-						</tr>
-					</tbody>		
 				</table>
 			</div>
 		</div>
 	</div>
 	<!-- end of pop up -->
 
+	
 	<!-- js for pop up -->
 	<script>
 
 		$('.pop-up').bind('click', function() {
-				document.querySelector('.bg-modal').style.display = 'flex';
+			var alert_id = $(this).attr("id");
+
+			$.ajax({
+				url:"<?php echo URLROOT; ?>/passengerAlerts/displayAlertDetails",
+				type:"POST",
+				data: {'alertid':alert_id},
+				success: function(returndata){
+					$('#details').html(returndata);
+					document.querySelector('.bg-modal').style.display = 'flex';
+				},
+				error: function(){
+					alert('error');
+				},
+				beforeSend: function(){
+					//alert("Alert showing before AJAX call");
+				},
+				complete: function(){
+					//alert("Alert showing after AJAX call completion");
+				}
+			})
+			
 		});
 
 		document.querySelector('.close').addEventListener('click', function(){
@@ -213,6 +244,8 @@
 			});
 		});
 	</script>
+
+	
 
 	<!-- end of js for drop down -->
 

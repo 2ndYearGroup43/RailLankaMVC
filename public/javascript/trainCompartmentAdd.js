@@ -5,13 +5,11 @@ var compartments=[];
 
 function addCompartmentRow() {
     document.getElementById("compartmentNoError").innerHTML='';
-    document.getElementById("classError").innerHTML=''; 
-    document.getElementById("noSeatsError").innerHTML='';
+    document.getElementById("classError").innerHTML='';
     document.getElementById("typeError").innerHTML='';
 
     var compartmentNo= document.getElementById("compartmentNo");
     var trainClass = document.getElementById("trainClass");
-    var noSeats= document.getElementById("noofseats");
     var type= document.getElementById("type");
 
     
@@ -22,9 +20,6 @@ function addCompartmentRow() {
         return;
     }else if (trainClass.value.length==0) {
         document.getElementById("classError").innerHTML="You should enter the class.";
-        return;
-    }else if(noSeats.value.length==0){
-        document.getElementById("noSeatsError").innerHTML="You should enter the number of seats.";
         return;
     }else if(type.value.length==0){
         document.getElementById("typeError").innerHTML="You should enter a a compartment type.";
@@ -48,7 +43,6 @@ function addCompartmentRow() {
     var temp={
         "compartmentNo": compartmentNo.value,
         "trainClass": trainClass.value,
-        "noSeats": noSeats.value,
         "type": type.value
     }
 
@@ -58,9 +52,8 @@ function addCompartmentRow() {
 
     row.insertCell(0).innerHTML=compartmentNo.value;
     row.insertCell(1).innerHTML=trainClass.value;
-    row.insertCell(2).innerHTML=noSeats.value;
-    row.insertCell(3).innerHTML=type.value;
-    row.insertCell(4).innerHTML='<input type="button" class="red-btn" value = "Del" onClick="Javacsript:deleteRow(this)">';
+    row.insertCell(2).innerHTML=type.value;
+    row.insertCell(3).innerHTML='<input type="button" class="red-btn" value = "Del" onClick="Javacsript:deleteRow(this)">';
     
 
     compartmentNo.value='';
@@ -91,4 +84,5 @@ function deleteRow(obj) {
 
 
 }
+
 

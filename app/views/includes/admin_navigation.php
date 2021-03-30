@@ -48,9 +48,11 @@
                                             <input type="checkbox" id="btn-2">
                                             <div class="dropdown second">
                                                 <ul>
+                                                    <?php if($_SESSION['role']==6): ?>
                                                     <li class="dropdown-link">
-                                                        <a href="<?php echo URLROOT; ?>/admins/registerAdmin">Admins</a>
+                                                        <a href="<?php echo URLROOT; ?>/superadmins/registerAdmin">Admins</a>
                                                     </li>
+                                                    <?php endif; ?>
                                                     <li class="dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/resofficers/registerResofficer">Res. officers</a>
                                                     </li>
@@ -70,9 +72,11 @@
                                             <input type="checkbox" id="btn-3">
                                             <div class="dropdown second">
                                                 <ul>
+                                                    <?php if($_SESSION['role']==6): ?>
                                                     <li class="dropdown-link">
-                                                        <a href="<?php echo URLROOT; ?>/admins/viewAdmins">Admins</a>
-                                                    </li>
+                                                        <a href="<?php echo URLROOT; ?>/superadmins/viewAdmins">Admins</a> 
+                                                    </li> 
+                                                    <?php endif; ?>
                                                     <li class="dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/resofficers/viewResofficers">Res. officers</a>
                                                     </li>
@@ -113,7 +117,7 @@
 
                         <li class="nav-link" style="--i: 1.1s">
                                 <label for="btn-4" class="show">Stations <i class="fa fa-caret-down"></i></label></label>
-                                <a href="#">Stations <i class="fa fa-caret-down"></i></a>
+                                <a href="<?php echo URLROOT; ?>/adminStations/manage_station"> Station</a>
                                 <input type="checkbox" id="btn-4">
                                 <div class="dropdown">
                                     <ul>
@@ -131,7 +135,7 @@
                         
                         <li class="nav-link" style="--i: 1.1s">
                                 <label for="btn-4" class="show">Notices <i class="fa fa-caret-down"></i></label></label>
-                                <a href="#">Notices <i class="fa fa-caret-down"></i></a>
+                                <a href="<?php echo URLROOT; ?>/adminNotices/index">Notices</a>
                                 <input type="checkbox" id="btn-4">
                                 <div class="dropdown">
                                     <ul>
@@ -164,7 +168,7 @@
                                             <a href="<?php echo URLROOT; ?>/admindashboards/index">Revenue Dashboard</a>
                                         </li>
                                         <li class="dropdown-link">
-                                            <a href="<?php echo URLROOT; ?>/admindashboards/dashboards">Alert Dashboard</a>
+                                            <a href="<?php echo URLROOT; ?>/admindashboards/alertsDash">Alert Dashboard</a>
                                         </li>
                                                     <div class="arrow"></div>
                                                 </ul>
@@ -190,7 +194,7 @@
                                                 </ul>
                                             </div>
                                         </li>
-                                        <li class="dropdown-link">
+                                        <!-- <li class="dropdown-link">
                                             <label for="btn-3" class="show2">Manage Reports +</label>
                                             <a href="#">Manage Reports<i class="fa fa-caret-down"></i></a>
                                             <input type="checkbox" id="btn-3">
@@ -208,7 +212,7 @@
                                                     <div class="arrow"></div>
                                                 </ul>
                                             </div>
-                                        </li>
+                                        </li> -->
                                         <div class="arrow"></div>
                                     </ul>
                                 </div>

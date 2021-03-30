@@ -281,7 +281,9 @@ class Admin_manage_schedule {
 
 	}
 
+
 	public function getRoutes($routeId){ // get data from route station
+
 		$this->db->query('SELECT * FROM route_station WHERE routeId=:routeId ORDER BY stopNo');
 
 		$this->db->bind(':routeId', $routeId);

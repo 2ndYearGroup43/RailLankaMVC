@@ -23,60 +23,37 @@
 			<div class="img-container">
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 			</div>
-			<h1 class="title2">Cancelled Trains</h1>
+			<h1 class="title2 cancelled-title">Cancelled Trains</h1>
 				<table class="content-table">
 					<thead>
 						<tr>
 							<th>AlertID</th>
 							<th>TrainID</th>
-							<th>Date</th>
+							<th>Name</th>
+							<th>Journey Date</th>
+							<th>Entered Date</th>
+							<th>Entered Time</th>
 							<th>Cancellation Cause</th>
 						</tr>
 					</thead>
 					<tbody>
+					<?php foreach ($data['alerts'] as $row):?>
 						<tr>
-							<td data-label="Alert ID">001</td>
-							<td data-label="Train ID">0019</td>
-							<td data-label="Date">26/11/202</td>
-							<td data-label="Cause">
-								Cancelled due to COVID_19
+							<td data-label="Alert ID"><?php echo $row->alertId; ?></td>
+							<td data-label="Train ID"><?php echo $row->trainId; ?></td>
+							<td data-label="Name"><?php echo $row->name; ?></td>
+							<td class="alert-important" data-label="Journey Date"><?php echo $row->cancellation_date; ?></td>
+							<td data-label="Entered Date"><?php echo $row->date; ?></td>
+							<td data-label="Entered Time"><?php echo $row->time; ?></td>
+							<td data-label="Cause"><?php echo 
+								$row->cancellation_cause; ?>
 							</td>
 						</tr>
-						<tr>
-							<td data-label="Alert ID">002</td>
-							<td data-label="Train ID">0013</td>
-							<td data-label="Date">24/11/202</td>
-							<td data-label="Cause">
-								Cancelled due to COVID_19
-							</td>
-						</tr>
-						<tr>
-							<td data-label="Alert ID">003</td>
-							<td data-label="Train ID">0081</td>
-							<td data-label="Date">20/11/202</td>
-							<td data-label="Cause">
-								Cancelled due to COVID_19
-							</td>
-						</tr>
-						<tr>
-							<td data-label="Alert ID">004</td>
-							<td data-label="Train ID">0019</td>
-							<td data-label="Date">13/11/202</td>
-							<td data-label="Cause">
-								Cancelled due to COVID_19
-							</td>
-						</tr>
-						<!-- <tr>
-							<td>005</td>
-							<td>0051</td>
-							<td>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
-							</td>
-						</tr> -->
+					<?php endforeach;?>
 					</tbody>
 				</table>
 			<!-- </div> -->
-			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/displayAlerts'" type="submit" class="btn blue-btn back-btn">Back</button>
+			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAlerts/searchAlertsBy'" type="submit" class="btn blue-btn back-btn">Back</button>
 		</div>
 		<div class="content-row">
 		</div>

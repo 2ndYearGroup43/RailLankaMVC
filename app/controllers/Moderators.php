@@ -5,7 +5,7 @@
     use PHPMailer\PHPMailer\Exception;
     class Moderators extends Controller{
 
-       
+        private $moderatorModel;
 
         public function __construct()
         {
@@ -17,11 +17,7 @@
 		public function index() {
 
 			// $users = $this->userModel->getUsers();
-
-			$data = [
-				'title' => 'Moderator Home Page',
-				// 'users' => $users
-			];
+            $data=$this->moderatorModel->getNotices();
 
 			$this->view('moderators/index', $data); //
 		}
@@ -68,7 +64,7 @@
                     'password'=>'',
                     //'confirmPassword'=>trim($_POST['confirmPassword']),
                     'regDate'=>date("Y-m-d"),
-                    'regTime'=>date("H:i:sa"),
+                    'regTime'=>date("H:i:s"),
                     'moderatorIdError'=>'',
                     'employeeIdError'=>'',
                     'firstNameError'=>'',
@@ -146,7 +142,7 @@
                 // }
 
                 // if(empty($data['confirmPassword'])){
-                //     $data['confirmPasswordError']='Please Enter the passsword.';
+                //     $data['confirmPasswordError']='Please Enter the password.';
                 // }else{
                 //     if($data['password']!=$data['confirmPassword']){
                 //         $data['confirmPasswordError']='Passwords do not match.';
@@ -194,13 +190,13 @@
                 $mail->isSMTP();                                            // Send using SMTP
                 $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
-                $mail->Password   = 'Raillanka@2';                               // SMTP password
+                $mail->Username   = PROJECTEMAIL;                     // SMTP username
+                $mail->Password   = PROJECTEMAILPASSWORD;                               // SMTP password
                 $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
                 //Recipients
-                $mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
+                $mail->setFrom(PROJECTEMAIL, 'RailLanka');
                 $mail->addAddress($email);     // Add a recipient
                         // Name is optional
                 $mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');
@@ -231,8 +227,6 @@
 
         public function updateModerator($userId)
         {
-            echo "here";
-
             $moderator=$this->moderatorModel->findModeratorById($userId);
             $data=[
                 'userId'=>$userId,

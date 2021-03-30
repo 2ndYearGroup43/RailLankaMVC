@@ -4,7 +4,7 @@
             <div class="nav-container">
                 <input type="checkbox" name="" id="check">
                 <div class="logo-container">
-                    <a href="index.html">
+                    <a href="<?php echo URLROOT; ?>/admins/index">
                         <img src="<?php echo URLROOT;?>/public/img/logo.jpg" height="80px">
                         <!--<img src="img/logo.jpg" alt="logo" height="80px">-->
                     </a>
@@ -47,9 +47,11 @@
                                             <!-- <input type="checkbox" id="btn-2"> -->
                                             <div class="nav-dropdown second">
                                                 <ul>
+                                                    <?php if($_SESSION['role']==6): ?>
                                                     <li class="nav-dropdown-link">
-                                                        <a href="<?php echo URLROOT; ?>/admins/registerAdmin">Admins</a>
+                                                        <a href="<?php echo URLROOT; ?>/superadmins/registerAdmin">Admins</a>
                                                     </li>
+                                                    <?php endif; ?>
                                                     <li class="nav-dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/resofficers/registerResofficer">Res. officers</a>
                                                     </li>
@@ -69,9 +71,11 @@
                                             <!-- <input type="checkbox" id="btn-3"> -->
                                             <div class="nav-dropdown second">
                                                 <ul>
-                                                    <li class="nav-dropdown-link">
-                                                        <a href="<?php echo URLROOT; ?>/admins/viewAdmins">Admins</a>
-                                                    </li>
+                                                    <?php if($_SESSION['role']==6): ?>
+                                                     <li class="nav-dropdown-link">
+                                                        <a href="<?php echo URLROOT; ?>/superadmins/viewAdmins">Admins</a> 
+                                                    </li> 
+                                                    <?php endif; ?>
                                                     <li class="nav-dropdown-link">
                                                         <a href="<?php echo URLROOT; ?>/resofficers/viewResofficers">Res. officers</a>
                                                     </li>
@@ -161,7 +165,7 @@
                                                         <a href="<?php echo URLROOT; ?>/admindashboards/index">Revenue Dashboard</a>
                                                     </li>
                                                     <li class="nav-dropdown-link">
-                                                            <a href="<?php echo URLROOT; ?>/admindashboards/dashboards">Alert Dashboard</a>
+                                                            <a href="<?php echo URLROOT; ?>/admindashboards/alertsDash">Alert Dashboard</a>
                                                     </li>
                                                     <div class="arrow"></div>
                                                 </ul>
