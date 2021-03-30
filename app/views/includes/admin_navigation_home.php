@@ -191,10 +191,8 @@
                                                 </ul>
                                             </div>
                                         </li>
-                                        <li class="nav-dropdown-link">
-                                            <!-- <label for="btn-3" class="show2">Manage Employees +</label> -->
+                                        <!-- <li class="nav-dropdown-link">                            
                                             <a href="#">Manage Reports<i class="fa fa-caret-down"></i></a>
-                                            <!-- <input type="checkbox" id="btn-3"> -->
                                             <div class="nav-dropdown second">
                                                 <ul>
                                                     <li class="dropdown-link">
@@ -209,7 +207,7 @@
                                                     <div class="arrow"></div>
                                                 </ul>
                                             </div>
-                                        </li>
+                                        </li> -->
                                         <div class="arrow"></div>
                                     </ul>
                                 </div>

@@ -35,39 +35,31 @@
             <div class="card-container">
                 <div class="count-card">
                     <div class="card-title">
-                        Cancellations<br>
-                        Alerts
+                        <h1>Cancellations</h1><br>
+                        <h2>Alerts</h2>
                     </div>
                     <div class="card-count">
                         <?php echo $data['cancelledCount'];?>
                     </div>
-                    <div class="card-link">
-                        <a href="#">Manage</a>
-                    </div>
                 </div>
                 <div class="count-card">
                     <div class="card-title">
-                        Delays<br>
-                        Alerts
+                        <h1>Delays</h1><br>
+                        <h2>Alerts</h2>
                     </div>
                     <div class="card-count">
                         <?php echo $data['delayedCount'];?>
                     </div>
-                    <div class="card-link">
-                        <a href="#">Manage</a>
-                    </div>
                 </div>
                 <div class="count-card">
                     <div class="card-title">
-                        Rescheduled <br>
-                        Alerts
+                        <h1>Rescheduled</h1><br>
+                        <h2>Alerts</h2>
                     </div>
                     <div class="card-count">
                         <?php echo $data['rescheduledCount'];?>
                     </div>
-                    <div class="card-link">
-                        <a href="#">Manage</a>
-                    </div>
+                   
                 </div>
             </div>
         </div>

@@ -17,22 +17,7 @@
                             <a href="<?php echo URLROOT; ?>/admins/index">Home</a>
                         </li>
                         
-                        <!--<li class="nav-link" style="--i: 1.1s">
-                                <label for="btn-4" class="show">Dashboard <i class="fa fa-caret-down"></i></label></label>
-                                <a href="#">Dashboard <i class="fa fa-caret-down"></i></a>
-                                <input type="checkbox" id="btn-4">
-                                <div class="dropdown">
-                                    <ul>
-                                        <li class="dropdown-link">
-                                            <a href="<?php echo URLROOT; ?>/admindashboards/index">Revenue Dashboard</a>
-                                        </li>
-                                        <li class="dropdown-link">
-                                            <a href="<?php echo URLROOT; ?>/admindashboards/dashboards">Alert Dashboard</a>
-                                        </li>
-                                        <div class="arrow"></div>
-                                    </ul>
-                                </div>
-                        </li>-->
+                       
                         <li class="nav-link" style="--i: .6s">
                             <a href="<?php echo URLROOT; ?>/adminPassengers/index">Users</a>
                         </li>
@@ -155,18 +140,15 @@
                                 <input type="checkbox" id="btn-1">
                                 <div class="dropdown">
                                     <ul>
-                                        <!--<li class="dropdown-link" style="--i: .6s">
-                                            <a href="<?php echo URLROOT; ?>/admindashboards/dashboards">Dashboard</a>
-                                        </li>-->
                                         <li class="dropdown-link">
-                                            <label for="btn-3" class="show2"> Dashboards +</label>
-                                            <a href="#">Dashboards<i class="fa fa-caret-down"></i></a>
+                                            <label for="btn-3" class="show2"> Dashboard +</label>
+                                            <a href="<?php echo URLROOT; ?>/admindashboards/index">Dashboard<i class="fa fa-caret-down"></i></a>
                                             <input type="checkbox" id="btn-3">
                                             <div class="dropdown second">
                                                 <ul>
-                                            <li class="dropdown-link">
+                                        <!-- <li class="dropdown-link">
                                             <a href="<?php echo URLROOT; ?>/admindashboards/index">Revenue Dashboard</a>
-                                        </li>
+                                        </li> -->
                                         <li class="dropdown-link">
                                             <a href="<?php echo URLROOT; ?>/admindashboards/alertsDash">Alert Dashboard</a>
                                         </li>

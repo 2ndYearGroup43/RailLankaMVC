@@ -14,6 +14,7 @@
                 <ul class="breadcrumb">
                     <li><a href="<?php echo URLROOT; ?>/admins/index">Home</a></li>
                     <li><u>Reports</u></li>
+                    <li><a href="<?php echo URLROOT; ?>/adminReports/index">Add Revenue Details</a></li>
                     <li><a href="<?php echo URLROOT; ?>/adminReports/onlineRevenueReport">Online Revenue Report </a></li></ul>
                 </ul>
             </div>

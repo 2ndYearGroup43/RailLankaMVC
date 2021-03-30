@@ -23,48 +23,40 @@
 
             <div class="content-flexrow">
                 <div class="container">
-
                     <div class="text">Update Station Details</div>
                     <form action="<?php echo URLROOT; ?>/AdminStations/update_station/<?php echo $data['station']->stationID;?>" method="POST">
-
                         <div class="form-row">
                             <div class="input-data">
                                 <label for="stationID">Station Id</label>
                                 <input type="text" name="stationID" id="stationID" value="<?php echo $data['station']->stationID;?>" required >
-
                                 <span class="invalidFeedback">
                                     <?php echo $data['stationIDError']; ?>
                                 </span>
                             </div>
-                        </div>
 
+                        </div>
                         <div class="form-row">
                             <div class="input-data ">
-                                <label for="name">Station Name</label>
-                                <input type="text" name="name" id="name" value="<?php echo $data['station']->name;?>" required >
-
+                                 <label for="name">Station Name</label>
+                                 <input type="text" name="name" id="name" value="<?php echo $data['station']->name;?>" required >
                                 <span class="invalidFeedback">
                                     <?php echo $data['nameError']; ?>
                                 </span>   
                             </div>
                         </div>
-
                         <div class="form-row">
                             <div class="input-data ">
-                                <label for="telephoneNo">Telephone Number</label>
-                                <input type="text" name="telephoneNo" id="telephoneNo" value="<?php echo $data['station']->telephoneNo;?>" required > 
-
-                                <span class="invalidFeedback">
+                                 <label for="telephoneNo">Telephone Number</label>
+                                 <input type="text" name="telephoneNo" id="telephoneNo" value="<?php echo $data['station']->telephoneNo;?>" required > 
+                                 <span class="invalidFeedback">
                                     <?php echo $data['telephoneNoError']; ?>
                                 </span>
                             </div>
                         </div>
-
-                        <div class="form-row">
+                     <div class="form-row">
                             <div class="input-data">
                                 <label for="type">Station Type</label>
                                 <select name="type" id="type">
-
                                     <option value="Main" 
                                     <?php 
                                         if($data['station']->type=="Main")
@@ -79,11 +71,30 @@
                                             {echo "selected";}
                                     ?>
                                     >Normal</option>
-
                                 </select>
 
                                 <span class="invalidFeedback">
                                     <?php echo $data['typeError']; ?>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="input-data">
+                                <label for="entered_date">Entered Date</label>
+                                <input type="date" name="entered_date" id="entered_date" value="<?php echo $data['station']->entered_date;?>" required >
+
+                                <span class="invalidFeedback">
+                                    <?php echo $data['entered_dateError']; ?>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="input-data">
+                                <label for="entered_time">Entered Time</label>
+                                <input type="time" name="entered_time" id="entered_time" value="<?php echo $data['station']->entered_time;?>" required >
+
+                                <span class="invalidFeedback">
+                                    <?php echo $data['entered_timeError']; ?>
                                 </span>
                             </div>
                         </div>
@@ -97,18 +108,20 @@
                                 <input onclick="history.go(-1);" type="button" class="red-btn" value="Back">
                             </div>
                         </div>   
-                        
                             
                         </div>
                     </form>
-                    </div>
-
+                </div>
             </div>
         </div>
+
+
+
 
 
 
 <?php
     require APPROOT . '/views/includes/footer.php';
 ?>
+
 

@@ -6,7 +6,7 @@
 <?php
     require APPROOT . '/views/includes/admin_navigation.php';
 ?>
-<?php var_dump($data) ?>
+<!-- <?php var_dump($data) ?> -->
     <div class="body-section">
             <div class="content-row">
                 <ul class="breadcrumb">
