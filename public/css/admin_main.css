@@ -825,7 +825,7 @@ footer{
     z-index: 2px;
     position: absolute;
     /*opacity: 1;*/
-    /*opacity: 1!important;*/
+    opacity: 1!important;
     display: none;
     top: 50px;
 }

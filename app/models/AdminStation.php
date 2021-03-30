@@ -34,14 +34,47 @@ class AdminStation {
 
 
     public function findStationById($stationID) {
-        $this->db->query('SELECT * FROM station WHERE stationID = :stationID');
+        $this->db->query('SELECT COUNT(*) AS count FROM station WHERE stationID = :stationID');
 
         $this->db->bind(':stationID', $stationID);
 
-        $row = $this->db->single();
-
-        return $row;
+        //$row = $this->db->single();
+        //$this->db->bind(':stationID', $stationID);
+        //return $row;
+            //check if the email is already registsered;
+        $results=array();
+        $results=$this->db->resultSet();
+        $count=$results[0]->count;
+        
+        //check if the email is already registsered;
+        if($count>0){
+            return true;
+        }else{
+            return false;
+        }
     }
+
+    // public function findAdminByEmployeeId($empid)
+    // {
+    //     //this is an preapared statement
+    //     $this->db->query('SELECT COUNT(*) AS count FROM admin WHERE employeeId = :empid');
+
+    //     //Email param will be binded by the email variable
+
+    //     $this->db->bind(':empid', $empid);
+
+    //     //check if the email is already registsered;
+    //     $results=array();
+    //     $results=$this->db->resultSet();
+    //     $count=$results[0]->count;
+        
+    //     //check if the email is already registsered;
+    //     if($count>0){
+    //         return true;
+    //     }else{
+    //         return false;
+    //     }
+    // }
 
 
     public function updateStation($data) {

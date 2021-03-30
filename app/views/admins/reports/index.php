@@ -6,7 +6,7 @@
 <?php
     require APPROOT . '/views/includes/admin_navigation.php';
 ?>
-<!-- <?php var_dump($data["trains"]) ?> -->
+<?php var_dump($data) ?>
     <div class="body-section">
             <div class="content-row">
                 <ul class="breadcrumb">
@@ -52,11 +52,13 @@
                                 <option value= "<?php echo $train->trainId; ?>"> <?php echo $train->name; ?></option>
                                 <?php endforeach ;?>
 
+                                
+
+                                </select>
+
                                 <span class="invalidFeedback">
                                     <?php echo $data['nameError']; ?>
                                 </span>
-
-                                </select>
                                 
                             </div>
                     </div>

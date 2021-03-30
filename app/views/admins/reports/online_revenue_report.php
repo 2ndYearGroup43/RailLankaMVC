@@ -49,6 +49,7 @@
                             <td >Train Name: </td>
                             <td><?php echo $data['train']->name;?></td>
                             <td colspan="2"></td>
+
                         </tr>
                         <tr>
                             <td>Start Station: </td>

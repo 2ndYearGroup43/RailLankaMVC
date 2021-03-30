@@ -67,6 +67,12 @@ class AdminReports extends Controller {
                             $this->onlineRevenueReport($results, $data['name'], $data['from'], $data['to']);
                             return;
                         }
+                        else{
+                            $data['nameError']='There are no results';
+
+                            $this->view('admins/reports/index', $data);
+                            return;
+                        }
                         $this->view('admins/reports/online_revenue_report', $data);
 
                     }
@@ -78,6 +84,12 @@ class AdminReports extends Controller {
                         if($results){
 
                             $this->counterRevenueReport($results, $data['name'], $data['from'], $data['to']);
+                            return;
+                        }
+                        else{
+                            $data['nameError']='There are no results';
+
+                            $this->view('admins/reports/index', $data);
                             return;
                         }
 
@@ -93,6 +105,12 @@ class AdminReports extends Controller {
                             $this->bothRevenueReport($revenue, $data['name'], $data['from'], $data['to']);
                             return;
                         //}
+                            if($data['paymentrev']=="Both"){
+                            $data['nameError']='There are no results';
+
+                            $this->view('admins/reports/index', $data);
+                            return;
+                            }
 
                         $this->view('admins/reports/both_revenue_report', $data);
                         
@@ -234,6 +252,7 @@ class AdminReports extends Controller {
                     'from'=>trim($_POST['fromDate']),
                     'to'=>trim($_POST['toDate']),
                     'payment'=>trim($_POST['radio']),
+                    'trains'=>$trains,
                     'nameError'=>'',
                     'fromError'=>'',
                     'toError'=>''
@@ -269,7 +288,12 @@ class AdminReports extends Controller {
                     $this->cancellationAlertReport($results, $data['name'], $data['from'], $data['to']);
                     return;
                 }
+                else{
+                        $data['nameError']='There are no results';
 
+                        $this->view('admins/reports/add_alert_details', $data);
+                        return;
+                }
 
 
                  
@@ -286,6 +310,12 @@ class AdminReports extends Controller {
                     return;
                     
                 }
+                else{
+                        $data['nameError']='There are no results';
+
+                        $this->view('admins/reports/add_alert_details', $data);
+                        return;
+                }
 
                 $this->view('admins/reports/delay_alert_report', $data);
             }
@@ -298,6 +328,12 @@ class AdminReports extends Controller {
                     $this->reschedulmentAlertReport($results, $data['name'], $data['from'], $data['to']);
                     return;
                     
+                }
+                else{
+                        $data['nameError']='There are no results';
+
+                        $this->view('admins/reports/add_alert_details', $data);
+                        return;
                 }
 
                 $this->view('admins/reports/reschedulment_alert_report', $data);
