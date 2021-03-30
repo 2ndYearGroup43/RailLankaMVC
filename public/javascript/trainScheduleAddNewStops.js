@@ -1,7 +1,13 @@
 
+window.onload= function (){
+
+    for (var i=0;i<currentSchedules.length;i++){
+        console.log(currentSchedules[i].stationID);
+    }
+
+}
+
 var schedules=[];
-var curDistance=0;
-var nextDayFlag=false;
 
 
 function addScheduleRow() {
@@ -48,16 +54,10 @@ function addScheduleRow() {
     }else if(isNaN(distance.value-1)) {
         document.getElementById("distanceError").innerHTML="Distance should be numeric.";
         return;
-    } else if(parseFloat(distance.value)<curDistance){
-        document.getElementById("distanceError").innerHTML="Distance should always increase.";
-        return;
-    }else if(nextDayFlag){
-        if(date.value=="Same Day"){
-            document.getElementById("dateError").innerHTML="You cannot go back a day!";
-        }
     }else if(schedules.length>0){
         for(var i=0;i<schedules.length;i++){
             if(schedules[i].stopNo==stopNo.value){
+                console.log(schedules[i].stopNo);
                 document.getElementById("stopNoError").innerHTML="stop number has been repeated.";
                 return;
             }
@@ -66,11 +66,20 @@ function addScheduleRow() {
                 return;
             }
         }
+    }else if(currentSchedules.length>0){
+        for(var i=0;i<currentSchedules.length;i++){
+            if(currentSchedules[i].stopNo==stopNo.value){
+                console.log(currentSchedules[i].stopNo);
+                document.getElementById("stopNoError").innerHTML="stop number has been already entered.";
+                return;
+            }
+            if(currentSchedules[i].stationID==stationName.value){
+                document.getElementById("stationIDError").innerHTML="Station name has already entered.";
+                return;
+            }
+        }
     }
-    curDistance=parseFloat(distance.value);
-    if (date.value=="Next Day"){
-        nextDayFlag=true;
-    }
+
 
 
     var tbody=table.getElementsByTagName("tbody")[0];
@@ -90,7 +99,8 @@ function addScheduleRow() {
 
     schedules.push(temp);
 
-    console.log(schedules);    
+    console.log(schedules);
+
 
     row.insertCell(0).innerHTML=stationName.value;
     row.insertCell(1).innerHTML=stopNo.value;
@@ -99,7 +109,7 @@ function addScheduleRow() {
     row.insertCell(4).innerHTML=date.value;
     row.insertCell(5).innerHTML=distance.value;
     row.insertCell(6).innerHTML='<input type="button" class="red-btn" value = "Del" onClick="Javacsript:deleteRow(this)">';
-    
+
 
 
     stationName.value='';
@@ -109,7 +119,7 @@ function addScheduleRow() {
 
     $('#scheduleField').val(JSON.stringify(schedules));
 
-} 
+}
 
 function deleteRow(obj) {
     var index=obj.parentNode.parentNode.rowIndex;
@@ -119,7 +129,7 @@ function deleteRow(obj) {
     schedules.splice(index-1,1);
     console.log(schedules);
 
-    
+
     $('#scheduleField').val(JSON.stringify(schedules));
 
 

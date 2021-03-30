@@ -9,7 +9,7 @@
                         isResofficerLoggedIn();
         }
 
-        public function search() {
+        public function search() { // search function
             
             $stations=$this->resofficerReservationModel->getStations();
             
@@ -133,16 +133,16 @@
             $this->view('resofficers/reservations/search_trains',$data); 
         }
 
-        public function displayTrains($data) {
+        public function displayTrains($data) { // display trains function
 
             
             $this->view('resofficers/reservations/display_trains',$data); 
         }
 
-        public function createReservation($id, $date){
+        public function createReservation($id, $date){ // create reservation function
             $train=$this->resofficerReservationModel->getTrainDetails($id); //To get details about the train
             $oid = $_SESSION['userid'];
-            $resofficer=$this->resofficerReservationModel->findResofficerById($oid);
+            $resofficer=$this->resofficerReservationModel->findResofficerById($oid);// find res officer id
             $data=[
                 'officerId'=>$resofficer->officerId,
                 'trainId'=>$id,
@@ -162,7 +162,7 @@
                 'country'=>''
             ];
             if($_SERVER['REQUEST_METHOD']=='POST'){
-            $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING); // filter the input data
             $data=[
             'officerId'=>$resofficer->officerId,    
             'nic'=>trim($_POST['nic']), 
@@ -196,7 +196,7 @@
             
         }
 
-        public function displaySeatMaps($compNo, $resNo, $id, $uPId) {
+        public function displaySeatMaps($compNo, $resNo, $id, $uPId) { // display seat maps
             $uPassenger=$this->resofficerReservationModel->getUnregisteredPassengerDetails($uPId);
             $reservation=$this->resofficerReservationModel->getReservationDetails($resNo);
             $train=$this->resofficerReservationModel->getTrainDetails($id);
@@ -379,7 +379,7 @@
 
         }
 
-        public function findUnavailable() {
+        public function findUnavailable() { // find unavailable sets
 
             $trainid=$_POST['trainid'];
             $compNo=$_POST['compartment'];
@@ -398,7 +398,7 @@
             echo json_encode($data);
         }
 
-        public function createTicket($resNo, $uPId){
+        public function createTicket($resNo, $uPId){ // create ticket
 
                 if(isset($_GET['resNo'])){
                 $resNo = $_GET['resNo'];
@@ -448,7 +448,7 @@
                      
         }
 
-        public function ticketReview($resNo, $uPId) {
+        public function ticketReview($resNo, $uPId) { // view ticket
 
             if(isset($_GET['resNo'])){
                 $resNo = $_GET['resNo'];
@@ -485,7 +485,7 @@
         
     }
 
-    public function informPassengerOftheReservation($email, $ticketId, $price, $trainId, $name, $nic, $journeyDate)
+    public function informPassengerOftheReservation($email, $ticketId, $price, $trainId, $name, $nic, $journeyDate)// email confirmation
         {   
             require APPROOT . '/libraries/PHPMailer/src/Exception.php';
             require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';

@@ -5,7 +5,7 @@ class Admin_manage_trains extends Controller{
 		$this->adminModel=$this->model('Admin_manage_train');
 	}
 
-	public function index(){
+	public function index(){ // index function
 		$manage_train=$this->adminModel->get();
 		$data = [
 			'manage_train'=>$manage_train
@@ -13,7 +13,7 @@ class Admin_manage_trains extends Controller{
 		$this->view('admins/manage_train/index', $data);
 	}
 
-	public function create(){
+	public function create(){ // add train function
 
 		$rates=$this->adminModel->getRateId();
 		$stationids=$this->adminModel->getStationID();
@@ -64,7 +64,7 @@ class Admin_manage_trains extends Controller{
             'typeError'=>''
 			];
             $idValidation="/^[a-zA-Z0-9]*$/";
-            $nameValidation="/^[a-zA-Z]*$/";
+            $nameValidation="/^[a-zA-Z\s]*$/";
 
                 if(empty($data['trainId'])){
                 $data['trainIdError']='Please Enter the Train ID.';
@@ -103,7 +103,7 @@ class Admin_manage_trains extends Controller{
                 if(empty($data['name'])){
                     $data['nameError']='Please Enter the Train Name.';
                 }elseif(!preg_match($nameValidation, $data['name'])){
-                    $data['nameError']="Train Name can only contain letters and numbers.";
+                    $data['nameError']="Train Name can only contain letters.";
                 }
                 if($data['reservable_status']==""){
                     $data['reservable_statusError']='Please Enter the Reservable Status.';
@@ -127,7 +127,7 @@ class Admin_manage_trains extends Controller{
 		$this->view('admins/manage_train/create', $data);
 	}
 
-	public function edit($trainId){
+	public function edit($trainId){ // edit train function
 
 		$manage_train=$this->adminModel->findTrain($trainId);
 		$rates=$this->adminModel->getRateId();
@@ -178,12 +178,12 @@ class Admin_manage_trains extends Controller{
 			];
 
             $idValidation="/^[a-zA-Z0-9]*$/";
-            $nameValidation="/^[a-zA-Z]*$/";
+            $nameValidation="/^[a-zA-Z\s]*$/";
 
                 if(empty($data['name'])){
                     $data['nameError']='Please Enter the Train Name.';
                 }elseif(!preg_match($nameValidation, $data['name'])){
-                    $data['nameError']="Train Name can only contain letters and numbers.";
+                    $data['nameError']="Train Name can only contain letters.";
                 }
 
                 if(empty($data['src_station'])){
@@ -204,7 +204,7 @@ class Admin_manage_trains extends Controller{
                     }
                 }
                 
-                if(empty($data['reservable_status'])){
+                if(($data['reservable_status'])==''){
                     $data['reservable_statusError']='Please Enter the Reservable Status.';
                 }
                 if(empty($data['type'])){
@@ -224,7 +224,7 @@ class Admin_manage_trains extends Controller{
 		$this->view('admins/manage_train/edit', $data);
 	}
 
-		public function views($trainId){
+		public function views($trainId){ // view trains function
 
 		$manage_train=$this->adminModel->findTrain($trainId);
 		$schedules=$this->adminModel->getScheduleDetails($trainId);
@@ -244,7 +244,7 @@ class Admin_manage_trains extends Controller{
 		$this->view('admins/manage_train/views', $data);
 	}
 
-	public function delete($trainId){
+	public function delete($trainId){ // delete train function
 
 		$manage_train=$this->adminModel->findTrain($trainId);
 

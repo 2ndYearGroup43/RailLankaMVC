@@ -5,8 +5,7 @@
     require APPROOT.'/views/includes/admin_navigation.php';
 ?>  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="<?php echo URLROOT;?>/javascript/trainScheduleAdd.js"></script>
-        
+<script src="<?php echo URLROOT;?>/javascript/trainScheduleAddNewStops.js"></script>
 	    <div class="body-section">
         <div class="content-flexrow">
            <div class="container">
@@ -91,7 +90,7 @@
                         <input type="button" class="blue-btn" id="addrow" name="addrow" value="Add Schedule" onclick="Javascript:addScheduleRow()">
                     </div>
                     <div class="input-data">
-                       <input type="submit" class="blue-btn" id="post" name="post" value="Next">
+                       <input type="submit" class="blue-btn" id="post" name="post" value="Finish">
                     </div>
                 </div>
             </form>
@@ -130,6 +129,9 @@
                             }
                         }
                     </script>
+               <script>
+                   var currentSchedules=<?php echo json_encode($data['currentSchedules']);?>;
+               </script>
 
                 </div>
             </div>

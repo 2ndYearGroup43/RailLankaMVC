@@ -10,7 +10,7 @@
             isResofficerLoggedIn();
         }
 
-        public function refund(){
+        public function refund(){ // refund function
 
         $id = $_SESSION['userid'];
         $resofficer=$this->resofficerRefundModel->findResofficerById($id);
@@ -38,12 +38,12 @@
             'ticketIdError'=>''
             ];
 
-            $dates=$this->resofficerRefundModel->checkDate($data['ticketId']);
-            $rescheduledDate=$this->resofficerRefundModel->checkRescheduledAlertDate($data['ticketId']);
-            $tickets=$this->resofficerRefundModel->getTicketDetails($data['ticketId']);
-            $passenger=$this->resofficerRefundModel->checkUnregisteredPassenger($data['ticketId']);
-            $journeys=$this->resofficerRefundModel->getJourneyDetails($data['ticketId']);
-            $trains=$this->resofficerRefundModel->getTrainDetails($data['ticketId']);
+            $dates=$this->resofficerRefundModel->checkDate($data['ticketId']); // check cancelled alert date
+            $rescheduledDate=$this->resofficerRefundModel->checkRescheduledAlertDate($data['ticketId']); // check rescheduled alert date
+            $tickets=$this->resofficerRefundModel->getTicketDetails($data['ticketId']); // get ticket details
+            $passenger=$this->resofficerRefundModel->checkUnregisteredPassenger($data['ticketId']); // check unregistered passenger details
+            $journeys=$this->resofficerRefundModel->getJourneyDetails($data['ticketId']); // get journey details
+            $trains=$this->resofficerRefundModel->getTrainDetails($data['ticketId']); // get train details
             $dates->seat_date;
             $dates->cancelled_date;
 
@@ -76,7 +76,7 @@
         $this->view('resofficers/refunds/refund', $data); 
         }
 
-        public function informPassengerOftheRefund($email, $ticketId, $price, $trainId, $nic, $cancelled_date, $rescheduled_date, $srcName, $destName, $name)
+        public function informPassengerOftheRefund($email, $ticketId, $price, $trainId, $nic, $cancelled_date, $rescheduled_date, $srcName, $destName, $name) // email verification function
         {   
             require APPROOT . '/libraries/PHPMailer/src/Exception.php';
             require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
@@ -130,7 +130,7 @@
             exit();
         }
 
-        public function displayRefundConf($ticketId) {
+        public function displayRefundConf($ticketId) { // display refund confirmation function
             
             $tickets=$this->resofficerRefundModel->getRefundDetails($ticketId);
             $journeys=$this->resofficerRefundModel->getJourneyDetails($ticketId);

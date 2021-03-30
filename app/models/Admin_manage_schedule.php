@@ -6,7 +6,7 @@ class Admin_manage_schedule {
 		$this->db = new Database;
 	}
 
-	public function create_schedule($data){
+	public function create_schedule($data){ // add data to route_station
 		//this is an preapared statement
 		$this->db->query('INSERT INTO route_station (routeId, stationID, stopNo, arrivaltime, departuretime, date, distance) VALUES (:routeId, :stationID, :stopNo, :arrivaltime, :departuretime, :date, :distance )');
         //bind values
@@ -27,7 +27,7 @@ class Admin_manage_schedule {
 	}
 
 	
-	public function addSchedule($data){
+	public function addSchedule($data){ // add schedules
 		$flag;
 		$this->db->query('INSERT INTO route (trainId) VALUES (:trainId)');
 		$this->db->bind(':trainId', $data['trainId']);
@@ -71,7 +71,7 @@ class Admin_manage_schedule {
 
 
 
-	    public function findRouteByRouteId($rid)
+	    public function findRouteByRouteId($rid) // find routes by route id
     {
 
         $this->db->query('SELECT COUNT(*) as count FROM route_station WHERE routeId = :rid');
@@ -88,7 +88,7 @@ class Admin_manage_schedule {
         }
     }
 
-    public function findRouteByStationID($sid)
+    public function findRouteByStationID($sid) // find route by station id
     {
 
         $this->db->query('SELECT COUNT(*) as count FROM route_station WHERE stationID = :sid');
@@ -105,19 +105,19 @@ class Admin_manage_schedule {
         }
     }
 
-	public function get(){
+	public function get(){ // get data from route station
 		$this->db->query('SELECT * FROM route_station ORDER BY routeId ASC');
 		$results = $this->db->resultSet();
 		return $results;
 	}
 
-    public function getStationID(){
+    public function getStationID(){ // get data from station
         $this->db->query("SELECT stationID,name FROM station");
         $results=$this->db->resultSet();
         return $results;
     }
 
-	public function findRoute($routeId){
+	public function findRoute($routeId){ // get data from route station
 		$this->db->query('SELECT * FROM route_station WHERE routeId=:routeId');
 
 		$this->db->bind(':routeId', $routeId);
@@ -126,7 +126,7 @@ class Admin_manage_schedule {
 		return $row;
 	}
 
-	public function edit($data){
+	public function edit($data){ // edit schedule data
 		$this->db->query('UPDATE route_station SET routeId=:routeId, stationID=:stationID, stopNo=:stopNo, arrivaltime=:arrivaltime, departuretime=:departuretime, date=:date, distance=:distance WHERE routeId=:routeId AND stationID=:stationID');
 
 		$this->db->bind(':routeId', $data['routeId']);
@@ -144,7 +144,7 @@ class Admin_manage_schedule {
 		}
 	}
 
-	public function getSchedule($routeId, $stationID)
+	public function getSchedule($routeId, $stationID) // get schedule data
 	{
 		$this->db->query('SELECT * FROM route_station WHERE routeId=:routeId AND stationID=:stationID');
 
@@ -157,7 +157,7 @@ class Admin_manage_schedule {
 
 
 
-		public function views($data){
+		public function views($data){ // view schedule data
 		$this->db->query('SELECT route_station SET routeId=:routeId, stationID=:stationID, stopNo=:stopNo, arrivaltime=:arrivaltime, departuretime=:departuretime, date=:date, distance=:distance WHERE routeId=:routeId');
 
 		$this->db->bind(':routeId', $data['routeId']);
@@ -175,7 +175,7 @@ class Admin_manage_schedule {
 		}
 	}
 
-	public function delete($stationID){
+	public function delete($stationID){ // delete schedule data
 		$this->db->query('DELETE FROM route_station WHERE stationID=:stationID');
 
 		$this->db->bind(':stationID',$stationID);
@@ -187,7 +187,7 @@ class Admin_manage_schedule {
 		}
 	}
 
-    public function findTrain2($trainId){
+    public function findTrain2($trainId){ // find train
 		$this->db->query('SELECT * FROM route WHERE trainId=:trainId');
 
 		$this->db->bind(':trainId', $trainId);
@@ -196,7 +196,7 @@ class Admin_manage_schedule {
 		return $row;
 	}
 
-	public function findTrain($trainId){
+	public function findTrain($trainId){ // find station names
 		$this->db->query('SELECT t1.*,s1.name AS dest FROM 
 		(SELECT t.*, s.name AS src FROM train t JOIN station s ON  t.src_station=s.stationID WHERE trainId=:trainId) t1 
 		JOIN station s1 ON t1.dest_station=s1.stationID WHERE trainId=:trainId');
@@ -207,7 +207,7 @@ class Admin_manage_schedule {
 		return $row;
 	}
 
-	public function getScheduleDetails($trainId)
+	public function getScheduleDetails($trainId) // get schedules
 	{
 		$this->db->query('SELECT t1.*,s1.name AS station FROM
 		 (SELECT r.trainId,s.* FROM route r INNER JOIN route_station s ON r.routeId=s.routeId WHERE r.trainId=:trainId) t1 
@@ -220,7 +220,7 @@ class Admin_manage_schedule {
 		 return $results;
 	}
 
-	public function getAvailableDays($trainId)
+	public function getAvailableDays($trainId) // get available days
 	{
 		$this->db->query('SELECT a.* FROM availabledays a INNER JOIN train t ON t.trainId=a.trainId WHERE a.trainId=:trainId');
 
@@ -231,7 +231,7 @@ class Admin_manage_schedule {
 	}
 
 
-	public function getCompartments($trainId)
+	public function getCompartments($trainId) // get compartments
 	{
 		$this->db->query('SELECT c.*, ct.imageDir FROM compartment c INNER JOIN compartment_type ct ON ct.typeno=c.type WHERE c.trainId=:trainId');
 
@@ -241,7 +241,7 @@ class Admin_manage_schedule {
 		return $results;
 	}
 
-	public function getRouteId($trainId){
+	public function getRouteId($trainId){ // get route id
            $this->db->query('SELECT * FROM route WHERE trainId=:tid');
 
            $this->db->bind(':tid', $trainId);
@@ -250,7 +250,7 @@ class Admin_manage_schedule {
 		   return $results;
 	}
 
-	public function addNewStops($trainId,$routeId,$data){
+	public function addNewStops($trainId,$routeId,$data){ // add new schedule
            $flag;
 			foreach ($data['schedules'] as $schedule) {
 				$this->db->query('INSERT INTO route_station (routeId, stationID, stopNo, arrivaltime, departuretime, date, distance)
@@ -281,8 +281,8 @@ class Admin_manage_schedule {
 
 	}
 
-	public function getRoutes($routeId){
-		$this->db->query('SELECT * FROM route_station WHERE routeId=:routeId');
+	public function getRoutes($routeId){ // get data from route station
+		$this->db->query('SELECT * FROM route_station WHERE routeId=:routeId ORDER BY stopNo');
 
 		$this->db->bind(':routeId', $routeId);
 
@@ -290,7 +290,7 @@ class Admin_manage_schedule {
 		   return $results;
 	}
 
-	public function getRate ($trainId)
+	public function getRate ($trainId) // get rates
     {
         $this->db->query('SELECT f.* FROM fare f INNER JOIN train t ON f.rateID=f.rateID WHERE t.trainId=:trainId');
         $this->db->bind(":trainId", $trainId);

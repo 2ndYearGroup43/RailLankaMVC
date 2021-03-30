@@ -6,7 +6,7 @@ class Admin_manage_compartment {
 		$this->db = new Database;
 	}
 
-	public function create_compartment($data){
+	public function create_compartment($data){ // add compartment details
 		$flag;
 
 		foreach ($data['compartments'] as $comp) {
@@ -34,7 +34,7 @@ class Admin_manage_compartment {
         
 	}
 
-	    public function findCompartmentByCompartmentNo($trainId,$cno)
+	    public function findCompartmentByCompartmentNo($trainId,$cno) // find compartment by compartment number
     {
 
         $this->db->query('SELECT COUNT(*) as count FROM compartment WHERE compartmentNo = :cno AND trainId=:trainId');
@@ -52,7 +52,7 @@ class Admin_manage_compartment {
         }
     }
 
-    public function findTrainByTrainId($tid)
+    public function findTrainByTrainId($tid) // find train by train id
     {
 
         $this->db->query('SELECT COUNT(*) as count FROM compartment WHERE trainId = :tid');
@@ -69,7 +69,7 @@ class Admin_manage_compartment {
         }
     }
 
-    public function findCompartmentByType($tid)
+    public function findCompartmentByType($tid) // find compartment by compartment type
     {
 
         $this->db->query('SELECT COUNT(*) as count FROM compartment WHERE type = :tid');
@@ -86,13 +86,13 @@ class Admin_manage_compartment {
         }
     }
 
-	public function get(){
+	public function get(){ // get compartment numbers
 		$this->db->query('SELECT * FROM compartment ORDER BY trainId ASC');
 		$results = $this->db->resultSet();
 		return $results;
 	}
 
-	public function findTrain($trainId){
+	public function findTrain($trainId){ // get all from compartment
 		$this->db->query('SELECT * FROM compartment WHERE trainId=:trainId');
 
 		$this->db->bind(':trainId', $trainId);
@@ -101,25 +101,25 @@ class Admin_manage_compartment {
 		return $row;
 	}
 
-	public function getTrainId(){
+	public function getTrainId(){ // get train id from train
         $this->db->query("SELECT trainId FROM train");
         $results=$this->db->resultSet();
         return $results;
     }
 
-    public function getType(){
+    public function getType(){ // get type no from compartment type
         $this->db->query("SELECT typeNo FROM compartment_type");
         $results=$this->db->resultSet();
         return $results;
     }
 
-    public function getMax(){
+    public function getMax(){ // get max seats from compartment type
         $this->db->query("SELECT max FROM compartment_type");
         $results=$this->db->resultSet();
         return $results;
     }
 
-	public function edit($data){
+	public function edit($data){ // edit data of compartment
 		$this->db->query('UPDATE compartment SET trainId=:trainId, compartmentNo=:compartmentNo, class=:class, type=:type WHERE trainId=:trainId');
 
 		$this->db->bind(':trainId', $data['trainId']);
@@ -134,7 +134,7 @@ class Admin_manage_compartment {
 		}
 	}
 
-		public function views($data){
+		public function views($data){ // view data from compartment
 		$this->db->query('SELECT compartment SET trainId=:trainId, compartmentNo=:compartmentNo, class=:class, type=:type WHERE trainId=:trainId');
 
 		$this->db->bind(':trainId', $data['trainId']);
@@ -149,7 +149,7 @@ class Admin_manage_compartment {
 		}
 	}
 
-	public function delete($compartmentNo, $trainId){
+	public function delete($compartmentNo, $trainId){ // delete data from compartment
 		$this->db->query('DELETE FROM compartment WHERE trainId=:trainId AND compartmentNo=:compartmentNo');
 
 		$this->db->bind(':trainId',$trainId);
@@ -162,7 +162,7 @@ class Admin_manage_compartment {
 		}
 	}
 
-	public function findTrain2($trainId){
+	public function findTrain2($trainId){ // find station name
 		$this->db->query('SELECT t1.*,s1.name AS dest FROM 
 		(SELECT t.*, s.name AS src FROM train t JOIN station s ON  t.src_station=s.stationID WHERE trainId=:trainId) t1 
 		JOIN station s1 ON t1.dest_station=s1.stationID WHERE trainId=:trainId');
@@ -173,7 +173,7 @@ class Admin_manage_compartment {
 		return $row;
 	}
 
-	public function getScheduleDetails($trainId)
+	public function getScheduleDetails($trainId) // get schedule details
 	{
 		$this->db->query('SELECT t1.*,s1.name AS station FROM
 		 (SELECT r.trainId,s.* FROM route r INNER JOIN route_station s ON r.routeId=s.routeId WHERE r.trainId=:trainId) t1 
@@ -186,7 +186,7 @@ class Admin_manage_compartment {
 		 return $results;
 	}
 
-	public function getAvailableDays($trainId)
+	public function getAvailableDays($trainId) // get available days
 	{
 		$this->db->query('SELECT a.* FROM availabledays a INNER JOIN train t ON t.trainId=a.trainId WHERE a.trainId=:trainId');
 
@@ -197,7 +197,7 @@ class Admin_manage_compartment {
 	}
 
 
-	public function getCompartments($trainId)
+	public function getCompartments($trainId) // get compartment details
 	{
 		$this->db->query('SELECT c.*, ct.imageDir FROM compartment c INNER JOIN compartment_type ct ON ct.typeno=c.type WHERE c.trainId=:trainId ORDER BY c.compartmentNo');
 
@@ -208,7 +208,7 @@ class Admin_manage_compartment {
 	}
 
 
-	public function getCompartment($trainId, $cno)
+	public function getCompartment($trainId, $cno) // get compartment details
 	{
 		$this->db->query('SELECT * FROM compartment WHERE trainId=:trainId AND compartmentNo=:cno');
 
@@ -220,7 +220,7 @@ class Admin_manage_compartment {
 		return $row;
 	}
 
-	public function editSingle($data)	
+	public function editSingle($data)	// edit compartment details
 	{
 		$this->db->query('UPDATE compartment SET trainId=:trainId, compartmentNo=:compartmentNo, class=:class, type=:type WHERE trainId=:trainId AND compartmentNo=:cno');
 
@@ -237,7 +237,7 @@ class Admin_manage_compartment {
 		}
 	}
 
-	public function getNoofSeats($typeNo)
+	public function getNoofSeats($typeNo) //get number of seats
 	{
 		$this->db->query('SELECT * FROM compartment_type WHERE typeNo=:typeNo');
 

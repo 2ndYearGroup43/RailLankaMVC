@@ -5,7 +5,7 @@ class Admin_manage_compartments extends Controller{
 		$this->adminModel=$this->model('Admin_manage_compartment');
 	}
 
-	public function index(){
+	public function index(){ // index function
 		$manage_compartment=$this->adminModel->get();
 		$data = [
 			'manage_compartment'=>$manage_compartment
@@ -13,7 +13,7 @@ class Admin_manage_compartments extends Controller{
 		$this->view('admins/manage_compartment/index', $data);
 	}
 
-	public function create($trainId){
+	public function create($trainId){ // add compartment details
 		$types=$this->adminModel->getType();
 		$compartments=$this->adminModel->getCompartments($trainId);
 		$data = [
@@ -26,7 +26,7 @@ class Admin_manage_compartments extends Controller{
 
 		if($_SERVER['REQUEST_METHOD']=='POST'){
 			$a=json_decode($_POST['compartmentField']);
-			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+			$_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING); // filter the entered data
 			
 			
 			$data=[
@@ -55,7 +55,7 @@ class Admin_manage_compartments extends Controller{
 	}
 
 
-	public function viewCompartments($trainId)
+	public function viewCompartments($trainId) // view compartments
 	{
 		$manage_train=$this->adminModel->findTrain($trainId);
 		$schedules=$this->adminModel->getScheduleDetails($trainId);
@@ -76,7 +76,7 @@ class Admin_manage_compartments extends Controller{
 	}
 	
 
-	public function editSingle($trainId, $cno)
+	public function editSingle($trainId, $cno) // edit one compartment
 	{
 		$compartment=$this->adminModel->getCompartment($trainId,$cno);
 		$manage_compartment=$this->adminModel->findTrain($trainId);
@@ -146,7 +146,7 @@ class Admin_manage_compartments extends Controller{
 		$this->view('admins/manage_compartment/editSingle', $data);
 	}
 
-	public function edit($trainId){
+	public function edit($trainId){ // edit comaprtment
 
 		$manage_compartment=$this->adminModel->findTrain($trainId);
 		$types=$this->adminModel->getType();
@@ -226,7 +226,7 @@ class Admin_manage_compartments extends Controller{
 		$this->view('admins/manage_compartment/edit', $data);
 	}
 
-		public function views($trainId, $typeNo){
+		public function views($trainId, $typeNo){ // view compartment
 
 		$manage_compartment=$this->adminModel->findTrain($trainId);
 		$noofseats=$this->adminModel->getNoofSeats($typeNo);
@@ -257,7 +257,7 @@ class Admin_manage_compartments extends Controller{
 		$this->view('admins/manage_compartment/views', $data);
 	}
 
-	public function delete($compartmentNo, $trainId){
+	public function delete($compartmentNo, $trainId){ // delete compartment
 
 		$manage_compartment=$this->adminModel->findTrain($trainId);
 
@@ -280,7 +280,7 @@ class Admin_manage_compartments extends Controller{
 	}
 	}
 
-	public function addNewCompartment($trainId){
+	public function addNewCompartment($trainId){ // add new compartment
 		$types=$this->adminModel->getType();
         $compartments=$this->adminModel->getCompartments($trainId);
 

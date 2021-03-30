@@ -6,7 +6,7 @@
 			$this->db = new Database;
 		}
 
-	public function refund($data){
+	public function refund($data){ // add data to refund table
 		$this->db->query('INSERT INTO refund (refundDate, refundTime, ticketId, officerId) VALUES (:refundDate, :refundTime, :ticketId, :officerId)');
 
 		$this->db->bind(':refundDate', $data['refundDate']);		
@@ -21,20 +21,20 @@
 		}
 	}
 
-	public function findResofficerById($id){
+	public function findResofficerById($id){ // find resofficer details
             $this->db->query('SELECT m.*, u.email FROM reservation_officer m INNER JOIN users u ON m.userId=u.userId WHERE m.userId=:userId');
             $this->db->bind(":userId",$id);
             $row=$this->db->single();
             return $row; 
     }
 
-    public function getTicketId(){
+    public function getTicketId(){ // get distinct ticket id
         $this->db->query("SELECT DISTINCT ticketId FROM ticket ORDER BY ticketId ASC");
         $results=$this->db->resultSet();
         return $results;
     }
 
-    public function checkDate($ticketId){
+    public function checkDate($ticketId){ // check cancelled alert date
             $this->db->query('SELECT t.ticketId, r.journeyDate AS seat_date, c.cancellation_date as cancelled_date, c.alertId AS cancelled_alertId 
 			FROM ticket t 
 			INNER JOIN seat s 
@@ -52,7 +52,7 @@
 
     }
 
-    public function getPassengerEmail($ticketId){
+    public function getPassengerEmail($ticketId){ // get passenger email
             $this->db->query('SELECT u.email
 			FROM ticket t 
 			INNER JOIN passenger p 
@@ -67,7 +67,7 @@
 
     }
 
-    public function getUnregisteredPassengerEmail($ticketId){
+    public function getUnregisteredPassengerEmail($ticketId){ // get unregistered passenger email
             $this->db->query('SELECT up.email
             FROM ticket t 
             INNER JOIN unregistered_passenger up 
@@ -80,7 +80,7 @@
 
     }
 
-    public function getTicketDetails($ticketId){
+    public function getTicketDetails($ticketId){ // get ticket details
             $this->db->query('SELECT * FROM ticket WHERE ticketId=:ticketId');
 
             $this->db->bind(":ticketId",$ticketId);
@@ -89,7 +89,7 @@
 
     }
 
-    public function getRefundDetails($ticketId){
+    public function getRefundDetails($ticketId){ // get refund details
         $this->db->query('SELECT * FROM ticket WHERE ticketId=:ticketId');
 
         $this->db->bind(':ticketId', $ticketId);
@@ -98,7 +98,7 @@
         return $row;
     }
     
-    public function checkUnregisteredPassenger($ticketId){
+    public function checkUnregisteredPassenger($ticketId){ // check unregistered passenger
         $this->db->query('SELECT passengerId FROM ticket WHERE ticketId=:ticketId');
 
         $this->db->bind(':ticketId', $ticketId);
@@ -108,7 +108,7 @@
 
 	}
 
-    public function getJourneyDetails($ticketId){
+    public function getJourneyDetails($ticketId){ // get journey details
         $this->db->query('SELECT r.journeyDate, s1.name as srcName, s2.name as destName 
             FROM ticket ti 
             INNER JOIN reservation r 
@@ -127,7 +127,7 @@
         return $row;
     }
 
-    public function getTrainDetails($ticketId){
+    public function getTrainDetails($ticketId){ //get train details
         $this->db->query('SELECT tr.name
             FROM ticket t 
             INNER JOIN train tr
@@ -140,7 +140,7 @@
         return $row;
     }
 
-    public function checkTicketId($ticketId){
+    public function checkTicketId($ticketId){ // check ticket is already refunded
 
         $this->db->query('SELECT COUNT(*) as count FROM refund WHERE ticketId = :ticketId');
 
@@ -156,7 +156,7 @@
         }
     }
 
-    public function checkRescheduledAlertDate($ticketId){
+    public function checkRescheduledAlertDate($ticketId){ // check rescheduled alert date
             $this->db->query('SELECT t.ticketId, r.journeyDate AS seat_date, rs.olddate as rescheduled_date, rs.alertId AS rescheduled_alertId 
             FROM ticket t 
             INNER JOIN seat s 

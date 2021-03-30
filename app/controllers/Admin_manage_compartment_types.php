@@ -5,7 +5,7 @@ class Admin_manage_compartment_types extends Controller{
 		$this->adminModel=$this->model('Admin_manage_compartment_type');
 	}
 
-	public function index(){
+	public function index(){ // index function
 		$manage_compartment_type=$this->adminModel->get();
 		$data = [
 			'manage_compartment_type'=>$manage_compartment_type
@@ -13,7 +13,7 @@ class Admin_manage_compartment_types extends Controller{
 		$this->view('admins/manage_compartment_type/index', $data);
 	}
 
-	public function create(){
+	public function create(){ // add compartments types
 		$data = [
 			'typeNo'=>'',
 			'imageDir'=>'',
@@ -56,7 +56,7 @@ class Admin_manage_compartment_types extends Controller{
 
 	}
 
-		public function views($typeNo){
+		public function views($typeNo){ // view compartment type
 
 		$manage_compartment_type=$this->adminModel->findCompartmentType($typeNo);
 

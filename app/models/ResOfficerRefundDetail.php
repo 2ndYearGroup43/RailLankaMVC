@@ -6,14 +6,14 @@
 			$this->db = new Database;
 		}
 
-    public function views(){
+    public function views(){ // view all details from refund table
 		$this->db->query('SELECT * FROM refund');
 
 		$results=$this->db->resultSet();
         return $results;
 	}
 
-	public function getRefundDetails($ticketId){
+	public function getRefundDetails($ticketId){ // get refund details
         $this->db->query('SELECT * FROM ticket WHERE ticketId=:ticketId');
 
         $this->db->bind(':ticketId', $ticketId);
@@ -22,7 +22,7 @@
         return $row;
     }
 
-    public function getJourneyDetails($ticketId){
+    public function getJourneyDetails($ticketId){ // get journey details
         $this->db->query('SELECT r.JourneyDate, s1.name as srcName, s2.name as destName 
             FROM ticket ti 
             INNER JOIN reservation r 
@@ -41,7 +41,7 @@
         return $row;
     }
 
-    public function getTrainDetails($ticketId){
+    public function getTrainDetails($ticketId){ // get train details
         $this->db->query('SELECT tr.name
             FROM ticket t 
             INNER JOIN train tr
@@ -54,7 +54,7 @@
         return $row;
     }
 
-    public function getCompSeatDetails($ticketId){
+    public function getCompSeatDetails($ticketId){ // get compartment details
         $this->db->query('SELECT s.seatNo, s.compartmentNo
             FROM seat s 
             INNER JOIN ticket t

@@ -6,14 +6,14 @@
 			$this->db = new Database;
 		}
 
-	public function getStations()
+	public function getStations() // get station details
     {
         $this->db->query('SELECT * FROM station');
         $result=$this->db->resultSet();
         return $result;
     }
 
-    public function checkStation($station){
+    public function checkStation($station){ // check station details
         $this->db->query('SELECT COUNT(*) AS count FROM station WHERE stationID=:station');
         $this->db->bind(':station', $station);
         $row=$this->db->single();
@@ -24,7 +24,7 @@
         }
     }
 
-    public function searchSrcDestDate($data){
+    public function searchSrcDestDate($data){ // search with source, destination and date
         switch ($data['date']){
             case 'Monday':
                 $this->db->query('SELECT t.*, s1.name AS src_name, s2.name AS dest_name  FROM train t
@@ -121,7 +121,7 @@
 
     }
 
-    public function getTrain($trainId){
+    public function getTrain($trainId){ //get train details
         $this->db->query('
     SELECT t1.*, ss.name AS src_name FROM
     (SELECT t.*, sd.name AS dest_name FROM train t INNER JOIN station sd ON t.dest_station=sd.stationID WHERE t.trainId=:trainId)
@@ -131,21 +131,21 @@
         return $row;
     }
 
-    public function getSchedule($trainId){
+    public function getSchedule($trainId){ // get schedule details
         $this->db->query('SELECT t1.*,s.name FROM (SELECT rs.* FROM (SELECT * FROM route WHERE trainId=:trainId) rt INNER JOIN route_station rs ON rs.routeId=rt.routeId) t1 INNER JOIN station s on s.stationId=t1.stationId');
         $this->db->bind(':trainId', $trainId);
         $results=$this->db->resultSet();
         return $results;
     }
 
-    public function getDays($trainId){
+    public function getDays($trainId){ // get available days
         $this->db->query('SELECT * FROM availabledays WHERE trainid=:trainId');
         $this->db->bind(':trainId', $trainId);
         $row=$this->db->single();
         return $row;
     }
 
-    public function getRate ($trainId)
+    public function getRate ($trainId) // get rate ids
     {
         $this->db->query('SELECT f.* FROM fare f INNER JOIN train t ON f.rateID=f.rateID WHERE t.trainId=:trainId');
         $this->db->bind(":trainId", $trainId);
@@ -153,7 +153,7 @@
         return $row;
     }
 
-    public function getTicketDetails($trainId, $searchDate){
+    public function getTicketDetails($trainId, $searchDate){ // get ticket details
         $this->db->query('SELECT t.ticketId, t.reservationType, t.price, t.trainId, s.compartmentNo, s.seatNo, t.nic, s.classtype, t.journeyDate, tr.name 
             FROM ticket t 
             INNER JOIN seat s 

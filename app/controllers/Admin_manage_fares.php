@@ -5,7 +5,7 @@ class Admin_manage_fares extends Controller{
 		$this->adminModel=$this->model('Admin_manage_fare');
 	}
 
-	public function index(){
+	public function index(){ // index function
 		$manage_fare=$this->adminModel->get();
 		$data = [
 			'manage_fare'=>$manage_fare
@@ -13,7 +13,7 @@ class Admin_manage_fares extends Controller{
 		$this->view('admins/manage_fare/index', $data);
 	}
 
-	public function create(){
+	public function create(){ // add fare rates function
 		$data = [
 			'fclassbase'=>'',
 			'sclassbase'=>'',
@@ -122,7 +122,7 @@ class Admin_manage_fares extends Controller{
 
 	}
 
-	public function edit($rateID){
+	public function edit($rateID){ // edit rate details
 
 		$manage_fare=$this->adminModel->findFare($rateID);
 
@@ -177,22 +177,34 @@ class Admin_manage_fares extends Controller{
 
                 if(empty($data['rateID'])){
                 $data['rateIDError']='Please Enter the Rate ID.';
+
                 }
 
                 if(empty($data['fclassbase'])){
                     $data['fclassbaseError']='Please Enter the First Class.';
+
                 }
 
                 if(empty($data['sclassbase'])){
                     $data['sclassbaseError']='Please Enter the Second Class.';
+
                 }
 
                 if(empty($data['tclassbase'])){
                     $data['tclassbaseError']='Please Enter the Third Class.';
+
                 }
 
                 if(empty($data['fclassnormalbase'])){
                     $data['fclassnormalbaseError']='Please Enter the First Class.';
+
+                }
+                if(empty($data['sclassnormalbase'])){
+                    $data['sclassnormalbaseError']='Please Enter the Second Class.';
+                }
+                if(empty($data['tclassnormalbase'])){
+                    $data['tclassnormalbaseError']='Please Enter the Third Class.';
+
                 }
                 if(empty($data['sclassnormalbase'])){
                     $data['sclassnormalbaseError']='Please Enter the Second Class.';
@@ -204,6 +216,7 @@ class Admin_manage_fares extends Controller{
 
                 if(empty($data['distance'])){
                     $data['distanceError']='Please Enter the Distance.';
+
                 }
 
                 if(empty($data['rate'])){
@@ -227,7 +240,7 @@ class Admin_manage_fares extends Controller{
 		$this->view('admins/manage_fare/edit', $data);
 	}
 
-		public function views($rateID){
+		public function views($rateID){ // view rate details
 
 		$manage_fare=$this->adminModel->findFare($rateID);
 
@@ -260,7 +273,7 @@ class Admin_manage_fares extends Controller{
 		$this->view('admins/manage_fare/views', $data);
 	}
 
-	public function delete($rateID){
+	public function delete($rateID){ // delete rates
 
 		$manage_fare=$this->adminModel->findFare($rateID);
 

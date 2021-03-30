@@ -25,21 +25,6 @@
                             <td colspan="2"></td>
                         </tr>
                         <tr>
-                            <td>Passenger Name</td>
-                            <td><?php echo $data['passengers']->firstname?> <?php echo $data['passengers']->lastname?></td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr>
-                            <td>Passenger Mobile No</td>
-                            <td><?php echo $data['passengers']->mobileno?></td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr>
-                            <td>Passenger Address</td>
-                            <td><?php echo $data['passengers']->address_number?>, <?php echo $data['passengers']->street?>, <?php echo $data['passengers']->city?></td>
-                            <td colspan="2"></td>
-                        </tr>
-                        <tr>
                             <td>NIC: </td>
                             <td><?php echo $data['passengers']->nic?></td>
                             <td colspan="2"></td>

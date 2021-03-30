@@ -5,7 +5,7 @@ class Admin_manage_schedules extends Controller{
 		$this->adminModel=$this->model('Admin_manage_schedule');
 	}
 
-	public function index(){
+	public function index(){ // index function
 		$manage_schedule=$this->adminModel->get();
 		$data = [
 			'manage_schedule'=>$manage_schedule
@@ -13,7 +13,7 @@ class Admin_manage_schedules extends Controller{
 		$this->view('admins/manage_schedule/index', $data);
 	}
 
-	public function create(){
+	public function create(){ // add schedules
 		$routes=$this->adminModel->getRouteId();
 		$stations=$this->adminModel->getStationID();
 		$added_data=$this->adminModel->get();
@@ -91,7 +91,7 @@ class Admin_manage_schedules extends Controller{
 
 	}
 
-	public function addSchedule($trainId)
+	public function addSchedule($trainId) // add schedules
 	{
 
 		$stations=$this->adminModel->getStationID();
@@ -139,7 +139,7 @@ class Admin_manage_schedules extends Controller{
 
 	}
 
-	public function edit($routeId){
+	public function edit($routeId){ // edit schedules
 
 		$manage_schedule=$this->adminModel->findRoute($routeId);
 		$routes=$this->adminModel->getRouteId();
@@ -230,7 +230,7 @@ class Admin_manage_schedules extends Controller{
 		$this->view('admins/manage_schedule/edit', $data);
 	}
 
-		public function views($routeId){
+		public function views($routeId){ // view schedules
 
 		$manage_schedule=$this->adminModel->findRoute($routeId);
 
@@ -264,8 +264,8 @@ class Admin_manage_schedules extends Controller{
 		}
 		$this->view('admins/manage_schedule/views', $data);
 	}
-
-	public function delete($stationID, $trainId){
+ 
+	public function delete($stationID, $trainId){ // detele schedules
 
 		$manage_schedule=$this->adminModel->findRoute($stationID);
 		$route=$this->adminModel->getRouteId($trainId);
@@ -295,7 +295,7 @@ class Admin_manage_schedules extends Controller{
 	}
 
 
-	public function viewSchedule($trainId)
+	public function viewSchedule($trainId) // view schedules
 	{
 		$manage_train=$this->adminModel->findTrain($trainId);
 		$schedules=$this->adminModel->getScheduleDetails($trainId);
@@ -317,16 +317,18 @@ class Admin_manage_schedules extends Controller{
 		$this->view('admins/manage_schedule/viewSchedule', $data);
 	}
 
-	public function addNewStops($trainId,$routeId){
+	public function addNewStops($trainId,$routeId){ // add new schedules
 		$stations=$this->adminModel->getStationID();
 		$route=$this->adminModel->getRouteId($trainId);
-		$routeId=$route->routeId;
+        $routes=$this->adminModel->getRoutes($routeId);
+        $routeId=$route->routeId;
 
 		$data=[
 			'trainId'=>$trainId,
 			'routeId'=>$routeId,
 			'stations'=>$stations,
 			"scheduleError"=>'',
+            "currentSchedules"=>$routes,
 			"schedules"=>''
 		];
 
@@ -339,7 +341,8 @@ class Admin_manage_schedules extends Controller{
 				'trainId'=>$trainId,
 				'stations'=>$stations,
 				"scheduleError"=>'',
-				"schedules"=>$a
+                "currentSchedules"=>$routes,
+                "schedules"=>$a
 			];
 
 
@@ -365,7 +368,7 @@ class Admin_manage_schedules extends Controller{
 		$this->view('admins/manage_schedule/addNewStops', $data);
 	}
 
-		public function viewAllSchedule($trainId)
+		public function viewAllSchedule($trainId) // view all schedules
 	{
 		$route=$this->adminModel->getRouteId($trainId);
 		$routeId=$route->routeId;
@@ -381,7 +384,7 @@ class Admin_manage_schedules extends Controller{
 		$this->view('admins/manage_schedule/viewAllSchedules', $data);
 	}
 
-	public function editSingle($routeId, $stationID, $trainId){
+	public function editSingle($routeId, $stationID, $trainId){ // edit single schedule
 		$manage_schedule=$this->adminModel->findRoute($routeId);
 		$schedule=$this->adminModel->getSchedule($routeId, $stationID);
 		$route=$this->adminModel->getRouteId($trainId);
@@ -424,6 +427,7 @@ class Admin_manage_schedules extends Controller{
 			];
             $idValidation="/^[a-zA-Z0-9]*$/";
             $numberValidation="/^[0-9]*$/";
+            $distanceValidation="/^[0-9]+[.]*[0-9]{0,2}/";
 
                 if(empty($data['routeId'])){
                 $data['routeIdError']='Please Enter the Route ID.';
@@ -452,8 +456,9 @@ class Admin_manage_schedules extends Controller{
                 }elseif(!preg_match($numberValidation, $data['stopNo'])){
                     $data['stopNoError']="Stop Number can only contain numbers.";
                 }
-                if(empty($data['distance'])){
+                if(($data['distance'])==''){
                     $data['distanceError']='Please Enter the Last Name.';
+
                 }
 
                 if(empty($data['routeIdError']) && empty($data['stationIDError']) &&
@@ -470,7 +475,7 @@ class Admin_manage_schedules extends Controller{
 	 	
 	}
 
-	public function calPrices($schedules, $rate){
+	public function calPrices($schedules, $rate){ // calculate ticket prices
 
             $data= array();
             foreach ($schedules as $schedule){
