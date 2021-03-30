@@ -35,16 +35,16 @@
     }
 
     public function checkDate($ticketId){ // check cancelled alert date
-            $this->db->query('SELECT t.ticketId, r.journeyDate AS seat_date, c.cancellation_date as cancelled_date, c.alertId AS cancelled_alertId 
-			FROM ticket t 
-			INNER JOIN seat s 
-			ON t.ticketId=s.reservationNo 
-			INNER JOIN  alerts a 
-			ON t.trainId=a.trainId 
-			INNER JOIN  cancelled_alerts c 
-			ON a.alertId=c.alertId 
+            $this->db->query('SELECT COUNT(DISTINCT t.ticketId) AS count
+            FROM ticket t 
+            INNER JOIN seat s 
+            ON t.ticketId=s.reservationNo 
+            INNER JOIN  alerts a 
+            ON t.trainId=a.trainId 
+            INNER JOIN  cancelled_alerts c 
+            ON a.alertId=c.alertId 
             INNER JOIN reservation r
-            ON r.reservationNo=s.reservationNo WHERE t.ticketId=:ticketId');
+            ON r.reservationNo=s.reservationNo WHERE t.ticketId=:ticketId AND t.journeyDate=c.cancellation_date');
 
             $this->db->bind(":ticketId",$ticketId);
             $row=$this->db->single();
@@ -109,7 +109,7 @@
 	}
 
     public function getJourneyDetails($ticketId){ // get journey details
-        $this->db->query('SELECT r.journeyDate, s1.name as srcName, s2.name as destName 
+        $this->db->query('SELECT DISTINCT r.journeyDate, s1.name as srcName, s2.name as destName 
             FROM ticket ti 
             INNER JOIN reservation r 
             ON ti.trainId=r.trainId
@@ -157,16 +157,16 @@
     }
 
     public function checkRescheduledAlertDate($ticketId){ // check rescheduled alert date
-            $this->db->query('SELECT t.ticketId, r.journeyDate AS seat_date, rs.olddate as rescheduled_date, rs.alertId AS rescheduled_alertId 
+            $this->db->query('SELECT COUNT(DISTINCT t.ticketId) AS count
             FROM ticket t 
             INNER JOIN seat s 
             ON t.ticketId=s.reservationNo 
             INNER JOIN  alerts a 
             ON t.trainId=a.trainId 
-            INNER JOIN   rescheduled_alerts rs 
-            ON a.alertId=rs.alertId 
+            INNER JOIN  rescheduled_alerts c 
+            ON a.alertId=c.alertId 
             INNER JOIN reservation r
-            ON r.reservationNo=s.reservationNo WHERE t.ticketId=:ticketId');
+            ON r.reservationNo=s.reservationNo WHERE t.ticketId=:ticketId AND t.journeyDate=c.olddate');
 
             $this->db->bind(":ticketId",$ticketId);
             $row=$this->db->single();

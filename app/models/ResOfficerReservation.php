@@ -436,7 +436,7 @@
                 return false;
             }
         }
-
+//MySQL the TIMESTAMPDIFF() returns a value after subtracting a datetime expression from another.
         public function checkSeat($date, $trainId, $compNo, $seatNo){ // function to check seat
 
             $this->db->query('SELECT r.reservationNo, s.seatId, s.status, r.res_time, TIMESTAMPDIFF(SECOND,r.res_time, NOW()) AS dif FROM seat s INNER JOIN reservation r ON r.reservationNo=s.reservationNo WHERE s.trainid=:trainId AND s.compartmentNo=:compNo AND s.seatNo=:seatNo AND r.journeyDate=:journeyDate');

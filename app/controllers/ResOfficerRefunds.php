@@ -44,8 +44,6 @@
             $passenger=$this->resofficerRefundModel->checkUnregisteredPassenger($data['ticketId']); // check unregistered passenger details
             $journeys=$this->resofficerRefundModel->getJourneyDetails($data['ticketId']); // get journey details
             $trains=$this->resofficerRefundModel->getTrainDetails($data['ticketId']); // get train details
-            $dates->seat_date;
-            $dates->cancelled_date;
 
             if(empty($passenger->passengerId)){
                 $emails=$this->resofficerRefundModel->getUnregisteredPassengerEmail($data['ticketId']);
@@ -56,9 +54,9 @@
             if(empty($data['ticketId'])){
                 $data['ticketIdError']='Please Enter the ticket ID.';
                 }
-            elseif(($rescheduledDate->seat_date!=$rescheduledDate->rescheduled_date) && $dates->seat_date!=$dates->cancelled_date){
-                $data['ticketIdError']='This Ticket does not belong to a rescheduled or cancelled train.';
-                }    
+            elseif(($rescheduledDate->count==0) && ($dates->count==0)){
+                $data['ticketIdError']='This Ticket does not belong to a cancelled or rescheduled train.';
+                }       
             elseif($this->resofficerRefundModel->checkTicketId($data['ticketId'])) {
                 $data['ticketIdError']='This Ticket has already refunded.';  
                 }    
