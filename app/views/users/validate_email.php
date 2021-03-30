@@ -1,12 +1,5 @@
 <?php 
 
-	//echo out databse info to the screen
-	// foreach ($data['users'] as $user) {
-	// 	echo "Information: " . $user->user_name . $user->user_email;
-	// 	echo "<br>";
-	// }
-	
-
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>

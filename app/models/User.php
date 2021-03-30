@@ -105,7 +105,6 @@
 		//find user email
 		public function findUserByEmail($email) {
 			//prepared statemnet
-			var_dump($email);
 			$this->db->query('SELECT * FROM users WHERE email = :email'); //check all tables!!!!
 
 			//Email param will be binded with the email variable

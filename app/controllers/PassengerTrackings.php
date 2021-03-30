@@ -33,7 +33,7 @@
 	        	$data = [
 		        	'src'=>trim($_POST['source']),
 		        	'dest'=>trim($_POST['destination']),
-		        	'date'=>trim($_POST['date']),
+		        	'date'=>date("Y-m-d"),
 		        	'deptTime'=>trim($_POST['time']),
 					'trains'=>'',
 					'stations'=>$stations,

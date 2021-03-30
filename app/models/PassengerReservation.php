@@ -426,25 +426,6 @@
 			return $results;
 		}
 
-		//Function to check if the selected seat(train, compartment, seat, date) is already selected
-		// public function checkSeat($date, $trainId, $compNo, $seatNo){
-
-		// 	$this->db->query('SELECT COUNT(*) AS count FROM seat WHERE trainid=:trainId AND compartmentNo=:compNo AND seatNo=:seatNo AND journeyDate=:journeyDate');
-		// 	$this->db->bind(':trainId',$trainId);
-		// 	$this->db->bind(':compNo',$compNo);
-		// 	$this->db->bind(':seatNo',$seatNo);
-		// 	$this->db->bind(':journeyDate',$date);
-		// 	$results=array();
-		// 	$results=$this->db->resultSet();
-		// 	$count = (int) $results[0]->count;
-
-		// 	if($count > 0){
-		// 		return false;
-		// 	}else{
-		// 		return true;
-		// 	}
-			
-		// }
 
 		//FUnction to create a reservation - CREATE RESERVATION
 		public function addReservation($data){
@@ -683,10 +664,6 @@
 			$this->db->query("UPDATE seat SET status='booked' WHERE reservationNo=:resNo AND status='selected'");
 
 			//bind values
-			// $this->db->bind(':trainid', $data['trainid']);
-			// $this->db->bind(':compNo', $data['compartment']);
-			// $this->db->bind(':label', $data['label']);
-			// $this->db->bind(':jdate', $data['journeyDate']);
 			$this->db->bind(':resNo', $resNo);
 
 			//Execute function
@@ -709,9 +686,6 @@
 		public function getBookedSeats($resNo){
 
 			$this->db->query("SELECT s.seatNo, s.compartmentNo, s.classtype, s.price FROM seat s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE s.reservationNo=:resNo AND s.status='booked'");
-			// $this->db->bind(':id',$id);
-			// $this->db->bind(':nic',$nic);
-			// $this->db->bind(':jdate',$date);
 			$this->db->bind(':resNo',$resNo);
 			$results = $this->db->resultSet();
 			return $results;
@@ -721,9 +695,6 @@
 		public function checkReservationSeats($resNo){
 
 			$this->db->query("SELECT s.seatId FROM seat s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE r.reservationNo=:resNo AND r.status='P'");
-			// $this->db->bind(':id',$id);
-			// $this->db->bind(':nic',$nic);
-			// $this->db->bind(':jdate',$date);
 			$this->db->bind(':resNo',$resNo);
 			$results = $this->db->resultSet();
 			return $results;
@@ -734,30 +705,11 @@
 		public function getReservationStatus($resNo){
 
 			$this->db->query("SELECT r.status FROM reservation r WHERE r.reservationNo=:resNo");
-			// $this->db->bind(':id',$id);
-			// $this->db->bind(':nic',$nic);
-			// $this->db->bind(':jdate',$date);
 			$this->db->bind(':resNo',$resNo);
 			$results = $this->db->single();
 			return $results;
 		}
 
-
-
-		//Passenger runs out of time 
-		// public function reservationTimeout($resNo,$timenow){
-
-		// 	$this->db->query("UPDATE reservation SET status='T', comp_time=:timenow WHERE reservationNo=:resNo");
-		// 	$this->db->bind(':resNo', $resNo);
-		// 	$this->db->bind(':timenow', $timenow);
-
-		// 	if ($this->db->execute()) {
-		// 		return true;		
-		// 	}else{
-		// 		return false;
-		// 	}		
-
-		// }
 
 		//Add reservation details to the ticket table - BOOKING CONF
 		public function addTicket($reservation, $nowDate, $nowTime, $nic){
@@ -815,6 +767,15 @@
 			} else {
 				return false;
 			}
+		}
+
+		//function to get the starttime of a train
+		public function getDeptTime($id){
+
+			$this->db->query("SELECT starttime FROM train WHERE trainId=:id");
+			$this->db->bind(':id',$id);
+			$results = $this->db->single();
+			return $results;
 		}
 
 		public function testmethod($id){

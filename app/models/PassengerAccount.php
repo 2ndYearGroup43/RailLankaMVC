@@ -96,7 +96,7 @@
 
         public function getTickets($id){
 
-            $this->db->query("SELECT r.*, s1.name AS srcName, s2.name AS destName FROM reservation r INNER JOIN train t ON r.trainId=t.trainId INNER JOIN station s1 ON s1.stationID=t.src_station INNER JOIN station s2 ON s2.stationID=t.dest_station WHERE r.passengerId=:id AND r.status='S' AND r.journeyDate >= CURRENT_DATE");
+            $this->db->query("SELECT r.*, s1.name AS srcName, s2.name AS destName FROM reservation r INNER JOIN train t ON r.trainId=t.trainId INNER JOIN station s1 ON s1.stationID=t.src_station INNER JOIN station s2 ON s2.stationID=t.dest_station WHERE r.passengerId=:id AND r.status='S' AND r.journeyDate >= CURRENT_DATE AND r.reservationNo NOT IN (SELECT ticketId FROM refund )");
 
             //Email param will be binded with the email variable
             $this->db->bind(':id', $id);

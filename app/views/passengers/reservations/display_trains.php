@@ -1,20 +1,8 @@
 <?php 
-
-	//echo out databse info to the screen
-	// foreach ($data['users'] as $user) {
-	// 	echo "Information: " . $user->user_name . $user->user_email;
-	// 	echo "<br>";
-	// }
-	
-	// isPassenger();
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($_SESSION); ?>
-<br>
-<?php var_dump($data['trains']); ?> -->
-<!-- <?php var_dump($data['unavailable']); ?> -->
 <!-- search results -->
 	<div class="body-section">
 		<a href="#" id="pop-up" class="btn pop-up-btn">Search <i class="fa fa-search" aria-hidden="true"></i></a>
@@ -28,8 +16,8 @@
 			<div class="img-container">
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 			</div>
-			<h1 class="title2">Search Results: <label style="font-size: 18px"><?php echo $data['dateFull']; ?></label></h1>
-			<!-- <div class=form-container> -->
+			<h1 class="title">Search Results: <label style="font-size: 18px"><?php echo $data['dateFull']; ?></label></h1>
+
 				<table class="content-table">
 					<thead>
 						<tr>
@@ -60,19 +48,8 @@
 						<?php endforeach; ?>
 					</tbody>
 				</table>
-				<br>
-				<div class="pagination">
-					<ul>
-						<li><a href="#" class="prev">Prev</a></li>
-						<li class="pageNumber active"><a href="<?php echo URLROOT; ?>/passengerSchedules/displayTrains">1</a></li>
-						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/passengerSchedules/displayTrains">2</a></li>
-						<li class="pageNumber"><a href="<?php echo URLROOT; ?>/passengerSchedules/displayTrains">3</a></li>
-						<li><a href="<?php echo URLROOT; ?>/passengerSchedules/displayTrains" class="next">Next</a></li>
-					</ul>
-				</div>
-				<br>		
-				<!-- <button onclick="location.href='<?php echo URLROOT; ?>/passengerSchedules/search'" type="submit" class="btn blue-btn back-btn">Back</button> -->
-		</div>
+				<center><button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/search'" class="btn blue-btn back-btn"><i class="fa fa-long-arrow-left"></i > Back</button></center>		
+			</div>
 		<div class="content-row">
 		</div>
 		<div class="content-row">
@@ -88,103 +65,60 @@
 				<div class="img-container">
 					<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 				</div>  
-				<!-- <h1 class="title" id="title4">Search Trains</h1> -->
-					    <form action="<?php echo URLROOT;?>/passengerReservations/search?>" method="post">
-						    <div class="acc-form">
+				
+				<form action="<?php echo URLROOT;?>/passengerReservations/search?>" method="post">
+				   <div class="acc-form">
 
-						    	<label>Source Station</label>
-						    	<div class="acc-inputfield">
-						          	<input type="text" name="source" list="stationList" class="acc-input">
-									<datalist id="stationList">
-										<?php foreach ($data['stations'] as $station):?>
-											<option value="<?php echo $station->stationName; ?>">
-										<?php endforeach ?>
-									</datalist>
-						          	<span class="invalidFeedback">
-			                            <?php echo $data['srcError'];?>
-			                        </span>
-						       	</div> 
+					   	<label>Source Station</label>
+					   	<div class="acc-inputfield">
+					       	<input type="text" name="source" list="stationList" class="acc-input">
+							<datalist id="stationList">
+								<?php foreach ($data['stations'] as $station):?>
+									<option value="<?php echo $station->stationName; ?>">
+								<?php endforeach ?>
+							</datalist>
+					       	<span class="invalidFeedback">
+				                <?php echo $data['srcError'];?>
+				    		</span>
+						</div> 
 
-						       	<label>Destination Station</label>
-						       	<div class="acc-inputfield">
-						          	<input type="text" name="destination" list="stationList" class="acc-input">
-									<datalist id="stationList">
-										<?php foreach ($data['stations'] as $station):?>
-											<option value="<?php echo $station->stationName; ?>">
-										<?php endforeach ?>
-									</datalist>
-						          	<span class="invalidFeedback">
-			                            <?php echo $data['destError'];?>
-			                        </span>
-						       	</div>   
+						<label>Destination Station</label>
+						<div class="acc-inputfield">
+						   	<input type="text" name="destination" list="stationList" class="acc-input">
+							<datalist id="stationList">
+								<?php foreach ($data['stations'] as $station):?>
+									<option value="<?php echo $station->stationName; ?>">
+								<?php endforeach ?>
+							</datalist>
+							<span class="invalidFeedback">
+				                <?php echo $data['destError'];?>
+				            </span>
+						</div>   
 
-						       	<label>Departure Date</label>
-						       	<div class="acc-inputfield">
-						          	<input type="date" name="date" min="<?php echo date("Y-m-d"); ?>" max="<?php echo date("Y-m-d", strtotime("+2 months")); ?>" class="acc-input">
-						          	<span class="invalidFeedback">
-			                            <?php echo $data['dateError'];?>
-			                        </span>
-						       	</div>  
+						<label>Departure Date</label>
+						<div class="acc-inputfield">
+						   	<input type="date" name="date" min="<?php echo date("Y-m-d"); ?>" max="<?php echo date("Y-m-d", strtotime("+2 months")); ?>" class="acc-input">
+						   	<span class="invalidFeedback">
+				                <?php echo $data['dateError'];?>
+				            </span>
+						</div>  
 
-						      	<label>Departure Time</label>
-						      	<div class="acc-inputfield">
-						          	<input type="time" name="time" class="acc-input">
-						          	<span class="invalidFeedback">
-			                            <?php echo $data['timeError'];?>
-			                        </span>
-						       	</div> 
-						       	
-						    	<div class="acc-inputfield-flex">
-						        	<input type="submit" name="search" class="acc-btn">
-						      	</div>
-						    </div>
-						</form>
+						<label>Departure Time</label>
+						<div class="acc-inputfield">
+						   	<input type="time" name="time" class="acc-input">
+						   	<span class="invalidFeedback">
+				                <?php echo $data['timeError'];?>
+				            </span>
+						</div> 
+							       	
+						<div class="acc-inputfield-flex">
+						  	<input type="submit" name="search" class="acc-btn">
+						</div>
 					</div>
+				</form>
+			</div>
 		</div>
-			<!-- <div class="notices-container">
-				<div class="mini-schedule">
-					<div class="img-container">
-						<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
-					</div>
-					<br>
-					<form action="#">
-						<div class="form-row">
-							<div class="mini-input-data">
-								<label for="src">From</label>
-                                <select name="src" id="src">
-                                    <option value="Fort">Fort</option>
-                                    <option value="Kandy">Kandy</option>
-                                    <option value="Galle">Galle</option>
-                                    <option value="Baadulla">Baadulla</option>
-                                </select>
-							</div>
-							<div class="mini-input-data">
-								<label for="src">To</label>
-                                <select name="src" id="src">
-                                   	<option value="Fort">Fort</option>
-                                   	<option value="Kandy">Kandy</option>
-                                   	<option value="Galle">Galle</option>
-                                   	<option value="Baadulla">Baadulla</option>
-                                </select>
-                            </div>	
-						</div>
-						<div class="form-row">
-							<div class="mini-input-data">
-								<label for="date">Date</label>
-                            	<input type="date" id="date" >
-                            </div>
-						</div>
-						<div class="form-row">
-							<div class="mini-input-data">
-								<label for="time">Time</label>
-                            	<input type="time" id="time" >
-                            </div>
-						</div>
-					</form>
-					<center><button onclick="location.href='<?php echo URLROOT; ?>/passengerSchedules/displayTrains'" class="btn blue-btn">Go <i class="fa fa-long-arrow-right"></i></button></center>
-				</div>
-			</div> -->
-		</div>
+	</div>
 	</div>
 	<!-- end of pop up -->
 
@@ -204,31 +138,77 @@
 	</div>
 	<!-- end of alert info popup -->
 
+	<!-- alert error pop up -->
+	<div class="flash-alert-box" id="alert-error-popup">
+		<div class="alert-box-content">
+			<div class="alert-icon">
+				<i class="fa fa-exclamation" aria-hidden="true"></i>
+			</div>
+			<div class="alert-body">
+				<h3>Sorry!</h3>
+				<p>Reservation are allowed only up to 1 hour before the journey</p>
+			</div>
+			<button type="button" class="close-alert">&times;</button>
+		</div>
+	</div>
+	<!-- end of alert warning popup -->
+
 	<!-- js for flash message -->
 	<script>
 		const alertBtn2 = document.querySelectorAll(".alert-btn2");
 		alertBtn2.forEach(function(btn){
 			btn.addEventListener("click", function(){
-				const target = this.getAttribute("data-target");
+				const jdate = "<?php echo $data['dateFull'];?>";
 				const trainid = this.getAttribute("id");
-				const alertBox = document.getElementById(target)
-				alertBox.classList.add("alert-box-show");
+				const target = this.getAttribute("data-target");
+				const alertBox = document.getElementById(target);
+				const errorAlertBox = document.getElementById("alert-error-popup");
 
-				const closeAlert = alertBox.querySelector(".close-alert");
-				closeAlert.addEventListener("click",function(){
-					alertBox.classList.remove("alert-box-show");
-				});
+				$.ajax({
+					url:"<?php echo URLROOT; ?>/passengerReservations/checkDeptTime",
+					type:"POST",
+					data: {'trainid':trainid, 'jdate':jdate},
+					success: function(returndata){
+						if(returndata == 1){
+							alertBox.classList.add("alert-box-show");
 
-				const proceedAlert = alertBox.querySelector(".proceed-alert");
-				proceedAlert.addEventListener("click",function(){
-					window.location.href="<?php echo URLROOT; ?>/passengerReservations/createReservation?id="+trainid+"&date=<?php echo $data['dateFull'];?>";
-				});
+							const closeAlert = alertBox.querySelector(".close-alert");
+								closeAlert.addEventListener("click",function(){
+								alertBox.classList.remove("alert-box-show");
+							});
 
-				alertBox.addEventListener("click",function(event){
-					if(event.target === this){
-						alertBox.classList.remove("alert-box-show");
+							const proceedAlert = alertBox.querySelector(".proceed-alert");
+								proceedAlert.addEventListener("click",function(){
+									window.location.href="<?php echo URLROOT; ?>/passengerReservations/createReservation?id="+trainid+"&date=<?php echo $data['dateFull'];?>";
+							});
+
+							alertBox.addEventListener("click",function(event){
+								if(event.target === this){
+									alertBox.classList.remove("alert-box-show");
+								}
+							});
+
+						}else{
+
+							errorAlertBox.classList.add("alert-box-show");
+
+							const closeAlert = errorAlertBox.querySelector(".close-alert");
+							closeAlert.addEventListener("click",function(){
+								errorAlertBox.classList.remove("alert-box-show");
+							});
+
+							errorAlertBox.addEventListener("click",function(event){
+								if(event.target === this){
+									errorAlertBox.classList.remove("alert-box-show");
+								}
+							});
+							
+						}
+					},
+					error: function(){
+						alert('error');
 					}
-				});
+				})
 			});
 		});
 
@@ -249,21 +229,6 @@
 
 	</script>
 	<!-- end of js for pop up -->
-
-	<!-- js for pagination --> 
-	<script>
-		$(document).ready(function(){
-			$('.next').click(function(){
-				$('.pagination').find('.pageNumber.active').next().addClass('active');
-				$('.pagination').find('.pageNumber.active').prev().removeClass('active');
-			});
-			$('.prev').click(function(){
-				$('.pagination').find('.pageNumber.active').prev().addClass('active');
-				$('.pagination').find('.pageNumber.active').next().removeClass('active');
-			});
-		});
-	</script>
-	<!-- end of js for pagination -->
 
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

@@ -13,7 +13,7 @@
 		public function register() {
 
 			$data = [
-				// 'username' => '',
+				
 				'nic' => '',
 				'passport' => '',
 				'email' => '',
@@ -65,9 +65,9 @@
 
 				$passportValidation = "/^([a-zA-Z0-9]{8}|[a-zA-Z0-9]{9})$/";
 				$nicValidation = "/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/";
-				$nameValidation = "/^[a-zA-Z0-9]*$/";
-				$passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
-                $mobileValidation="/^[0-9]{10}+$/";
+				$nameValidation = "/^[a-zA-Z]*$/";
+				$passwordValidation =  "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/";  
+                $mobileValidation="/^[0-9]{10}$/";
 
 
 				//check if either NIC field or passport field is filled
@@ -100,6 +100,22 @@
 						// elseif ($this->userModel->findPassengerByNIC($data['nic'])) {
 						// 		$data['passportError'] = 'passport is already registered.';
 						// }
+					}elseif(!empty($data['nic']) && !empty($data['passport'])){
+
+						if (!preg_match($nicValidation, $data['nic'])) {
+							//$data['nicError'] = 'Invalid NIC number.';
+							//check if nic is already registered
+							if (!preg_match($passportValidation, $data['passport'])) {
+								$data['passportError'] = 'Invalid Passport number.';
+								$data['nicError'] = 'Invalid NIC number.';
+								//check if passport is already registered
+							}else{
+								$data['auth']=$data['passport'];
+							}
+						} else{
+							$data['auth']=$data['nic'];
+						}
+						
 					}
 				}
 				
@@ -138,10 +154,10 @@
 				//Validate password on length and numeric values 
 				if (empty($data['password'])) {
 					$data['passwordError'] = 'Please enter the password.';
-				} elseif(strlen($data['password']) < 6){
+				} elseif(strlen($data['password']) < 8){
 					$data['passwordError'] = 'Password must be at least 8 characters.';
-				} elseif (preg_match($passwordValidation, $data['password'])) {
-					$data['passwordError'] = 'The password must have at least one numeric value.';
+				} elseif (!preg_match($passwordValidation, $data['password'])) {
+					$data['passwordError'] = 'The password must have at least one numeric value and one letter.';
 				}
 
 				//Validate confirm password
@@ -156,7 +172,7 @@
 				if(empty($data['mobile'])){
                     $data['mobileError']='Please Enter the Mobile No.';
                 }elseif(!preg_match($mobileValidation, $data['mobile'])){
-                    $data['mobileError']="Name can only contain numbers and +.";
+                    $data['mobileError']="Mobile number can only contain numbers";
                 }
 
 				//make sure that errors are empty
@@ -250,16 +266,17 @@
 			}
 
 			$code = $_GET["code"];
+			
 
 			// $getEmailQuery = mysqli_query($conn, "SELECT email FROM resetpasswords WHERE code='$code'" );
 			$result = (array)$this->userModel->findUserIdByCode($code);
-			// var_dump($result);
+		
 			
 			if (empty($result)) {
 				exit("Can't find page");
 			}else{
 				
-				if($this->userModel->verifyEmail($result['userId'])){
+				if($this->userModel->verifyEmail($result['userid'])){
 					
 					if($this->userModel->deleteVerifyCode($code)){
 						header('location: ' . URLROOT . '/users/login');
@@ -490,7 +507,7 @@
 
 					        // Set email format to HTML
 					        $mail->Subject = 'Your Password Request Link';
-					        $mail->Body    = "<h1>You requested a password change</h1> Clink on <a href='$url'>this link</a> to reset your password</h1>";
+					        $mail->Body    = "<h1>You requested a password change</h1> Clink on <a href='$url'>this link</a> to reset your password</h1><br><p>Thank You,</p><p>RailLanka Team</p>";
 					        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
 					        $mail->send();
@@ -532,7 +549,7 @@
 
 			// $getEmailQuery = mysqli_query($conn, "SELECT email FROM resetpasswords WHERE code='$code'" );
 			$result = (array)$this->userModel->findEmailByCode($code);
-			var_dump($result);
+			// var_dump($result);
 			
 			if (empty($result)) {
 				exit("Can't find page");
@@ -552,20 +569,20 @@
 					'confirmPasswordError' => ''
 				];
 
-				$passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
+				$passwordValidation = "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/";  
 
 				//Validate password on length and numeric values 
 				if (empty($data['password'])) {
-					$data['passwordError'] = 'Please enter password.';
+					$data['passwordError'] = 'Please enter the password.';
 				} elseif(strlen($data['password']) < 6){
 					$data['passwordError'] = 'Password must be at least 8 characters.';
-				} elseif (preg_match($passwordValidation, $data['password'])) {
-					$data['passwordError'] = 'The password must have at least one numeric value.';
+				} elseif (!preg_match($passwordValidation, $data['password'])) {
+					$data['passwordError'] = 'The password must have at least one numeric value and one letter';
 				}
 
 				//Validate confirm password
 				if (empty($data['confirmPassword'])) {
-					$data['confirmPasswordError'] = 'Please enter password.';
+					$data['confirmPasswordError'] = 'Please enter the password.';
 				} else {
 					if ($data['password'] != $data['confirmPassword']) {
 						$data['confirmPasswordError'] = 'Passwords do not match!.';

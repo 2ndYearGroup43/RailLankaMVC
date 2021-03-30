@@ -4,8 +4,6 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($_SESSION); ?>  -->
-
 <!-- Further Details -->
 	<div class="body-section"  id="e-ticket">
 		<div class="content-row">
@@ -77,16 +75,6 @@
 						<p><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $data['duration']->format('%h hour(s) %i minute(s)'); ?></p>
 						<p>Train to <?php echo $data['train']->destName; ?></p>
 					</div>
-					<!-- <div class="journey-seats">
-						<p>Train ID: <?php echo $data['train']->trainId; ?></p>
-						<p>Seat Numbers:</p>
-
-							<ul>
-								<li>Compartment A :  21 , 22</li>
-								<li>Compartment C :  33 , 34</li>
-							</ul> 
-						
-					</div> -->
 				</div>
 			</div>
 	

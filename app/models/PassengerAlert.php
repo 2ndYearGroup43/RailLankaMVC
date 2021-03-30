@@ -555,4 +555,20 @@
             return $results;
 		}
 
+		public function checkAlertIdAlert($alertId){
+			$this->db->query('SELECT * FROM alerts WHERE alertId=:alertId');
+			$this->db->bind(':alertId',$alertId);
+            $results = $this->db->resultSet();
+            return $results;
+		}
+
+		public function checkTrainIdAlert($trainId){
+			$this->db->query('SELECT * FROM alerts WHERE trainId=:trainId');
+			$this->db->bind(':trainId',$trainId);
+            $results = $this->db->resultSet();
+            return $results;
+		}
+
+
+
 	}

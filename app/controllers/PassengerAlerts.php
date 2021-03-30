@@ -200,9 +200,25 @@
 				{
 					$searchField = $_GET['searchField'];
 					$searchVal = $_GET['searchVal'];
+
 				} else {
 					$searchVal = '';
 					$searchField = '';
+				}
+			}
+
+			//In case user enters values with wrong fields 
+			if($searchField=='alertId'){
+			
+				$result = $this->passengerAlertModel->checkAlertIdAlert($searchField);
+				if(empty($result)){
+					$searchVal = '';
+				}
+			}elseif($searchField=='trainId'){
+			
+				$result = $this->passengerAlertModel->checkTrainIdAlert($searchField);
+				if(empty($result)){
+					$searchVal = '';
 				}
 			}
 
