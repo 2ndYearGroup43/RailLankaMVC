@@ -437,7 +437,8 @@
                 'nic'=>$account->nic,
 
             ];
-     
+                $this->resofficerReservationModel->updateReservationStatus($resNo);
+                $this->resofficerReservationModel->confirmReservation($resNo);  
                 if ($this->resofficerReservationModel->create_ticket($data)){
 
                     $this->informPassengerOftheReservation($account->email, $resNo, $total, $train->trainId, $train->name, $account->nic, $reservation->journeyDate);
@@ -455,8 +456,8 @@
 
             }
 
-            $seats=$this->resofficerReservationModel->getSelectedSeats($resNo);
-            $summary=$this->resofficerReservationModel->getSummary($resNo);
+            $seats=$this->resofficerReservationModel->getFinalBookedSeats($resNo);
+            $summary=$this->resofficerReservationModel->getBookingSummary($resNo);
             $count=$summary[0]->count;
             $total=$summary[0]->total;
             $reservation=$this->resofficerReservationModel->getReservationDetails($resNo);
@@ -479,8 +480,7 @@
                 'endTime'=>$endTime,
                 'duration'=>$duration,
             ];
-        $this->resofficerReservationModel->updateReservationStatus($resNo);
-        $this->resofficerReservationModel->confirmReservation($resNo);  
+        
         $this->view('resofficers/reservations/booking_conf', $data);
         
     }
