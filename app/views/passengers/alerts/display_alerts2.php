@@ -11,10 +11,6 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($data); ?>  -->
-<!-- <br>	
-<?php var_dump($data['alerts']); ?>  -->
-
 <!-- display all alerts -->
 	<div class="body-section">
 		<div class="content-row">
@@ -23,9 +19,9 @@
 		</div>
 
 		<div class="table-container">
-			<!-- <div class="img-container">
+			<div class="img-container">
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
-			</div> -->
+			</div> 
 			<h1 class="title alert-title">Alerts</h1>
 
 				<div class="row alerts-row">
@@ -44,7 +40,7 @@
 		                    	 <span>
 		                        	<select name="searchField" id="searchField">
 		                            <?php foreach ($data['fields'] as $field ):?>
-		                                <?php if($field->columns!='moderatorId' AND $field->columns!='time' AND $field->columns!='issueType'):?>
+		                                <?php if($field->columns!='moderatorId' AND $field->columns!='time' AND $field->columns!='issuetype'):?>
 		                                    <option value="<?php echo $field->columns?>"><?php echo $field->columns?></option>
 		                                <?php endif;?>
 		                            <?php endforeach;?>

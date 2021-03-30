@@ -1,18 +1,8 @@
 <?php 
-
-	//echo out databse info to the screen
-	// foreach ($data['users'] as $user) {
-	// 	echo "Information: " . $user->user_name . $user->user_email;
-	// 	echo "<br>";
-	// }
-	
-	// isPassenger();
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($_SESSION); ?>  -->
-<!-- <?php var_dump($data); ?> -->
 <!-- tickets results -->
 	<div class="body-section">
 		<div class="content-row">
@@ -20,9 +10,9 @@
 		<div class="content-row">
 		</div>
 		<div class="table-container">
-			<!-- <div class="img-container">
+			<div class="img-container">
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
-			</div> -->
+			</div> 
 			<h1 class="title">My Tickets</h1>
 				<table class="content-table">
 					<thead>
@@ -50,7 +40,7 @@
 						<?php endforeach; ?>
 					</tbody>
 				</table>
-			<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayAccount'" type="submit" class="btn blue-btn back-btn"><span>Back</span></button>
+			<center><button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayAccount'" type="submit" class="btn blue-btn back-btn"><i class="fa fa-long-arrow-left"></i> Back</button></center>
 		</div>
 		<div class="content-row">
 		</div>

@@ -402,14 +402,6 @@
 			return $results;
 		}
 
-		// public function getRouteDetails($id){
-
-		// 	$this->db->query('SELECT rs.*, s.name AS stationName FROM route_station rs INNER JOIN station s ON s.stationID=rs.stationId WHERE rs.routeId=(SELECT r.routeId FROM route r INNER JOIN train t ON t.trainId=r.routeId WHERE t.trainId=:id) ORDER BY rs.stopNo');
-		// 	$this->db->bind(':id',$id);
-		// 	$results = $this->db->resultSet();
-		// 	return $results;
-		// }
-
 
 		//Function to check whether the given station name exists
 		public function checkStation($station){

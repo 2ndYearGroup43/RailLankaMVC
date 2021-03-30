@@ -1,17 +1,8 @@
 <?php 
-
-	//echo out databse info to the screen
-	// foreach ($data['users'] as $user) {
-	// 	echo "Information: " . $user->user_name . $user->user_email;
-	// 	echo "<br>";
-	// }
-	
-	// isPassengerLoggedIn();
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($_SESSION); ?>  -->
 	<script>
         const markerIconBase='http://maps.google.com/mapfiles/kml/paddle/';
         const icons={
@@ -34,11 +25,14 @@
 		<div class="content-row">
 		</div>
 		<div class="table-container">
+
 			<div class="img-container">
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 			</div>
-			<h1 class="title">Live Train Location</h1>
-			<h1 class="LocStatus" id="LocStatus"></h1>
+			
+      <h1 class="title">Live Train Location</h1>
+			
+      <h1 class="LocStatus" id="LocStatus"></h1>
             <h3 class="redNotice" id="redNotice">
                 <?php if( !$data['journey']){
                     echo "Train seemed to have reached it's destination.";
@@ -110,21 +104,11 @@
                         }else if(jstatus=="Off-Line"){
                             marker.setIcon(icons['stopped']['iconPath']);
                         }
-                        // var marker2 = new google.maps.Marker({
-                        //     position: kandy,
-                        //     map: map,
-                        //     title: "kandy"
-                        // });
                     }
                 </script>
                     <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpvvsHk0hFouQ96SvUrCbPrq6GDXLDuy8&callback=initMap"
                     type="text/javascript"></script>
-             <!-- <button type="submit" class="btn red-btn back-btn">Back</button> -->
-
-             <!-- </script>
-                    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpvvsHk0hFouQ96SvUrCbPrq6GDXLDuy8&callback=initMap"
-                    type="text/javascript"></script> -->
-
+             
                 <script>
                     setInterval(function(){
                         $.ajax({
@@ -175,12 +159,10 @@
 
                 
        	<div class="content-row">
-       		<!--  <button type="submit" class="back-btn">Back</button> -->
 		</div>
 		<div class="content-row">
 		</div>
 	</div>
-	<!-- end of live train -->
 	
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

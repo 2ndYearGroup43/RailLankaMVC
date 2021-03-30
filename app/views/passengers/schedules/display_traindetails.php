@@ -167,30 +167,13 @@
 						</tr>
 					</tbody>		
 				</table>
-			<!-- </div> -->
-			<button onclick="history.go(-1);" class="btn blue-btn back-btn">Back</button>
+				<center><button onclick="history.go(-1);" class="btn blue-btn back-btn"><i class="fa fa-long-arrow-left"></i > Back</button></center>
 		</div>
 		<div class="content-row">
-			<!-- <button type="submit" class="back-btn"><span>Back</span></button> -->
 		</div>
 		<div class="content-row">		
 		</div>
 	</div>
 	<!-- end of further details -->
-
-	 <!--  js for toggle menu -->
-	<!-- <script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-	</script>
- -->
 	
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>

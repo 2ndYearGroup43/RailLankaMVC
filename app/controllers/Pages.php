@@ -10,7 +10,14 @@
 		//function to load the home page
 		public function index() {
 
-			$data = $this->pageModel->getNotices();
+			$stations=$this->pageModel->getStations();
+			$notices = $this->pageModel->getNotices();
+	        $data = [
+
+	        	'stations'=>$stations,
+	        	'notices'=>$notices,
+	        ];
+			
 			$this->view('pages/index', $data); 
 		}
 

@@ -3,9 +3,6 @@
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
-<!-- <?php var_dump($data['account']); ?> -->
-<!-- <?php var_dump($data['train']); ?>
- --><!-- <?php var_dump($_SESSION); ?>  -->
 
 <!-- Further Details -->
 	<div class="body-section">
@@ -18,7 +15,6 @@
 				<img src="<?php echo URLROOT ?>/public/img/logoc.jpg">
 			</div>
 			<h1 class="title">BOOKING REVIEW</h1>
-			<!-- <br>	 -->
 			<div class="timer" id="countdown">
 				<div class="time_text">Time Ends:</div>
 				<div class="timer_sec"><?php echo  date('H:i:s', strtotime($data['resEnd'])); ?></div>			
@@ -62,16 +58,6 @@
 						<p><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $data['duration']->format('%h hour(s) %i minute(s)'); ?></p>
 						<p>Train to <?php echo $data['train']->destName; ?></p>
 					</div>
-					<!-- <div class="journey-seats">
-						<p>Train ID: <?php echo $data['train']->trainId; ?></p>
-						<p>Seat Numbers:</p>
-
-							<ul>
-								<li>Compartment A :  21 , 22</li>
-								<li>Compartment C :  33 , 34</li>
-							</ul> 
-						
-					</div> -->
 				</div>
 			</div>
 		<!-- 	<br> -->
@@ -126,8 +112,6 @@
 			<br><!-- <br> -->
 			
 			<button type="submit" id="payhere-payment" class="btn checkout-btn">Checkout &raquo;</button>
-			<!-- <p class="options">Back to seat map? <a data-target="alert-warning-popup" class="alert-btn" href="#">Click here.</a></p> -->
-			<!-- <button type="submit" id="payhere-payment" >PayHere Pay</button> -->
 			<img id="payment-image" src="<?php echo URLROOT ?>/public/img/payhere.jpg">
 
 		</div>
@@ -240,7 +224,9 @@
 		    if(now.getHours() > hours ||
 		       (now.getHours() == hours && now.getMinutes() > minutes) ||
 		        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() > seconds) {
-		        window.location.href='<?php echo URLROOT; ?>/passengerReservations/timeout?resNo=<?php echo $data['resNo']; ?>';
+		    	then.setDate(now.getDate() + 1);
+
+		        //window.location.href='<?php echo URLROOT; ?>/passengerReservations/timeout?resNo=<?php echo $data['resNo']; ?>';
 		    }
 		    then.setHours(hours);
 		    then.setMinutes(minutes);

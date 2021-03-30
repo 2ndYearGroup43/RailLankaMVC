@@ -4,51 +4,20 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($_SESSION['passenger_nic']); ?>
-<br>
-<br>
-<?php var_dump($data['train']); ?>
-<br>
-<br>
-<?php var_dump($data['compartments']); ?>
-<br>
-<br>
-<?php var_dump($data['compartmentNo']); ?>
-<br>
-<br>
-<?php var_dump($data['currComp']); ?>
-<br>
-<br>
-<?php var_dump($data['src']); ?>
-<br>
-<br>
-<?php var_dump($data['selected']); ?>
-<br>
-<br>
-
-<br>
-<br>
-<?php var_dump($data['disabled']); ?> -->
-
 	<div class="body-section">
 		<div class="content-row">
 		</div>
-		<!-- <div class="content-row">
-		</div> -->
+		
 		<div class="map-container2">
 			
 			<h1 class="title">Seat Map</h1>
-			<!-- <div class="tooltip"> -->
+			
 			<div class="timer">
 				<div class="time_text">Time Ends:</div>
 				<div class="timer_sec"><?php echo  date('H:i:s', strtotime($data['endTime'])); ?></div>			
 			</div>
-			<!-- <button onclick="toggleSMPopup()" class="details-tooltip">Journey Details <i class="fa fa-train"></i></button> -->
 			<button class="pop-up details-tooltip">Journey Details <i class="fa fa-train"></i></button>
-			<!-- </div> -->
-			<!-- <center><p>	Train ID : 1001</p></center>
-			<center><p>	Colombo - Badulla </p></center> -->
-			<!-- <br> -->
+			
 				<div class="map-column left-map">
 					<div class="tabs__sidebar" id="new_tabs_sidebar">
 						<?php foreach ($data['compartments'] as $comp):?>
@@ -102,8 +71,6 @@
 								<?php endforeach; ?>
 							</ul>
 							Total: <b>Rs.<span id="total">0</span></b>	
-							<!-- <?php echo $count; ?>
-							<?php echo $price; ?> -->
 						</div>
 						<div id="legend"></div>
 			    	</div>
@@ -189,14 +156,8 @@
 										var selectresno = "<?php echo $data['resNo']; ?>";
 								
 										var selectprice = this.data().price;
-										// console.log(selectid);
-										// console.log(selectlabel);
-										// console.log(selectcomp);
-										
-
 										var selectcount = sc.find('selected').length+1+<?php echo $count; ?>;
 										var selecttotal = recalculateTotal(sc)+this.data().price+<?php echo $price; ?>;
-										//console.log(selecttotal);
 										$counter.text(selectcount);
 										$total.text(selecttotal);
 
@@ -216,8 +177,7 @@
 													//and total
 													$total.text(recalculateTotal(sc));
 												}else{
-													//alert(returndata);
-
+													//Seat selected
 													if(sc.find('selected').length+<?php echo $count; ?> == 1){
 														const chkbtn = document.getElementById('checkoutBtn');
 														chkbtn.disabled=false;
@@ -227,12 +187,6 @@
 											},
 											error: function(){
 												alert('error');
-											},
-											beforeSend: function(){
-												//alert("Alert showing before AJAX call");
-											},
-											complete: function(){
-												//alert("Alert showing after AJAX call completion");
 											}
 										});
 										
@@ -262,7 +216,7 @@
 											type:"POST",
 											data: {'label':selectlabel, 'compartment':selectcomp, 'trainid':selecttrain, 'date':selectdate, 'resno':selectresno, 'total':selecttotal, 'count':selectcount },
 											success: function(returndata){
-												//alert(returndata);
+	
 												if(sc.find('selected').length+<?php echo $count; ?> == 0){
 														const chkbtn = document.getElementById('checkoutBtn');
 														chkbtn.disabled=true;
@@ -271,12 +225,6 @@
 											},
 											error: function(){
 												alert('error');
-											},
-											beforeSend: function(){
-												//alert("Alert showing before AJAX call");
-											},
-											complete: function(){
-												//alert("Alert showing after AJAX call completion");
 											}
 										});
 									
@@ -289,42 +237,8 @@
 										return this.style();
 									}
 								}
-								});
-
+								});					
 							
-							
-							//find selected(not by the same user) and booked seats every 10 seconds
-							// setInterval(function() {
-
-							// 	var selectcomp = "<?php echo $data['compartmentNo']; ?>";
-							// 	var selectdate = "<?php echo $data['date']; ?>";
-							// 	var selecttrain = "<?php echo $data['trainId']; ?>";
-
-							// 	$.ajax({
-							// 		type     : 'POST',
-							// 		url      : "<?php echo URLROOT; ?>/passengerReservations/findUnavailable",
-							// 		data: {'compartment':selectcomp, 'date':selectdate, 'trainid':selecttrain},
-							// 		dataType : 'json',
-							// 		success  : function(response) {
-							// 			//alert(response);
-							// 			//console.log(response);
-							// 			// response.forEach(function(data){
-							// 			// 	console.log(data.seatId);
-							// 			// 	//sc.get(['data.seatId']).status('unavailable');
-							// 			// });
-										
-							// 			//iterate through all bookings for our event 
-							// 			$.each(response, function(index, data) {
-							// 				//find seat by id and set its status to unavailable
-							// 				sc.status(data.seatId, 'unavailable');
-							// 				console.log(data.seatId);
-							// 			});
-							// 		},
-							// 		error: function(){
-							// 			alert('error');
-							// 		}
-							// 	});
-							// }, 20000); //every 10 seconds
 
 							setInterval(function() {
 
@@ -340,14 +254,6 @@
 									data: {'compartment':selectcomp, 'date':selectdate, 'trainid':selecttrain, 'resno':selectresno},
 									dataType : 'json',
 									success  : function(response) {
-										console.log(response);
-										console.log(response['unavailable']);
-										console.log(response['deselected']);
-										//console.log(response);
-										// response.forEach(function(data){
-										// 	console.log(data.seatId);
-										// 	//sc.get(['data.seatId']).status('unavailable');
-										// });
 										
 										//iterate through all bookings for our event 
 										$.each(response['unavailable'], function(index, data) {
@@ -368,17 +274,6 @@
 								});
 							}, 20000); //every 10 seconds
 
-							// setTimeout(function(){
-							//    window.location.reload(1);
-							// }, 5000);
-
-							//handle "[cancel]" link clicks
-							$('#selected-seats').on('click', '.cancel-cart-item', function () {
-								sc.get($(this).parents('li:first').data('seatId')).click();
-							});
-
-							//seats already booked
-							//sc.get(['1_2', '7_1', '7_2']).status('unavailable');
 
 							//Find seats selected or booked by users from this train, compartment, date
 							<?php foreach($data['unavailable'] AS $unavailable): ?>
@@ -491,9 +386,7 @@
 				<i class="fa fa-info" aria-hidden="true"></i>
 			</div>
 			<div class="alert-body">
-				<h3>Are you sure?</h3>
-				<p>You cannot change your reservation once you proceed
-				</p>
+				<h3>Are you sure you want to proceed?</h3>
 				<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/bookingReview?resNo=<?php echo $data['resNo']; ?>'" class="proceed-btn">Proceed</button>
 			</div>
 			<button type="button" class="close-alert">&times;</button>
@@ -534,64 +427,6 @@
 	</div>
 	<!-- end of train-details pop up
  -->
-
-	<!-- train-details pop-up -->
-	<!-- <div class="seat-map-popup" id="popup-1">
-		<div class="seat-map-popup-overlay"></div>
-		<div class="seat-map-popup-content">
-			<div class="seat-map-popup-close" onclick="toggleSMPopup()">&times</div>
-			<h3>Journey Details</h3>
-			<p>Train ID: 1001</p>
-			<p>Colombo - Badulla</p>
-			<p>Intercity Express Train</p>
-			<p><b>Denuwara Menike</b></p>
-			<p><i class="fa fa-calendar-o" aria-hidden="true"></i> 20th June 2020</p>
-			<p><i class="fa fa-clock-o" aria-hidden="true"></i> 6.30 AM -> 15.01 AM</p>
-			<p><i class="fa fa-clock-o" aria-hidden="true"></i> 8 hrs 43 mins</p>
-			<p>Train to Badulla</p>
-		</div>
-	</div> -->
-	<!-- end of train-details pop up
- -->
-	<!-- js for tabs  -->
-	<!-- <script>
-		function setupTabs() {
-			document.querySelectorAll(".tabs__button").forEach(button => {
-				button.addEventListener("click", () => {
-					const sideBar = button.parentElement;
-					const tabsContainer = sideBar.parentElement;
-					const tabNumber = button.dataset.forTab;
-					const tabToActivate = tabsContainer.querySelector(`.tabs__content[data-tab="${tabNumber}"]`);
-
-					// console.log(sideBar);
-					// console.log(tabsContainer);
-					// console.log(tabNumber);
-					// console.log(tabToActivate);
-
-					sideBar.querySelectorAll(".tabs__button").forEach(button => {
-						button.classList.remove("tabs__button--active");
-					});
-
-					tabsContainer.querySelectorAll(".tabs__content").forEach(button => {
-						button.classList.remove("tabs__content--active");
-					});
-
-					button.classList.add("tabs__button--active");
-					tabToActivate.classList.add("tabs__content--active");
-				});
-			});
-		}
-
-		document.addEventListener("DOMContentLoaded", () => {
-			setupTabs();
-
-			document.querySelectorAll(".tabs").forEach(tabsContainer => {tabsContainer.querySelector(".tabs__sidebar .tabs__button").click();
-			});
-		});
-
-	</script> -->
-	<!-- end of js for tabs -->
-
 	<!-- pop up -->
 	<div class="bg-modal ">
 		<div class="modal-content">
@@ -626,7 +461,6 @@
 						<tr>
 							<td>
 								<p><i class="fa fa-calendar-o" aria-hidden="true"></i><?php echo $data['date']; ?></p>
-								<!-- <p><i class="fa fa-clock-o" aria-hidden="true"></i> 8 hrs 43 mins</p> -->
 							</td>
 						</tr>
 						<tr>
@@ -640,15 +474,6 @@
 		</div>
 	</div>
 	<!-- end of pop up -->
-
-	<!-- js for countdown submission -->
-	<!-- <script type="text/javascript">
-		$('form').submit(function(){
-		  $('input#ctime').val(time);
-		  return true;
-		});
-	</script> -->
-	<!-- end of js for countdown submission -->
 
 	<!-- js for flash message -->
 	<script>
@@ -675,14 +500,6 @@
 	</script>
 	<!-- end of js for flash message -->
 
-	<!-- js for train details popup -->
-	<!-- <script>
-		function toggleSMPopup(){
-			document.getElementById("popup-1").classList.toggle("seat-map-popup-active");
-		}
-	</script> -->
-	<!-- end of js for train details popup -->
-
 	<!-- js for pop up -->
 	<script>
 
@@ -697,32 +514,6 @@
 	</script>
 	<!-- end of js for pop up -->
 
-	<!-- js for countdown -->
-	<!-- <script>
-		//const startingMinutes = 2;
-		//var time = startingMinutes * 60;
-		var time=parseInt("<?php echo $data['ctime']; ?>");
-		console.log("<?php echo $data['ctime']; ?>")
-
-		const countdownEL=document.getElementById('countdown');
-		setInterval(updateCountdown, 1000);
-
-		function updateCountdown(){
-			if(time>=0){
-				const minutes=Math.floor(time/60);
-				let seconds = time%60;
-				seconds=seconds<10?'0'+seconds:seconds;
-				countdownEL.innerHTML=`${minutes}: ${seconds}`;
-				time--;
-				//console.log(time);
-			}else{
-				//window.location.reload(1);
-				window.location.href='<?php echo URLROOT; ?>/passengerReservations/timeout';
-			}
-		}
-	</script> -->
-	<!-- end of js for countdown -->
-
 	<script>
 		function refreshAt(hours, minutes, seconds) {
 		    var now = new Date();
@@ -731,7 +522,9 @@
 		    if(now.getHours() > hours ||
 		       (now.getHours() == hours && now.getMinutes() > minutes) ||
 		        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() > seconds) {
-		        window.location.href='<?php echo URLROOT; ?>/passengerReservations/timeout?resNo=<?php echo $data['resNo']; ?>';
+		    	then.setDate(now.getDate() + 1);
+
+		        //window.location.href='<?php echo URLROOT; ?>/passengerReservations/timeout?resNo=<?php echo $data['resNo']; ?>';
 		    }
 		    then.setHours(hours);
 		    then.setMinutes(minutes);
@@ -740,18 +533,14 @@
 		    var timeout = (then.getTime() - now.getTime());
 
 		    setTimeout(function() { 
-		    	//alert("You have 1 minute remaining");
 		    	document.getElementById('time-alert-btn').click();
 		    	const tm = document.getElementById('countdown');
 		    	tm.style.backgroundColor = '#F39E82';
 		    	tm.style.borderColor = '#F39E82';
-		    	//window.location.reload(true); 
 		    }, timeout-60000);
 
 		    setTimeout(function() { 
-		    	//window.location.href='<?php echo URLROOT; ?>/passengerReservations/timeout';
 		    	window.location.href='<?php echo URLROOT; ?>/passengerReservations/timeout?resNo=<?php echo $data['resNo']; ?>';
-		    	//window.location.reload(true); 
 		    }, timeout);
 		}
 

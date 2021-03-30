@@ -4,10 +4,6 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($_SESSION); ?>
- -->
-
-
 <!-- Account Details -->
 	<div class="body-section">
 		<div class="content-row">
@@ -37,7 +33,7 @@
 							<td><?php echo $row->lastname;?></td>
 						</tr>
 						<tr>
-							<th>NIC:</th>
+							<th>NIC/Passport:</th>
 							<td><?php echo $row->nic;?></td>
 						</tr>
 						<tr>
@@ -57,7 +53,7 @@
 							<td><?php echo $row->country;?></td>
 						</tr>
 						<tr>
-							<th>Phone:</th>
+							<th>Mobile No:</th>
 							<td><?php echo $row->mobileno;?></td>
 						</tr>
 						<tr>

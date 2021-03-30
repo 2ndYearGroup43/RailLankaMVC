@@ -65,7 +65,7 @@
 		        	$data = [
 			        	'userId'=>$_SESSION['userid'],
 			        	'passenger'=>$passenger,
-			        	// 'nic'=>trim($_POST['nic']),
+			        	'nic'=>trim($_POST['nic']),
 			        	'firstName'=>trim($_POST['firstName']),
 			        	'lastName'=>trim($_POST['lastName']),
 			        	'mobileNo'=>trim($_POST['mobileNo']),
@@ -95,40 +95,39 @@
 			        $passportValidation = "/^([a-zA-Z0-9]{8}|[a-zA-Z0-9]{9})$/";
 					$nicValidation = "/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/";
 					$nameValidation = "/^[a-zA-Z]*$/";
-					$mobileValidation ="/^[0-9]{10}+$/";
-					$addressNoValidation ="/^[0-9]*$/";
+					$mobileValidation ="/^[0-9]{10}$/";
+					$addressNoValidation ="/^[A-Za-z0-9.\/-]*$/";
 					$addressValidation = "/^[a-zA-Z ]*$/";
 
-					// //validate nic 
-					// if(empty($data['nic'])){
-					// 	$data['nicError'] = 'Please enter NIC number.';
-					// //validate nic on letters and numbers
-					// } elseif(!preg_match($nicValidation, $data['nic'])) {
-					// 	$data['nicError'] = 'Invalid NIC number.';
-					// //check if nic is already registered
-					// } elseif ($this->passengerAccountModel->findPassengerByNIC($data['nic'])) {
-					// 	$data['nicError'] = 'nic is already registered.';
-					// }
+					//validate nic 
+					if(empty($data['nic'])){
+						$data['nicError'] = 'Please enter NIC number.';
+					//validate nic on letters and numbers
+					} elseif(!preg_match($nicValidation, $data['nic']) && !preg_match($passportValidation, $data['nic'])) {
+						$data['nicError'] = 'Invalid NIC number.';
+					//check if nic is already registered
+					} 
 				
 					//validate first name on letters
-					if($data['firstName']){
-	                    if(!preg_match($nameValidation, $data['firstName'])){
-	                    	$data['firstNameError']="Name can only contain letters.";
-	                	}
+					if(empty($data['firstName'])){
+	                    $data['firstNameError']="Please enter the first name";
+	                }elseif(!preg_match($nameValidation, $data['firstName'])){
+	                    $data['firstNameError']="Name can only contain letters.";
 	                }
 
+	                
 					//validate last name on letters
-					if($data['lastName']){
-	                    if(!preg_match($nameValidation, $data['lastName'])){
-	                    	$data['lastNameError']="Name can only contain letters.";
-	                    }
+					if(empty($data['lastName'])){
+	                   	$data['lastNameError']="Please enter the last name";
+	                }elseif(!preg_match($nameValidation, $data['lastName'])){
+	                   	$data['lastNameError']="Name can only contain letters.";
 	                }
 
 					//validate mobile number on numbers and + sign
-					if($data['mobileNo']){
-	                  	if(!preg_match($mobileValidation, $data['mobileNo'])){
-	                   		$data['mobileNoError']="Mobile Number can only contain numbers and +.";
-	                   	}
+					if(empty($data['mobileNo'])){
+	                  	$data['mobileNoError']="Please enter the mobile number";
+	                }elseif(!preg_match($mobileValidation, $data['mobileNo'])){
+	                   	$data['mobileNoError']="Mobile Number can contain only 10 numbers";
 	                }
 
 					//validate address number on numbers
@@ -166,7 +165,7 @@
 
 						//Update user details user from model function
 						if($this->passengerAccountModel->updatePassenger($data)) {
-
+							$SESSION['passenger_nic']=$data['nic'];
 							// echo "here too";
 							//redirect to the view account page
 							header('location: ' . URLROOT . '/passengerAccounts/displayAccount');
@@ -211,20 +210,24 @@
 			        ];
 
 
-					$passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
+					$passwordValidation = "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/";
 
+					if (empty($data['password'])) {
+						$data['passwordError'] = 'Please enter the existing password.';
+					}
+					
 					//Validate password on length and numeric values 
 					if (empty($data['newPassword'])) {
-						$data['newPasswordError'] = 'Please enter password.';
-					} elseif(strlen($data['password']) < 6){
+						$data['newPasswordError'] = 'Please enter the new password.';
+					} elseif(strlen($data['newPassword']) < 8){
 						$data['newPasswordError'] = 'Password must be at least 8 characters.';
-					} elseif (preg_match($passwordValidation, $data['password'])) {
-						$data['newPasswordError'] = 'The password must have at least one numeric value.';
+					} elseif (!preg_match($passwordValidation, $data['newPassword'])) {
+						$data['newPasswordError'] = 'The password must have at least one numeric value and one letter.';
 					}
 
 					//Validate confirm password
 					if (empty($data['confirmPassword'])) {
-						$data['confirmPasswordError'] = 'Please enter password.';
+						$data['confirmPasswordError'] = 'Please enter the password.';
 					} else {
 						if ($data['newPassword'] != $data['confirmPassword']) {
 							$data['confirmPasswordError'] = 'Passwords do not match!.';
@@ -232,7 +235,7 @@
 					}
 
 					//make sure that errors are empty
-					if (empty($data['passwordError']) && empty($data['confirmPasswordError'])) {
+					if (empty($data['passwordError']) && empty($data['confirmPasswordError']) && empty($data['newPasswordError'])) {
 
 						$validPassword = $this->passengerAccountModel->checkPassword($data['userId'], $data['password']);
 
@@ -274,7 +277,7 @@
 
 						        	// Set email format to HTML
 						        	$mail->Subject = 'Your RailLanka Account Pssword Has Changed';
-						        	$mail->Body    = "<p>Dear User, </p><p>Your RailLanka account password has changed</p><p>The RailLanka Team</p>";
+						        	$mail->Body    = "<p>Dear User, </p><p>Your RailLanka account password has changed</p><p>Thank You, The RailLanka Team</p>";
 						        	$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
 						        	$mail->send();
@@ -356,33 +359,6 @@
 
 		public function sendEmail($data){
 
-
-			// if(isset($_GET['resNo'])){
-			// 	$resNo = $_GET['resNo'];
-			// }
-			// // $timenow = time(); //current time 
-			// $reservation=$this->passengerReservationModel->getReservationDetails($resNo);
-			// $account=$this->passengerReservationModel->getAccountDetails($reservation->nic);
-			// $train=$this->passengerReservationModel->getTrainDetails($reservation->trainId);
-			// $seats=$this->passengerReservationModel->getBookedSeats($resNo);
-			// $startTime= new DateTime($train->starttime);
-			// $endTime= new DateTime($train->endtime);
-			// $duration=$startTime->diff($endTime);
-
-			// $data = [
-			// 	'train'=>$train,
-			// 	'reservation'=>$reservation,
-			// 	'account'=>$account,
-			// 	'seats'=>$seats,
-			// 	'startTime'=>$startTime,
-			// 	'endTime'=>$endTime,
-			// 	'duration'=>$duration,
-			// 	'resNo'=>$resNo,
-			// 	'endTime'=>$reservation->comp_time
-			// ];
-
-			// $output = '<link rel="stylesheet" type="text/css" href="passenger_main.css">';
-			// $output .= '<script src="https://use.fontawesome.com/0d40a8591c.js"></script>';
 			$output = '
 				<link rel="stylesheet" type="text/css" href="'. URLROOT .'/public/css/passenger_main.css">
 				<script src="https://use.fontawesome.com/0d40a8591c.js"></script>
@@ -546,21 +522,6 @@
 			$this->displaySubscriptions();
 			return;
 		}
-
-		// public function checkReservations(){
-
-		// 	if(isset($_POST['passengerid'])){
-		// 		$passengerId = $_POST['passengerid'];
-		// 	}
-
-		// 	$results=$this->passengerAccountModel->checkReservations($passengerId);
-		// 	if($results){
-		// 		return true;
-		// 	}else{
-		// 		return false;
-		// 	}
-
-		// }
 
 
 		public function deleteAccount(){

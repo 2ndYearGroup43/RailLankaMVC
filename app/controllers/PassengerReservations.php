@@ -60,11 +60,7 @@
 		        	} else{
 		        		$result=$this->passengerReservationModel->getStationId($data['src']);
 		        		$data['src']=$result->stationId;
-		        		//var_dump($data['src']);
 		        	} 
-		        	// $result=$this->passengerReservationModel->getStationId($data['src']);
-		        	// $data['src']=$result->stationId;
-		        	// var_dump($data['src']);
 		        }
 
 		        if(!empty($data['dest'])){
@@ -77,7 +73,6 @@
 		        		if($data['src']==$data['dest']){
 		        			$data['destError']='Destination and source station cannot be the same';
 		        		}
-		        		//var_dump($data['dest']);
 		        	}
 		        }
 
@@ -88,7 +83,6 @@
 		        		$data['dateError']='Bookings can be done only upto 2 months in advance';
 		        	}else{
 			        	$data['date']= date('l', strtotime($data['dateFull']));
-			        	//var_dump($data['date']);
 		        	}
 		        }
 
@@ -169,6 +163,34 @@
 			$this->view('passengers/reservations/display_traindetails'); 
 		}
 
+
+		public function checkDeptTime(){
+
+			if(isset($_POST['trainid'])){
+				$trainid=$_POST['trainid'];
+			}
+			if(isset($_POST['jdate'])){
+				$jdate=$_POST['jdate'];
+			}
+
+			$today = date("Y-m-d");
+			if($today == $jdate){
+				$deptTime = $this->passengerReservationModel->getDeptTime($trainid);
+				$timenow = time();
+				$chktime = strtotime($deptTime->starttime); 
+				$time_diff = $chktime - $timenow;
+				if($time_diff > 3600){
+					echo true;
+				}else{
+					echo false;
+				}
+
+			}else{
+				echo true;
+			}
+
+		}
+
 		public function createReservation(){
 
 			var_dump($_GET);
@@ -184,19 +206,11 @@
 
 			$passengerId=$_SESSION['passenger_id'];
 			$nic=$_SESSION['passenger_nic'];
-			//$train=$this->passengerReservationModel->getTrainDetails($id); //To get details about the train
-			//$src=$this->passengerReservationModel->getStopNo($id,$train->src_station);	//To get the stopNo of the source station
-			//$dest=$this->passengerReservationModel->getStopNo($id,$train->dest_station); //To get the stopNo of the destination station
 
 			$data=[
 				'trainId'=>$id,
 				'date'=>$journeyDate,
-				'train'=>$train,
 				'compNo'=>'A',
-				// 'src'=>$train->src_station,
-				// 'dest'=>$train->dest_station,
-				// 'srcNo'=>$src->stopNo,
-				// 'destNo'=>$dest->stopNo,
 				'nic'=>$nic,
 				'passengerId'=>$passengerId
 			];
@@ -204,8 +218,6 @@
 			$resNo = $this->passengerReservationModel->addReservation($data);//To create a new reservation
 
 			if($resNo){
-				//$this->displaySeatMaps($data['trainId'], $data['date'], $data['compNo'], $resNo);
-				//header('location: ' . URLROOT . '/PassengerReservations/displaySeatMaps?id='.$data["trainId"].'&date='.$data['date'].'&compNo='.$data['compNo'].'&resNo='.$resNo);
 				header('location: ' . URLROOT . '/PassengerReservations/displaySeatMaps?compNo='.$data['compNo'].'&resNo='.$resNo);
 			}
 		}
@@ -215,16 +227,12 @@
 
 			if(isset($_GET['compNo'])){ 
 				$compNo=$_GET['compNo'];
-					//echo $compNo;
 			}else{
-					//echo "No compNo";
 				$compNo="A";
-					//echo $compNo;
 			}
 
 			if(isset($_GET['resNo'])){
 				$resNo = $_GET['resNo'];
-					//echo $resNo;
 			}
 
 			$reservation=$this->passengerReservationModel->getReservationDetails($resNo);
@@ -313,54 +321,57 @@
 				$results=$this->passengerReservationModel->addSeat($data);
 				//$results2=$this->passengerReservationModel->updateReservation($data)
 
-				echo $data['trainid'];
-				echo $data['compartment'];
-				echo $data['journeyDate'];
-				echo $data['label'];
-				echo $data['id'];
-				echo $data['classtype'];
-				echo $data['status'];
-				echo $data['price'];
-				echo $data['resno'];
-				echo $data['total'];
-				echo $data['count'];
-				echo $results;
-				echo $check;
+				// echo $data['trainid'];
+				// echo $data['compartment'];
+				// echo $data['journeyDate'];
+				// echo $data['label'];
+				// echo $data['id'];
+				// echo $data['classtype'];
+				// echo $data['status'];
+				// echo $data['price'];
+				// echo $data['resno'];
+				// echo $data['total'];
+				// echo $data['count'];
+				// echo $results;
+				// echo $check;
+				echo true;
 			}elseif($check->status=='deselected'){
 
 				$results=$this->passengerReservationModel->updateSeat($data, $check->reservationNo);
 
-				echo $data['trainid'];
-				echo $data['compartment'];
-				echo $data['label'];
-				echo $data['id'];
-				echo $data['classtype'];
-				echo $data['status'];
-				echo $data['journeyDate'];
-				echo $data['resno'];
-				echo $data['price'];
-				echo $data['total'];
-				echo $data['count'];
-				echo $results;
-				var_dump($check);
+				// echo $data['trainid'];
+				// echo $data['compartment'];
+				// echo $data['label'];
+				// echo $data['id'];
+				// echo $data['classtype'];
+				// echo $data['status'];
+				// echo $data['journeyDate'];
+				// echo $data['resno'];
+				// echo $data['price'];
+				// echo $data['total'];
+				// echo $data['count'];
+				// echo $results;
+				// var_dump($check);
+				echo true;
 
 			}elseif($check->status=='selected' && $check->dif > 1800){
 
 				$results=$this->passengerReservationModel->updateSeat($data, $check->reservationNo);
 
-				echo $data['trainid'];
-				echo $data['compartment'];
-				echo $data['label'];
-				echo $data['id'];
-				echo $data['classtype'];
-				echo $data['status'];
-				echo $data['journeyDate'];
-				echo $data['resno'];
-				echo $data['price'];
-				echo $data['total'];
-				echo $data['count'];
-				echo $results;
-				var_dump($check);
+				// echo $data['trainid'];
+				// echo $data['compartment'];
+				// echo $data['label'];
+				// echo $data['id'];
+				// echo $data['classtype'];
+				// echo $data['status'];
+				// echo $data['journeyDate'];
+				// echo $data['resno'];
+				// echo $data['price'];
+				// echo $data['total'];
+				// echo $data['count'];
+				// echo $results;
+				// var_dump($check);
+				echo true;
 
 			}else{
 				echo false;
@@ -395,19 +406,6 @@
 
 		}
 
-		// public function findUnavailable() {
-
-		// 	$trainid=$_POST['trainid'];
-		// 	$compNo=$_POST['compartment'];
-		// 	$journeyDate=$_POST['date'];
-		// 	$nic=$_SESSION['passenger_nic'];
-
-		// 	$unavailable=$this->passengerReservationModel->getUnavailable($trainid, $compNo, $journeyDate, $nic);
-
-		// 	//var_dump($unavailable);
-		// 	echo json_encode($unavailable);
-		// }
-
 		public function findUnavailable() {
 
 			$trainid=$_POST['trainid'];
@@ -415,7 +413,6 @@
 			$journeyDate=$_POST['date'];
 			$resNo=$_POST['resno'];
 			$currTime=date("Y-m-d H:i:s");
-			//$nic=$_SESSION['passenger_nic'];
 
 			$unavailable=$this->passengerReservationModel->getUnavailable($trainid, $compNo, $journeyDate, $resNo, $currTime);
 			$deselected = $this->passengerReservationModel->getDeselected($trainid, $compNo, $journeyDate, $resNo, $currTime);
@@ -425,51 +422,7 @@
 				'deselected'=>$deselected
 			];
 
-			//var_dump($unavailable);
 			echo json_encode($data);
-		}
-
-
-		public function displaySeatMapsN() {
-
-			
-			$this->view('passengers/reservations/display_seatmapsnew'); 
-		}
-
-		public function displaySeatMapsNN() {
-
-			
-			$this->view('passengers/reservations/display_seatmapsnn'); 
-		}
-
-		public function displaySeatMaps2() {
-
-			
-			$this->view('passengers/reservations/display_seatmaps2'); 
-		}
-
-		public function displaySeatMaps3() {
-
-			
-			$this->view('passengers/reservations/display_seatmapsn3'); 
-		}
-
-		public function displaySeatMaps4() {
-
-			
-			$this->view('passengers/reservations/display_seatmapsn4'); 
-		}
-
-		public function displaySeatMaps5() {
-
-			
-			$this->view('passengers/reservations/display_seatmapsn5'); 
-		}
-
-		public function displaySeatMaps6() {
-
-			
-			$this->view('passengers/reservations/display_seatmapsn6'); 
 		}
 
 
@@ -477,7 +430,6 @@
 
 			if(isset($_GET['resNo'])){
 				$resNo = $_GET['resNo'];
-				// echo $resNo;
 			}
 			$reservation=$this->passengerReservationModel->getReservationDetails($resNo);
 
@@ -489,8 +441,6 @@
 				$total=$summary[0]->total;
 				$result=$this->passengerReservationModel->updateReservation($resNo,$count,$total); //update reservation table with summary
 				$resEnd=date('Y-m-d H:i:s',strtotime('+30 minutes',strtotime($reservation->res_time)));
-				// var_dump($reservation);
-				// $summary=$this->passengerReservationModel->getSummary($resNo);
 				$account=$this->passengerReservationModel->getAccountDetails($reservation->passengerId);
 				$train=$this->passengerReservationModel->getTrainDetails($reservation->trainId);
 				$startTime= new DateTime($train->starttime);
@@ -531,33 +481,11 @@
 			$timenow = time(); //current time 
 			$timedate = date('Y-m-d H:i:s', $timenow);
 			$chktime = strtotime($resTime); 
-			// echo $timenow;
-			// echo "  ";
-			// echo $chktime;
-			// echo "  ";
-			// echo $resTime;
-
 			$time_diff = $timenow - $chktime;
 
 			if( $time_diff > 1800) {
-				// Change status to deselected????needed
-
-				// echo $time_diff;
-			 //    echo "Noooooooooooooooooooooooooo";
-				// $data = [
-				// 		'resTime'=>$resTime,
-				// 		'timeDiff'=>$time_diff,
-				// 		'endTime'=>$timedate,
-				// 		'resNo'=>$resNo
-				// 	];
-
-				// $results=$this->passengerReservationModel->reservationTimeout($resNo, $timedate);
-
-				//if($results){
-					 $this->view('passengers/reservations/timeout', $data);
-				//}
+				$this->view('passengers/reservations/timeout', $data);
 			   
-
 			} else {
 
 				if($this->passengerReservationModel->confirmReservation($resNo,$timedate)){
@@ -577,15 +505,6 @@
 					$this->search();
 				}
 			}
-
-
-			
-			// if($resTime){
-			// 	$results=$this->passengerReservationModel->confirmReservation($resNo);
-			// 	$this->view('passengers/reservations/booking_conf');
-			// }else{
-			// 	die('timeout');
-			// }
 			 
 		}
 
@@ -595,7 +514,7 @@
 			if(isset($_GET['resNo'])){
 				$resNo = $_GET['resNo'];
 			}
-			// $timenow = time(); //current time 
+
 			$reservation=$this->passengerReservationModel->getReservationDetails($resNo);
 			$account=$this->passengerReservationModel->getAccountDetails($reservation->passengerId);
 			$train=$this->passengerReservationModel->getTrainDetails($reservation->trainId);
@@ -605,7 +524,6 @@
 			$duration=$startTime->diff($endTime);			
 
 			
-					//$currTime=date('Y-m-d H:i:sa',$timenow);
 			$data = [
 				'train'=>$train,
 				'reservation'=>$reservation,
@@ -620,153 +538,9 @@
 
 			if($_SERVER['REQUEST_METHOD'] == 'POST') {
 				if($this->sendEmail($data)){
-					// echo "here";
 					$this->view('passengers/reservations/booking_conf', $data);
 				}
-				// }
 			}
-			// $output = '
-			// 	<link rel="stylesheet" type="text/css" href="'. URLROOT .'/public/css/passenger_main.css">
-			// 	<script src="https://use.fontawesome.com/0d40a8591c.js"></script>
-			// 	<div class="conf-ticket">
-			// 		<div class="normal-header">
-			// 			<img src="'. URLROOT .'/public/img/logob2.png">
-			// 			<h1 class="title" id="title3">BOOKING CONFIRMATION</h1>
-			// 		</div>
-			// 		<br><br><br>
-			// 		<div class="summary">
-			// 			<p><b>Your Ticket ID: '.$data["resNo"].'</b></p>
-			// 			<p><b>Booking Date: '.$data["endTime"].'</b></p>
-			// 		</div>
-			// 		<br>
-
-			// 		<h4 style="text-decoration: underline">CUSTOMER DETAILS</h4>
-			// 		<div class="summary">
-			// 			<p><b>Customer Name: </b>'.$data["account"]->firstname.' '.$data["account"]->lastname.'</p>
-			// 			<p><b>NIC: </b>'.$data["account"]->nic.'</p>
-			// 			<p><b>Mobile Number: </b>'.$data["account"]->mobileno.'</p>
-			// 		</div>
-			// 		<br>
-
-			// 		<h4 style="text-decoration: underline">YOUR JOURNEY</h4>
-			// 		<div class="summary">
-			// 			<h4><b>'.$data["reservation"]->srcName.' to '.$data["reservation"]->destName.'</h4>
-			// 			<p>'.$data["train"]->type.' Train - <b>'.$data["train"]->name.'</b></p>
-			// 			<p>Train ID: '.$data["train"]->trainId.'</p>
-			// 			<p>Journey Date: '.$data["reservation"]->journeyDate.'</p>
-			// 			<p>Departure Time: '.$data["train"]->starttime.'</p>
-			// 			<p>Arrival Time: '.$data["train"]->endtime.'</p>
-			// 			<p>Train to '.$data["train"]->destName.'</p>
-			// 		</div>
-			// 		<br>
-
-			// 		<h4 style="text-decoration: underline">BOOKING AND PAYMENT SUMMARY</h4>
-			// 		<br>
-			// 			<table style="width:80%">
-			// 				<thead>
-			// 					<tr>
-			// 						<td style="border-bottom:1px solid black">Comprtment</td>
-			// 						<td style="border-bottom:1px solid black">Seat Number</td>
-			// 						<td style="border-bottom:1px solid black">Type</td>
-			// 						<td style="border-bottom:1px solid black">Price</td>
-			// 					</tr>
-			// 				</thead>
-			// 				<tbody>';
-
-			// 		foreach ($data['seats'] as $seat){
-			// 		$output .='
-			// 						<tr>
-			// 							<td>'.$seat->compartmentNo.'</td>
-			// 							<td>'.$seat->seatNo.'</td>
-			// 							<td>'.$seat->classtype.' Seat</td>
-			// 							<td>'.$seat->price.'</td>
-			// 						</tr>
-			// 					';
-			// 		}
-					
-								
-			// 		$output .='
-			// 					<tr>
-			// 						<td style="border-top:1px solid black">Seat Count</td>
-			// 						<td style="border-top:1px solid black"></td>
-			// 						<td style="border-top:1px solid black"></td>
-			// 						<td style="border-top:1px solid black">'.$data['reservation']->itemCount.'</td>
-			// 					</tr>
-			// 					<tr class="grand-total">
-			// 						<td>Total</td>
-			// 						<td></td>
-			// 						<td></td>
-			// 						<td>'.$data['reservation']->total.'</td>
-			// 					</tr>
-			// 				</tbody>
-			// 			</table>
-			// 		<br>
-
-			// 		<h4 style="text-decoration: underline">CANCELLATION POLICY</h4>
-			// 		<div class="summary">
-			// 			<p>Deposit is non-refundable and will be charged to your credit card.</p>
-			// 			<p>A passenger is entitled to a refund on the ticket price if a train journey is marked as cancelled, regardless of the reason. A full refund can be obtained by producing the email confirmation/e-ticket at the counter.</p>
-			// 		</div>
-		
-			// 		<div class="summary">
-			// 			<p><b>Please contact us for assistance: +940112-695-722 / raillanka@gmail.com</b></p>
-			// 		</div>
-			// 	</div>
-			// ';
-
-			// //if(isset($_POST['mailTicket'])){
-
-			// 	require APPROOT . '/libraries/pdf.php';
-			// 	$file_name = md5(rand()) . '.pdf';
-			// 	$html_code = $output;
-			// 	$pdf = new Pdf();
-			// 	$pdf->set_option('enable_remote', TRUE);
-			// 	$pdf->load_html($html_code);
-			// 	$pdf->render();
-			// 	$file = $pdf->output();
-			// 	file_put_contents($file_name, $file);
-
-			// 	require APPROOT . '/libraries/PHPMailer/src/Exception.php';
-			// 	require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
-			// 	require APPROOT . '/libraries/PHPMailer/src/SMTP.php';
-
-			// 	$emailTo = 'raillankaproject@gmail.com';
-					    	
-			// 	// Instantiation and passing `true` enables exceptions
-			// 	$mail = new PHPMailer(true);
-
-			// 	try {
-			// 	   	//Server settings   
-			// 	   	$mail->isSMTP();                                            // Send using SMTP
-			// 	   	$mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
-			// 	   	$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-			// 	   	$mail->Username   = 'raillankaproject@gmail.com';                  // SMTP username
-			// 		$mail->Password   = 'Raillanka@2';                               // SMTP password
-			// 	  	$mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-			// 	  	$mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-			// 		//Recipients
-			// 		$mail->setFrom('raillankaproject@gmail.com', 'RailLanka');
-			// 		$mail->addAddress($emailTo);     // Add a recipient
-			// 		// Name is optional
-			// 		$mail->addReplyTo('no-reply@example.com', 'Information', 'No reply');
-			// 		$mail->WordWrap = 50;	    
-			// 		// Content
-			// 		$mail->isHTML(true);  
-			// 		$mail->AddAttachment($file_name);
-			// 		// Set email format to HTML
-			// 		$mail->Subject = 'Booking Confirmation';
-			// 		$mail->Body    = "<p>Dear User, </p><p>Please find the confirmation ticket in the attachment.</p><p>Thank you for booking with us!</p>";
-			// 		$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-			// 		if($mail->send()){
-			// 			$this->view('passengers/reservations/booking_conf', $data);
-			// 		}
-			// 		//header('location: ' . URLROOT . '/passengerAccounts/displayAccount');
-
-			// 		} catch (Exception $e) {
-			// 		  	echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-			// 		}
-						   
-			// 		exit();
 
 			$this->view('passengers/reservations/booking_conf', $data);
 		}
@@ -774,33 +548,6 @@
 
 		public function sendEmail($data){
 
-
-			// if(isset($_GET['resNo'])){
-			// 	$resNo = $_GET['resNo'];
-			// }
-			// // $timenow = time(); //current time 
-			// $reservation=$this->passengerReservationModel->getReservationDetails($resNo);
-			// $account=$this->passengerReservationModel->getAccountDetails($reservation->nic);
-			// $train=$this->passengerReservationModel->getTrainDetails($reservation->trainId);
-			// $seats=$this->passengerReservationModel->getBookedSeats($resNo);
-			// $startTime= new DateTime($train->starttime);
-			// $endTime= new DateTime($train->endtime);
-			// $duration=$startTime->diff($endTime);
-
-			// $data = [
-			// 	'train'=>$train,
-			// 	'reservation'=>$reservation,
-			// 	'account'=>$account,
-			// 	'seats'=>$seats,
-			// 	'startTime'=>$startTime,
-			// 	'endTime'=>$endTime,
-			// 	'duration'=>$duration,
-			// 	'resNo'=>$resNo,
-			// 	'endTime'=>$reservation->comp_time
-			// ];
-
-			// $output = '<link rel="stylesheet" type="text/css" href="passenger_main.css">';
-			// $output .= '<script src="https://use.fontawesome.com/0d40a8591c.js"></script>';
 			$output = '
 				<link rel="stylesheet" type="text/css" href="'. URLROOT .'/public/css/passenger_main.css">
 				<script src="https://use.fontawesome.com/0d40a8591c.js"></script>
@@ -890,8 +637,6 @@
 				</div>
 			';
 
-			//if(isset($_POST['mailTicket'])){
-
 				require APPROOT . '/libraries/pdf.php';
 				$file_name = md5(rand()) . '.pdf';
 				$html_code = $output;
@@ -934,10 +679,8 @@
 					$mail->Body    = "<p>Dear User, </p><p>Please find the confirmation ticket in the attachment.</p><p>Thank you for booking with us!</p>";
 					$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 					if($mail->send()){
-						// header('location: ' . URLROOT . '/PassengerReservations/viewTicket?resNo='.$resNo);
 						return true;
 					}
-					//header('location: ' . URLROOT . '/passengerAccounts/displayAccount');
 
 					} catch (Exception $e) {
 					  	echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

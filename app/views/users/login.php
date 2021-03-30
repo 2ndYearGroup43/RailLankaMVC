@@ -1,10 +1,5 @@
 <?php 
 
-	//echo out databse info to the screen
-	// foreach ($data['users'] as $user) {
-	// 	echo "Information: " . $user->user_name . $user->user_email;
-	// 	echo "<br>";
-	// }
 	if(isLoggedIn()){
 		redirect($_SESSION['role']);
 	}
@@ -13,7 +8,6 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($_SESSION); ?> -->
 <div class="banner">
 <div class="container-login">
 	<div class="wrapper-login">

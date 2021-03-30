@@ -7,9 +7,9 @@
 <div class="banner">
 <div class="container-login">
 	<div class="wrapper-login">
-		<h2>Thank You!</h2>
+		<h2>Timeout!</h2>
 		<br>
-		<p>Your reset password link has been sent to your email</p>
+		<p>Sorry, Looks like you ran out of time :/</p>
 		<br>
 		<br>
 		<br>

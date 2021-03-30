@@ -4,11 +4,6 @@
 	require APPROOT . '/views/includes/passenger_navigation.php';
 ?>
 
-<!-- <?php var_dump($_SESSION); ?>  
- --><!-- <br>
-<?php var_dump($data); ?>  --> 
-
-
 <!-- Account Details -->
 	<div class="body-section">
 		<div class="content-row">
@@ -17,7 +12,7 @@
 		</div>
 		<div class="profile-container">
 			<h1 class="title">Edit Profile</h1>
-			<!-- <h3 class="title" style="text-align: left"><a href="<?php echo URLROOT; ?>/passengerAccounts/displayAccount"><i class="fa fa-angle-double-left"></i></a> Back To Profile</h3> -->
+
 			<div class="tabstop">
 				<div class="tabs__sidebartop">
 					<button class="tabs__buttontop" data-for-tab="1"> <span>Edit Profile</span> <i class="fa fa-edit" aria-hidden="true"></i> </button>
@@ -34,13 +29,13 @@
 					    <form action="<?php echo URLROOT;?>/passengerAccounts/editAccount/<?php echo $row->userid;?>" method="POST">
 						    <div class="acc-form">
 
-						    	<!-- <div class="acc-inputfield">
+						    	<div class="acc-inputfield-flex">
 						          	<label>NIC</label>
-						          	<input type="text" name="nic" placeholder="-" class="acc-input" value="<?php echo $row->nic;?>" required>
+						          	<input type="text" name="nic" placeholder="-" class="acc-input" value="<?php echo $row->nic;?>" >
 						          	<span class="invalidFeedback">
 			                            <?php echo $data['nicError'];?>
 			                        </span>
-						      	</div>  -->
+						      	</div> 
 
 						      	<div class="acc-inputfield-flex">
 						          	<label>First Name</label>
@@ -81,10 +76,6 @@
 			                            <?php echo $data['streetError'];?>
 			                        </span>
 						      	</div> 
-						      	<!-- <div class="acc-inputfield">
-						          	<label>Address</label>
-						          	<textarea class="acc-textarea"></textarea>
-						      	</div> --> 
 						      	<div class="acc-inputfield-flex">
 						          	<label>City</label>
 						          	<input type="text" name="city" placeholder="-" class="acc-input" value="<?php echo $row->city;?>">
@@ -94,49 +85,11 @@
 						      	</div> 
 						      	<div class="acc-inputfield-flex">
 						          	<label>Country</label>
-						          	<div class="acc-custom_select">
-							            <select name="country">
-							              	<option value="">Select</option>
-							               	<option value="Afghanistan" <?php 
-							              	if($row->country=="Afghanistan"){
-							              		echo "selected";
-							              		}
-							             	 ?>
-							             	 >Afghanistan</option>
-							              	<option value="Brazil" <?php 
-							              	if($row->country=="Brazil"){
-							              		echo "selected";
-							              		}
-							             	?>
-							              	>Brazil</option>
-							              	<option value="India" <?php 
-							              	if($row->country=="India"){
-							              		echo "selected";
-							              		}
-							             	?>
-							              	>india</option>
-							              	<option value="Sri Lanka" <?php 
-							              	if($row->country=="Sri Lanka"){
-							              		echo "selected";
-							              		}
-							             	?>
-							              	>Sri Lanka</option>
-							              	<option value="United Kingdom" <?php 
-							              	if($row->country=="United Kingdom"){
-							              		echo "selected";
-							              		}
-							             	?>
-							              	>United Kingdom</option>
-							              	<option value="United States"
-							              	<?php 
-							              	if($row->country=="United States"){
-							              		echo "selected";
-							              		}
-							             	?>
-							              	>United States</option>		     
-							            </select>
-							        </div>
-							    </div> 
+						          	<input type="text" name="country" placeholder="-" class="acc-input" value="<?php echo $row->country;?>">
+						          	<span class="invalidFeedback">
+			                            <?php echo $data['countryError'];?>
+			                        </span>
+						      	</div> 
 						    	<div class="acc-inputfield-flex">
 						        	<input type="submit" name="editAccount" class="acc-btn">
 						      	</div>
@@ -176,7 +129,7 @@
 			                            <?php echo $data['confirmPasswordError'];?>
 			                        </span>
 						       	</div> 
-						       	
+					
 						    	<div class="acc-inputfield-flex">
 						        	<input type="submit" name="editPassword" class="acc-btn">
 						      	</div>
@@ -196,8 +149,6 @@
 					    	<p>Keep in mind that you will not be able to reactivate your account or retrieve any of the content or information you have added. Any subscriptions will also be removed.</p>
 					    	<p><b>You cannot delete your account if you have upcoming reservations</b></p>
 					    	<br>
-					    	<!-- <p>If you would still like your account deleted, click "Delete My Account".</p></center>
-					    	<br> -->
 					    	<div class="acc-inputfield-flex">
 					        	<input type="submit" name="deleteAccount" class="acc-btn del-acc">
 					      	</div>
@@ -207,7 +158,7 @@
 
 			</div>
 
-			<button type="submit" data-target="alert-warning-popup" class="btn blue-btn alert-btn back-btn"><span>Back</span></button>
+			<center><button type="submit" data-target="alert-warning-popup" class="btn blue-btn alert-btn back-btn"><i class="fa fa-long-arrow-left"></i > Back</button></center>
 		</div>
 
 		<div class="content-row">
@@ -216,16 +167,17 @@
 		</div>
 	</div>
 
+	<!-- delete account pop up -->
 	<div class="popup-box">
 		<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
 		<h1>Delete Your Account?</h1>
-		<!-- <p>We're sorry to hear you'd like to delete your account.<br> Keep in mind that you will not be able to reactivate your account or retrieve any of the content or information you have added.</p> -->
 		<label>Are you sure you want to proceed?</label>
 		<div class="btns">
 			<a href="#" class="btn1">Cancel</a>
 			<a href="#" class="btn2">Delete Account</a>
 		</div>
 	</div>
+	<!-- end of delete account pop up -->
 
 	<!-- alert warning pop up -->
 	<div class="flash-alert-box" id="alert-warning-popup">
@@ -236,7 +188,6 @@
 			<div class="alert-body">
 				<h3>Are you sure?</h3>
 				<p>You will lose any unsaved changes.</p>
-				<!-- <p><a>Proceed Anyway?</a></p> -->
 				<button onclick="location.href='<?php echo URLROOT; ?>/passengerAccounts/displayAccount'" class="proceed-btn">Proceed Anyway</button>
 			</div>
 			<button type="button" class="close-alert">&times;</button>
@@ -253,11 +204,6 @@
 					const tabsContainer = sideBar.parentElement;
 					const tabNumber = button.dataset.forTab;
 					const tabToActivate = tabsContainer.querySelector(`.tabs__contenttop[data-tab="${tabNumber}"]`);
-
-					// console.log(sideBar);
-					// console.log(tabsContainer);
-					// console.log(tabNumber);
-					// console.log(tabToActivate);
 
 					sideBar.querySelectorAll(".tabs__buttontop").forEach(button => {
 						button.classList.remove("tabs__buttontop--active");
@@ -297,8 +243,6 @@
 				$('.popup-box').css({
 					"opacity":"0",
 					"pointer-events":"none"
-					// "left":"event.pageX"
-					// "top":"event.pageY"
 				});
 			});
 			$('.btn2').click(function(){

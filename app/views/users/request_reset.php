@@ -1,22 +1,8 @@
 <?php 
 
-	//echo out databse info to the screen
-	// foreach ($data['users'] as $user) {
-	// 	echo "Information: " . $user->user_name . $user->user_email;
-	// 	echo "<br>";
-	// }
-
 	if(isLoggedIn()){
 		redirect($_SESSION['role']);
 	}
-
-	// use PHPMailer\PHPMailer\PHPMailer;
-	// use PHPMailer\PHPMailer\SMTP;
-	// use PHPMailer\PHPMailer\Exception;
-
-	// require APPROOT . '/libraries/PHPMailer/src/Exception.php';
-	// require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
-	// require APPROOT . '/libraries/PHPMailer/src/SMTP.php';
 
 	require APPROOT . '/views/includes/passenger_head.php';
 	require APPROOT . '/views/includes/passenger_navigation.php';
@@ -43,19 +29,5 @@
 	</div>
 </div>
 </div>
-
-<!-- js for toggle menu -->
-	<script>
-		var menuItems = document.getElementById("menuItems");
-		menuItems.style.maxHeight = "0px"
-		function menutoggle(){
-			if(menuItems.style.maxHeight == "0px"){
-				menuItems.style.maxHeight = "360px";
-			}
-			else{
-				menuItems.style.maxHeight = "0px";
-			}
-		}
-	</script>
 
 <?php require APPROOT . '/views/includes/passenger_footer.php'; ?>
