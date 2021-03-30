@@ -45,7 +45,7 @@ class DriverMobiles extends Controller{
                 }
             }else{
                 $response['error']=true;
-                $response['message']="Email is not registered";
+                $response['message']="Email is not registered as a driver in the system";
             }
 
         }
@@ -88,7 +88,7 @@ class DriverMobiles extends Controller{
                 $response['message']="Reset password sent to the email successfully..";
             }else{
                 $response['error']=true;
-                $response['message']="Email is not registered";
+                $response['message']="Email is not registered as a Driver in the system.";
             }
         }
 

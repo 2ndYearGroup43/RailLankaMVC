@@ -10,7 +10,7 @@ class DriverMobile{
 
     public function checkEmail($email)
     {
-        $this->db->query('SELECT  COUNT(*) AS count FROM users WHERE email=:email');
+        $this->db->query('SELECT  COUNT(*) AS count FROM users u INNER JOIN driver d ON d.userId=u.userId WHERE u.email=:email');
         $this->db->bind(':email', $email);
         $row=$this->db->single();
 
