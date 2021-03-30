@@ -1,17 +1,9 @@
-// window.onload = function() {
-
-
-//     console.log("hola hola");
-
-
-// }
-
 window.onload= function (){
 
     for (var i=0;i<currentSchedules.length;i++){
         console.log(currentSchedules[i].stationID);
     }
-    // console.log(currentSchedules);
+
 
 }
 
@@ -109,14 +101,6 @@ function addScheduleRow() {
 
     console.log(schedules);
 
-    // schedules[index]["stationId"]=stationName;
-    // schedules[index]["stopno"]=stopNo;
-    // schedules[index]["arrivaltime"]=arrivalTime;
-    // schedules[index]["departuretime"]=departureTime;
-    // schedules[index]["date"]=date;
-    // schedules[index]["distance"]=distance;
-
-
     row.insertCell(0).innerHTML=stationName.value;
     row.insertCell(1).innerHTML=stopNo.value;
     row.insertCell(2).innerHTML=arrivalTime.value;
@@ -129,8 +113,7 @@ function addScheduleRow() {
 
     stationName.value='';
     stopNo.value="";
-    // arrivalTime.value='';
-    // departureTime.value='';
+
     date.value='';
     distance.value='';
 

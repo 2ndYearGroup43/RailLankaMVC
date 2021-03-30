@@ -10,6 +10,8 @@
             <div class="content-row">
                     <div class="container-table">
                         <h2 style="color: #13406d;">Disabled Seats Details</h2>
+                        <form action="<?php echo URLROOT . "/ResOfficerManageSeats/deletePendingReservations" ?>" method="POST">                              
+                        <input type="submit" name="delete" value="Remove Pending Reservations" class="red-btn"></form>
                         <div class="res-table">
                             <table class="blue">
                                 <thead>

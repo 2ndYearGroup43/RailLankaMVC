@@ -10,15 +10,19 @@ use PHPMailer\PHPMailer\Exception;
             $this->resofficerModel=$this->model('Resofficer');
         }
 
-        public function index() {
 
-            // $users = $this->userModel->getUsers();
+        public function index() { // index function
+
+            $data = [
+                'title' => 'Resofficer Home Page',
+            ];
+
             $data=$this->resofficerModel->getNotices();
 
-            $this->view('resofficers/index', $data); //
+            $this->view('resofficers/index', $data); 
         }
 
-        public function registerResofficer()
+        public function registerResofficer() // add reservation officer data
         {
             $data=[
                 'officerId'=>'',
@@ -28,7 +32,6 @@ use PHPMailer\PHPMailer\Exception;
                 'email'=>'',
                 'mobileNo'=>'',
                 'password'=>'',
-                // 'confirmPassword'=>'',
                 'regDate'=>'',
                 'regTime'=>'',
                 'officerIdError'=>'',
@@ -36,9 +39,7 @@ use PHPMailer\PHPMailer\Exception;
                 'firstNameError'=>'',
                 'lastNameError'=>'',
                 'emailError'=>'',
-                'mobileNoError'=>'',
-                // 'passwordError'=>'',
-                // 'confirmPasswordError'=>''              
+                'mobileNoError'=>'',             
             ];
 
             if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -52,7 +53,6 @@ use PHPMailer\PHPMailer\Exception;
                     'email'=>trim($_POST['email']),
                     'mobileNo'=>trim($_POST['mobileNo']),
                     'password'=>'',
-                    // 'confirmPassword'=>trim($_POST['confirmPassword']),
                     'regDate'=>date("Y-m-d"),
                     'regTime'=>date("H:i:sa"),
                     'officerIdError'=>'',
@@ -60,9 +60,7 @@ use PHPMailer\PHPMailer\Exception;
                     'firstNameError'=>'',
                     'lastNameError'=>'',
                     'emailError'=>'',
-                    'mobileNoError'=>'',
-                    // 'passwordError'=>'',
-                    // 'confirmPasswordError'=>''              
+                    'mobileNoError'=>'',             
                 ];
                 $idValidation="/^[a-zA-Z0-9]*$/";
                 $nameValidation="/^[a-zA-Z]*$/";
@@ -120,31 +118,13 @@ use PHPMailer\PHPMailer\Exception;
                 $data['password']=$informPass;
                 $userEmail=$data['email'];
 
-                //password validate by length and numeric values
-                // if(empty($data['password'])){
-                //     $data['passwordError']='Please Enter the passsword.';
-                // }elseif (strlen($data['password'])<8) {
-                //     $data['passwordError']="Password length should be atleast 8 characters long";
-                // }elseif(!preg_match($passwordValidation, $data['password'])){
-                //     $data['passwordError']="Password must have atleast one numeric value.";
-                // }
-
-                // if(empty($data['confirmPassword'])){
-                //     $data['confirmPasswordError']='Please Enter the passsword.';
-                // }else{
-                //     if($data['password']!=$data['confirmPassword']){
-                //         $data['confirmPasswordError']='Passwords do not match.';
-                //     }
-                // }
-
                 if(empty($data['officerIdError']) && empty($data['employeerIdError']) &&
                 empty($data['firstNameError']) && empty($data['lastNameError']) && 
                 empty($data['emailError']) && empty($data['mobileNoError'])){
-                // empty($data['passwordError']) && empty($data['confirmPasswordError'])){
-                        //Hash passsword
+
                        
                         $data['password']=password_hash($data['password'], PASSWORD_DEFAULT);
-                        //Rgoster user from model function
+                        //Register user from model function
                         if($this->resofficerModel->registerResofficer($data)){
                             //Redrects to the login page
                             
@@ -161,7 +141,7 @@ use PHPMailer\PHPMailer\Exception;
         }
 
 
-        public function informEmployeeOfthePassword($email, $password)
+        public function informEmployeeOfthePassword($email, $password) // send email
         {   
             require APPROOT . '/libraries/PHPMailer/src/Exception.php';
             require APPROOT . '/libraries/PHPMailer/src/PHPMailer.php';
@@ -179,8 +159,10 @@ use PHPMailer\PHPMailer\Exception;
                 $mail->isSMTP();                                            // Send using SMTP
                 $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                $mail->Username   = PROJECTEMAIL;                     // SMTP username
-                $mail->Password   = PROJECTEMAILPASSWORD;                               // SMTP password
+
+                $mail->Username   = 'raillankaproject@gmail.com';                     // SMTP username
+                $mail->Password   = 'Raillanka@1234';                               // SMTP password
+
                 $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
@@ -214,7 +196,7 @@ use PHPMailer\PHPMailer\Exception;
 
 
 
-        public function updateResofficer($userId)
+        public function updateResofficer($userId) // update resofficer data
         {
 
             $resofficer=$this->resofficerModel->findResofficerById($userId);
@@ -327,7 +309,7 @@ use PHPMailer\PHPMailer\Exception;
                 empty($data['emailError']) && empty($data['mobileNoError'])){
                         //Hash passsword
                         echo "hariiii";
-                        //Rgoster user from model function
+                        //Register user from model function
                         if($this->resofficerModel->updateResofficer($data)){
                             //Redrects to the login page
                             header('Location: '.URLROOT.'/resofficers/viewResofficers');
@@ -344,7 +326,7 @@ use PHPMailer\PHPMailer\Exception;
 
 
 
-        public function viewResofficers()
+        public function viewResofficers() // view resofficer data
         {
             $resofficers=$this->resofficerModel->getResofficers();
             $fields=$this->resofficerModel->getResofficerFields();
@@ -356,7 +338,7 @@ use PHPMailer\PHPMailer\Exception;
             $this->view('resofficers/manageResofficers', $data);
         }
 
-        public function resofficersSearchBy()
+        public function resofficersSearchBy() // resofficer search
         {
            
             $data=[
@@ -388,7 +370,7 @@ use PHPMailer\PHPMailer\Exception;
 
         }
 
-        public function resofficerAccount()
+        public function resofficerAccount() // resofficer account details
         {
             $id = $_SESSION['userid'];
             $resofficer=$this->resofficerModel->findResofficerById($id);
@@ -400,7 +382,7 @@ use PHPMailer\PHPMailer\Exception;
             $this->view('resofficers/resofficerAccount', $data);
         }
 
-        public function deleteUser($userId)
+        public function deleteUser($userId) // delete resofficer
         {
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -414,7 +396,7 @@ use PHPMailer\PHPMailer\Exception;
             
         }
 
-        public function logout() {
+        public function logout() { // logout resofficer
             unset($_SESSION['userid']);
             unset($_SESSION['email']);
             unset($_SESSION['role']);

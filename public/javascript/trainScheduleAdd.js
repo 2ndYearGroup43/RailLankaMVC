@@ -1,10 +1,3 @@
-// window.onload = function() {
-  
-
-//     console.log("hola hola");
-
-
-// }
 
 var schedules=[];
 var curDistance=0;
@@ -73,6 +66,7 @@ function addScheduleRow() {
                 return;
             }
         }
+
     }
     curDistance=parseFloat(distance.value);
     if (date.value=="Next Day"){
@@ -80,7 +74,6 @@ function addScheduleRow() {
     }
 
 
-        
 
     var tbody=table.getElementsByTagName("tbody")[0];
     var rowCount=tbody.rows.length;
@@ -99,15 +92,7 @@ function addScheduleRow() {
 
     schedules.push(temp);
 
-    console.log(schedules);
-
-    // schedules[index]["stationId"]=stationName;
-    // schedules[index]["stopno"]=stopNo;
-    // schedules[index]["arrivaltime"]=arrivalTime;
-    // schedules[index]["departuretime"]=departureTime;
-    // schedules[index]["date"]=date;
-    // schedules[index]["distance"]=distance;
-    
+    console.log(schedules);    
 
     row.insertCell(0).innerHTML=stationName.value;
     row.insertCell(1).innerHTML=stopNo.value;
@@ -121,8 +106,6 @@ function addScheduleRow() {
 
     stationName.value='';
     stopNo.value="";
-    // arrivalTime.value='';
-    // departureTime.value='';
     date.value='';
     distance.value='';
 
@@ -144,82 +127,3 @@ function deleteRow(obj) {
 
 }
 
-
-// function postData(trainId) {
-//     schedules.push(trainId);
-
-//     var url= "";
-//     $.ajax({
-//         type: "POST",
-//         url: url,
-//         data: JSON.stringify(schedules),
-//         contentType: "applicaton/json; charset=utf-8",
-//         dataType: "json",
-//         error: function(){
-//             alert("Error sumiting data");
-//         },
-//         success: function(){
-//             alert("Successfully submited");
-//         }
-//     })
-// }
-
-// function postData() {
-//     var values = {};
-//     var fields=$('#scheduleForm :input');
-//     $.each(fields, function (i, field) {
-//         var dom = $(field),
-//             name= dom.attr('name'),
-//             value=dom.val();
-//         values[name]=value;    
-
-//     });
-
-//     values.schedules={};
-//     $.each(schedules, function(i, field){
-//         values.schedules[field.name]=field.value;
-//     });
-
-//     console.log(values);
-
-//     $.post('/raillankamvc/Admin_manage_schedules/addschedule', values);
-//     alert("successfully submitted");
-// }
-
-
-
-// function addrow() {
-//     var stationName= document.getElementById("stationID");
-//     var stopNo= document.getElementById("stopno");
-//     var arrivalTime= document.getElementById("arrivaltime");
-//     var departureTime= document.getElementById("departuretime");
-//     var date= document.getElementById("date");
-//     var distance= document.getElementById("distance");
-//     var table= document.getElementById("scheduleTable");
-
-//     var rowCount=table.rows.length;
-//     var row=table.insertRow(rowCount);
-
-//     var index=schedules.length;
-
-//     schedules[index]["stationId"]=stationName;
-//     schedules[index]["stopno"]=stopNo;
-//     schedules[index]["arrivaltime"]=arrivalTime;
-//     schedules[index]["departuretime"]=departureTime;
-//     schedules[index]["date"]=date;
-//     schedules[index]["distance"]=distance;
-    
-
-//     row.insertCell(0).innerHTML=stationName.value;
-//     row.insertCell(1).innerHTML=stopNo.value;
-//     row.insertCell(2).innerHTML=arrivalTime.value;
-//     row.insertCell(3).innerHTML=departureTime.value;
-//     row.insertCell(4).innerHTML=date.value;
-//     row.insertCell(5).innerHTML=distance.value;
-    
-    
-    
-
-    
-    
-// }

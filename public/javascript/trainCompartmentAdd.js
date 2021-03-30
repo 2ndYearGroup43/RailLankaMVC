@@ -1,10 +1,4 @@
-// window.onload = function() {
-  
 
-//     console.log("hola hola");
-
-
-// }
 
 var compartments=[];
 
@@ -56,23 +50,15 @@ function addCompartmentRow() {
 
     console.log(compartments);
 
-    // schedules[index]["stationId"]=stationName;
-    // schedules[index]["stopno"]=stopNo;
-    // schedules[index]["arrivaltime"]=arrivalTime;
-    // schedules[index]["departuretime"]=departureTime;
-    // schedules[index]["date"]=date;
-    // schedules[index]["distance"]=distance;
-    
-
     row.insertCell(0).innerHTML=compartmentNo.value;
     row.insertCell(1).innerHTML=trainClass.value;
     row.insertCell(2).innerHTML=type.value;
     row.insertCell(3).innerHTML='<input type="button" class="red-btn" value = "Del" onClick="Javacsript:deleteRow(this)">';
     
 
-
     compartmentNo.value='';
     trainClass.value="";
+    noSeats.value='';
     type.value='';
 
     $('#compartmentField').val(JSON.stringify(compartments));

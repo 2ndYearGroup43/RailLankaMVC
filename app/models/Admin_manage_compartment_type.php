@@ -6,7 +6,7 @@ class Admin_manage_compartment_type {
 		$this->db = new Database;
 	}
 
-	public function create_compartment_type($data){
+	public function create_compartment_type($data){ // add compartment types details
 		//this is an preapared statement
 		$this->db->query('INSERT INTO compartment_type (typeNo, imageDir) VALUES (:typeNo, :imageDir)');
         //bind values
@@ -21,7 +21,7 @@ class Admin_manage_compartment_type {
         
 	}
 
-	    public function findCompartmentTypeByTypeNo($tno)
+	    public function findCompartmentTypeByTypeNo($tno) // find compartment by compartment no
     {
 
         $this->db->query('SELECT COUNT(*) as count FROM compartment_type WHERE typeNo = :tno');
@@ -38,13 +38,13 @@ class Admin_manage_compartment_type {
         }
     }
 
-	public function get(){
+	public function get(){ // get comaprtment type details
 		$this->db->query('SELECT * FROM compartment_type ORDER BY typeNo ASC');
 		$results = $this->db->resultSet();
 		return $results;
 	}
 
-	public function findCompartmentType($typeNo){
+	public function findCompartmentType($typeNo){ // find compartment types
 		$this->db->query('SELECT * FROM compartment_type WHERE typeNo=:typeNo');
 
 		$this->db->bind(':typeNo', $typeNo);
@@ -53,7 +53,7 @@ class Admin_manage_compartment_type {
 		return $row;
 	}
 
-	public function views($data){
+	public function views($data){ // view compartment types
 		$this->db->query('SELECT compartment_type SET (typeNo=:typeNo, imageDir=:imageDir, noofseats=:noofseats) WHERE typeNo=:typeNo');
 
 		$this->db->bind(':typeNo', $data['typeNo']);

@@ -7,7 +7,7 @@
                         isResofficerLoggedIn();
 		}
 
-		public function index()
+		public function index() // index function
         {
             $stations=$this->resofficerReservationModel->getStations();
             $data=[
@@ -16,7 +16,7 @@
             $this->view('resofficers/manage_seats/search_trains',$data);
         }
 
-        public function search() {
+        public function search() { //search train function
             
             $stations=$this->resofficerReservationModel->getStations();
             
@@ -117,7 +117,7 @@
 
                     }
 
-                    $this->displayTrains($data); 
+                    $this->displayTrains($data); //display train function
                     return;
 
                 }else {
@@ -130,13 +130,13 @@
         }
 
 
-        public function displayTrains($data) {
+        public function displayTrains($data) { //display train function
 
             
             $this->view('resofficers/manage_seats/display_trains',$data); 
         }
 
-        public function createReservation($id){
+        public function createReservation($id){ //create reservation function
 
             $oid = $_SESSION['userid'];
             $resofficer=$this->resofficerReservationModel->findResofficerById($oid);
@@ -162,7 +162,7 @@
                      
         }
 
-        public function displaySeatMaps($compNo, $resNo, $id) {
+        public function displaySeatMaps($compNo, $resNo, $id) { //display seatmaps function
 
                 if(isset($_GET['compNo'])){ 
                     $compNo=$_GET['compNo'];
@@ -214,7 +214,7 @@
             
         }
 
-        public function seatSelected() {
+        public function seatSelected() { //select seat function
     
             $data =[
                 'id'=>$_POST['id'],
@@ -234,7 +234,7 @@
          
         }
 
-        public function viewDisabledSeats(){
+        public function viewDisabledSeats(){ //view disabled seat function
             $seats=$this->resofficerReservationModel->getDisabledSeatDetails();
 
             $data = [
@@ -246,7 +246,7 @@
             $this->view('resofficers/manage_seats/view_disabled_seats', $data);
         }
 
-        public function delete($disabledId){
+        public function delete($disabledId){ //delete disabled seat function
 
             $data = [
                 'disabledId'=>'',
@@ -264,8 +264,36 @@
             }
             else{
                 die('Something Going Wrong');
+                }
             }
         }
-    }
+
+        public function deletePendingReservations(){ //delete pending reservation function
+
+                $currentDate=date("Y-m-d");
+
+                $data = [
+                    'reservationNo'=>'',
+                    'trainId'=>'',
+                    'journeyDate'=>'',
+                    'res_time'=>'',
+                    'comp_time'=>'',
+                    'total'=>'',
+                    'itemCount'=>'',
+                    'status'=>'',
+                    'passengerId'=>'',
+                    'officerId'=>'',
+                ];
+
+                if($_SERVER['REQUEST_METHOD']=='POST'){
+                    $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                if($this->resofficerReservationModel->deletePendingReservations($currentDate)){
+                    header("Location: " . URLROOT . "/ResOfficerManageSeats/viewDisabledSeats");
+                }
+                else{
+                    die('Something Going Wrong');
+                    }
+                }
+            }
 
 }

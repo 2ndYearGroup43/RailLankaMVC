@@ -6,7 +6,7 @@ class Admin_manage_train {
 		$this->db = new Database;
 	}
 
-	public function create_train($data){
+	public function create_train($data){ // add data to train table
 		//this is an preapared statement
 		$this->db->query('INSERT INTO train (trainId, name, reservable_status, type, src_station, starttime, dest_station, endtime, rateId, entered_date, entered_time ) VALUES (:trainId, :name, :reservable_status, :type, :src_station, :starttime, :dest_station, :endtime, :rateId, :entered_date, :entered_time)');
         //bind values
@@ -29,7 +29,7 @@ class Admin_manage_train {
 		}
 	}
 
-    public function findTrainByTrainId($tid)
+    public function findTrainByTrainId($tid) // find train by train id
     {
 
         $this->db->query('SELECT COUNT(*) as count FROM train WHERE trainId = :tid');
@@ -46,13 +46,13 @@ class Admin_manage_train {
         }
     }
 
-	public function get(){
+	public function get(){ // get train details
 		$this->db->query('SELECT * FROM train ORDER BY trainId ASC');
 		$results = $this->db->resultSet();
 		return $results;
 	}
 
-	public function findTrain($trainId){
+	public function findTrain($trainId){ // get station name
 		$this->db->query('SELECT t1.*,s1.name AS dest FROM 
 		(SELECT t.*, s.name AS src FROM train t JOIN station s ON  t.src_station=s.stationID WHERE trainId=:trainId) t1 
 		JOIN station s1 ON t1.dest_station=s1.stationID WHERE trainId=:trainId');
@@ -63,7 +63,7 @@ class Admin_manage_train {
 		return $row;
 	}
 
-	public function getScheduleDetails($trainId)
+	public function getScheduleDetails($trainId) // get schedule details
 	{
 		$this->db->query('SELECT t1.*,s1.name AS station FROM
 		 (SELECT r.trainId,s.* FROM route r INNER JOIN route_station s ON r.routeId=s.routeId WHERE r.trainId=:trainId) t1 
@@ -76,7 +76,7 @@ class Admin_manage_train {
 		 return $results;
 	}
 
-	public function getAvailableDays($trainId)
+	public function getAvailableDays($trainId) // get available days
 	{
 		$this->db->query('SELECT a.* FROM availabledays a INNER JOIN train t ON t.trainId=a.trainId WHERE a.trainId=:trainId');
 
@@ -87,7 +87,7 @@ class Admin_manage_train {
 	}
 
 
-	public function getCompartments($trainId)
+	public function getCompartments($trainId) // get compartment details
 	{
 		$this->db->query('SELECT c.*, ct.imageDir FROM compartment c INNER JOIN compartment_type ct ON ct.typeno=c.type WHERE c.trainId=:trainId');
 
@@ -99,19 +99,21 @@ class Admin_manage_train {
 
 
 
-	public function getRateId(){
+	public function getRateId(){ // get rate details
         $this->db->query("SELECT rateId FROM fare");
         $results=$this->db->resultSet();
         return $results;
     }
 
-    public function getStationID(){
+    public function getStationID(){ // get station details
         $this->db->query("SELECT stationID, name FROM station");
         $results=$this->db->resultSet();
         return $results;
     }
 
-	public function edit($data){
+
+	public function edit($data){ // edit train data
+
 		$this->db->query('UPDATE train SET name=:name, reservable_status=:reservable_status, type=:type, src_station=:src_station, starttime=:starttime, dest_station=:dest_station, endtime=:endtime, rateId=:rateId WHERE trainId=:trainId');
 
 		$this->db->bind(':trainId', $data['trainId']);
@@ -131,7 +133,7 @@ class Admin_manage_train {
 		}
 	}
 
-		public function views($data){
+		public function views($data){ // view train data
 		$this->db->query('SELECT train SET trainId=:trainId, name=:name, reservable_status=:reservable_status, type=:type, src_station=:src_station, starttime=:starttime, dest_station=:dest_station, endtime=:endtime, rateId=:rateId, entered_date=:entered_date, entered_time=:entered_time WHERE trainId=:trainId');
 
 		$this->db->bind(':trainId', $data['trainId']);
@@ -153,7 +155,7 @@ class Admin_manage_train {
 		}
 	}
 
-    public function findStationById($stationID) {
+    public function findStationById($stationID) { // get station data
         $this->db->query('SELECT COUNT(*) AS count FROM station WHERE stationID = :stationID');
 
         $this->db->bind(':stationID', $stationID);
@@ -167,7 +169,7 @@ class Admin_manage_train {
 
     }
 
-	public function delete($trainId){
+	public function delete($trainId){ // delete train data
 		$this->db->query('DELETE FROM train WHERE trainId=:trainId');
 
 		$this->db->bind(':trainId',$trainId);

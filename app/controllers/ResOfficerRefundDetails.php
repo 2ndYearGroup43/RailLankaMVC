@@ -5,7 +5,7 @@ class ResOfficerRefundDetails extends Controller{
 			isResofficerLoggedIn();
 		}
 
-	public function views(){
+	public function views(){ // view refund details function
 		$refund_details=$this->resofficerRefundModel->views();
 		$data = [
 			'refund_details'=>$refund_details
@@ -13,7 +13,7 @@ class ResOfficerRefundDetails extends Controller{
 		$this->view('resofficers/refunds/refundDetails', $data);
 	}
 
-	public function displayRefundDetails($ticketId) {
+	public function displayRefundDetails($ticketId) { // display refund details function
 
         $tickets=$this->resofficerRefundModel->getRefundDetails($ticketId);
         $journeys=$this->resofficerRefundModel->getJourneyDetails($ticketId);

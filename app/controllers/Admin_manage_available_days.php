@@ -5,7 +5,7 @@ class Admin_manage_available_days extends Controller{
 		$this->adminModel=$this->model('Admin_manage_available_day');
 	}
 
-	public function index(){
+	public function index(){ // index function
 		$manage_available_day=$this->adminModel->get();
 		$data = [
 			'manage_available_day'=>$manage_available_day
@@ -13,7 +13,7 @@ class Admin_manage_available_days extends Controller{
 		$this->view('admins/manage_available_day/index', $data);
 	}
 
-	public function create($trainId){
+	public function create($trainId){ // available days add function
 		$rstatus=$this->adminModel->getReservableStatus($trainId);
 		
 		$data = [
@@ -58,7 +58,7 @@ class Admin_manage_available_days extends Controller{
 
 	}
 
-	public function edit($trainId){
+	public function edit($trainId){ // edit available days
 
 		$manage_available_day=$this->adminModel->findTrainId($trainId);
 		$days=$this->adminModel->getAvailableDays($trainId);
@@ -106,7 +106,7 @@ class Admin_manage_available_days extends Controller{
 		$this->view('admins/manage_available_day/edit', $data);
 	}
 
-	public function views($trainId){
+	public function views($trainId){ // view available days
 
 		$manage_available_day=$this->adminModel->findTrainId($trainId);
 
@@ -144,7 +144,7 @@ class Admin_manage_available_days extends Controller{
 		$this->view('admins/manage_available_day/views', $data);
 	}
 
-	public function delete($trainId){
+	public function delete($trainId){ // delete available days
 
 		$manage_available_day=$this->adminModel->findTrainId($trainId);
 

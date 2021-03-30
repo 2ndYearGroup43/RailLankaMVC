@@ -7,7 +7,7 @@ class Resofficer{
         $this->db= new Database;
     }
 
-    public function registerResofficer($data)
+    public function registerResofficer($data) // add resofficer
     {
         $this->db->query('INSERT INTO users(email, password, role)
         VALUES(:email, :password, 5)');
@@ -45,7 +45,7 @@ class Resofficer{
 
     }
 
-    public function findResofficerByEmail($email)
+    public function findResofficerByEmail($email) // find resofficer by email
     {
         //this is an preapared statement
         $this->db->query('SELECT COUNT(*) AS count FROM reservation_officer m INNER JOIN users u ON u.userId=m.userId WHERE u.email = :email');
@@ -68,7 +68,7 @@ class Resofficer{
         }
     }
 
-    public function findResofficerByResofficerId($modid)
+    public function findResofficerByResofficerId($modid) // find resofficer by id
     {
         //this is an preapared statement
         $this->db->query('SELECT COUNT(*) AS count FROM reservation_officer WHERE officerId = :modid');
@@ -88,7 +88,7 @@ class Resofficer{
         }
     }
 
-    public function findResofficerByEmployeeId($empid)
+    public function findResofficerByEmployeeId($empid) // find resofficer by employee id
     {
         //this is an preapared statement
         $this->db->query('SELECT COUNT(*) AS count FROM reservation_officer WHERE employeeId = :empid');
@@ -111,21 +111,21 @@ class Resofficer{
     }
 
 
-    public function getResofficers()
+    public function getResofficers() // get resofficer data
     {
         $this->db->query('SELECT m.*, u.email FROM reservation_officer m INNER JOIN users u ON m.userid=u.userid');
         $results=$this->db->resultSet();
         return $results;
     }
 
-    public function getResofficerFields(){
+    public function getResofficerFields(){ // get resofficer data
         $this->db->query("SELECT DISTINCT column_name AS columns FROM INFORMATION_SCHEMA.columns WHERE TABLE_NAME IN('officer', 'users') AND
          column_name IN('officerId','userid','employeeId','email','firstname','lastname','mobileno','reg_date','reg_time')");
         $results=$this->db->resultSet();
         return $results;
     }
 
-    public function searchResofficers($searchterm, $searchfield)
+    public function searchResofficers($searchterm, $searchfield) // search resofficer data
         {
             if($searchterm==''){
                 $this->db->query('SELECT m.*,u.email FROM reservation_officer m
@@ -171,7 +171,7 @@ class Resofficer{
             
         }
 
-        public function findResofficerById($id)
+        public function findResofficerById($id) // get resofficer data
         {
             $this->db->query('SELECT m.*, u.email FROM reservation_officer m INNER JOIN users u ON m.userId=u.userId WHERE m.userId=:userId');
             $this->db->bind(":userId",$id);
@@ -179,7 +179,7 @@ class Resofficer{
             return $row; 
         }
 
-        public function updateResofficer($data)
+        public function updateResofficer($data) // update resofficer data
         {
             $this->db->query("UPDATE users SET email=:email WHERE userId=:userId");
             $this->db->bind(":userId", $data['userId']);
@@ -201,7 +201,7 @@ class Resofficer{
             }
         }
 
-        public function deleteUser($id)
+        public function deleteUser($id) // delete resofficer
         {
             $this->db->query('DELETE FROM users WHERE userId=:userId');
             $this->db->bind(":userId", $id);
@@ -216,7 +216,7 @@ class Resofficer{
 
 
 
-    public function login($username, $password)
+    public function login($username, $password) // resofficer login 
     {
         $this->db->query('SELECT * FROM reservation_officer m INNER JOIN users u ON m.userId=u.userId WHERE officerId = :username');
 
@@ -235,7 +235,7 @@ class Resofficer{
 
 
     
-    public function requestReset($email, $code){
+    public function requestReset($email, $code){ // request password reset
 
         $this->db->query('INSERT INTO resetpasswords (email,code) VALUES (:email, :code)');
 

@@ -7,7 +7,7 @@
 			isResofficerLoggedIn();
 		}
 
-		public function index()
+		public function index() // index function
         {
             $stations=$this->resofficerReservationModel->getStations();
             $data=[
@@ -16,7 +16,7 @@
             $this->view('resofficers/reservation_details/search_trains',$data);
         }
 
-		public function search() {
+		public function search() { // search train function
 			
 	        $stations=$this->resofficerReservationModel->getStations();
             $data=[
@@ -91,16 +91,16 @@
                     $this->view('resofficers/reservation_details/search_trains',$data);
                 }
             }
-            $this->view('resofficers/reservation_details/search_trains',$data);
+            $this->view('resofficers/reservation_details/search_trains',$data); //pass data to the view
 		}
 
-		public function displayAllReservationDetails($data) {
+		public function displayAllReservationDetails($data) { //display reservation details
 
 			$this->view('resofficers/reservation_details/display_all_reservation_details', $data);
 
 		}
 
-		public function displayTrainReservationDetails($trainId, $searchDate) {
+		public function displayTrainReservationDetails($trainId, $searchDate) { //display reservation details
 
         $trains=$this->resofficerReservationModel->getReservationDetails($trainId, $searchDate);
 
@@ -114,7 +114,7 @@
 			$this->view('resofficers/reservation_details/display_train_reservation_details', $data); 
 		}
 
-		public function viewReservationDetails($trainId, $ticketId, $journeyDate) {
+		public function viewReservationDetails($trainId, $ticketId, $journeyDate) { //view reservation details
 
           $compseats=$this->resofficerReservationModel->getCompSeatDetails($ticketId);
           $passenger=$this->resofficerReservationModel->checkUnregisteredPassenger($ticketId);

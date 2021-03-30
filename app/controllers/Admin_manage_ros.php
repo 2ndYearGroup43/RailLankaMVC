@@ -5,7 +5,7 @@ class Admin_manage_ros extends Controller{
 		$this->adminModel=$this->model('Admin_manage_ro');
 	}
 
-	public function index(){
+	public function index(){ // index function
 		$manage_ro=$this->adminModel->get();
 		$data = [
 			'manage_ro'=>$manage_ro
@@ -13,7 +13,7 @@ class Admin_manage_ros extends Controller{
 		$this->view('admins/manage_ro/index', $data);
 	}
 
-	public function create(){
+	public function create(){ // add reservation officers
 		$data = [
 			'officerId'=>'',
 			'employeeId'=>'',
@@ -134,7 +134,7 @@ class Admin_manage_ros extends Controller{
 
 	}
 
-	public function edit($officerId){
+	public function edit($officerId){ // edit details
 
 		$manage_ro=$this->adminModel->findEmployee($officerId);
 
@@ -270,7 +270,7 @@ class Admin_manage_ros extends Controller{
 		$this->view('admins/manage_ro/edit', $data);
 	}
 
-		public function views($officerId){
+		public function views($officerId){ // view details
 
 		$manage_ro=$this->adminModel->findEmployee($officerId);
 
@@ -309,7 +309,7 @@ class Admin_manage_ros extends Controller{
 		$this->view('admins/manage_ro/views', $data);
 	}
 
-	public function delete($officerId){
+	public function delete($officerId){ // delete details
 
 		$manage_ro=$this->adminModel->findEmployee($officerId);
 

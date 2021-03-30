@@ -7,7 +7,7 @@
 			isResofficerLoggedIn();
 		}
 
-		public function index()
+		public function index() // index function
         {
             $stations=$this->resofficerReservationModel->getStations();
             $data=[
@@ -16,7 +16,7 @@
             $this->view('resofficers/ticket_details/search_ticket_details',$data);
         }
         
-		public function search() {
+		public function search() { // search train function
 			
 	        $stations=$this->resofficerReservationModel->getStations();
             $data=[
@@ -90,13 +90,13 @@
             $this->view('resofficers/ticket_details/search_ticket_details',$data);
 		}
 
-		public function displayTicketTrains($data) {
+		public function displayTicketTrains($data) { // display ticket details
 
 			$this->view('resofficers/ticket_details/display_ticket_trains', $data);
 
 		}
 
-		public function displayTicketDetails($trainId, $searchDate) {
+		public function displayTicketDetails($trainId, $searchDate) { // display ticket details
 
         $trains=$this->resofficerReservationModel->getTicketDetails($trainId, $searchDate);
 

@@ -6,7 +6,7 @@ class Admin_manage_ro {
 		$this->db = new Database;
 	}
 
-	public function create_ro($data){
+	public function create_ro($data){ // enter reservation officer data
 		//this is an preapared statement
 		$this->db->query('INSERT INTO reservation_officer (officerId, employeeId, firstname, lastname, email, mobileno, password, reg_date, reg_time ) VALUES (:officerId, :employeeId,  :firstname, :lastname, :email, :mobileno, :password, :reg_date, :reg_time )');
         //bind values
@@ -28,7 +28,7 @@ class Admin_manage_ro {
         
 	}
 
-	    public function findOfficerByEmail($email)
+	    public function findOfficerByEmail($email) // find reservation officer by officer email
     {
 
         $this->db->query('SELECT COUNT(*) as count FROM reservation_officer WHERE email = :email');
@@ -45,7 +45,7 @@ class Admin_manage_ro {
         }
     }
 
-    public function findOfficerByOfficerId($rodid)
+    public function findOfficerByOfficerId($rodid) // find reservation officer by officer id
     {
 
         $this->db->query('SELECT COUNT(*) as count FROM reservation_officer WHERE officerId = :rodid');
@@ -62,7 +62,7 @@ class Admin_manage_ro {
         }
     }
 
-    public function findOfficerByEmployeeId($empid)
+    public function findOfficerByEmployeeId($empid) // find reservation officer by employee id
     {
 
         $this->db->query('SELECT COUNT(*) as count FROM reservation_officer WHERE employeeId = :empid');
@@ -79,13 +79,13 @@ class Admin_manage_ro {
         }
     }
 
-	public function get(){
+	public function get(){ // get reservation officer details
 		$this->db->query('SELECT * FROM reservation_officer ORDER BY officerId ASC');
 		$results = $this->db->resultSet();
 		return $results;
 	}
 
-	public function findEmployee($officerId){
+	public function findEmployee($officerId){ // find reservation officer details
 		$this->db->query('SELECT * FROM reservation_officer WHERE officerId=:officerId');
 
 		$this->db->bind(':officerId', $officerId);
@@ -94,7 +94,7 @@ class Admin_manage_ro {
 		return $row;
 	}
 
-	public function edit($data){
+	public function edit($data){ // edit reservation officer deta
 		$this->db->query('UPDATE reservation_officer SET employeeId=:employeeId, password=:password, email=:email, firstname=:firstname, lastname=:lastname, mobileno=:mobileno WHERE officerId=:officerId');
 
 		$this->db->bind(':officerId', $data['officerId']);
@@ -112,7 +112,7 @@ class Admin_manage_ro {
 		}
 	}
 
-		public function views($data){
+		public function views($data){ // view reservation officer data
 		$this->db->query('SELECT reservation_officer SET employeeId=:employeeId, password=:password, email=:email, firstname=:firstname, lastname=:lastname, mobileno=:mobileno, reg_date=:reg_date, reg_time=:reg_time WHERE officerId=:officerId');
 
 		$this->db->bind(':officerId', $data['officerId']);
@@ -132,7 +132,7 @@ class Admin_manage_ro {
 		}
 	}
 
-	public function delete($officerId){
+	public function delete($officerId){ // delete reservation officer
 		$this->db->query('DELETE FROM reservation_officer WHERE officerId=:officerId');
 
 		$this->db->bind(':officerId',$officerId);

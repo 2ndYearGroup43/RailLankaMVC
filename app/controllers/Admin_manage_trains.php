@@ -5,7 +5,7 @@ class Admin_manage_trains extends Controller{
 		$this->adminModel=$this->model('Admin_manage_train');
 	}
 
-	public function index(){
+	public function index(){ // index function
 		$manage_train=$this->adminModel->get();
 		$data = [
 			'manage_train'=>$manage_train
@@ -13,7 +13,7 @@ class Admin_manage_trains extends Controller{
 		$this->view('admins/manage_train/index', $data);
 	}
 
-	public function create(){
+	public function create(){ // add train function
 
 		$rates=$this->adminModel->getRateId();
 		$stationids=$this->adminModel->getStationID();
@@ -127,7 +127,7 @@ class Admin_manage_trains extends Controller{
 		$this->view('admins/manage_train/create', $data);
 	}
 
-	public function edit($trainId){
+	public function edit($trainId){ // edit train function
 
 		$manage_train=$this->adminModel->findTrain($trainId);
 		$rates=$this->adminModel->getRateId();
@@ -224,7 +224,7 @@ class Admin_manage_trains extends Controller{
 		$this->view('admins/manage_train/edit', $data);
 	}
 
-		public function views($trainId){
+		public function views($trainId){ // view trains function
 
 		$manage_train=$this->adminModel->findTrain($trainId);
 		$schedules=$this->adminModel->getScheduleDetails($trainId);
@@ -244,7 +244,7 @@ class Admin_manage_trains extends Controller{
 		$this->view('admins/manage_train/views', $data);
 	}
 
-	public function delete($trainId){
+	public function delete($trainId){ // delete train function
 
 		$manage_train=$this->adminModel->findTrain($trainId);
 

@@ -6,7 +6,9 @@ class Admin_manage_fare {
 		$this->db = new Database;
 	}
 
-	public function create_fare($data){
+
+	public function create_fare($data){ // add fare details to fare table
+
 		$this->db->query('INSERT INTO fare (fclassnormalbase, sclassnormalbase, tclassnormalbase, fclassbase, sclassbase, tclassbase, distance, rate )
  VALUES (:fclassnormalbase, :sclassnormalbase, :tclassnormalbase, :fclassbase, :sclassbase, :tclassbase, :distance, :rate)');
 
@@ -27,16 +29,13 @@ class Admin_manage_fare {
         
 	}
 
-    public function findRateByRateID($rid)
+    public function findRateByRateID($rid) // find fare rates 
     {
         //this is an preapared statement
         $this->db->query('SELECT COUNT(*) as count FROM fare WHERE rateID = :rid');
 
-        //Email param will be binded by the email variable
-
         $this->db->bind(':rid', $rid);
 
-        //check if the email is already registsered;
         $results=array();
         $results=$this->db->resultSet();
         $count=$results[0]->count;
@@ -47,13 +46,13 @@ class Admin_manage_fare {
         }
     }
 
-	public function get(){
+	public function get(){ // get fare details
 		$this->db->query('SELECT * FROM fare ORDER BY rateID ASC');
 		$results = $this->db->resultSet();
 		return $results;
 	}
 
-	public function findFare($rateID){
+	public function findFare($rateID){ // get fare details
 		$this->db->query('SELECT * FROM fare WHERE rateID=:rateID');
 
 		$this->db->bind(':rateID', $rateID);
@@ -62,7 +61,9 @@ class Admin_manage_fare {
 		return $row;
 	}
 
-	public function edit($data){
+
+	public function edit($data){ // edit fare details
+
 		$this->db->query('UPDATE fare SET fclassbase=:fclassbase, sclassbase=:sclassbase, tclassbase=:tclassbase,
                 fclassnormalbase=:fclassnormalbase, sclassnormalbase=:sclassnormalbase, tclassnormalbase=:tclassnormalbase, 
                 distance=:distance, rate=:rate WHERE rateID=:rateID');
@@ -85,7 +86,7 @@ class Admin_manage_fare {
 		}
 	}
 
-		public function views($data){
+		public function views($data){ // view fare details
 		$this->db->query('SELECT fare SET rateID=:rateID, fclassbase=:fclassbase, sclassbase=:sclassbase, tclassbase=:tclassbase, distance=:distance, rate=:rate WHERE rateID=:rateID');
 
 		$this->db->bind(':rateID', $data['rateID']);
@@ -102,7 +103,7 @@ class Admin_manage_fare {
 		}
 	}
 
-	public function delete($rateID){
+	public function delete($rateID){ // delete fare details
 		$this->db->query('DELETE FROM fare WHERE rateID=:rateID');
 
 		$this->db->bind(':rateID',$rateID);
