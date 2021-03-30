@@ -776,4 +776,24 @@
             return $results;
         }
 
+        public function getFinalBookedSeats($resNo){ // get final booked seats
+
+            $this->db->query("SELECT s.seatNo, s.seatId, s.compartmentNo, s.classtype, s.price FROM seat s INNER JOIN reservation r ON s.reservationNo=r.reservationNo WHERE s.reservationNo=:resNo AND s.status='booked'");
+
+            $this->db->bind(':resNo',$resNo);
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
+        public function getBookingSummary($resNo){ // get booking summary
+            $this->db->query("SELECT COUNT(s.seatNo) AS count, SUM(s.price) AS total FROM seat s WHERE s.reservationNo=:resNo AND status='booked'");
+
+            //bind values
+            $this->db->bind(':resNo',$resNo);
+            $results = array();
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
     }
