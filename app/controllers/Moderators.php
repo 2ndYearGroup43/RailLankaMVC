@@ -17,11 +17,7 @@
 		public function index() {
 
 			// $users = $this->userModel->getUsers();
-
-			$data = [
-				'title' => 'Moderator Home Page',
-				// 'users' => $users
-			];
+            $data=$this->moderatorModel->getNotices();
 
 			$this->view('moderators/index', $data); //
 		}

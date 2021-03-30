@@ -13,17 +13,9 @@
 
         public function index()
         {
-            $data = [
-				'title' => 'Admin Home Page',
-				// 'users' => $users
-			];
 
-            $admins=$this->adminModel->getAdmins();
-            $fields=$this->adminModel->getAdminFields();
-            $data=[
-                'admins'=>$admins,
-                'fields'=>$fields
-            ];
+            $data=$this->adminModel->getNotices();
+
 
 			$this->view('admins/index', $data); //
         }

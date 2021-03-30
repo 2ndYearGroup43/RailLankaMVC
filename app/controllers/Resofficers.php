@@ -13,11 +13,7 @@ use PHPMailer\PHPMailer\Exception;
         public function index() {
 
             // $users = $this->userModel->getUsers();
-
-            $data = [
-                'title' => 'Resofficer Home Page',
-                // 'users' => $users
-            ];
+            $data=$this->resofficerModel->getNotices();
 
             $this->view('resofficers/index', $data); //
         }
