@@ -64,21 +64,37 @@ class AdminStations extends Controller {
 
             if(empty($data['stationID'])) {
                 $data['stationIDError'] = 'The stationID of a station cannot be empty';
-            }
+            }else{
+                    //if Employee ID exists
+                    if($this->adminstationModel->findStationById($data['stationID'])){
+                        $data['stationIDError']='This station is already save as a Station ID in the system.'; 
+                    }}
 
             if(empty($data['name'])) {
                 $data['nameError'] = 'The name of a station cannot be empty';
             }
 
+            /*if(empty($data['telephoneNo'])) {
+                $data['telephoneNoError'] = 'The telephoneNo of a station cannot be empty';
+            }*/
+
             if(empty($data['telephoneNo'])){
                     $data['telephoneNoError']='Please Enter the Telephone No.';
                 }elseif(!preg_match($telephoneValidation, $data['telephoneNo'])){
-                    $data['telephoneNoError']="Name can only contain numbers and +.";
+                    $data['telephoneNoError']="telephone No. can only contain numbers and +.";
             }
 
             if(empty($data['type'])) {
                 $data['typeError'] = 'The type of a station cannot be empty';
             }
+
+            /*if(empty($data['entered_date'])) {
+                $data['entered_dateError'] = 'The entered_date of a station cannot be empty';
+            }
+
+            if(empty($data['entered_time'])) {
+                $data['entered_timeError'] = 'The entered_time of a station cannot be empty';
+            }*/
 
             if (empty($data['stationIDError']) && empty($data['nameError']) && empty($data['telephoneNoError']) && empty($data['typeError']) ) {
                 if ($this->adminstationModel->addStation($data)) {
@@ -111,11 +127,15 @@ class AdminStations extends Controller {
                 'name'=>'',
                 'telephoneNo'=>'',
                 'type'=>'',
+                'entered_date'=>'',
+                'entered_time'=>'',
                 'stationIDError'=>'',
                 'nameError'=>'',
                 'telephoneNoError'=>'',
-                'typeError'=>''
-            ];
+                'typeError'=>'',
+                'entered_dateError'=>'',
+                'entered_timeError'=>''
+        ];
 
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -127,15 +147,23 @@ class AdminStations extends Controller {
                     'name'=>trim($_POST['name']),
                     'telephoneNo'=>trim($_POST['telephoneNo']),
                     'type'=>trim($_POST['type']),
+                    'entered_date'=>date("Y-m-d"),
+                    'entered_time'=>date("H:i:s"),
                     //'adminID'=>$_SESSION['adminID'],
                     'stationIDError'=>'',
                     'nameError'=>'',
                     'telephoneNoError'=>'',
-                    'typeError'=>''
+                    'typeError'=>'',
+                    'entered_dateError'=>'',
+                    'entered_timeError'=>''
             ];
 
+           // echo $data['adminId'];
 
             $telephoneValidation="/^[0-9]{10}+$/";
+
+
+            
 
 
             if(empty($data['stationID'])) {
@@ -146,7 +174,9 @@ class AdminStations extends Controller {
                 $data['nameError'] = 'The name of a station cannot be empty';
             }
 
-            
+            /*if(empty($data['telephoneNo'])) {
+                $data['telephoneNoError'] = 'The telephoneNo of a station cannot be empty';
+            }*/
             if(empty($data['telephoneNo'])){
                     $data['telephoneNoError']='Please Enter the Telephone No.';
                 }elseif(!preg_match($telephoneValidation, $data['telephoneNo'])){
@@ -156,6 +186,15 @@ class AdminStations extends Controller {
             if(empty($data['type'])) {
                 $data['typeError'] = 'The type of a station cannot be empty';
             }
+
+            if(empty($data['entered_date'])) {
+                $data['entered_dateError'] = 'The entered_date of a station cannot be empty';
+            }
+
+            if(empty($data['entered_time'])) {
+                $data['entered_timeError'] = 'The entered_time of a station cannot be empty';
+            }
+
 
             if($data['stationID'] == $this->adminstationModel->findStationById($stationID)->stationID) {
                 $data['stationIDError'] == 'At least change the stationID!';
@@ -169,11 +208,27 @@ class AdminStations extends Controller {
                 $data['telephoneNoError'] == 'At least change the telephoneNo!';
             }
 
+            /*if(empty($data['telephoneNo'])){
+                    $data['telephoneNoError']='Please Enter the Telephone No.';
+                }elseif(!preg_match($telephoneValidation, $data['telephoneNo'])){
+                    $data['telephoneNoError']="Name can only contain numbers and +.";
+            }*/
+
             if($data['type'] == $this->adminstationModel->findStationById($stationID)->type) {
                 $data['typeError'] == 'At least change the type!';
             }
 
-            if (empty($data['stationIDError']) && empty($data['nameError']) && empty($data['telephoneNoError']) && empty($data['typeError'])) {
+            if($data['entered_date'] == $this->adminstationModel->findStationById($stationID)->entered_date) {
+                $data['entered_dateError'] == 'At least change the entered_date!';
+            }
+
+            if($data['entered_time'] == $this->adminstationModel->findStationById($stationID)->entered_time) {
+                $data['entered_timeError'] == 'At least change the entered_time!';
+            }
+
+
+
+            if (empty($data['stationIDError']) && empty($data['nameError']) && empty($data['telephoneNoError']) && empty($data['typeError']) && empty($data['entered_dateError']) && empty($data['entered_timeError'])) {
                 if ($this->adminstationModel->updateStation($data)) {
                     header("Location: " . URLROOT . "/adminStations");
                 } else {
@@ -188,6 +243,20 @@ class AdminStations extends Controller {
     }
 
 
+// public function deleteUser($userid)
+//         {
+//             if($_SERVER['REQUEST_METHOD']=='POST'){
+//                 $_POST=filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+//                 if ($this->adminModel->deleteUser($userid)) {
+//                     header("Location: ".URLROOT."/admins/viewAdmins");
+//                 } else {
+//                     die("Something went wrong");
+//                 }
+                
+//             }
+            
+//         }
+
     public function deleteStation($stationID) 
     {
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -196,9 +265,10 @@ class AdminStations extends Controller {
                     header("Location: ".URLROOT."/adminStations/manage_station");
                 } else {
                     die("Something went wrong");
-                }  
-            }  
-    
+                }
+                
+            }
+            
     }
 
 
@@ -231,7 +301,7 @@ class AdminStations extends Controller {
                 ];
                 
             }  
- 
+            /*$this->view('adminStations/manage_station', $data);*/
                 $this->view('admins/stations/manage_station', $data);
 
         }

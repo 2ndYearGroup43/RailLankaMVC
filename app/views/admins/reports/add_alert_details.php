@@ -56,12 +56,13 @@
                                 <option value= "<?php echo $train->trainId; ?>"> <?php echo $train->name; ?></option>
                                 <?php endforeach ;?>
 
+                                     <!-- <?php echo $data['train']->name;?> -->
+                                </select>
+
                                 <span class="invalidFeedback">
                                     <?php echo $data['nameError']; ?>
                                 </span>
 
-                                     <!-- <?php echo $data['train']->name;?> -->
-                                </select>
                                 
                             </div>
                     </div>
