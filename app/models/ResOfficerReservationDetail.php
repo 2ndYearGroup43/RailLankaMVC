@@ -197,7 +197,7 @@
         ON t.trainId=ti.trainId
         INNER JOIN  seat s 
         ON ti.ticketId=s.reservationNo
-        WHERE t.trainId=:trainId AND ti.journeyDate=:searchDate ORDER BY s.compartmentNo, s.seatNo ASC');
+        WHERE t.trainId=:trainId AND ti.journeyDate=:searchDate AND s.status="booked" ORDER BY s.compartmentNo, s.seatNo ASC');
 
         $this->db->bind(":trainId",$trainId);
         $this->db->bind(":searchDate", $searchDate);
