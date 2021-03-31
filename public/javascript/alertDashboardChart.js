@@ -18,7 +18,7 @@ function initiateCharts(alertCount) {
     chartAlertType = new CanvasJS.Chart("alertTypeChart", {
         animationEnabled: true,
         title: {
-            text: "Alert Types on Date 2020-10-20"
+            text: "Alert Types on Date "+alertCount['searchDate']
         },
         data: [{
             type: "pie",
@@ -37,12 +37,12 @@ function initiateCharts(alertCount) {
     chartAlertIssueType = new CanvasJS.Chart("issueTypeChart", {
         animationEnabled: true,
         title: {
-            text: "Alert Issues on Date 2020-10-20"
+            text: "Alert Issues on Date "+alertCount['searchDate']
         },
         data: [{
             type: "pie",
             startAngle: 240,
-            yValueFormatString: "##0.00'%'",
+            yValueFormatString: "##0.00'%'", //defines format of the percentage display
             indexLabek: "{label} {y}",
             dataPoints: [
                 {y: (techCount/issueTypeTotal)*100, label: "Technical"},

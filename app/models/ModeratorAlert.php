@@ -107,7 +107,7 @@
 
         public function findTrainById($trainid)
         {
-            $this->db->query('SELECT COUNT(*) AS count FROM train WHERE trainId=:trainId');
+            $this->db->query('SELECT COUNT(*) AS count FROM train WHERE trainId=:trainId AND isDeleted=0');
             $this->db->bind(':trainId',$trainid);
 
             $results=array();
@@ -625,7 +625,7 @@
 
         public function getTrains()
         {
-            $this->db->query('SELECT trainId, name FROM train');
+            $this->db->query('SELECT trainId, name FROM train WHERE isDeleted=0');
             $results=$this->db->resultSet();
             return $results;
         }
