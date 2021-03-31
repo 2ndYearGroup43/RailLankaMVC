@@ -114,7 +114,7 @@ class AdminStations extends Controller {
 
     public function update_station($stationID) {
 
-        $station = $this->adminstationModel->findStationById($stationID);
+        $station = $this->adminstationModel->getStation($stationID);
 
        /*if(!isLoggedIn()) {
             header("Location: " . URLROOT . "/stations");

@@ -32,6 +32,15 @@ class AdminStation {
         }
     }
 
+    public function getStation($stationID){
+        $this->db->query('SELECT *  FROM station WHERE stationID = :stationID');
+
+        $this->db->bind(':stationID', $stationID);
+        $row=$this->db ->single();
+        return $row;
+
+    }
+
 
     public function findStationById($stationID) {
         $this->db->query('SELECT COUNT(*) AS count FROM station WHERE stationID = :stationID');
