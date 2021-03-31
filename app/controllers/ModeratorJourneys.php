@@ -4,7 +4,7 @@
         public function __construct()
         {
             isModeratorLoggedIn();
-            $this->limit=5;
+            $this->limit=30;
             $this->journeyModel=$this->model('ModeratorJourney');
         }
 

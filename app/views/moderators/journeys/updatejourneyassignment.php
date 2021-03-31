@@ -8,6 +8,7 @@
     
 ?>
     <script src="<?php echo URLROOT;?>/javascript/journeyAssValidation.js"></script>
+    <script> var updateFlag=1;</script>
     <div class="body-section">
             <div class="content-flexrow">
                 <div class="container">

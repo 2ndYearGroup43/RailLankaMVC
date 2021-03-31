@@ -172,10 +172,10 @@
 
 		public function verifyEmail($id){
 
-			$this->db->query('UPDATE users SET isVerified = :status WHERE userid = :id');
+			$this->db->query('UPDATE users SET isVerified = 1 WHERE userid = :id');
 
 			//bind values
-			$this->db->bind(':status', 1);
+//			$this->db->bind(':status', 1);
 			$this->db->bind(':id', $id);
 
 			//Execute function

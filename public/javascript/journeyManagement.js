@@ -36,7 +36,7 @@ window.onload= function () {
            var row=table.rows[i];
            console.log(i);
            console.log(row);
-           switch (row.cells.namedItem('jstatus').innerHTML) {
+           switch (row.cells.namedItem('jstatus').innerHTML) {//check whats inside the table cell (status cell)
                case 'Live':
                    row.cells.namedItem('jstatus').style.backgroundColor='#b8ea98';
                    break;

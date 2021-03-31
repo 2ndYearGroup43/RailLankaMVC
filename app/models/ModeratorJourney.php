@@ -10,7 +10,7 @@
 
         public function findTrainById($trainid)
         {
-            $this->db->query('SELECT COUNT(*) AS count FROM train WHERE trainId=:trainId');
+            $this->db->query('SELECT COUNT(*) AS count FROM train WHERE trainId=:trainId AND isDeleted=0');
             $this->db->bind(':trainId',$trainid);
 
             $results=array();
@@ -86,7 +86,7 @@
 
         public function getTrains()
         {
-            $this->db->query("SELECT DISTINCT t.trainId AS trainId1, t.name, t1.* FROM train t LEFT JOIN (SELECT * FROM journey WHERE journey_status <>'Ended') t1  ON t.trainId=t1.trainId WHERE t1.journeyId IS NULL");
+            $this->db->query("SELECT DISTINCT t.trainId AS trainId1, t.name, t1.* FROM train t LEFT JOIN (SELECT * FROM journey WHERE journey_status <>'Ended') t1  ON t.trainId=t1.trainId WHERE t1.journeyId IS NULL AND t.isDeleted=0");
             $results=$this->db->resultSet();
             return $results;
         }

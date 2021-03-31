@@ -5,6 +5,7 @@
 
     <?php
        require APPROOT . '/views/includes/admin_navigation.php';
+//       var_dump($data);
     ?>
 
 

@@ -5,6 +5,7 @@
     require APPROOT.'/views/includes/moderator_navigation.php';
 ?>
     <script src="<?php echo URLROOT;?>/javascript/journeyManagement.js"></script>
+    <script> var updateFlag=0;</script>
 <div class="body-section">
 	<div class="content-row"></div>
     <div class="content-row">
