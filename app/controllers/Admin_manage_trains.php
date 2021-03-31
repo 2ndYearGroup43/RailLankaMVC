@@ -248,6 +248,14 @@ class Admin_manage_trains extends Controller{
 
 		$manage_train=$this->adminModel->findTrain($trainId);
 
+		if($manage_train->reservable_status){
+		    $this->adminModel->makeTrainUnavailable($trainId);
+		    $this->adminModel->disableTrain($trainId);
+            header("Location: " . URLROOT . "/Admin_manage_trains");
+            return;
+
+        }
+
 		$data = [
 			'manage_train'=>$manage_train,
 			'trainId'=>'',
