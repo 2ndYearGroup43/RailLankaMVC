@@ -7,7 +7,6 @@
 
 <!-- reserve shortcuts -->
 <section id="nback" >
-	<!-- <div  class="container">	 -->
 		<div class="row">
 			<div  class="col-l">
 				<section id="carousel">
@@ -19,27 +18,12 @@
 						<input type="radio" name="r" id="r4">
 						<div class="slideshow-item s1">
 							<img src="<?php echo URLROOT ?>/public/img/bookmark4.jpg">
-							<div class="slideshow-item-text t1">
-								<!-- <h3>COLOMBO-ELLA</h3>
-								<p>The three-hour trip from Colombo to Kandy will whisk you away from the big city sprawl to the genteel greenery of Sri Lanka’s spiritual capital.</p>
-								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/search'" type="submit" class="btn">Reserve Now</button> -->
-							</div>
 						</div>
 						<div class="slideshow-item">
 							<img src="<?php echo URLROOT ?>/public/img/bookmark1.jpg">
-							<!-- <div class="slideshow-item-text">
-								<h3>COLOMBO-KANDY</h3>
-								<p>The three-hour trip from Colombo to Kandy will whisk you away from the big city sprawl to the genteel greenery of Sri Lanka’s spiritual capital.</p>
-								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/search'" type="submit" class="btn">Reserve Now</button>
-							</div> -->
 						</div>
 						<div class="slideshow-item">
 							<img src="<?php echo URLROOT ?>/public/img/bookmark2.jpg">
-							<!-- <div class="slideshow-item-text">
-								<h3>COLOMBO-GALLE</h3>
-								<p>The three-hour trip from Colombo to Kandy will whisk you away from the big city sprawl to the genteel greenery of Sri Lanka’s spiritual capital.</p>
-								<button onclick="location.href='<?php echo URLROOT; ?>/passengerReservations/search'" type="submit" class="btn">Reserve Now</button>
-							</div> -->
 						</div>
 						<div class="slideshow-item">
 							<img src="<?php echo URLROOT ?>/public/img/bookmark3.jpg">
@@ -70,41 +54,39 @@
 		<div class="content">
 			<div class="mini-schedule">
 				<h2 class="title" id="title3">SEARCH TRAIN</h2>
-				<form action="#">
+				<form action="<?php echo URLROOT;?>/passengerSchedules/search?>" method="post">
 					<div class="form-row">
 						<div class="mini-input-data">
-							<label for="src">From</label>
-		                    <select name="src" id="src">
-		                        <option value="Fort">Fort</option>
-		                        <option value="Kandy">Kandy</option>
-		                        <option value="Galle">Galle</option>
-		            		    <option value="Baadulla">Baadulla</option>
+							<label for="source">From</label>
+		                    <select name="source" id="source">
+		                    	<?php foreach ($data['stations'] as $station): ?>
+		                        	<option value="<?php echo $station->stationName; ?>"><?php echo $station->stationName; ?></option>
+		            			<?php endforeach; ?>
 		                    </select>
 						</div>
 						<div class="mini-input-data">
-							<label for="src">To</label>
-		                    <select name="src" id="src">
-		                      	<option value="Fort">Fort</option>
-		                        <option value="Kandy">Kandy</option>
-		                        <option value="Galle">Galle</option>
-		                        <option value="Baadulla">Baadulla</option>
+							<label for="destination">To</label>
+		                    <select name="destination" id="destination">
+		                      	<?php foreach ($data['stations'] as $station): ?>
+		                        	<option value="<?php echo $station->stationName; ?>"><?php echo $station->stationName; ?></option>
+		            			<?php endforeach; ?>
 		                    </select>
 		                </div>	
 					</div>
 					<div class="form-row">
 						<div class="mini-input-data">
 							<label for="date">Date</label>
-		                  	<input type="date" id="date" >
+		                  	<input type="date" name="date" id="date" required>
 		                </div>
 					</div>
 					<div class="form-row">
 						<div class="mini-input-data">
 							<label for="time">Time</label>
-		                    <input type="time" id="time" >
+		                    <input type="time" name="time" id="time" required>
 		                </div>
 					</div>
+					<button type="submit" id="view-all">Go <i class="fa fa-long-arrow-right"></i></button>
 				</form>
-				<a href="<?php echo URLROOT; ?>/passengerSchedules/displayTrains" id="view-all">Go <i class="fa fa-long-arrow-right"></i></a>
 			</div>
 		</div>
 	</div>
