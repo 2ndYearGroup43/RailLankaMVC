@@ -47,7 +47,7 @@ class Admin_manage_train {
     }
 
 	public function get(){ // get train details
-		$this->db->query('SELECT * FROM train ORDER BY trainId ASC');
+		$this->db->query('SELECT * FROM train WHERE isdeleted=0 ORDER BY trainId ASC');
 		$results = $this->db->resultSet();
 		return $results;
 	}
@@ -180,4 +180,30 @@ class Admin_manage_train {
 			return false;
 		}
 	}
+
+	//make the reservable train unavailable
+	public function makeTrainUnavailable($trainId)
+    {
+        $this->db->query("UPDATE availabledays SET sunday='No', monday='No', tuesday='No', wednesday='No', thursday='No',
+friday='No', saturday='No' WHERE trainId=:trainId");
+        $this->db->bind(':trainId', $trainId);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+	    public function disableTrain($trainId){
+	        $this->db->query('UPDATE train SET isDeleted=1 WHERE trainId=:trainId');
+	        $this->db->bind(":trainId", $trainId);
+	        if ($this->db->execute()){
+	            return true;
+            }else{
+	            return false;
+            }
+        }
+
+
+
 }
