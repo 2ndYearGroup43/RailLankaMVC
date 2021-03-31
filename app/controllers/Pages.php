@@ -13,6 +13,7 @@
 			$stations=$this->pageModel->getStations();
 			$notices = $this->pageModel->getNotices();
 	        $data = [
+
 	        	'stations'=>$stations,
 	        	'notices'=>$notices,
 	        ];
