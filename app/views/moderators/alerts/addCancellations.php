@@ -4,8 +4,6 @@
 <?php
     require APPROOT.'/views/includes/moderator_navigation.php';
 //    var_dump($data);
-$now=new DateTime();
-echo $now->format('Y-m-d H:i:s');
 ?>
 
 <script src="<?php echo URLROOT;?>/javascript/alertValidations/cancelValidation.js"></script>

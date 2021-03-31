@@ -26,7 +26,6 @@
                                 <input list="srcStations" name="src" id="src">
                                 <datalist id="srcStations">
                                     <?php foreach ( $data['stations'] as $station ):?>
-                                        <?php var_dump($data['stations']);?>
                                         <option value="<?php echo $station->stationID;?>"><?php echo $station->stationID.' '.$station->name?></option>
                                     <?php endforeach;?>    
                                 </datalist>

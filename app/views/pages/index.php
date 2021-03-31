@@ -114,7 +114,7 @@
 	<div class="events">
 		<h1>NOTICES</h1>
 		<ul>
-			<?php foreach ($data as $row):?>
+			<?php foreach ($data['notices'] as $row):?>
 			<li>
 				<div class="time">
 					<h2><?php echo date('d', strtotime($row->entered_date)); ?><br><span><?php echo date('F', strtotime($row->entered_date)); ?></span></h2>
