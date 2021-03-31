@@ -160,7 +160,7 @@
                     $prices['tclass']=0;
 
                 }else{
-                    $prices['fclass']=$fb+(floor($rdis/$dis))*($fb/$r);
+                    $prices['fclass']=$fb+(floor($rdis/$dis))*($fb/$r); //base+distancefactor*classrate
                     $prices['sclass']=$sb+(floor($rdis/$dis))*($sb/$r);
                     $prices['tclass']=$tb+(floor($rdis/$dis))*($tb/$r);
 
